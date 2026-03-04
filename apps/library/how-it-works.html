@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>How This Works</title>
+  <style>
+    body{font-family:Arial, sans-serif; margin:0; background:#FFFDF7;}
+    .top{position:sticky; top:0; background:#FFFDF7; padding:14px 16px; border-bottom:1px solid #eee; display:flex; gap:10px; align-items:center;}
+    .btn{padding:10px 12px; border:1px solid #ddd; background:white; border-radius:10px; cursor:pointer;}
+    .wrap{max-width:900px; margin:0 auto; padding:18px 16px 32px;}
+    h1{margin:10px 0 6px;}
+    .small{color:#555; font-size:14px;}
+    .card{background:white; border-radius:14px; padding:16px; box-shadow:0 6px 16px rgba(0,0,0,0.08); margin-top:14px;}
+    video{width:100%; border-radius:12px; background:#000;}
+    .list{line-height:1.6; font-size:16px;}
+    .prologue{white-space:pre-wrap; line-height:1.7; font-size:16px;}
+  </style>
+</head>
+<body>
+
+  <div class="top">
+    <button class="btn" onclick="history.back()">← Back</button>
+    <div class="small" id="meta">Loading…</div>
+  </div>
+
+  <div class="wrap">
+    <h1>How This Works</h1>
+    <div class="small">A quick guide before you start reading.</div>
+
+    <div class="card" id="videoCard" style="display:none;">
+      <h2 style="margin-top:0;">FluentBuddy says hello</h2>
+      <video id="introVideo" controls playsinline></video>
+      <div class="small" id="videoNote" style="margin-top:10px;"></div>
+    </div>
+
+    <div class="card">
+      <h2 style="margin-top:0;">Prologue</h2>
+      <div class="prologue" id="prologueText">Loading…</div>
+    </div>
+
+    <div class="card">
+      <h2 style="margin-top:0;">How to use this book in the app</h2>
+      <div class="list" id="howList">Loading…</div>
+    </div>
+  </div>
+
+<script>
+  const params = new URLSearchParams(location.search);
+  const bookId = params.get("book") || "reading-comprehension";
+
+  const metaEl = document.getElementById("meta");
+  const prologueEl = document.getElementById("prologueText");
+  const howListEl = document.getElementById("howList");
+
+  const videoCard = document.getElementById("videoCard");
+  const introVideo = document.getElementById("introVideo");
+  const videoNote = document.getElementById("videoNote");
+
+  function listToHtml(items){
+    return "<ol>" + items.map(i => `<li>${i}</li>`).join("") + "</ol>";
+  }
+
+  async function load(){
+    try{
+      const res = await fetch("./data/books.json");
+      const data = await res.json();
+
+      const global = data.global || {};
+      const globalHow = global.howItWorks || {};
+      const globalPrologue = global.prologue || "";
+
+      const book = data[bookId] || {};
+      const bookTitle = book.title || bookId;
+
+      // Allow per-book override, otherwise use global
+      const how = book.howItWorks || globalHow;
+      const prologue = book.prologue || globalPrologue;
+
+      metaEl.textContent = bookTitle;
+
+      // Video (optional)
+      const videoUrl = how.videoUrl || "";
+      const videoCaption = how.videoCaption || "";
+      if(videoUrl){
+        videoCard.style.display = "block";
+        introVideo.src = videoUrl; // e.g. "../../shared/assets/video/fluentbuddy-intro.mp4" OR "./assets/..."
+        videoNote.textContent = videoCaption || "Tip: Watch first, then start Chapter 1.";
+      }
+
+      prologueEl.textContent = prologue || "Prologue text coming soon.";
+      howListEl.innerHTML = listToHtml(how.steps || [
+        "Read the main text out loud.",
+        "Record yourself: Record → Stop → Play/Download/Clear.",
+        "Tap purple words to hear the word + meaning.",
+        "Use the Dictionary for general word searches.",
+        "Some chapters include a short model-reading audio/video section."
+      ]);
+    }catch(e){
+      metaEl.textContent = "Error";
+      prologueEl.textContent = "Could not load content.";
+      howListEl.innerHTML = "<div class='small'>Check that data/books.json exists and is valid JSON.</div>";
+    }
+  }
+
+  load();
+</script>
+
+</body>
+</html>
