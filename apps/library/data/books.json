@@ -1,0 +1,58 @@
+{
+  "reading-comprehension": {
+    "title": "Reading Comprehension",
+    "chapters": {
+      "ch1": {
+        "title": "Chapter 1",
+        "content": [
+          "Welcome to Read Fluently. Today we will build your focus and your reading confidence.",
+          "When you see a word like [[neuroplasticity]], click it to see the meaning."
+        ],
+        "glossary": {
+          "neuroplasticity": {
+            "definition": "Your brain’s ability to change and grow as you practice and learn.",
+            "pronunciation": "nyoo-roh-plas-TIS-ih-tee"
+          }
+        }
+      },
+      "ch2": {
+        "title": "Chapter 2",
+        "content": [
+          "This is Chapter 2. We will practice reading with meaning.",
+          "Try to pause and think about the main idea after each paragraph."
+        ],
+        "glossary": {}
+      }
+    }
+  },
+  "tech-journey": {
+    "title": "Tech Journey",
+    "chapters": {
+      "ch1": {
+        "title": "Chapter 1",
+        "content": [
+          "Nomsa stared at the screen. The word [[algorithm]] felt like a secret code.",
+          "Her brother smiled and said, “It’s just steps. Like a recipe.”"
+        ],
+        "glossary": {
+          "algorithm": {
+            "definition": "A set of steps used to solve a problem or complete a task.",
+            "pronunciation": "AL-guh-ri-thum"
+          }
+        }
+      }
+    }
+  },
+  "dictionary": {
+    "title": "Dictionary",
+    "chapters": {
+      "main": {
+        "title": "Dictionary",
+        "content": [
+          "Search and explore words here. (We’ll build the search next.)"
+        ],
+        "glossary": {}
+      }
+    }
+  }
+}
