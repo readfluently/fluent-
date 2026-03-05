@@ -147,8 +147,7 @@
 
         return `
           <a class="card" href="chapter.html?book=${encodeURIComponent(bookId)}&chapter=${encodeURIComponent(key)}">
-            <span class="chip">${label}</span>
-            <div class="title">${escapeHtml(ch.title || key)}</div>
+             <div class="title">${escapeHtml(ch.title || key)}</div>
             <p class="desc">${escapeHtml(preview).slice(0,120)}</p>
           </a>
         `;
