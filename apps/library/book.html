@@ -86,6 +86,7 @@
   const coverEl = document.getElementById("cover");
   const chaptersListEl = document.getElementById("chaptersList");
   const openDictBtn = document.getElementById("openDictBtn");
+  const howBtn = document.getElementById("howBtn");
 
   openDictBtn.onclick = ()=> {
     location.href = "chapter.html?book=dictionary&chapter=main";
@@ -121,6 +122,15 @@
 
       const book = data.books?.[bookId];
       if(!book) throw new Error("Book not found: " + bookId);
+
+      howBtn.onclick = ()=> {
+  const howId = "how-it-works";
+  if(book.chapters?.[howId]){
+    location.href = `chapter.html?book=${encodeURIComponent(bookId)}&chapter=${encodeURIComponent(howId)}`;
+  } else {
+    alert("No 'How This Works' chapter yet for this book.");
+  }
+};
 
       bookTitleEl.textContent = book.title || bookId;
       bookMetaEl.textContent = "Select a chapter to begin.";
