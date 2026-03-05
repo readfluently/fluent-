@@ -1,100 +1,158 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Book</title>
   <style>
-    body{font-family:Arial; padding:30px; background:#FFFDF7;}
-    a{display:inline-block; margin-bottom:20px;}
-    .header{
-      display:flex;
-      gap:20px;
-      align-items:center;
-      margin-bottom:25px;
+    body{font-family:Arial; margin:0; background:#FFFDF7;}
+    .topbar{
+      position:sticky; top:0; z-index:10;
+      display:flex; gap:10px; align-items:center; flex-wrap:wrap;
+      padding:12px 14px; background:#FFFDF7; border-bottom:1px solid #eee;
     }
-    .cover{
-      width:160px;
-      height:220px;
-      object-fit:cover;
-      border-radius:10px;
-      box-shadow:0 8px 20px rgba(0,0,0,0.15);
-      background:#fff;
+    .btn{padding:10px 12px; border-radius:10px; border:1px solid #ddd; background:white; cursor:pointer;}
+    .status{font-size:13px; color:#555;}
+    .wrap{padding:14px; max-width:980px; margin:0 auto;}
+    .hero{
+      display:flex; gap:14px; align-items:center; flex-wrap:wrap;
+      background:white; border-radius:14px; padding:14px;
+      box-shadow:0 6px 16px rgba(0,0,0,0.08);
     }
-    .chapter{
+    .cover{width:120px; height:160px; object-fit:cover; border-radius:10px; border:1px solid #eee;}
+    h1{margin:0 0 6px;}
+    .meta{color:#555; font-size:14px;}
+
+    .list{
+      margin-top:14px;
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));
+      gap:12px;
+    }
+    .card{
+      display:block;
+      text-decoration:none;
+      color:inherit;
       background:white;
-      padding:18px;
-      border-radius:12px;
-      margin:12px 0;
-      box-shadow:0 4px 10px rgba(0,0,0,0.08);
+      border-radius:14px;
+      padding:14px;
+      border:1px solid #eee;
+      box-shadow:0 6px 16px rgba(0,0,0,0.06);
+      transition:transform .12s;
     }
-    .chapter a{margin:0;}
+    .card:hover{transform:translateY(-2px);}
+    .chip{
+      display:inline-block;
+      font-size:12px;
+      padding:4px 8px;
+      border-radius:999px;
+      border:1px solid #ddd;
+      margin-bottom:8px;
+      background:#fff;
+      color:#444;
+    }
+    .title{font-weight:800; margin:0 0 6px; font-size:16px;}
+    .desc{margin:0; color:#555; font-size:13px; line-height:1.45;}
   </style>
 </head>
+
 <body>
-
-<a href="library.html">← Back to Library</a>
-
-<div class="header">
-  <img id="cover" class="cover" src="" alt="Book cover">
-  <div>
-    <h1 id="bookTitle" style="margin:0;"></h1>
-    <p id="bookDesc" style="margin:8px 0 0 0; color:#444;"></p>
+  <div class="topbar">
+    <button class="btn" onclick="history.back()">← Back</button>
+    <button class="btn" id="openDictBtn">Dictionary</button>
+    <div class="status" id="status">Loading…</div>
   </div>
-</div>
 
-<div id="chapters"></div>
+  <div class="wrap">
+    <div class="hero">
+      <img id="cover" class="cover" alt="Cover" />
+      <div>
+        <h1 id="bookTitle">Loading…</h1>
+        <div class="meta" id="bookMeta"></div>
+      </div>
+    </div>
+
+    <div class="list" id="chaptersList"></div>
+  </div>
 
 <script>
-  const params = new URLSearchParams(window.location.search);
-  const book = params.get("book");
+  const params = new URLSearchParams(location.search);
+  const bookId = params.get("book");
 
-  const books = {
-    "reading-comprehension": {
-      title: "Reading Comprehension",
-      desc: "Read with understanding using brain-informed strategies.",
-      cover: "../../shared/assets/images/reading-comprehension.png",
-      chapters: [
-        { id: "ch1", name: "Chapter 1" },
-        { id: "ch2", name: "Chapter 2" }
-      ]
-    },
-    "tech-journey": {
-      title: "Tech Journey",
-      desc: "A fiction journey into technology and AI.",
-      cover: "../../shared/assets/images/tech-journey.png",
-      chapters: [
-        { id: "ch1", name: "Chapter 1" }
-      ]
-    },
-    "dictionary": {
-      title: "Dictionary",
-      desc: "Frequently used words for young readers.",
-      cover: "../../shared/assets/images/dictionary.png",
-      chapters: [
-        { id: "main", name: "Open Dictionary" }
-      ]
-    }
+  const statusEl = document.getElementById("status");
+  const bookTitleEl = document.getElementById("bookTitle");
+  const bookMetaEl = document.getElementById("bookMeta");
+  const coverEl = document.getElementById("cover");
+  const chaptersListEl = document.getElementById("chaptersList");
+  const openDictBtn = document.getElementById("openDictBtn");
+
+  openDictBtn.onclick = ()=> {
+    location.href = "chapter.html?book=dictionary&chapter=main";
   };
 
-  const selected = books[book];
+  function setStatus(msg){ statusEl.textContent = msg || ""; }
 
-  if(!selected){
-    document.getElementById("bookTitle").textContent = "Book not found";
-    document.getElementById("chapters").innerHTML = "<p>Invalid book link.</p>";
-  } else {
-    document.getElementById("bookTitle").textContent = selected.title;
-    document.getElementById("bookDesc").textContent = selected.desc;
-    document.getElementById("cover").src = selected.cover;
-
-    const container = document.getElementById("chapters");
-    selected.chapters.forEach(ch=>{
-      const div = document.createElement("div");
-      div.className="chapter";
-      div.innerHTML = `<b>${ch.name}</b><br>
-      <a href="chapter.html?book=${book}&chapter=${ch.id}">Open</a>`;
-      container.appendChild(div);
-    });
+  function escapeHtml(s){
+    return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
   }
-</script>
 
+  // order: how-it-works first, then ch1, ch2, ch3...
+  function chapterSort(a, b){
+    if(a === "how-it-works") return -1;
+    if(b === "how-it-works") return 1;
+
+    // numeric chapter keys like ch1, ch2
+    const ma = /^ch(\d+)$/i.exec(a);
+    const mb = /^ch(\d+)$/i.exec(b);
+    if(ma && mb) return Number(ma[1]) - Number(mb[1]);
+    if(ma) return -1;
+    if(mb) return 1;
+
+    // fallback: alphabetical
+    return a.localeCompare(b);
+  }
+
+  async function loadBook(){
+    try{
+      const res = await fetch("./data/books.json", { cache:"no-store" });
+      if(!res.ok) throw new Error("Could not fetch books.json ("+res.status+")");
+      const data = await res.json();
+
+      const book = data.books?.[bookId];
+      if(!book) throw new Error("Book not found: " + bookId);
+
+      bookTitleEl.textContent = book.title || bookId;
+      bookMetaEl.textContent = "Select a chapter to begin.";
+      coverEl.src = book.coverImage || "../../shared/assets/images/books.png";
+
+      const chapters = book.chapters || {};
+      const keys = Object.keys(chapters).sort(chapterSort);
+
+      chaptersListEl.innerHTML = keys.map((key)=>{
+        const ch = chapters[key] || {};
+        const isHow = key === "how-it-works" || ch.type === "howto";
+        const label = isHow ? "Start here" : "Chapter";
+        const preview = (ch.content && ch.content[0]) ? ch.content[0] : "Open to read this section.";
+
+        return `
+          <a class="card" href="chapter.html?book=${encodeURIComponent(bookId)}&chapter=${encodeURIComponent(key)}">
+            <span class="chip">${label}</span>
+            <div class="title">${escapeHtml(ch.title || key)}</div>
+            <p class="desc">${escapeHtml(preview).slice(0,120)}</p>
+          </a>
+        `;
+      }).join("");
+
+      setStatus("Ready");
+    }catch(e){
+      setStatus("Error");
+      bookTitleEl.textContent = "Could not load book";
+      bookMetaEl.textContent = e.message;
+      chaptersListEl.innerHTML = "";
+    }
+  }
+
+  loadBook();
+</script>
 </body>
 </html>
