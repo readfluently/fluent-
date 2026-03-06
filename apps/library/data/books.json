@@ -809,34 +809,130 @@
   }
 },
 "ch10": {
-  "title": "Chapter 10: Becoming a Lifelong Learner",
+  "title": "Chapter 10: Becoming a Lifelong Reader",
   "content": [
-    "Learning does not end when a book ends.",
-    "Every new book teaches your brain new ideas.",
-    "Each skill you practice makes you stronger as a learner.",
+    "You have reached the final chapter of this reading journey.",
+    "Throughout this book you have learned many powerful ideas about reading and learning.",
+    "You discovered that strong readers stay [[engaged]] while reading.",
+    "You learned how to find the [[meaning]] of a paragraph and identify the [[main idea]].",
+    "You explored strategies such as [[previewing]], [[predicting]], [[questioning]], and [[summarising]].",
+    "You practised reading more smoothly and learned about [[fluency]].",
+    "You also discovered something amazing about your brain called [[neuroplasticity]].",
+    "Neuroplasticity means your brain can grow stronger when you practise new skills.",
+    "Every time you read, your brain strengthens the pathways that help you recognise words and understand ideas.",
+    "You also learned about [[metacognition]], which means thinking about your thinking while reading.",
+    "This skill helps readers notice when something does not make sense and choose strategies to fix the problem.",
+    "Another powerful idea you explored is the [[growth mindset]].",
+    "A growth mindset means believing that your abilities can improve through effort and practice.",
+    "These ideas together form the foundation of strong reading.",
+    "Reading is not only about recognising words.",
+    "Reading is about understanding ideas, exploring knowledge, and growing your thinking.",
+    "The more you read, the more your brain learns how to connect ideas and remember information.",
+    "Reading also opens doors to new worlds.",
+    "Through books you can travel to different places, learn about science, explore history, and discover new perspectives.",
+    "Reading helps you become a more curious and thoughtful learner.",
     "Remember this important idea:",
-    "Learning is like playing a new game.",
-    "At first the game feels difficult and confusing.",
-    "But the more you play, the better you understand the rules.",
-    "Soon it becomes your favourite game.",
-    "Learning works the same way.",
-    "With curiosity, practice, and effort, you can continue learning throughout your life."
+    "Learning is like playing a new game that slowly becomes your favourite.",
+    "At first the game may feel confusing.",
+    "But as you continue practising, the rules become clearer.",
+    "Your skills improve, and the game becomes more enjoyable.",
+    "Reading works in exactly the same way.",
+    "Each time you read, your brain becomes stronger.",
+    "Each book you read adds new knowledge to your mind.",
+    "Each challenge you overcome helps you grow as a learner.",
+    "This is why reading can become a lifelong journey.",
+    "A [[lifelong learner]] is someone who continues learning throughout life.",
+    "Strong readers often become lifelong learners because they enjoy discovering new ideas.",
+    "Even though this book is ending, your learning journey is only beginning.",
+    "Continue exploring new books.",
+    "Ask questions about what you read.",
+    "Use the strategies you have learned.",
+    "Most importantly, keep practising.",
+    "Your brain will continue to grow, and your understanding will continue to deepen.",
+    "Your reading journey does not end here.",
+    "In many ways, it has just begun."
   ],
   "glossary": {
+    "engaged": {
+      "definition": "Being focused and mentally involved while reading or learning.",
+      "pronunciation": "en-GAYJD",
+      "simpleMeaning": "Paying close attention and thinking while reading.",
+      "example": "Engaged readers think about the meaning of the text."
+    },
+    "meaning": {
+      "definition": "The message or idea that the writer is trying to communicate.",
+      "pronunciation": "MEE-ning",
+      "simpleMeaning": "What the text is saying.",
+      "example": "Readers think about the meaning of each paragraph."
+    },
+    "main idea": {
+      "definition": "The most important point that a paragraph or text is explaining.",
+      "pronunciation": "MAYN eye-DEE-uh",
+      "simpleMeaning": "What the paragraph is mostly about.",
+      "example": "The main idea explains the central message of the text."
+    },
+    "previewing": {
+      "definition": "Looking at titles, headings, or pictures before reading to prepare your mind.",
+      "pronunciation": "PREE-vyoo-ing",
+      "simpleMeaning": "Taking a quick look before reading.",
+      "example": "Previewing helps readers understand what a chapter might explain."
+    },
+    "predicting": {
+      "definition": "Making a thoughtful guess about what might happen next in a text.",
+      "pronunciation": "pri-DIK-ting",
+      "simpleMeaning": "Guessing what comes next using clues.",
+      "example": "Predicting keeps readers actively thinking."
+    },
+    "questioning": {
+      "definition": "Asking yourself questions while reading to improve understanding.",
+      "pronunciation": "KWES-chuh-ning",
+      "simpleMeaning": "Asking questions about what you read.",
+      "example": "Questioning helps readers focus on important ideas."
+    },
+    "summarising": {
+      "definition": "Explaining the most important idea of a text in your own words.",
+      "pronunciation": "SUM-uh-ry-zing",
+      "simpleMeaning": "Saying the main idea briefly.",
+      "example": "Summarising helps readers remember what they learned."
+    },
+    "fluency": {
+      "definition": "Reading smoothly, accurately, and with expression.",
+      "pronunciation": "FLOO-uhn-see",
+      "simpleMeaning": "Reading smoothly and naturally.",
+      "example": "Fluency helps readers focus on understanding ideas."
+    },
+    "neuroplasticity": {
+      "definition": "The brain’s ability to change and grow stronger through practice and learning.",
+      "pronunciation": "NYOO-roh-plas-TISS-ih-tee",
+      "simpleMeaning": "Your brain can grow and improve with practice.",
+      "example": "Neuroplasticity helps readers improve their skills."
+    },
+    "metacognition": {
+      "definition": "Thinking about how you think and learn.",
+      "pronunciation": "met-uh-kog-NISH-uhn",
+      "simpleMeaning": "Being aware of your thinking.",
+      "example": "Metacognition helps readers monitor their understanding."
+    },
+    "growth mindset": {
+      "definition": "The belief that abilities can improve through effort and practice.",
+      "pronunciation": "GROHTH MYND-set",
+      "simpleMeaning": "Believing you can improve.",
+      "example": "A growth mindset helps learners stay motivated."
+    },
     "lifelong learner": {
       "definition": "A person who continues learning throughout life.",
-      "pronunciation": "LIFE-long LUR-ner",
-      "simpleMeaning": "Someone who keeps learning forever.",
-      "example": "A lifelong learner always looks for new knowledge."
+      "pronunciation": "LYF-long LUR-ner",
+      "simpleMeaning": "Someone who keeps learning.",
+      "example": "Reading helps people become lifelong learners."
     }
   },
   "worksheet": {
-    "title": "Your Learning Journey",
-    "prompt": "Write one goal you have for your learning journey in the future."
+    "title": "Your Reading Journey",
+    "prompt": "1. In your own words, explain what you learned from this book.\n\n2. Which reading strategy helped you the most and why?\n\n3. What does it mean to be a lifelong learner?"
   }
-}
       }
     },
+    "tech-journey": {
     "tech-journey": {
       "title": "Tech Journey",
       "coverImage": "../../shared/assets/images/tech-journey.png",
