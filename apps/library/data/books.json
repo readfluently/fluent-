@@ -249,6 +249,126 @@
             "prompt": "1) In your own words, explain the main idea of this chapter.\n\n2) Vonani improved his reading by using a strategy. What strategy helped him understand better?\n\n3) Write one sentence explaining why finding the main idea helps readers understand a text."
           }
         },
+"ch3": {
+  "title": "Chapter 3: Learning From Listening",
+  "content": [
+    "Before children learn to read on their own, they first learn by [[listening]].",
+    "Think about when you were very young. Long before you could read words in a book, you were already learning language. You listened to people speaking around you. You listened to stories, conversations, instructions, and questions.",
+    "Listening is one of the first ways the brain learns how language works.",
+    "When you listen carefully, your brain begins to notice [[language patterns]]. You hear how words sound. You hear how sentences are formed. You hear how ideas are connected.",
+    "All of this information helps prepare your brain for reading.",
+    "In fact, strong readers are often strong listeners first.",
+    "When someone reads a story aloud, your brain does something very interesting. Even though you are not reading the words yourself, your brain still processes the language. It still builds meaning. It still creates images in your mind.",
+    "This means that listening can help train your brain to understand stories and ideas.",
+    "Imagine listening to someone read a story about a forest. As you listen, you might imagine tall trees, birds singing, and sunlight shining through the leaves. Even though you are only hearing the story, your brain is actively building a picture.",
+    "This ability to create pictures in your mind is called [[visualising]].",
+    "Visualising is a powerful reading skill. When readers imagine what they are hearing or reading, they understand the text more deeply.",
+    "Listening also helps you learn how [[fluent reading]] sounds.",
+    "Fluent reading means reading smoothly, clearly, and with [[expression]]. When someone reads fluently, the words sound natural and meaningful, almost like a conversation.",
+    "If you listen to fluent reading often, your brain learns what good reading sounds like. Later, when you read on your own, you will naturally try to read in a similar way.",
+    "This is why listening to someone read aloud is such a powerful learning tool.",
+    "Teachers often use [[modelled reading]] by reading a text aloud to learners. While listening, learners can follow the words in the text. This helps connect the sound of the words with the written words on the page.",
+    "Your brain is making important connections during this process.",
+    "You hear the words.",
+    "You see the words.",
+    "You understand the meaning.",
+    "These connections help strengthen your reading ability.",
+    "Listening can also help you understand difficult texts.",
+    "Sometimes when you read a challenging paragraph silently, it may feel confusing. But when you hear someone read the same paragraph aloud, the meaning may suddenly become clearer.",
+    "That happens because fluent reading adds rhythm, pauses, and emphasis. These features help the brain organise information.",
+    "Listening also allows you to focus more on understanding instead of struggling with difficult words.",
+    "This does not mean you should always depend on someone else to read for you. Instead, listening should be used as a learning tool that helps you improve your own reading skills.",
+    "One helpful [[strategy]] is called [[listen and follow]].",
+    "In this strategy, you listen to someone read while your eyes follow the words in the book. This helps your brain connect spoken language with written language.",
+    "Another helpful strategy is listen first, then read.",
+    "In this strategy, you first listen to a text being read aloud. After that, you read the same text on your own. Because your brain already understands the story or information, reading becomes easier.",
+    "You may notice that many successful learners enjoy listening to audiobooks, podcasts, and recorded stories. These activities expose the brain to new [[vocabulary]], ideas, and sentence structure.",
+    "Vocabulary means the number of words you know and understand.",
+    "The more words you understand, the easier reading becomes. When readers recognise many words quickly, they can focus more on [[comprehension]].",
+    "Listening can therefore strengthen both vocabulary and comprehension.",
+    "However, listening alone is not enough to become a strong reader.",
+    "You must combine listening with active reading practice.",
+    "Think of listening as training for your brain. It prepares your mind to understand language, but reading practice builds the full skill.",
+    "Strong learners use both listening and reading together.",
+    "When you listen carefully and then practise reading, your brain becomes better at recognising words, understanding sentences, and remembering ideas.",
+    "This process strengthens your reading comprehension.",
+    "Listening is therefore not just something we do every day without thinking. It is an important learning skill that helps build the [[foundation]] for reading.",
+    "The more carefully you listen, the more your brain learns about language.",
+    "And the more your brain understands language, the easier reading becomes."
+  ],
+  "glossary": {
+    "listening": {
+      "definition": "Paying careful attention to spoken words in order to understand them.",
+      "pronunciation": "LIS-uh-ning",
+      "simpleMeaning": "Hearing and thinking about what someone says.",
+      "example": "Listening to stories helps learners understand language."
+    },
+    "language patterns": {
+      "definition": "The common ways words and sentences are used in a language.",
+      "pronunciation": "LANG-gwij PAT-ernz",
+      "simpleMeaning": "The usual way language works.",
+      "example": "Children learn language patterns by listening to others speak."
+    },
+    "visualising": {
+      "definition": "Creating pictures in your mind while hearing or reading a story.",
+      "pronunciation": "VIZH-oo-uh-ly-zing",
+      "simpleMeaning": "Imagining what the words describe.",
+      "example": "I was visualising the forest while the teacher read the story."
+    },
+    "fluent reading": {
+      "definition": "Reading smoothly, clearly, and with natural expression.",
+      "pronunciation": "FLOO-ent REE-ding",
+      "simpleMeaning": "Reading in a way that sounds like normal speaking.",
+      "example": "Fluent reading makes it easier for others to understand the story."
+    },
+    "expression": {
+      "definition": "Changing your voice to match the meaning and emotion of the text.",
+      "pronunciation": "ik-SPRESH-uhn",
+      "simpleMeaning": "Using feeling in your voice while reading.",
+      "example": "She read the dialogue with expression, making the story more exciting."
+    },
+    "modelled reading": {
+      "definition": "When a teacher or skilled reader demonstrates fluent reading for learners.",
+      "pronunciation": "MOD-uhld REE-ding",
+      "simpleMeaning": "A teacher showing how good reading sounds.",
+      "example": "Modelled reading helps learners hear how fluent reading should sound."
+    },
+    "strategy": {
+      "definition": "A plan or method used to help achieve a goal.",
+      "pronunciation": "STRAT-uh-jee",
+      "simpleMeaning": "A smart way to solve a problem or learn something.",
+      "example": "Good readers use strategies to understand difficult texts."
+    },
+    "listen and follow": {
+      "definition": "A reading strategy where you listen to someone read while following the words in the text.",
+      "pronunciation": "LIS-uhn and FOL-oh",
+      "simpleMeaning": "Listening while your eyes track the words.",
+      "example": "The class used listen and follow to practise reading fluency."
+    },
+    "vocabulary": {
+      "definition": "The collection of words a person knows and understands.",
+      "pronunciation": "voh-KAB-yuh-lair-ee",
+      "simpleMeaning": "The number of words you know.",
+      "example": "Listening to stories helps build your vocabulary."
+    },
+    "comprehension": {
+      "definition": "The ability to understand what you read or hear.",
+      "pronunciation": "kom-pri-HEN-shuhn",
+      "simpleMeaning": "Understanding the meaning of the text.",
+      "example": "Good readers focus on comprehension, not just saying the words."
+    },
+    "foundation": {
+      "definition": "The basic skills that support further learning.",
+      "pronunciation": "fown-DAY-shuhn",
+      "simpleMeaning": "The strong base something is built on.",
+      "example": "Listening skills form the foundation of reading development."
+    }
+  },
+  "worksheet": {
+    "title": "Listening and Understanding",
+    "prompt": "1. In your own words, explain why listening is important for learning how to read.\n\n2. Think about a story you have heard before. What pictures did you imagine in your mind while listening?\n\n3. Why does listening to fluent reading help learners become better readers?\n\n4. How can listening to stories help a learner build a larger vocabulary?\n\n5. Which strategy do you think would help you more when learning a difficult text?\n- Listen and follow\n- Listen first, then read\n\nExplain why you chose that strategy."
+  }
+},       
 "ch4": {
   "title": "Chapter 4: Understanding Words Using Context",
   "content": [
