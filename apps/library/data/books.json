@@ -370,46 +370,101 @@
   }
 },       
 "ch4": {
-  "title": "Chapter 4: Understanding Words Using Context",
+  "title": "Chapter 4: Using Reading Strategies",
   "content": [
-    "When reading, you will sometimes see words you do not know.",
-    "Good readers do not panic when they see unfamiliar words.",
-    "Instead, they look for clues around the word.",
-    "These clues are called [[context clues]].",
-    "Context clues are hints in the surrounding sentences that help explain a word.",
-    "Nomsa once read a sentence that said: 'The desert was extremely arid and dry.'",
-    "She did not know the word 'arid'.",
-    "But she noticed the word 'dry' in the same sentence.",
-    "That clue helped her understand that 'arid' means very dry.",
-    "Vonani learned the same strategy during a science lesson.",
-    "He saw a difficult word but looked carefully at the sentence around it.",
-    "Soon he discovered the meaning without needing a dictionary.",
-    "This shows that understanding words often comes from understanding the sentence.",
-    "Strong readers use context clues to unlock new vocabulary.",
-    "Each new word you understand makes reading easier.",
-    "Vocabulary is like a toolbox for your brain.",
-    "The more tools you have, the easier it is to understand ideas."
+    "When strong readers open a book, they do not simply start reading and hope to understand everything. Instead, they use helpful tools called [[strategy|strategies]].",
+    "A [[strategy]] is a plan that helps you solve a problem or reach a goal.",
+    "In reading, strategies help your brain understand the meaning of the text.",
+    "Good readers use strategies before reading, during reading, and after reading.",
+    "These strategies help the brain stay focused and organised.",
+    "Let us explore some of the most powerful strategies that skilled readers use.",
+    "Before you begin reading, take a moment to look at the title, headings, and pictures.",
+    "Ask yourself: What might this text be about?",
+    "This strategy is called [[previewing]].",
+    "Previewing prepares your brain for the information that is about to come. When the brain already has an idea of what the text might explain, understanding becomes easier.",
+    "Previewing is like looking at a map before starting a journey.",
+    "While reading, good readers often make guesses about what might happen next or what the next paragraph might explain.",
+    "This is called [[predicting]].",
+    "Predicting keeps your mind actively involved in the text. Your brain begins searching for clues to confirm whether your prediction is correct.",
+    "When readers predict, they are not just reading words. They are thinking.",
+    "Another powerful strategy is [[questioning]].",
+    "Good readers ask questions while they read.",
+    "For example: What is the main idea of this paragraph? Why did this happen? What is the author trying to explain?",
+    "These questions help the brain focus on meaning.",
+    "When readers ask questions, they turn reading into an active process instead of a passive one.",
+    "Sometimes readers reach a sentence that does not make sense.",
+    "Strong readers do not ignore confusion. Instead, they use a strategy called [[clarifying]].",
+    "Clarifying means stopping and fixing the problem.",
+    "You can clarify by rereading the sentence, looking for clues in the next sentence, or checking the glossary for new words.",
+    "Clarifying helps the brain stay on track when reading becomes difficult.",
+    "After finishing a paragraph or a section, strong readers pause and think: What was the most important idea here?",
+    "This strategy is called [[summarising]].",
+    "Summarising means explaining the most important idea in your own words.",
+    "When you summarise, your brain organises information and remembers it better.",
+    "All these strategies work together.",
+    "Good readers preview before reading.",
+    "They predict and ask questions while reading.",
+    "They clarify confusing parts.",
+    "And they summarise important ideas.",
+    "These strategies turn reading into an active process where your brain is constantly thinking and learning.",
+    "The more you practise these strategies, the stronger your reading [[comprehension]] becomes.",
+    "Reading then becomes easier, more enjoyable, and more meaningful."
   ],
   "glossary": {
-    "context clues": {
-      "definition": "Hints in the surrounding sentence that help explain the meaning of a word.",
-      "pronunciation": "KON-tekst klooz",
-      "simpleMeaning": "Words around a new word that help explain it.",
-      "example": "I used context clues to understand the word."
+    "strategy": {
+      "definition": "A plan or method used to achieve a goal or solve a problem.",
+      "pronunciation": "STRAT-uh-jee",
+      "simpleMeaning": "A smart way to do something.",
+      "example": "Good readers use strategies to understand difficult texts."
     },
-    "vocabulary": {
-      "definition": "The collection of words that a person knows and understands.",
-      "pronunciation": "voh-KAB-yuh-lair-ee",
-      "simpleMeaning": "All the words you know.",
-      "example": "Reading books helps grow your vocabulary."
+    "strategies": {
+      "definition": "Plans or methods used to achieve goals or solve problems.",
+      "pronunciation": "STRAT-uh-jeez",
+      "simpleMeaning": "Smart ways to do things.",
+      "example": "Skilled readers use strategies before, during, and after reading."
+    },
+    "previewing": {
+      "definition": "Looking at the title, headings, or pictures before reading to prepare your brain for the text.",
+      "pronunciation": "PREE-vyoo-ing",
+      "simpleMeaning": "Taking a quick look before reading.",
+      "example": "Previewing the chapter helped me understand what the text might explain."
+    },
+    "predicting": {
+      "definition": "Making a thoughtful guess about what might happen next in a text.",
+      "pronunciation": "pri-DIK-ting",
+      "simpleMeaning": "Guessing what comes next using clues.",
+      "example": "I was predicting what the character would do next in the story."
+    },
+    "questioning": {
+      "definition": "Asking yourself questions while reading to help you understand the text.",
+      "pronunciation": "KWES-chuh-ning",
+      "simpleMeaning": "Asking questions about what you read.",
+      "example": "Questioning helped me understand the main idea of the paragraph."
+    },
+    "clarifying": {
+      "definition": "Stopping to fix confusion when a sentence or idea does not make sense.",
+      "pronunciation": "KLAR-uh-fy-ing",
+      "simpleMeaning": "Making something clearer when you do not understand.",
+      "example": "I used clarifying by rereading the sentence."
+    },
+    "summarising": {
+      "definition": "Explaining the most important idea of a text in your own words.",
+      "pronunciation": "SUM-uh-ry-zing",
+      "simpleMeaning": "Saying the main idea briefly.",
+      "example": "Summarising helped me remember the important information."
+    },
+    "comprehension": {
+      "definition": "The ability to understand what you read.",
+      "pronunciation": "kom-pri-HEN-shuhn",
+      "simpleMeaning": "Understanding the meaning of a text.",
+      "example": "Reading strategies help improve comprehension."
     }
   },
   "worksheet": {
-    "title": "Context Clue Practice",
-    "prompt": "Read the sentence: 'The forest was dense and full of tall trees.' What might the word 'dense' mean?"
+    "title": "Using Reading Strategies",
+    "prompt": "1. In your own words, explain what a reading strategy is and why strategies help readers understand texts.\n\n2. Choose one strategy from this chapter: previewing, predicting, questioning, clarifying, or summarising. Explain how that strategy could help you understand a difficult paragraph.\n\n3. Which reading strategy do you think will help you the most in the future? Explain why."
   }
 },
-
 "ch5": {
   "title": "Chapter 5: Thinking Like a Critical Reader",
   "content": [
