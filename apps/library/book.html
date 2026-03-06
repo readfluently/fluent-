@@ -58,11 +58,11 @@
 
 <body>
   <div class="topbar">
-  <button class="btn" onclick="history.back()">← Back</button>
-  <button class="btn" id="howBtn">How This Works</button>
-  <button class="btn" id="openDictBtn">Dictionary</button>
-  <div class="status" id="status">Loading…</div>
-</div>
+    <button class="btn" onclick="history.back()">← Back</button>
+    <button class="btn" id="howBtn">How This Works</button>
+    <button class="btn" id="openDictBtn">Dictionary</button>
+    <div class="status" id="status">Loading…</div>
+  </div>
 
   <div class="wrap">
     <div class="hero">
@@ -88,70 +88,77 @@
   const openDictBtn = document.getElementById("openDictBtn");
   const howBtn = document.getElementById("howBtn");
 
-  openDictBtn.onclick = ()=> {
+  openDictBtn.onclick = () => {
     location.href = "chapter.html?book=dictionary&chapter=main";
   };
 
-  function setStatus(msg){ statusEl.textContent = msg || ""; }
-
-  function escapeHtml(s){
-    return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+  function setStatus(msg){
+    statusEl.textContent = msg || "";
   }
 
-  // order: how-it-works first, then ch1, ch2, ch3...
+  function escapeHtml(s){
+    return String(s)
+      .replace(/&/g,"&amp;")
+      .replace(/</g,"&lt;")
+      .replace(/>/g,"&gt;");
+  }
+
   function chapterSort(a, b){
     if(a === "how-it-works") return -1;
     if(b === "how-it-works") return 1;
 
-    // numeric chapter keys like ch1, ch2
     const ma = /^ch(\d+)$/i.exec(a);
     const mb = /^ch(\d+)$/i.exec(b);
+
     if(ma && mb) return Number(ma[1]) - Number(mb[1]);
     if(ma) return -1;
     if(mb) return 1;
 
-    // fallback: alphabetical
     return a.localeCompare(b);
   }
 
   async function loadBook(){
     try{
       if (bookId === "dictionary") {
-  const res = await fetch("./data/dictionary.json", { cache: "no-store" });
-  if (!res.ok) throw new Error("Could not fetch dictionary.json (" + res.status + ")");
+        const res = await fetch("./data/dictionary.json", { cache: "no-store" });
+        if (!res.ok) {
+          throw new Error("Could not fetch dictionary.json (" + res.status + ")");
+        }
 
-  const data = await res.json();
+        const data = await res.json();
 
-  bookTitleEl.textContent = data.title || "Dictionary";
-  bookMetaEl.textContent = "Search and explore words.";
-  coverEl.src = "../../shared/assets/images/books.png";
+        bookTitleEl.textContent = data.title || "Dictionary";
+        bookMetaEl.textContent = "Search and explore words.";
+        coverEl.src = "../../shared/assets/images/books.png";
 
-  howBtn.style.display = "none";
+        howBtn.style.display = "none";
 
-  chaptersListEl.innerHTML = `
-    <a class="card" href="chapter.html?book=dictionary&chapter=main">
-      <div class="title">Open Dictionary</div>
-    </a>
-  `;
+        chaptersListEl.innerHTML = `
+          <a class="card" href="chapter.html?book=dictionary&chapter=main">
+            <div class="title">Open Dictionary</div>
+          </a>
+        `;
 
-  setStatus("Ready");
-  return;
-}
+        setStatus("Ready");
+        return;
+      }
+
       const res = await fetch("./data/books.json", { cache:"no-store" });
-      if(!res.ok) throw new Error("Could not fetch books.json ("+res.status+")");
-      const data = await res.json();
+      if(!res.ok) throw new Error("Could not fetch books.json (" + res.status + ")");
 
+      const data = await res.json();
       const book = data.books?.[bookId];
+
       if(!book) throw new Error("Book not found: " + bookId);
 
-      howBtn.onclick = ()=> {
-  const howId = "how-it-works";
-  if(book.chapters?.[howId]){
-    location.href = `chapter.html?book=${encodeURIComponent(bookId)}&chapter=${encodeURIComponent(howId)}`;
-  } else {
-    alert("No 'How This Works' chapter yet for this book.");
-  }
-};
+      howBtn.onclick = () => {
+        const howId = "how-it-works";
+        if(book.chapters?.[howId]){
+          location.href = `chapter.html?book=${encodeURIComponent(bookId)}&chapter=${encodeURIComponent(howId)}`;
+        } else {
+          alert("No 'How This Works' chapter yet for this book.");
+        }
+      };
 
       bookTitleEl.textContent = book.title || bookId;
       bookMetaEl.textContent = "Select a chapter to begin.";
@@ -159,23 +166,20 @@
 
       const chapters = book.chapters || {};
       const keys = Object.keys(chapters)
-  .filter(k => k !== "how-it-works")
-  .sort(chapterSort);
-      chaptersListEl.innerHTML = keys.map((key)=>{
-        const ch = chapters[key] || {};
-        const isHow = key === "how-it-works" || ch.type === "howto";
-        const label = isHow ? "Start here" : "Chapter";
-        const preview = (ch.content && ch.content[0]) ? ch.content[0] : "Open to read this section.";
+        .filter(k => k !== "how-it-works")
+        .sort(chapterSort);
 
+      chaptersListEl.innerHTML = keys.map((key) => {
+        const ch = chapters[key] || {};
         return `
           <a class="card" href="chapter.html?book=${encodeURIComponent(bookId)}&chapter=${encodeURIComponent(key)}">
-             <div class="title">${escapeHtml(ch.title || key)}</div>
+            <div class="title">${escapeHtml(ch.title || key)}</div>
           </a>
         `;
       }).join("");
-      
+
       setStatus("Ready");
-    }catch(e){
+    } catch(e){
       setStatus("Error");
       bookTitleEl.textContent = "Could not load book";
       bookMetaEl.textContent = e.message;
