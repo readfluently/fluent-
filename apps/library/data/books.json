@@ -252,108 +252,192 @@
 "ch3": {
   "title": "Chapter 3: Learning From Listening",
   "content": [
-    "Did you know listening is one of the first skills that helps us become good readers?",
-    "Before children read on their own, they first learn by listening to stories.",
-    "Listening helps the brain understand how language works.",
-    "When you listen carefully, you hear how words sound and how sentences are formed.",
-    "Vonani discovered this when his teacher asked him to listen to a story before reading it.",
-    "As he listened, he imagined the characters and the places in the story.",
-    "This helped him understand the story better when he read it himself."
+    "Before people learn to read, they learn by listening.",
+    "Listening is one of the most powerful learning skills your brain has.",
+    "When someone reads a story to you, your brain practices understanding language.",
+    "You hear how words sound, how sentences are formed, and how ideas connect together.",
+    "This helps prepare your brain for reading.",
+    "Nomsa discovered this during reading time at school.",
+    "Her teacher read a story about a journey across a mountain.",
+    "As Nomsa listened, she imagined the tall mountain, the wind, and the traveller climbing higher.",
+    "Her brain was building meaning even though she was only listening.",
+    "Later, when Nomsa read the story herself, she understood it easily.",
+    "Listening had prepared her mind.",
+    "Vonani also learned something important from listening.",
+    "At first, Vonani struggled to understand long paragraphs.",
+    "His teacher suggested that he listen carefully when stories were read aloud.",
+    "While listening, Vonani focused on the meaning of the story.",
+    "He imagined the scenes in his mind.",
+    "This skill is called [[visualising]].",
+    "Visualising means creating pictures in your mind while listening or reading.",
+    "The more Vonani practiced listening and imagining, the easier reading became.",
+    "Listening helps the brain recognise patterns in language.",
+    "It also improves vocabulary and understanding.",
+    "Strong readers are often strong listeners first.",
+    "In this chapter you learned that listening strengthens comprehension and prepares the brain for reading."
   ],
   "glossary": {
-    "listening": "Paying careful attention to spoken words in order to understand them."
+    "visualising": {
+      "definition": "Creating mental pictures in your mind while listening or reading.",
+      "pronunciation": "VIZH-oo-uh-ly-zing",
+      "simpleMeaning": "Making a picture in your mind.",
+      "example": "I was visualising the forest while listening to the story."
+    }
   },
   "worksheet": {
-    "title": "Listening Activity",
-    "prompt": "Ask someone to read a short story to you and describe what you imagined while listening."
+    "title": "Listening and Understanding",
+    "prompt": "Ask someone to read a short story aloud. Describe the pictures you imagined while listening."
   }
 },
 
 "ch4": {
-  "title": "Chapter 4: Mastering Reading Strategies",
+  "title": "Chapter 4: Understanding Words Using Context",
   "content": [
-    "Good readers use strategies to understand what they read.",
-    "One strategy is silent reading, which helps your brain focus on meaning.",
-    "Another strategy is reading aloud, which helps improve fluency.",
-    "Fluency means reading smoothly and with expression.",
-    "Readers also use context clues to understand new words.",
-    "Context clues are hints found in the surrounding sentences."
+    "When reading, you will sometimes see words you do not know.",
+    "Good readers do not panic when they see unfamiliar words.",
+    "Instead, they look for clues around the word.",
+    "These clues are called [[context clues]].",
+    "Context clues are hints in the surrounding sentences that help explain a word.",
+    "Nomsa once read a sentence that said: 'The desert was extremely arid and dry.'",
+    "She did not know the word 'arid'.",
+    "But she noticed the word 'dry' in the same sentence.",
+    "That clue helped her understand that 'arid' means very dry.",
+    "Vonani learned the same strategy during a science lesson.",
+    "He saw a difficult word but looked carefully at the sentence around it.",
+    "Soon he discovered the meaning without needing a dictionary.",
+    "This shows that understanding words often comes from understanding the sentence.",
+    "Strong readers use context clues to unlock new vocabulary.",
+    "Each new word you understand makes reading easier.",
+    "Vocabulary is like a toolbox for your brain.",
+    "The more tools you have, the easier it is to understand ideas."
   ],
   "glossary": {
-    "strategy": "A plan used to achieve a goal.",
-    "context clues": "Hints in a sentence that help explain a word."
+    "context clues": {
+      "definition": "Hints in the surrounding sentence that help explain the meaning of a word.",
+      "pronunciation": "KON-tekst klooz",
+      "simpleMeaning": "Words around a new word that help explain it.",
+      "example": "I used context clues to understand the word."
+    },
+    "vocabulary": {
+      "definition": "The collection of words that a person knows and understands.",
+      "pronunciation": "voh-KAB-yuh-lair-ee",
+      "simpleMeaning": "All the words you know.",
+      "example": "Reading books helps grow your vocabulary."
+    }
   },
   "worksheet": {
-    "title": "Context Clues",
-    "prompt": "Read the sentence: 'The desert was extremely arid and dry.' What do you think the word 'arid' means?"
+    "title": "Context Clue Practice",
+    "prompt": "Read the sentence: 'The forest was dense and full of tall trees.' What might the word 'dense' mean?"
   }
 },
 
 "ch5": {
-  "title": "Chapter 5: Becoming a Critical Thinker",
+  "title": "Chapter 5: Thinking Like a Critical Reader",
   "content": [
-    "Strong readers do more than understand words.",
-    "They think carefully about the ideas they read.",
-    "This skill is called critical thinking.",
-    "Critical thinkers ask questions and look for evidence.",
-    "They analyse information before deciding what is true."
+    "Reading is not only about understanding words.",
+    "Strong readers also think carefully about ideas.",
+    "This skill is called [[critical thinking]].",
+    "Critical thinkers ask questions while reading.",
+    "They ask: Is this information true? Why does the author say this?",
+    "Nomsa practiced critical thinking when reading a news article.",
+    "She asked herself what evidence supported the author's idea.",
+    "Vonani also learned to question information.",
+    "He discovered that asking questions helped him understand the text more deeply.",
+    "Critical thinking helps readers become independent learners.",
+    "It helps you evaluate ideas instead of accepting everything automatically."
   ],
   "glossary": {
-    "critical thinking": "Carefully analysing information before deciding what to believe."
+    "critical thinking": {
+      "definition": "Carefully analysing information before deciding what to believe.",
+      "pronunciation": "KRIT-ih-kul THINK-ing",
+      "simpleMeaning": "Thinking carefully about ideas.",
+      "example": "Critical thinking helps readers understand information better."
+    }
   },
   "worksheet": {
-    "title": "Think Like a Detective",
-    "prompt": "Write one question you could ask when reading new information."
+    "title": "Question the Text",
+    "prompt": "Write one question you would ask about a paragraph you just read."
   }
 },
 
 "ch6": {
-  "title": "Chapter 6: Your Brain and Neuroplasticity",
+  "title": "Chapter 6: How Your Brain Learns",
   "content": [
     "Your brain is always changing and growing.",
-    "This ability is called neuroplasticity.",
-    "Every time you learn something new, your brain forms new connections.",
-    "The more you practice reading, the stronger these connections become."
+    "Scientists call this ability [[neuroplasticity]].",
+    "Neuroplasticity means your brain forms new connections when you learn something.",
+    "Every time you practice reading, your brain strengthens those connections.",
+    "Nomsa practiced reading every day.",
+    "At first some texts were difficult, but over time they became easier.",
+    "Her brain was building stronger pathways for understanding language.",
+    "Vonani noticed the same thing.",
+    "When he practiced regularly, reading became smoother and faster.",
+    "This is how learning works.",
+    "The more you practice, the stronger your brain becomes."
   ],
   "glossary": {
-    "neuroplasticity": "The brain's ability to form new connections through learning."
+    "neuroplasticity": {
+      "definition": "The brain's ability to grow and form new connections through learning.",
+      "pronunciation": "NYOO-roh-plas-TISS-ih-tee",
+      "simpleMeaning": "Your brain can improve through practice.",
+      "example": "Neuroplasticity helps us learn new skills."
+    }
   },
   "worksheet": {
     "title": "Brain Growth",
-    "prompt": "Explain in your own words how practice helps the brain grow."
+    "prompt": "Explain in your own words how practicing reading helps the brain grow."
   }
 },
 
 "ch7": {
   "title": "Chapter 7: Metacognition – Thinking About Thinking",
   "content": [
-    "Metacognition means thinking about your thinking.",
-    "Before reading, good readers plan what they want to learn.",
-    "While reading, they check if they understand the text.",
-    "After reading, they reflect on what they learned."
+    "Metacognition means thinking about how you think.",
+    "Good readers use metacognition while reading.",
+    "Before reading they plan.",
+    "During reading they check their understanding.",
+    "After reading they reflect on what they learned.",
+    "Nomsa asked herself questions while reading difficult passages.",
+    "Vonani paused when something did not make sense.",
+    "Both learners were using metacognition.",
+    "This skill helps readers control their own learning."
   ],
   "glossary": {
-    "metacognition": "Thinking about how you think and learn."
+    "metacognition": {
+      "definition": "Thinking about how you think and learn.",
+      "pronunciation": "met-uh-kog-NISH-un",
+      "simpleMeaning": "Being aware of your thinking process.",
+      "example": "Metacognition helps readers understand their learning strategies."
+    }
   },
   "worksheet": {
     "title": "Reading Reflection",
-    "prompt": "Write one strategy you can use when you do not understand a paragraph."
+    "prompt": "Describe one strategy you use when a paragraph becomes difficult to understand."
   }
 },
 
 "ch8": {
-  "title": "Chapter 8: Mastering Reading Skills",
+  "title": "Chapter 8: Building Reading Fluency",
   "content": [
-    "Becoming a strong reader takes practice.",
-    "Fluent readers read smoothly and understand the ideas in the text.",
-    "They recognise many words quickly and focus on meaning."
+    "Fluent readers read smoothly and understand what they read.",
+    "Fluency develops through practice.",
+    "Reading aloud can help improve fluency.",
+    "Nomsa practiced reading aloud to improve her confidence.",
+    "Vonani recorded himself reading and listened to the recording.",
+    "This helped him notice where he could improve.",
+    "Fluent reading allows the brain to focus more on meaning than on decoding words."
   ],
   "glossary": {
-    "fluency": "Reading smoothly and accurately with understanding."
+    "fluency": {
+      "definition": "Reading smoothly, accurately, and with expression.",
+      "pronunciation": "FLOO-en-see",
+      "simpleMeaning": "Reading easily and naturally.",
+      "example": "Practice helped improve her reading fluency."
+    }
   },
   "worksheet": {
     "title": "Fluency Practice",
-    "prompt": "Read a short paragraph aloud and focus on reading smoothly."
+    "prompt": "Read a paragraph aloud and focus on reading smoothly and clearly."
   }
 },
 
@@ -361,11 +445,21 @@
   "title": "Chapter 9: Motivation and Growth Mindset",
   "content": [
     "Successful learners believe they can improve.",
-    "This belief is called a growth mindset.",
-    "With effort and practice, abilities grow stronger."
+    "This belief is called a [[growth mindset]].",
+    "People with a growth mindset understand that abilities improve with effort.",
+    "Nomsa sometimes found difficult books challenging.",
+    "But she reminded herself that practice would help her improve.",
+    "Vonani learned that mistakes are part of learning.",
+    "Each mistake helped him understand more.",
+    "Motivation helps learners continue practicing even when something is difficult."
   ],
   "glossary": {
-    "growth mindset": "Believing that abilities improve through effort and practice."
+    "growth mindset": {
+      "definition": "Believing that abilities improve through effort and practice.",
+      "pronunciation": "GROHTH MIND-set",
+      "simpleMeaning": "Believing you can improve with practice.",
+      "example": "A growth mindset helps learners stay motivated."
+    }
   },
   "worksheet": {
     "title": "Growth Reflection",
@@ -377,15 +471,27 @@
   "title": "Chapter 10: Becoming a Lifelong Learner",
   "content": [
     "Learning does not end when a book ends.",
-    "Every book you read helps your brain grow.",
-    "Remember: learning is like playing a new game that slowly becomes your favourite."
+    "Every new book teaches your brain new ideas.",
+    "Each skill you practice makes you stronger as a learner.",
+    "Remember this important idea:",
+    "Learning is like playing a new game.",
+    "At first the game feels difficult and confusing.",
+    "But the more you play, the better you understand the rules.",
+    "Soon it becomes your favourite game.",
+    "Learning works the same way.",
+    "With curiosity, practice, and effort, you can continue learning throughout your life."
   ],
   "glossary": {
-    "lifelong learner": "A person who continues learning throughout life."
+    "lifelong learner": {
+      "definition": "A person who continues learning throughout life.",
+      "pronunciation": "LIFE-long LUR-ner",
+      "simpleMeaning": "Someone who keeps learning forever.",
+      "example": "A lifelong learner always looks for new knowledge."
+    }
   },
   "worksheet": {
-    "title": "Your Learning Goal",
-    "prompt": "Write one learning goal you have for the future."
+    "title": "Your Learning Journey",
+    "prompt": "Write one goal you have for your learning journey in the future."
   }
 }
       }
