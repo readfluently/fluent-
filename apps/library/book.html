@@ -115,7 +115,7 @@
   }
 
   async function loadBook(){
-    try{,
+    try{
       if (bookId === "dictionary") {
   const res = await fetch("./data/dictionary.json", { cache: "no-store" });
   if (!res.ok) throw new Error("Could not fetch dictionary.json (" + res.status + ")");
