@@ -184,14 +184,14 @@
   <div class="wrap">
     <div class="card">
       <h1 id="chapterTitle">Loading…</h1>
-<div class="meta" id="chapterMeta"></div>
+      <div class="meta" id="chapterMeta"></div>
 
-<div id="chapterProgressWrap" style="margin:10px 0 14px;">
-  <div class="small" id="chapterProgressText">Progress</div>
-  <div style="height:10px; background:#eee; border-radius:999px; overflow:hidden; margin-top:6px;">
-    <div id="chapterProgressBar" style="height:10px; width:0%; background:#7b3ff2;"></div>
-  </div>
-</div>
+      <div id="chapterProgressWrap" style="margin:10px 0 14px;">
+        <div class="small" id="chapterProgressText">Progress</div>
+        <div style="height:10px; background:#eee; border-radius:999px; overflow:hidden; margin-top:6px;">
+          <div id="chapterProgressBar" style="height:10px; width:0%; background:#7b3ff2;"></div>
+        </div>
+      </div>
 
       <div class="divider"></div>
 
@@ -252,10 +252,10 @@
 
   const statusEl = document.getElementById("status");
   const chapterTitleEl = document.getElementById("chapterTitle");
-  const chapterProgressText = document.getElementById("chapterProgressText");
-  const chapterProgressBar = document.getElementById("chapterProgressBar");
   const chapterMetaEl = document.getElementById("chapterMeta");
   const chapterTextEl = document.getElementById("chapterText");
+  const chapterProgressText = document.getElementById("chapterProgressText");
+  const chapterProgressBar = document.getElementById("chapterProgressBar");
   const howBtn = document.getElementById("howBtn");
   const dictBtn = document.getElementById("dictBtn");
   const nextChapterBtn = document.getElementById("nextChapterBtn");
@@ -354,6 +354,21 @@
     return null;
   }
 
+  function getOrderedChapterKeys(chapters){
+    return Object.keys(chapters)
+      .filter(k => k !== "how-it-works")
+      .sort((a, b) => {
+        const ma = /^ch(\d+)$/i.exec(a);
+        const mb = /^ch(\d+)$/i.exec(b);
+
+        if (ma && mb) return Number(ma[1]) - Number(mb[1]);
+        if (ma) return -1;
+        if (mb) return 1;
+
+        return a.localeCompare(b);
+      });
+  }
+
   async function loadChapter(){
     try{
       const res = await fetch("./data/books.json", { cache: "no-store" });
@@ -367,16 +382,19 @@
       if(!ch) throw new Error("Chapter not found: " + chapterId);
 
       const orderedKeys = getOrderedChapterKeys(book.chapters);
-const currentIndex = orderedKeys.indexOf(chapterId);
+      const currentIndex = orderedKeys.indexOf(chapterId);
 
-if(currentIndex >= 0){
-  const chapterNumber = currentIndex + 1;
-  const totalChapters = orderedKeys.length;
-  const percent = (chapterNumber / totalChapters) * 100;
+      if(currentIndex >= 0){
+        const chapterNumber = currentIndex + 1;
+        const totalChapters = orderedKeys.length;
+        const percent = (chapterNumber / totalChapters) * 100;
 
-  chapterProgressText.textContent = `Chapter ${chapterNumber} of ${totalChapters}`;
-  chapterProgressBar.style.width = `${percent}%`;
-}
+        chapterProgressText.textContent = `Chapter ${chapterNumber} of ${totalChapters}`;
+        chapterProgressBar.style.width = `${percent}%`;
+      } else {
+        chapterProgressText.textContent = "";
+        chapterProgressBar.style.width = "0%";
+      }
 
       chapterTitleEl.textContent = ch.title || chapterId;
       chapterMetaEl.textContent = `${book.title || bookId} • ${chapterId}`;
@@ -408,11 +426,15 @@ if(currentIndex >= 0){
       renderText(ch.content || []);
       loadWorksheet(ch);
 
+      localStorage.setItem(`rf_last_${bookId}`, chapterId);
+
       setStatus("Ready");
     }catch(e){
       chapterTitleEl.textContent = "Could not load chapter";
       chapterMetaEl.textContent = "";
       chapterTextEl.innerHTML = `<p>${escapeHtml(e.message)}</p>`;
+      chapterProgressText.textContent = "";
+      chapterProgressBar.style.width = "0%";
       nextChapterBtn.style.display = "none";
       setStatus("Error");
     }
