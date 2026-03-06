@@ -535,31 +535,81 @@
 },
 
 "ch6": {
-  "title": "Chapter 6: How Your Brain Learns",
+  "title": "Chapter 6: Reading Fluently",
   "content": [
-    "Your brain is always changing and growing.",
-    "Scientists call this ability [[neuroplasticity]].",
-    "Neuroplasticity means your brain forms new connections when you learn something.",
-    "Every time you practice reading, your brain strengthens those connections.",
-    "Nomsa practiced reading every day.",
-    "At first some texts were difficult, but over time they became easier.",
-    "Her brain was building stronger pathways for understanding language.",
-    "Vonani noticed the same thing.",
-    "When he practiced regularly, reading became smoother and faster.",
-    "This is how learning works.",
-    "The more you practice, the stronger your brain becomes."
+    "As your reading skills improve, you begin to notice something important.",
+    "Reading starts to feel smoother and easier.",
+    "This ability is called [[fluency]].",
+    "Fluency means reading accurately, smoothly, and with expression.",
+    "When readers are fluent, they do not struggle with every word.",
+    "Instead, their brain recognises many words quickly.",
+    "This allows the brain to focus on understanding the [[meaning]] of the text.",
+    "Fluency is important because it connects word reading with [[comprehension]].",
+    "If a reader struggles with every word, the brain becomes busy trying to decode the words.",
+    "When this happens, it becomes harder to understand the ideas in the text.",
+    "But when reading becomes fluent, the brain has more energy to think about the ideas and messages in the text.",
+    "Fluent readers also pay attention to [[expression]].",
+    "Expression means reading with the correct tone, pauses, and emphasis.",
+    "For example, when you read a question, your voice usually rises at the end.",
+    "When you read dialogue in a story, your voice may change to match the character.",
+    "Expression helps readers understand the emotions and meaning inside the text.",
+    "Another important part of fluency is [[automaticity]].",
+    "Automaticity means recognising many words quickly without needing to stop and sound them out.",
+    "The more words your brain recognises automatically, the faster and smoother your reading becomes.",
+    "Fluency improves through practice.",
+    "One helpful method is called [[repeated reading]].",
+    "Repeated reading means reading the same passage several times until it becomes smoother and easier.",
+    "Each time you read the passage, your brain becomes more familiar with the words and patterns.",
+    "Another helpful method is listening to a strong reader and then reading the same text yourself.",
+    "This allows your brain to hear what fluent reading sounds like.",
+    "Then you can practise matching that smooth and natural reading style.",
+    "Fluency grows step by step.",
+    "At first reading may feel slow.",
+    "But with practice, your brain recognises words faster and your reading becomes smoother.",
+    "As fluency improves, comprehension also becomes stronger.",
+    "This is because the brain can focus on understanding ideas instead of struggling with individual words."
   ],
   "glossary": {
-    "neuroplasticity": {
-      "definition": "The brain's ability to grow and form new connections through learning.",
-      "pronunciation": "NYOO-roh-plas-TISS-ih-tee",
-      "simpleMeaning": "Your brain can improve through practice.",
-      "example": "Neuroplasticity helps us learn new skills."
+    "fluency": {
+      "definition": "The ability to read smoothly, accurately, and with expression.",
+      "pronunciation": "FLOO-uhn-see",
+      "simpleMeaning": "Reading smoothly and naturally.",
+      "example": "Practising reading helps improve fluency."
+    },
+    "meaning": {
+      "definition": "The message or idea that the writer is trying to communicate.",
+      "pronunciation": "MEE-ning",
+      "simpleMeaning": "What the text is saying.",
+      "example": "Fluent readers can focus on the meaning of the text."
+    },
+    "comprehension": {
+      "definition": "The ability to understand what you read.",
+      "pronunciation": "kom-pri-HEN-shuhn",
+      "simpleMeaning": "Understanding the ideas in a text.",
+      "example": "Fluency helps improve reading comprehension."
+    },
+    "expression": {
+      "definition": "Reading with the correct tone, pauses, and emphasis.",
+      "pronunciation": "ek-SPRESH-uhn",
+      "simpleMeaning": "Reading with feeling and natural voice changes.",
+      "example": "Good readers use expression when reading aloud."
+    },
+    "automaticity": {
+      "definition": "The ability to recognise words quickly without needing to sound them out.",
+      "pronunciation": "aw-tuh-muh-TIS-uh-tee",
+      "simpleMeaning": "Recognising words instantly.",
+      "example": "Automaticity helps readers read faster and more smoothly."
+    },
+    "repeated reading": {
+      "definition": "Reading the same passage several times to improve fluency.",
+      "pronunciation": "ri-PEE-tid REE-ding",
+      "simpleMeaning": "Reading something again to become smoother.",
+      "example": "Repeated reading helped me read the paragraph more smoothly."
     }
   },
   "worksheet": {
-    "title": "Brain Growth",
-    "prompt": "Explain in your own words how practicing reading helps the brain grow."
+    "title": "Building Fluency",
+    "prompt": "1. In your own words, explain what reading fluency means.\n\n2. Why does fluency help readers understand texts better?\n\n3. Describe one way you can practise fluency when reading."
   }
 },
 
