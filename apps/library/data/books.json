@@ -248,7 +248,147 @@
             "title": "Finding the Main Idea",
             "prompt": "1) In your own words, explain the main idea of this chapter.\n\n2) Vonani improved his reading by using a strategy. What strategy helped him understand better?\n\n3) Write one sentence explaining why finding the main idea helps readers understand a text."
           }
-        }
+        },
+        ,
+"ch3": {
+  "title": "Chapter 3: Learning From Listening",
+  "content": [
+    "Did you know listening is one of the first skills that helps us become good readers?",
+    "Before children read on their own, they first learn by listening to stories.",
+    "Listening helps the brain understand how language works.",
+    "When you listen carefully, you hear how words sound and how sentences are formed.",
+    "Vonani discovered this when his teacher asked him to listen to a story before reading it.",
+    "As he listened, he imagined the characters and the places in the story.",
+    "This helped him understand the story better when he read it himself."
+  ],
+  "glossary": {
+    "listening": "Paying careful attention to spoken words in order to understand them."
+  },
+  "worksheet": {
+    "title": "Listening Activity",
+    "prompt": "Ask someone to read a short story to you and describe what you imagined while listening."
+  }
+},
+
+"ch4": {
+  "title": "Chapter 4: Mastering Reading Strategies",
+  "content": [
+    "Good readers use strategies to understand what they read.",
+    "One strategy is silent reading, which helps your brain focus on meaning.",
+    "Another strategy is reading aloud, which helps improve fluency.",
+    "Fluency means reading smoothly and with expression.",
+    "Readers also use context clues to understand new words.",
+    "Context clues are hints found in the surrounding sentences."
+  ],
+  "glossary": {
+    "strategy": "A plan used to achieve a goal.",
+    "context clues": "Hints in a sentence that help explain a word."
+  },
+  "worksheet": {
+    "title": "Context Clues",
+    "prompt": "Read the sentence: 'The desert was extremely arid and dry.' What do you think the word 'arid' means?"
+  }
+},
+
+"ch5": {
+  "title": "Chapter 5: Becoming a Critical Thinker",
+  "content": [
+    "Strong readers do more than understand words.",
+    "They think carefully about the ideas they read.",
+    "This skill is called critical thinking.",
+    "Critical thinkers ask questions and look for evidence.",
+    "They analyse information before deciding what is true."
+  ],
+  "glossary": {
+    "critical thinking": "Carefully analysing information before deciding what to believe."
+  },
+  "worksheet": {
+    "title": "Think Like a Detective",
+    "prompt": "Write one question you could ask when reading new information."
+  }
+},
+
+"ch6": {
+  "title": "Chapter 6: Your Brain and Neuroplasticity",
+  "content": [
+    "Your brain is always changing and growing.",
+    "This ability is called neuroplasticity.",
+    "Every time you learn something new, your brain forms new connections.",
+    "The more you practice reading, the stronger these connections become."
+  ],
+  "glossary": {
+    "neuroplasticity": "The brain's ability to form new connections through learning."
+  },
+  "worksheet": {
+    "title": "Brain Growth",
+    "prompt": "Explain in your own words how practice helps the brain grow."
+  }
+},
+
+"ch7": {
+  "title": "Chapter 7: Metacognition – Thinking About Thinking",
+  "content": [
+    "Metacognition means thinking about your thinking.",
+    "Before reading, good readers plan what they want to learn.",
+    "While reading, they check if they understand the text.",
+    "After reading, they reflect on what they learned."
+  ],
+  "glossary": {
+    "metacognition": "Thinking about how you think and learn."
+  },
+  "worksheet": {
+    "title": "Reading Reflection",
+    "prompt": "Write one strategy you can use when you do not understand a paragraph."
+  }
+},
+
+"ch8": {
+  "title": "Chapter 8: Mastering Reading Skills",
+  "content": [
+    "Becoming a strong reader takes practice.",
+    "Fluent readers read smoothly and understand the ideas in the text.",
+    "They recognise many words quickly and focus on meaning."
+  ],
+  "glossary": {
+    "fluency": "Reading smoothly and accurately with understanding."
+  },
+  "worksheet": {
+    "title": "Fluency Practice",
+    "prompt": "Read a short paragraph aloud and focus on reading smoothly."
+  }
+},
+
+"ch9": {
+  "title": "Chapter 9: Motivation and Growth Mindset",
+  "content": [
+    "Successful learners believe they can improve.",
+    "This belief is called a growth mindset.",
+    "With effort and practice, abilities grow stronger."
+  ],
+  "glossary": {
+    "growth mindset": "Believing that abilities improve through effort and practice."
+  },
+  "worksheet": {
+    "title": "Growth Reflection",
+    "prompt": "Write about something that became easier after practicing."
+  }
+},
+
+"ch10": {
+  "title": "Chapter 10: Becoming a Lifelong Learner",
+  "content": [
+    "Learning does not end when a book ends.",
+    "Every book you read helps your brain grow.",
+    "Remember: learning is like playing a new game that slowly becomes your favourite."
+  ],
+  "glossary": {
+    "lifelong learner": "A person who continues learning throughout life."
+  },
+  "worksheet": {
+    "title": "Your Learning Goal",
+    "prompt": "Write one learning goal you have for the future."
+  }
+}
       }
     },
     "tech-journey": {
