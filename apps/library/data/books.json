@@ -614,32 +614,79 @@
 },
 
 "ch7": {
-  "title": "Chapter 7: Metacognition – Thinking About Thinking",
+  "title": "Chapter 7: Your Brain Can Grow",
   "content": [
-    "Metacognition means thinking about how you think.",
-    "Good readers use metacognition while reading.",
-    "Before reading they plan.",
-    "During reading they check their understanding.",
-    "After reading they reflect on what they learned.",
-    "Nomsa asked herself questions while reading difficult passages.",
-    "Vonani paused when something did not make sense.",
-    "Both learners were using metacognition.",
-    "This skill helps readers control their own learning."
+    "By now you may have noticed something interesting.",
+    "The more you practise reading, the easier it begins to feel.",
+    "At first, reading might feel slow. You may need to stop often to think about words or sentences. But after practising for some time, your reading becomes smoother.",
+    "This improvement is not an accident.",
+    "It happens because your brain is changing.",
+    "Scientists call this ability [[neuroplasticity]].",
+    "Neuroplasticity means that the brain can grow, change, and become stronger when you practise new skills.",
+    "Your brain is made up of billions of tiny cells called [[neurons]].",
+    "These neurons communicate with each other through connections.",
+    "When you learn something new, the brain begins forming new [[pathways]] between these neurons.",
+    "Think of it like creating a path through grass.",
+    "The first time you walk across a field, the path is not clear.",
+    "But if you walk across the same path every day, the grass becomes flatter and the path becomes easier to follow.",
+    "Learning works in a similar way.",
+    "Each time you practise reading, your brain strengthens the pathways that help you recognise words and understand ideas.",
+    "Even mistakes help your brain grow.",
+    "When you make a mistake and correct it, your brain learns what works and what does not.",
+    "Over time the pathways in your brain become stronger and faster.",
+    "This is when reading begins to feel easier.",
+    "Many people believe that some learners are simply born good at reading.",
+    "But science shows something different.",
+    "Strong readers usually became strong readers through practice.",
+    "Their brains built stronger pathways because they read often and used helpful strategies.",
+    "This means improvement is possible for everyone.",
+    "If you practise reading regularly, your brain will continue to grow stronger.",
+    "Remember this idea:",
+    "Learning is like playing a new game that slowly becomes your favourite.",
+    "At first a new game can feel confusing.",
+    "But the more you play, the more you understand the rules.",
+    "Soon the game becomes easier and more enjoyable.",
+    "Learning to read works in the same way.",
+    "Your brain is always capable of learning something new.",
+    "The key is simple: keep practising."
   ],
   "glossary": {
-    "metacognition": {
-      "definition": "Thinking about how you think and learn.",
-      "pronunciation": "met-uh-kog-NISH-un",
-      "simpleMeaning": "Being aware of your thinking process.",
-      "example": "Metacognition helps readers understand their learning strategies."
+    "neuroplasticity": {
+      "definition": "The brain’s ability to change and grow stronger when learning new skills.",
+      "pronunciation": "NYOO-roh-plas-TISS-ih-tee",
+      "simpleMeaning": "Your brain can grow and improve with practice.",
+      "example": "Neuroplasticity allows readers to improve their skills through practice."
+    },
+    "neurons": {
+      "definition": "Special cells in the brain that send and receive information.",
+      "pronunciation": "NYOO-ronz",
+      "simpleMeaning": "Cells in the brain that communicate with each other.",
+      "example": "Neurons send signals that help the brain learn new skills."
+    },
+    "pathways": {
+      "definition": "Connections between brain cells that allow information to travel.",
+      "pronunciation": "PATH-wayz",
+      "simpleMeaning": "Routes that information travels in the brain.",
+      "example": "Practice strengthens the pathways used for reading."
+    },
+    "practice": {
+      "definition": "Repeating a skill in order to improve.",
+      "pronunciation": "PRAK-tis",
+      "simpleMeaning": "Doing something again to get better at it.",
+      "example": "Regular practice helps readers become stronger."
+    },
+    "learning": {
+      "definition": "The process of gaining knowledge or developing new skills.",
+      "pronunciation": "LUR-ning",
+      "simpleMeaning": "Understanding and gaining new abilities.",
+      "example": "Reading helps support lifelong learning."
     }
   },
   "worksheet": {
-    "title": "Reading Reflection",
-    "prompt": "Describe one strategy you use when a paragraph becomes difficult to understand."
+    "title": "How the Brain Learns",
+    "prompt": "1. In your own words, explain what neuroplasticity means.\n\n2. Why does practice help the brain improve reading skills?\n\n3. The chapter says learning is like playing a new game. Explain what this comparison means."
   }
-},
-
+}
 "ch8": {
   "title": "Chapter 8: Building Reading Fluency",
   "content": [
