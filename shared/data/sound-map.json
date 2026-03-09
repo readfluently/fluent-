@@ -1,0 +1,9 @@
+{
+  "bl": "shared/assets/sounds/beginning-blends/bl.mp3",
+  "sh": "shared/assets/sounds/digraphs/sh.mp3",
+  "ch": "shared/assets/sounds/digraphs/ch.mp3",
+  "tr": "shared/assets/sounds/beginning-blends/tr.mp3",
+  "ack": "shared/assets/sounds/common-phonograms/ack.mp3",
+  "ai": "shared/assets/sounds/vowel-teams/ai.mp3",
+  "ar": "shared/assets/sounds/controlled-r/ar.mp3"
+}
