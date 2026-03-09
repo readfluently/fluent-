@@ -1,1 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Play & Learn</title>
 
+<style>
+
+body{
+font-family:Arial;
+background:#FFFDF7;
+text-align:center;
+}
+
+h1{
+margin-top:40px;
+}
+
+.games{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:30px;
+padding:40px;
+max-width:900px;
+margin:auto;
+}
+
+.card{
+background:white;
+border-radius:15px;
+padding:30px;
+box-shadow:0 5px 10px rgba(0,0,0,0.1);
+cursor:pointer;
+transition:0.2s;
+}
+
+.card:hover{
+transform:scale(1.05);
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>Play & Learn</h1>
+
+<div class="games">
+
+<div class="card" onclick="location.href='memory.html'">
+Memory Match
+</div>
+
+<div class="card">
+Build the Word
+</div>
+
+<div class="card">
+Sound Detective
+</div>
+
+<div class="card">
+Tap the Sound
+</div>
+
+</div>
+
+</body>
+</html>
