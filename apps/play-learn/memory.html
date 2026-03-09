@@ -23,6 +23,22 @@ h1{
   color:#555;
 }
 
+#progressContainer{
+  width:320px;
+  height:12px;
+  background:#ddd;
+  margin:10px auto 20px auto;
+  border-radius:10px;
+  overflow:hidden;
+}
+
+#progressBar{
+  height:100%;
+  width:0%;
+  background:#4CAF50;
+  transition:width 0.3s;
+}
+
 .grid{
   display:grid;
   grid-template-columns:repeat(4,120px);
@@ -59,6 +75,12 @@ h1{
   background:#D4AF37;
   color:white;
   font-size:44px;
+  animation:bounce 0.6s infinite alternate;
+}
+
+@keyframes bounce{
+  from{transform:translateY(0);}
+  to{transform:translateY(-10px);}
 }
 
 #message{
@@ -76,9 +98,9 @@ h1{
 <h2 id="levelTitle">Level 1</h2>
 
 <div id="progressContainer">
- <div id="progressBar"></div>
+  <div id="progressBar"></div>
 </div>
-  
+
 <div class="grid" id="grid"></div>
 
 <div id="message"></div>
@@ -99,6 +121,7 @@ let lockBoard = false;
 const grid = document.getElementById("grid");
 const levelTitle = document.getElementById("levelTitle");
 const message = document.getElementById("message");
+const progressBar = document.getElementById("progressBar");
 
 function playSound(sound){
   let audio = new Audio(`/fluent-/shared/assets/sounds/beginning-blends/beginning-blends/${sound}.mp3`);
@@ -110,6 +133,45 @@ function playClap(){
   audio.play().catch(() => {});
 }
 
+function updateProgress(){
+  const totalPairs = levels[currentLevel].length;
+  const percent = (matchedPairs / totalPairs) * 100;
+  progressBar.style.width = percent + "%";
+}
+
+function launchConfetti(){
+  for(let i = 0; i < 40; i++){
+    let confetti = document.createElement("div");
+
+    confetti.style.position = "fixed";
+    confetti.style.left = Math.random() * 100 + "vw";
+    confetti.style.top = "-10px";
+    confetti.style.width = "10px";
+    confetti.style.height = "10px";
+    confetti.style.background = ["#ff0","#f00","#0f0","#00f","#ff8800"][Math.floor(Math.random() * 5)];
+    confetti.style.opacity = "0.8";
+    confetti.style.zIndex = "999";
+    confetti.style.pointerEvents = "none";
+
+    document.body.appendChild(confetti);
+
+    let fall = Math.random() * 3 + 2;
+
+    confetti.animate(
+      [
+        { transform:"translateY(0) rotate(0deg)" },
+        { transform:`translateY(100vh) rotate(${Math.random() * 720}deg)` }
+      ],
+      {
+        duration: fall * 1000,
+        easing: "linear"
+      }
+    );
+
+    setTimeout(() => confetti.remove(), 4000);
+  }
+}
+
 function loadLevel(){
   grid.innerHTML = "";
   message.innerHTML = "";
@@ -117,6 +179,7 @@ function loadLevel(){
   second = null;
   matchedPairs = 0;
   lockBoard = false;
+  progressBar.style.width = "0%";
 
   levelTitle.innerText = "Level " + (currentLevel + 1);
 
@@ -157,6 +220,8 @@ function flip(card){
       second.classList.add("flipped");
 
       matchedPairs++;
+      updateProgress();
+
       first = null;
       second = null;
       lockBoard = false;
@@ -187,6 +252,7 @@ function checkLevelComplete(){
     });
 
     playClap();
+    launchConfetti();
 
     setTimeout(() => {
       currentLevel++;
@@ -196,7 +262,8 @@ function checkLevelComplete(){
       } else {
         grid.innerHTML = "";
         levelTitle.innerText = "All Levels Complete";
-        message.innerHTML = "Excellent work! You finished the game. 🏆👏";
+        message.innerHTML = "Excellent work! You finished the game. 🏆👏🎉";
+        progressBar.style.width = "100%";
       }
     }, 2500);
   }
