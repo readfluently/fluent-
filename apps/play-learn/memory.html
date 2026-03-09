@@ -1,136 +1,204 @@
 <!DOCTYPE html>
 <html>
 <head>
-
 <meta charset="UTF-8">
-<title>Sound Memory</title>
+<title>Memory Match</title>
 
 <style>
-
 body{
-font-family:Arial;
-background:#FFFDF7;
-text-align:center;
+  font-family:Arial, sans-serif;
+  text-align:center;
+  background:#f6f6f6;
+  margin:0;
+  padding:20px;
+}
+
+h1{
+  margin-top:10px;
+  color:#333;
+}
+
+#levelTitle{
+  margin-top:10px;
+  color:#555;
 }
 
 .grid{
-display:grid;
-grid-template-columns:repeat(4,120px);
-gap:15px;
-justify-content:center;
-margin-top:40px;
+  display:grid;
+  grid-template-columns:repeat(4,120px);
+  gap:15px;
+  justify-content:center;
+  margin-top:30px;
 }
 
-.card{
-width:120px;
-height:120px;
-background:#4B6EF5;
-color:white;
-font-size:28px;
-display:flex;
-align-items:center;
-justify-content:center;
-border-radius:12px;
-cursor:pointer;
+.tile{
+  width:120px;
+  height:120px;
+  background:#4CAF50;
+  color:white;
+  font-size:30px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  border-radius:14px;
+  user-select:none;
+  transition:transform 0.2s, background 0.2s;
 }
 
-.matched{
-background:#CFE8CF;
-color:#333;
+.tile:hover{
+  transform:scale(1.04);
 }
 
+.tile.flipped{
+  background:#CFE8CF;
+  color:#333;
+}
+
+.tile.trophy{
+  background:#D4AF37;
+  color:white;
+  font-size:44px;
+}
+
+#message{
+  margin-top:25px;
+  font-size:22px;
+  font-weight:bold;
+  color:#444;
+}
 </style>
-
 </head>
 
 <body>
 
-<h2>Sound Memory Game</h2>
+<h1>Memory Match</h1>
+<h2 id="levelTitle">Level 1</h2>
 
 <div class="grid" id="grid"></div>
 
-<script>
+<div id="message"></div>
 
-const sounds = [
-"bl",
-"br",
-"cl",
-"cr",
-"fl",
-"fr",
-"gl",
-"gr"
+<script>
+const levels = [
+  ["bl","br","cl","cr"],
+  ["fl","fr","gl","gr"],
+  ["pl","sl","sm","sn"]
 ];
 
-let cards=[...sounds,...sounds];
-cards.sort(()=>Math.random()-0.5);
+let currentLevel = 0;
+let matchedPairs = 0;
+let first = null;
+let second = null;
+let lockBoard = false;
 
-let first=null;
-let second=null;
-
-const grid=document.getElementById("grid");
-
-cards.forEach(sound=>{
-
-let card=document.createElement("div");
-card.className="card";
-card.dataset.sound=sound;
-card.innerHTML="?";
-
-card.onclick=()=>flip(card);
-
-grid.appendChild(card);
-
-});
+const grid = document.getElementById("grid");
+const levelTitle = document.getElementById("levelTitle");
+const message = document.getElementById("message");
 
 function playSound(sound){
+  let audio = new Audio(`/fluent-/shared/assets/sounds/beginning-blends/beginning-blends/${sound}.mp3`);
+  audio.play().catch(() => {});
+}
 
-let audio = new Audio("/fluent-/shared/assets/sounds/beginning-blends/beginning-blends/" + sound + ".mp3");
-audio.play();
+function playClap(){
+  let audio = new Audio(`/fluent-/shared/assets/sounds/clap.mp3`);
+  audio.play().catch(() => {});
+}
 
+function loadLevel(){
+  grid.innerHTML = "";
+  message.innerHTML = "";
+  first = null;
+  second = null;
+  matchedPairs = 0;
+  lockBoard = false;
+
+  levelTitle.innerText = "Level " + (currentLevel + 1);
+
+  const sounds = levels[currentLevel];
+  let cards = [...sounds, ...sounds];
+
+  cards.sort(() => 0.5 - Math.random());
+
+  cards.forEach(sound => {
+    let card = document.createElement("div");
+    card.className = "tile";
+    card.dataset.sound = sound;
+    card.innerHTML = "?";
+    card.onclick = () => flip(card);
+    grid.appendChild(card);
+  });
 }
 
 function flip(card){
+  if(lockBoard) return;
+  if(card.innerHTML !== "?") return;
+  if(first === card) return;
 
-if(card.innerHTML!="?") return;
+  card.innerHTML = card.dataset.sound;
+  playSound(card.dataset.sound);
 
-card.innerHTML=card.dataset.sound;
+  if(!first){
+    first = card;
+    return;
+  }
 
-playSound(card.dataset.sound);
+  second = card;
+  lockBoard = true;
 
-if(!first){
+  if(first.dataset.sound === second.dataset.sound){
+    setTimeout(() => {
+      first.classList.add("flipped");
+      second.classList.add("flipped");
 
-first=card;
-return;
+      matchedPairs++;
+      first = null;
+      second = null;
+      lockBoard = false;
 
+      checkLevelComplete();
+    }, 500);
+  } else {
+    setTimeout(() => {
+      first.innerHTML = "?";
+      second.innerHTML = "?";
+      first = null;
+      second = null;
+      lockBoard = false;
+    }, 900);
+  }
 }
 
-second=card;
+function checkLevelComplete(){
+  const totalPairs = levels[currentLevel].length;
 
-if(first.dataset.sound===second.dataset.sound){
+  if(matchedPairs === totalPairs){
+    const allTiles = document.querySelectorAll(".tile");
 
-first.classList.add("matched");
-second.classList.add("matched");
+    allTiles.forEach(tile => {
+      tile.innerHTML = "🏆";
+      tile.classList.remove("flipped");
+      tile.classList.add("trophy");
+    });
 
-first=null;
-second=null;
+    playClap();
 
-}else{
+    setTimeout(() => {
+      currentLevel++;
 
-setTimeout(()=>{
-
-first.innerHTML="?";
-second.innerHTML="?";
-
-first=null;
-second=null;
-
-},800)
-
+      if(currentLevel < levels.length){
+        loadLevel();
+      } else {
+        grid.innerHTML = "";
+        levelTitle.innerText = "All Levels Complete";
+        message.innerHTML = "Excellent work! You finished the game. 🏆👏";
+      }
+    }, 2500);
+  }
 }
 
-}
-
+loadLevel();
 </script>
 
 </body>
