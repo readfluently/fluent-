@@ -1,148 +1,481 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>SNA 1 – Individual Support Plan</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SNA 1 & 2: School Level</title>
+  <style>
+    :root{
+      --orange:#ef5b1f;
+      --paper:#e9e9e9;
+      --line:#666;
+      --text:#222;
+      --soft:#f6d9c7;
+    }
 
-<style>
+    *{box-sizing:border-box}
 
-body{
-font-family:Arial;
-background:#FFFDF7;
-margin:0;
-padding:20px;
-}
+    body{
+      margin:0;
+      padding:24px;
+      background:#dcdcdc;
+      font-family:Arial, Helvetica, sans-serif;
+      color:var(--text);
+    }
 
-h1{
-color:#333;
-}
+    .page{
+      width:900px;
+      max-width:100%;
+      margin:0 auto 28px auto;
+      background:var(--paper);
+      padding:28px 30px 90px;
+      position:relative;
+      box-shadow:0 2px 14px rgba(0,0,0,.12);
+      min-height:1200px;
+    }
 
-.section{
-background:white;
-border-radius:10px;
-padding:15px;
-margin-bottom:20px;
-box-shadow:0 2px 5px rgba(0,0,0,0.1);
-}
+    .conf-top{
+      font-size:14px;
+      font-weight:700;
+      margin-bottom:12px;
+    }
 
-label{
-font-weight:bold;
-display:block;
-margin-top:10px;
-}
+    .cover-head{
+      display:flex;
+      align-items:flex-start;
+      gap:18px;
+      margin-bottom:36px;
+    }
 
-input, textarea{
-width:100%;
-padding:8px;
-margin-top:5px;
-border-radius:6px;
-border:1px solid #ccc;
-}
+    .logo-box{
+      width:90px;
+      height:110px;
+      border:2px solid #aaa;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:12px;
+      text-align:center;
+      background:#fff;
+    }
 
-button{
-margin-top:20px;
-padding:10px 16px;
-border:none;
-border-radius:8px;
-background:#4CAF50;
-color:white;
-font-size:16px;
-cursor:pointer;
-}
+    .dept{
+      font-size:22px;
+      line-height:1.1;
+      font-weight:700;
+      margin-top:8px;
+    }
 
-</style>
+    .big-title{
+      text-align:center;
+      font-size:34px;
+      font-weight:800;
+      margin:70px 0 24px;
+    }
+
+    .bar{
+      background:var(--orange);
+      color:#fff;
+      font-weight:800;
+      text-align:center;
+      padding:8px 10px;
+      font-size:18px;
+      margin:16px 0 0;
+    }
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+      table-layout:fixed;
+    }
+
+    .form-table td,
+    .form-table th,
+    .grid td,
+    .grid th{
+      border:1.6px solid var(--line);
+      padding:6px 8px;
+      vertical-align:top;
+    }
+
+    .form-table td{
+      background:rgba(255,255,255,.18);
+    }
+
+    .center-note{
+      text-align:center;
+      font-weight:700;
+      margin-top:70px;
+    }
+
+    .footer{
+      position:absolute;
+      left:0;
+      right:0;
+      bottom:24px;
+      text-align:center;
+      font-size:24px;
+      color:var(--orange);
+      font-weight:800;
+      letter-spacing:.5px;
+    }
+
+    .section-title{
+      font-size:18px;
+      font-weight:800;
+      margin:18px 0 10px;
+    }
+
+    .subhead-bar{
+      background:var(--orange);
+      color:#fff;
+      font-weight:800;
+      text-align:center;
+      padding:8px 10px;
+      font-size:16px;
+      margin:12px 0 14px;
+    }
+
+    .italic{
+      font-style:italic;
+    }
+
+    .bullets{
+      margin:8px 0 12px 18px;
+      padding:0;
+    }
+
+    .bullets li{
+      margin:6px 0;
+    }
+
+    .line-input,
+    textarea,
+    input[type="text"],
+    input[type="date"]{
+      width:100%;
+      border:none;
+      outline:none;
+      background:transparent;
+      font:inherit;
+      padding:2px 0;
+    }
+
+    textarea{
+      resize:vertical;
+      min-height:72px;
+    }
+
+    .lined-box{
+      border:1.6px solid var(--line);
+      background:rgba(255,255,255,.18);
+      padding:0;
+      margin:8px 0 14px;
+    }
+
+    .lined-box textarea{
+      min-height:88px;
+      padding:8px;
+      background:
+        repeating-linear-gradient(
+          to bottom,
+          transparent 0,
+          transparent 26px,
+          rgba(0,0,0,.28) 27px
+        );
+    }
+
+    .small{
+      font-size:13px;
+    }
+
+    .grid th{
+      background:#edd0bc;
+      text-align:left;
+      font-weight:700;
+    }
+
+    .grid td{
+      height:42px;
+      background:rgba(255,255,255,.18);
+    }
+
+    .scholastic td:first-child,
+    .scholastic th:first-child{
+      width:170px;
+      font-weight:700;
+      background:#edd0bc;
+    }
+
+    .two-col th{
+      background:#edd0bc;
+    }
+
+    .savebar{
+      width:900px;
+      max-width:100%;
+      margin:0 auto 18px;
+      display:flex;
+      gap:10px;
+      justify-content:flex-end;
+    }
+
+    button{
+      border:none;
+      background:var(--orange);
+      color:#fff;
+      padding:12px 16px;
+      border-radius:10px;
+      font-weight:700;
+      cursor:pointer;
+    }
+
+    button.secondary{
+      background:#444;
+    }
+
+    @media print{
+      body{background:#fff;padding:0}
+      .savebar{display:none}
+      .page{box-shadow:none;margin:0 auto 0 auto;page-break-after:always}
+    }
+  </style>
 </head>
-
 <body>
 
-<h1>SNA 1 – Individual Learner Support Plan</h1>
+  <div class="savebar">
+    <button onclick="saveForm()">Save</button>
+    <button class="secondary" onclick="window.print()">Print / PDF</button>
+  </div>
 
-<div class="section">
-<h3>Learner Information</h3>
+  <!-- COVER PAGE -->
+  <section class="page">
+    <div class="conf-top">CONFIDENTIAL 1</div>
 
-<label>Learner Name</label>
-<input id="learnerName">
+    <div class="cover-head">
+      <div class="logo-box">LOGO<br>PLACEHOLDER</div>
+      <div class="dept">
+        basic education<br>
+        <span style="font-weight:400">Department:</span><br>
+        Basic Education<br>
+        REPUBLIC OF SOUTH AFRICA
+      </div>
+    </div>
 
-<label>Grade</label>
-<input id="grade">
+    <div class="big-title">SUPPORT NEEDS ASSESSMENT FORM</div>
 
-<label>School</label>
-<input id="school">
+    <div class="bar">SNA 1 &amp; 2: SCHOOL LEVEL</div>
 
-<label>Date</label>
-<input type="date" id="date">
+    <table class="form-table">
+      <tr>
+        <td rowspan="3" style="width:48%;">
+          <div>Surname and names of learner</div>
+          <input type="text" data-field="learnerName">
+        </td>
+        <td>DOB: <input type="text" data-field="dob" placeholder="20… / … / …"></td>
+      </tr>
+      <tr>
+        <td>ID No. <input type="text" data-field="idNo"></td>
+      </tr>
+      <tr>
+        <td>LURITS/CEMIS No. <input type="text" data-field="lurits"></td>
+      </tr>
+      <tr>
+        <td>Name of school: <input type="text" data-field="schoolName"></td>
+        <td>EMIS No.: <input type="text" data-field="emisNo"></td>
+      </tr>
+    </table>
 
-</div>
+    <div class="center-note">
+      This is a confidential document that must be kept in the Learner Profile
+    </div>
 
+    <div class="footer">CONFIDENTIAL</div>
+  </section>
 
-<div class="section">
+  <!-- SNA 1 PAGE -->
+  <section class="page">
+    <div class="conf-top">CONFIDENTIAL 2</div>
 
-<h3>Teacher Observations</h3>
+    <div class="bar">SUPPORT NEEDS ASSESSMENT (SNA 1 &amp; 2)<br>(School-Level Intervention)</div>
 
-<label>Learning difficulties observed</label>
-<textarea id="teacherObs"></textarea>
+    <p><strong>Both SNA 1 and 2 must be completed at school level</strong></p>
+    <p><strong>A Learner Profile, SNA 1 and SNA 2 will be required when support is requested from the District-based Support Team (DBST).</strong></p>
 
-<label>Support already provided</label>
-<textarea id="teacherSupport"></textarea>
+    <div class="subhead-bar">SNA 1: ASSESSMENT AND INTERVENTION BY TEACHER</div>
 
-</div>
+    <p class="italic">To be completed by the class teacher and/or subject teachers if the learner is taught by more than one teacher.</p>
+    <ul class="bullets">
+      <li>To be completed if the Learner Profile or Screening Report or teacher observation or parent interview shows that a learner has additional support needs.</li>
+      <li>Captures information that will be needed when support is requested from the School-based Support Team (SBST) by the teacher concerned.</li>
+    </ul>
 
+    <div class="section-title">1. AREAS OF CONCERN</div>
 
-<div class="section">
+    <p>Describe your concern about the learner.</p>
+    <div class="lined-box">
+      <textarea data-field="concern"></textarea>
+    </div>
 
-<h3>Parent Input</h3>
+    <p>When did you become aware of this?</p>
+    <div class="lined-box">
+      <input type="text" class="line-input" data-field="awareDate" style="padding:8px;">
+    </div>
 
-<label>Parent observations</label>
-<textarea id="parentObs"></textarea>
+    <p>How did you become aware of this – own observation or was it reported?</p>
+    <div class="lined-box">
+      <textarea data-field="awarenessHow"></textarea>
+    </div>
 
-<label>Home support strategies</label>
-<textarea id="homeSupport"></textarea>
+    <p>How is this observation currently affecting the learner’s learning and development? Describe.</p>
+    <div class="lined-box">
+      <textarea data-field="effectOnLearning"></textarea>
+    </div>
 
-</div>
+    <p><strong>Complete the following table with regard to the learner’s scholastic profile</strong> <span class="small">(information extracted from Learner Profile)</span></p>
 
+    <table class="grid scholastic">
+      <tr>
+        <td>YEAR</td>
+        <td><input type="text" data-field="year1"></td>
+        <td><input type="text" data-field="year2"></td>
+        <td><input type="text" data-field="year3"></td>
+        <td><input type="text" data-field="year4"></td>
+        <td><input type="text" data-field="year5"></td>
+        <td><input type="text" data-field="year6"></td>
+      </tr>
+      <tr>
+        <td>GRADE</td>
+        <td><input type="text" data-field="grade1"></td>
+        <td><input type="text" data-field="grade2"></td>
+        <td><input type="text" data-field="grade3"></td>
+        <td><input type="text" data-field="grade4"></td>
+        <td><input type="text" data-field="grade5"></td>
+        <td><input type="text" data-field="grade6"></td>
+      </tr>
+      <tr>
+        <td>RESULT<br><span class="small">(Pass/more time/progressed)</span></td>
+        <td><input type="text" data-field="result1"></td>
+        <td><input type="text" data-field="result2"></td>
+        <td><input type="text" data-field="result3"></td>
+        <td><input type="text" data-field="result4"></td>
+        <td><input type="text" data-field="result5"></td>
+        <td><input type="text" data-field="result6"></td>
+      </tr>
+      <tr>
+        <td>NUMBER OF SCHOOLS ATTENDED</td>
+        <td><input type="text" data-field="schools1"></td>
+        <td><input type="text" data-field="schools2"></td>
+        <td><input type="text" data-field="schools3"></td>
+        <td><input type="text" data-field="schools4"></td>
+        <td><input type="text" data-field="schools5"></td>
+        <td><input type="text" data-field="schools6"></td>
+      </tr>
+    </table>
 
-<div class="section">
+    <p>Has any disability been diagnosed by a healthcare professional?</p>
+    <div class="lined-box">
+      <input type="text" class="line-input" data-field="diagnosedDisability" style="padding:8px;">
+    </div>
 
-<h3>Support Team Notes</h3>
+    <p class="italic">(as captured in the Medical and Health Assessment Form [Annexure D])</p>
 
-<label>Recommended interventions</label>
-<textarea id="interventions"></textarea>
+    <div class="footer">CONFIDENTIAL</div>
+  </section>
 
-<label>Review date</label>
-<input type="date" id="reviewDate">
+  <!-- STRENGTHS AND NEEDS -->
+  <section class="page">
+    <div class="conf-top">CONFIDENTIAL 3</div>
 
-</div>
+    <p>If Yes, complete the following and attach reports.</p>
+    <table class="grid">
+      <tr>
+        <th>Health-care Professional</th>
+        <th>Date of assessment</th>
+        <th>Summary of results</th>
+      </tr>
+      <tr>
+        <td><input type="text" data-field="hcpName"></td>
+        <td><input type="text" data-field="hcpDate"></td>
+        <td><input type="text" data-field="hcpSummary"></td>
+      </tr>
+    </table>
 
+    <div class="section-title">2. STRENGTHS AND NEEDS OF THE LEARNER</div>
+    <p>Indicate the strengths and needs of the learner by completing the sections below.</p>
 
-<button onclick="saveForm()">Save Form</button>
+    <p><strong>2.1 Communication:</strong><br>
+      – The learner’s ability to understand what other people are saying as well as to express him/herself in a way that other people understand – receptive and expressive language
+    </p>
+    <table class="grid">
+      <tr>
+        <th>Strengths</th>
+        <th>Needs/At risk factors</th>
+        <th>Support needed</th>
+      </tr>
+      <tr><td><textarea data-field="commStrength"></textarea></td><td><textarea data-field="commNeeds"></textarea></td><td><textarea data-field="commSupport"></textarea></td></tr>
+    </table>
 
-<script>
+    <p><strong>2.2 Learning:</strong><br>
+      – The learner’s ability to participate satisfactorily on grade level regarding subject content and assessment
+    </p>
+    <table class="grid">
+      <tr>
+        <th>Strengths</th>
+        <th>Needs/At risk factors</th>
+        <th>Support needed</th>
+      </tr>
+      <tr><td><textarea data-field="learnStrength"></textarea></td><td><textarea data-field="learnNeeds"></textarea></td><td><textarea data-field="learnSupport"></textarea></td></tr>
+    </table>
 
-function saveForm(){
+    <p><strong>2.3 Behaviour and social competence:</strong><br>
+      – The learner’s ability to interact and work with other learners, as well as follow classroom routines
+    </p>
+    <table class="grid">
+      <tr>
+        <th>Strengths</th>
+        <th>Needs/At risk factors</th>
+        <th>Support needed</th>
+      </tr>
+      <tr><td><textarea data-field="behStrength"></textarea></td><td><textarea data-field="behNeeds"></textarea></td><td><textarea data-field="behSupport"></textarea></td></tr>
+    </table>
 
-let data = {
+    <p><strong>2.4 Classroom and school:</strong><br>
+      – Factors within the classroom and school environment that are impacting on the learner’s effective participation
+    </p>
+    <table class="grid">
+      <tr>
+        <th>Strengths</th>
+        <th>Needs/At risk factors</th>
+        <th>Support needed</th>
+      </tr>
+      <tr><td><textarea data-field="classStrength"></textarea></td><td><textarea data-field="classNeeds"></textarea></td><td><textarea data-field="classSupport"></textarea></td></tr>
+    </table>
 
-learnerName: document.getElementById("learnerName").value,
-grade: document.getElementById("grade").value,
-school: document.getElementById("school").value,
-date: document.getElementById("date").value,
-teacherObs: document.getElementById("teacherObs").value,
-teacherSupport: document.getElementById("teacherSupport").value,
-parentObs: document.getElementById("parentObs").value,
-homeSupport: document.getElementById("homeSupport").value,
-interventions: document.getElementById("interventions").value,
-reviewDate: document.getElementById("reviewDate").value
+    <div class="footer">CONFIDENTIAL</div>
+  </section>
 
-}
+  <script>
+    const STORAGE_KEY = "sna_form_exact_style_v1";
 
-localStorage.setItem("snaForm", JSON.stringify(data))
+    function saveForm() {
+      const fields = document.querySelectorAll("[data-field]");
+      const data = {};
+      fields.forEach(field => data[field.dataset.field] = field.value);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      alert("SNA form saved on this device.");
+    }
 
-alert("Form Saved")
+    function loadForm() {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return;
+      const data = JSON.parse(raw);
+      document.querySelectorAll("[data-field]").forEach(field => {
+        field.value = data[field.dataset.field] || "";
+      });
+    }
 
-}
-
-</script>
-
+    loadForm();
+  </script>
 </body>
 </html>
