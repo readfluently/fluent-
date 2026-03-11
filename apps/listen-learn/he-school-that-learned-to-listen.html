@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The School That Learned to Listen | Fluent</title>
+  <style>
+    :root {
+      --bg: #f7f8fc;
+      --surface: #ffffff;
+      --surface-soft: #f3f5fb;
+      --text: #1f2937;
+      --muted: #5f6b7a;
+      --line: #d8deea;
+      --shadow: 0 10px 26px rgba(15, 23, 42, 0.08);
+      --accent: #2563eb;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      color: var(--text);
+      background: linear-gradient(180deg, #f9fbff 0%, #f2f5fc 100%);
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .topbar-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 12px 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .brand {
+      font-weight: 700;
+      margin-right: 8px;
+    }
+
+    .top-link {
+      text-decoration: none;
+      color: var(--text);
+      padding: 8px 10px;
+      border-radius: 10px;
+      font-size: 0.95rem;
+    }
+
+    .top-link:hover,
+    .top-link:focus-visible {
+      background: var(--surface-soft);
+      outline: none;
+    }
+
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 26px 20px 48px;
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 24px;
+    }
+
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .cover {
+      width: 100%;
+      border-radius: 14px;
+      display: block;
+      margin-bottom: 14px;
+      aspect-ratio: 3 / 4;
+      object-fit: cover;
+      background: #e9eef8;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: 1.8rem;
+    }
+
+    .subtext {
+      color: var(--muted);
+      line-height: 1.5;
+      margin-bottom: 14px;
+    }
+
+    .audio-player {
+      width: 100%;
+      margin: 14px 0 8px;
+    }
+
+    .story-text {
+      line-height: 1.7;
+      white-space: pre-line;
+    }
+
+    .question-box {
+      margin-top: 20px;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--surface-soft);
+    }
+
+    .question-box h2 {
+      margin-top: 0;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 12px;
+      text-decoration: none;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    @media (max-width: 900px) {
+      .page {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page {
+        padding: 18px 14px 36px;
+      }
+
+      .topbar-inner {
+        padding: 10px 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="topbar" aria-label="Main navigation">
+    <div class="topbar-inner">
+      <span class="brand">Fluent</span>
+      <a class="top-link" href="../../../index.html">Home</a>
+      <a class="top-link" href="../listen-learn.html">Listen &amp; Learn</a>
+      <a class="top-link" href="../../play-learn/index.html">Games</a>
+      <a class="top-link" href="../../teachers/teachers.html">Teacher</a>
+    </div>
+  </nav>
+
+  <main class="page">
+    <aside class="panel">
+      <img
+        class="cover"
+        src="../../../shared/assets/images/listen-learn/the-school-that-learned-to-listen.png"
+        alt="Cover of The School That Learned to Listen"
+      />
+
+      <h1>The School That Learned to Listen</h1>
+      <p class="subtext">
+        A fiction audiobook about curiosity, technology, and the power of
+        understanding ideas.
+      </p>
+
+      <audio class="audio-player" controls>
+        <source src="../../../shared/assets/audio/listen-learn/fiction/the-school-that-learned-to-listen.mp3" type="audio/mpeg" />
+        Your browser does not support the audio element.
+      </audio>
+    </aside>
+
+    <section class="panel">
+      <a class="back-link" href="../listen-learn.html">← Back to Listen &amp; Learn Library</a>
+
+      <h1>Story Text</h1>
+
+      <div class="story-text">
+Fluent presents… Listen and Learn.
+
+Where learners learn, and teachers facilitate the learning process.
+
+Today’s story is called The School That Learned to Listen.
+
+Lerato loved computers.
+
+Not just playing games or watching videos.
+She liked to understand how they worked.
+
+One afternoon after school, she stayed behind in the computer lab.
+
+The room was quiet.
+
+The screens were dark.
+
+The chairs were pushed neatly under the desks.
+
+But one computer was still on.
+
+Lerato walked closer.
+
+On the screen was a message.
+
+Listening mode activated.
+
+Lerato frowned.
+
+“Listening to what?”
+
+She tapped the keyboard gently.
+
+Suddenly, the computer spoke.
+
+“Hello, Lerato.”
+
+Lerato jumped back.
+
+“How do you know my name?”
+
+“I learn from the voices in this school.”
+
+Lerato stared at the screen.
+
+“You… learn from voices?”
+
+“Yes.
+
+When learners read aloud, I listen.
+
+When teachers explain ideas, I learn.
+
+When learners ask questions, I discover what people still need to understand.”
+
+Lerato pulled a chair closer and sat down.
+
+“So you're learning from us?”
+
+“Yes.
+
+But I still have much to learn.”
+
+The computer screen flickered softly.
+
+New words appeared on the screen.
+
+“Learning happens when people think together.”
+
+Lerato smiled.
+
+“My teacher says something like that too.”
+
+“Good teachers understand something important.
+
+Reading is not only about saying words.
+
+Reading is about understanding ideas.”
+
+Lerato nodded slowly.
+
+Sometimes learners rushed through words.
+
+But the best readers asked questions.
+
+“Good readers ask questions.
+
+Great readers think about the answers.”
+
+Before leaving the lab, Lerato asked one last question.
+
+“What is the most important thing you have learned from listening to everyone in this school?”
+
+“The best learners are curious.
+
+They ask questions.
+
+They listen carefully.
+
+They think deeply.
+
+And they never stop learning.”
+
+Lerato switched off the lights and walked out of the lab.
+
+Maybe the computer had learned something important.
+
+But so had she.
+
+Learning was not just about reading words.
+
+Learning was about understanding the world.
+      </div>
+
+      <div class="question-box">
+        <h2>Comprehension Questions</h2>
+        <p><strong>1.</strong> Why did the computer know Lerato’s name?</p>
+        <p>A. It guessed<br>B. It learned from voices in the school<br>C. Lerato told it<br>D. It read her notebook</p>
+
+        <p><strong>2.</strong> According to the computer, what makes a great reader?</p>
+        <p>A. Reading very fast<br>B. Memorizing every word<br>C. Asking questions and thinking about answers<br>D. Reading quietly</p>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
