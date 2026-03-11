@@ -1,346 +1,89 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Fluent | Listen & Learn</title>
-  <style>
-    :root {
-      --bg: #f7f8fc;
-      --surface: #ffffff;
-      --surface-soft: #f3f5fb;
-      --text: #1f2937;
-      --muted: #5f6b7a;
-      --line: #d8deea;
-      --shadow: 0 10px 26px rgba(15, 23, 42, 0.08);
-      --shadow-hover: 0 14px 30px rgba(15, 23, 42, 0.14);
-      --accent: #2563eb;
-    }
+Update the Listen & Learn book detail page and the Listen & Learn library so the layout is cleaner and more consistent with the app.
 
-    * {
-      box-sizing: border-box;
-    }
+Context
+- Repo has a Listen & Learn section under: apps/listen-learn/
+- The book detail page is: apps/listen-learn/the-school-that-learned-to-listen.html
+- The library page is: apps/listen-learn/listen-learn.html
+- Assets are in shared/assets/
+- Current problems:
+  1. On the book detail page, the cover image is too large.
+  2. The audio/play controls are too small compared to the cover.
+  3. The full story text should be removed from the book detail page.
+  4. The second container on the book detail page should contain only the comprehension activity.
+  5. The book detail page should also include the same “Record and Play” style interaction used in the library, so learners can record and listen to themselves.
+  6. The Listen & Learn library and the book detail page should feel visually consistent.
 
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      color: var(--text);
-      background: linear-gradient(180deg, #f9fbff 0%, #f2f5fc 100%);
-    }
+Make the following changes:
 
-    .topbar {
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(6px);
-      border-bottom: 1px solid var(--line);
-    }
+1. Book detail page layout
+- Redesign the page so it has a balanced two-section layout.
+- Reduce the visual size of the book cover image so it does not dominate the page.
+- Make the audio player area more prominent and easier to use.
+- Keep the page responsive for desktop and mobile.
 
-    .topbar-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 12px 20px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      align-items: center;
-    }
+2. Remove story text
+- Remove the full story text/content section from the book detail page.
+- Do not leave an empty text container behind.
+- The page should focus on:
+  - book cover
+  - title / short intro if needed
+  - audio player
+  - comprehension activity
+  - record and play learner response feature
 
-    .brand {
-      font-weight: 700;
-      margin-right: 8px;
-    }
+3. Comprehension container
+- Replace the second container so it contains only a comprehension question/activity.
+- Use a clean card style.
+- Keep it simple and suitable for learners.
+- Add a clear heading like “Comprehension” or similar.
 
-    .top-link {
-      text-decoration: none;
-      color: var(--text);
-      padding: 8px 10px;
-      border-radius: 10px;
-      font-size: 0.95rem;
-    }
+4. Record and Play feature
+- Replicate the same record/play interaction pattern already used in the Listen & Learn library.
+- Reuse the existing JavaScript logic and UI pattern if present instead of inventing a different implementation.
+- If the existing record/play code is embedded in another page, extract/reuse it cleanly.
+- The learner should be able to:
+  - start recording
+  - stop recording
+  - playback their recording
+  - see clear labels/buttons
+- Keep the controls larger and touch-friendly.
 
-    .top-link:hover,
-    .top-link:focus-visible {
-      background: var(--surface-soft);
-      outline: none;
-    }
+5. Styling improvements
+- Make the cover image smaller with a sensible max-width.
+- Make the audio controls and record/play controls more visually prominent.
+- Improve spacing, alignment, button sizing, and container widths.
+- Keep the style aligned with the existing Fluent / Read Fluently look and feel.
+- Avoid oversized empty space.
+- Use accessible button labels and semantic structure.
 
-    .page {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 26px 20px 48px;
-    }
+6. Consistency across Listen & Learn pages
+- Update the Listen & Learn library styling if needed so the record/play area and book cards visually align better with the updated detail page.
+- Do not break existing working paths for images, audio, or book links.
 
-    .hero {
-      background: var(--surface);
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      box-shadow: var(--shadow);
-      padding: 24px;
-      margin-bottom: 22px;
-    }
+7. Preserve working paths
+- Do not change any working relative asset paths unless necessary.
+- Keep the current working book link:
+  - href="the-school-that-learned-to-listen.html"
+- Keep working image/audio references intact unless only styling/layout needs change.
 
-    .hero h1 {
-      margin: 0 0 8px;
-      font-size: clamp(1.8rem, 3vw, 2.4rem);
-    }
+Implementation notes
+- Prefer editing existing HTML/CSS/JS rather than rewriting everything from scratch.
+- If styles are inline in the page, improve them there unless there is already a shared stylesheet for this section.
+- If JavaScript for record/play already exists elsewhere in the Listen & Learn pages, reuse and adapt it.
+- Ensure no 404s are introduced.
+- Ensure the book cover still displays correctly.
+- Ensure the audio still plays correctly.
 
-    .hero p {
-      margin: 0;
-      color: var(--muted);
-      line-height: 1.5;
-      max-width: 760px;
-    }
+Acceptance criteria
+- Book detail page shows a smaller, well-proportioned cover image.
+- Audio controls are more prominent.
+- Full story text is removed.
+- Second container contains only comprehension content.
+- Record and play feature exists on the book detail page and works like the library version.
+- Layout is clean, responsive, and consistent with the library.
+- Existing image, audio, and open-book functionality still work.
 
-    .section {
-      background: var(--surface);
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      padding: 18px;
-      box-shadow: var(--shadow);
-      margin-bottom: 18px;
-    }
-
-    .section-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      margin-bottom: 14px;
-    }
-
-    .section-head h2 {
-      margin: 0;
-      font-size: 1.05rem;
-      letter-spacing: 0.04em;
-      color: #334155;
-    }
-
-    .shelf-wrap {
-      position: relative;
-    }
-
-    .shelf {
-      display: grid;
-      grid-auto-flow: column;
-      grid-auto-columns: minmax(220px, 240px);
-      gap: 14px;
-      overflow-x: auto;
-      padding-bottom: 10px;
-      scroll-behavior: smooth;
-    }
-
-    .shelf::-webkit-scrollbar {
-      height: 10px;
-    }
-
-    .shelf::-webkit-scrollbar-track {
-      background: #eef2f9;
-      border-radius: 999px;
-    }
-
-    .shelf::-webkit-scrollbar-thumb {
-      background: #c6d2e8;
-      border-radius: 999px;
-    }
-
-    .book-card {
-      background: #fff;
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      overflow: hidden;
-      box-shadow: 0 6px 18px rgba(15, 23, 42, 0.05);
-      display: flex;
-      flex-direction: column;
-      min-height: 100%;
-    }
-
-    .book-card:hover {
-      box-shadow: var(--shadow-hover);
-    }
-
-    .book-cover {
-      width: 100%;
-      aspect-ratio: 3 / 4;
-      object-fit: cover;
-      display: block;
-      background: #e9eef8;
-    }
-
-    .book-body {
-      padding: 14px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      flex: 1;
-    }
-
-    .book-title {
-      margin: 0;
-      font-size: 1rem;
-      line-height: 1.3;
-    }
-
-    .book-meta {
-      margin: 0;
-      color: var(--muted);
-      font-size: 0.88rem;
-      line-height: 1.4;
-      min-height: 56px;
-    }
-
-    .book-actions {
-      margin-top: auto;
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    .btn {
-      display: inline-block;
-      text-decoration: none;
-      border: none;
-      border-radius: 10px;
-      padding: 10px 12px;
-      font-weight: 700;
-      cursor: pointer;
-      font-size: 0.92rem;
-    }
-
-    .btn-primary {
-      background: var(--accent);
-      color: #fff;
-    }
-
-    .btn-secondary {
-      background: #e9eef8;
-      color: #1f2937;
-    }
-
-    .coming-soon {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      min-height: 320px;
-      border: 2px dashed #d1d9e8;
-      border-radius: 14px;
-      background: #fafcff;
-      color: var(--muted);
-      padding: 18px;
-      font-weight: 700;
-    }
-
-    .note {
-      margin-top: 12px;
-      color: var(--muted);
-      font-size: 0.92rem;
-      text-align: center;
-    }
-
-    @media (max-width: 640px) {
-      .page {
-        padding: 18px 14px 36px;
-      }
-
-      .topbar-inner {
-        padding: 10px 14px;
-      }
-
-      .shelf {
-        grid-auto-columns: minmax(200px, 220px);
-      }
-    }
-  </style>
-</head>
-<body>
-  <nav class="topbar" aria-label="Main navigation">
-    <div class="topbar-inner">
-      <span class="brand">Fluent</span>
-      <a class="top-link" href="../../index.html">Home</a>
-      <a class="top-link" href="../library/library.html">Library</a>
-      <a class="top-link" href="../play-learn/index.html">Games</a>
-      <a class="top-link" href="../dictionary/dictionary.html">Dictionary</a>
-      <a class="top-link" href="../exemplars/exemplars.html">Exemplars</a>
-      <a class="top-link" href="../teachers/teachers.html">Teacher</a>
-    </div>
-  </nav>
-
-  <main class="page">
-    <section class="hero">
-      <h1>Listen &amp; Learn Library</h1>
-      <p>
-        Explore audiobooks and listening texts designed to build comprehension,
-        vocabulary, reflection, and thinking skills.
-      </p>
-    </section>
-
-    <section class="section" aria-labelledby="fiction-heading">
-      <div class="section-head">
-        <h2 id="fiction-heading">FICTION</h2>
-      </div>
-
-      <div class="shelf-wrap">
-        <div class="shelf">
-         <article class="book-card">
-  <img
-    src="../../shared/assets/images/the-school-that-learned-to-listen-cover.png"
-    alt="Cover of The School That Learned to Listen"
-  >
-
-  <div class="book-card-content">
-    <h3>The School That Learned to Listen</h3>
-    <p>A fiction story about a curious girl who learns the power of listening.</p>
-
-    <div class="book-actions">
-      <a class="btn btn-primary" href="the-school-that-learned-to-listen.html">Open Book</a>
-    </div>
-  </div>
-</article>
-
-          <div class="book-card coming-soon">
-            More fiction audiobooks coming soon.
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" aria-labelledby="curriculum-heading">
-      <div class="section-head">
-        <h2 id="curriculum-heading">CURRICULUM-ALIGNED NON-FICTION</h2>
-      </div>
-
-      <div class="shelf-wrap">
-        <div class="shelf">
-          <div class="book-card coming-soon">
-            Curriculum-aligned listening texts will appear here.
-          </div>
-          <div class="book-card coming-soon">
-            Add future CAPS-linked audio texts here.
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" aria-labelledby="general-heading">
-      <div class="section-head">
-        <h2 id="general-heading">GENERAL NON-FICTION</h2>
-      </div>
-
-      <div class="shelf-wrap">
-        <div class="shelf">
-          <div class="book-card coming-soon">
-            Interesting real-world non-fiction audiobooks will appear here.
-          </div>
-          <div class="book-card coming-soon">
-            Science, nature, invention, history, and more.
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <p class="note">Swipe or scroll sideways to explore each shelf.</p>
-  </main>
-</body>
-</html>
+After making changes:
+- Show a concise summary of what was changed.
+- List the exact files edited.
+- Show the key updated HTML/CSS/JS sections.
