@@ -73,23 +73,70 @@
     }
 
     .hero {
-      background: var(--surface);
+      background: linear-gradient(135deg, #eef4ff 0%, #f9fbff 100%);
       border: 1px solid var(--line);
-      border-radius: 16px;
+      border-radius: 18px;
       box-shadow: var(--shadow);
       padding: 24px;
       margin-bottom: 22px;
+      display: grid;
+      grid-template-columns: 1.4fr 0.8fr;
+      gap: 20px;
+      align-items: center;
     }
 
     .hero h1 {
       margin: 0 0 8px;
       font-size: clamp(1.6rem, 3vw, 2.2rem);
+      color: #23406f;
     }
 
     .hero p {
       margin: 0;
       color: var(--muted);
+      line-height: 1.6;
+      max-width: 640px;
+    }
+
+    .hero-buddy {
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 18px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      min-height: 170px;
+    }
+
+    .buddy-circle {
+      width: 78px;
+      height: 78px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.4rem;
+      background: linear-gradient(135deg, #dff7e7 0%, #f4fbf6 100%);
+      border: 1px solid #cce6d3;
+      margin-bottom: 10px;
+    }
+
+    .hero-buddy strong {
+      display: block;
+      font-size: 1.1rem;
+      color: #23406f;
+      margin-bottom: 6px;
+    }
+
+    .hero-buddy span {
+      display: block;
+      font-size: 0.92rem;
       line-height: 1.5;
+      color: var(--muted);
     }
 
     .category {
@@ -118,7 +165,6 @@
       display: block;
       text-decoration: none;
       color: var(--text);
-      background: #fff;
       border: 1px solid var(--line);
       border-radius: 14px;
       padding: 18px;
@@ -138,6 +184,7 @@
       display: block;
       font-size: 1.05rem;
       margin-bottom: 6px;
+      color: #243b63;
     }
 
     .tile span {
@@ -145,6 +192,42 @@
       font-size: 0.92rem;
       line-height: 1.4;
       color: var(--muted);
+    }
+
+    .tile-library {
+      background: #f1f4ff;
+    }
+
+    .tile-read {
+      background: #eaf8f1;
+    }
+
+    .tile-phonics {
+      background: #eef8ff;
+    }
+
+    .tile-games {
+      background: #edf9ef;
+    }
+
+    .tile-listen {
+      background: #f3edff;
+    }
+
+    .tile-writing {
+      background: #fff4e8;
+    }
+
+    .tile-lesson {
+      background: #eef6ff;
+    }
+
+    .tile-support {
+      background: #eaf7f7;
+    }
+
+    .tile-resources {
+      background: #fff5df;
     }
 
     .note {
@@ -155,6 +238,10 @@
     }
 
     @media (max-width: 860px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
       .tiles {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
@@ -190,25 +277,33 @@
 
   <main class="page">
     <header class="hero">
-      <h1>Welcome to Fluent</h1>
-      <p>
-        Where learners learn and teachers facilitate the learning process
-      </p>
+      <div>
+        <h1>Welcome to Fluent</h1>
+        <p>
+          Where learners learn and teachers facilitate the learning process.
+        </p>
+      </div>
+
+      <div class="hero-buddy">
+        <div class="buddy-circle">🦉</div>
+        <strong>FluentBuddy</strong>
+        <span>Your friendly guide for reading, listening, games, and teacher support.</span>
+      </div>
     </header>
 
     <section class="category" aria-labelledby="reading-heading">
       <h2 id="reading-heading">READING</h2>
       <div class="tiles">
-        <a class="tile" href="apps/library/library.html">
-          <strong>Library</strong>
+        <a class="tile tile-library" href="apps/library/library.html">
+          <strong>📚 Library</strong>
           <span>Browse and open books for reading.</span>
         </a>
-        <a class="tile" href="apps/decoding/decoding.html">
-          <strong>Read Fluently</strong>
+        <a class="tile tile-read" href="apps/decoding/decoding.html">
+          <strong>🗣️ Read Fluently</strong>
           <span>Guided reading practice and fluency support.</span>
         </a>
-        <a class="tile" href="apps/phonics-path/phonics-path.html">
-          <strong>Phonics Path</strong>
+        <a class="tile tile-phonics" href="apps/phonics-path/phonics-path.html">
+          <strong>🔤 Phonics Path</strong>
           <span>Build foundational decoding and sound-letter skills.</span>
         </a>
       </div>
@@ -217,42 +312,41 @@
     <section class="category" aria-labelledby="learner-heading">
       <h2 id="learner-heading">LEARNER ACTIVITIES</h2>
       <div class="tiles">
-       <a class="tile" href="apps/play-learn/index.html">
-  <strong>Games</strong>
-  <span>Play literacy games for practice and confidence.</span>
-</a>
-        <a class="tile" href="apps/listen-learn/listen-learn.html">
-  <strong>Listen &amp; Learn</strong>
-  <span>Audio stories and comprehension-focused activities.</span>
-</a>
-        <a class="tile" href="apps/writing/writing.html">
-          <strong>Writing</strong>
+        <a class="tile tile-games" href="apps/play-learn/index.html">
+          <strong>🎮 Games</strong>
+          <span>Play literacy games for practice and confidence.</span>
+        </a>
+        <a class="tile tile-listen" href="apps/listen-learn/listen-learn.html">
+          <strong>🎧 Listen &amp; Learn</strong>
+          <span>Audio stories and comprehension-focused activities.</span>
+        </a>
+        <a class="tile tile-writing" href="apps/writing/writing.html">
+          <strong>✍️ Writing</strong>
           <span>Respond to writing prompts and build expression.</span>
         </a>
       </div>
     </section>
 
-<section class="category" aria-labelledby="teacher-heading">
-  <h2 id="teacher-heading">TEACHER TOOLS</h2>
-  <div class="tiles">
+    <section class="category" aria-labelledby="teacher-heading">
+      <h2 id="teacher-heading">TEACHER TOOLS</h2>
+      <div class="tiles">
+        <a class="tile tile-lesson" href="apps/lesson-planner/lesson-planner.html">
+          <strong>🗓️ Lesson Planner</strong>
+          <span>Plan AI-supported lessons and classroom sequences.</span>
+        </a>
 
-    <a class="tile" href="apps/lesson-planner/lesson-planner.html">
-      <strong>Lesson Planner</strong>
-      <span>Plan AI-supported lessons and classroom sequences.</span>
-    </a>
+        <a class="tile tile-support" href="apps/support/sna1.html">
+          <strong>🧠 Individual Support Plan</strong>
+          <span>Coordinate SNA 1–3 learner support in shared workflows.</span>
+        </a>
 
-    <a class="tile" href="apps/support/sna1.html">
-      <strong>Individual Support Plan</strong>
-      <span>Coordinate SNA 1–3 learner support in shared workflows.</span>
-    </a>
+        <a class="tile tile-resources" href="apps/resources/resources.html">
+          <strong>📂 Resources</strong>
+          <span>Access teacher files, references, and support materials.</span>
+        </a>
+      </div>
+    </section>
 
-    <a class="tile" href="apps/resources/resources.html">
-      <strong>Resources</strong>
-      <span>Access teacher files, references, and support materials.</span>
-    </a>
-
-  </div>
-</section>
     <p class="note">Tip: Use tab + enter to navigate with a keyboard.</p>
   </main>
 </body>
