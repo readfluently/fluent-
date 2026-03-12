@@ -1,1 +1,26 @@
+body{
+font-family:Arial;
+text-align:center;
+background:#f5f7ff;
+}
 
+#word-display{
+font-size:60px;
+margin:40px;
+color:#6a5acd;
+}
+
+.answer{
+width:120px;
+padding:10px;
+margin:10px;
+font-size:20px;
+text-align:center;
+}
+
+button{
+padding:12px 20px;
+font-size:16px;
+margin:10px;
+cursor:pointer;
+}
