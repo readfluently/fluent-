@@ -71,12 +71,6 @@ body {
   gap: 22px;
 }
 
-.top-grid {
-  display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap: 20px;
-}
-
 .panel {
   border: 1px solid var(--line);
   border-radius: 18px;
@@ -92,6 +86,12 @@ body {
 .controls {
   display: grid;
   gap: 14px;
+}
+
+.bottom-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 20px;
 }
 
 .settings {
@@ -117,6 +117,14 @@ input[type="text"] {
   font-size: 1rem;
   outline: none;
   background: #fff;
+  transition: 0.2s ease;
+}
+
+select:focus,
+input[type="number"]:focus,
+input[type="text"]:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
 }
 
 .button-row {
@@ -253,7 +261,7 @@ button:disabled {
 }
 
 .answer-card h3 {
-  margin: 0 0 10px;
+  margin: 0;
   font-size: 0.95rem;
   color: var(--muted);
 }
@@ -263,6 +271,7 @@ button:disabled {
   align-items: center;
   justify-content: space-between;
   gap: 8px;
+  margin-bottom: 10px;
 }
 
 .star-mark {
@@ -302,6 +311,14 @@ button:disabled {
   font-size: 1.3rem;
   font-weight: 800;
   margin-bottom: 10px;
+}
+
+.score-good {
+  color: var(--success);
+}
+
+.score-try {
+  color: #c2410c;
 }
 
 .word-review {
@@ -358,7 +375,7 @@ button:disabled {
 }
 
 @media (max-width: 900px) {
-  .top-grid {
+  .bottom-grid {
     grid-template-columns: 1fr;
   }
 
