@@ -1,1 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Noun Sort Sprint</title>
+  <link rel="stylesheet" href="noun-sort-sprint.css" />
+</head>
+<body>
+  <main class="app">
+    <section class="card">
+      <header class="header">
+        <h1>Noun Sort Sprint</h1>
+        <p>Read the word and choose the correct type of noun.</p>
+      </header>
 
+      <div class="content">
+        <section class="stage" aria-live="polite">
+          <div class="word-label">Sort this noun:</div>
+          <div class="word-box" id="wordBox">Ready?</div>
+
+          <div class="status-row">
+            <span class="status-pill" id="roundText">Word 0 / 10</span>
+            <span class="status-pill" id="scoreText">Score: 0</span>
+          </div>
+        </section>
+
+        <section class="choices-section">
+          <div class="choices-grid">
+            <button class="choice-btn choice-common" data-type="common">Common Noun</button>
+            <button class="choice-btn choice-proper" data-type="proper">Proper Noun</button>
+            <button class="choice-btn choice-abstract" data-type="abstract">Abstract Noun</button>
+            <button class="choice-btn choice-collective" data-type="collective">Collective Noun</button>
+          </div>
+        </section>
+
+        <section class="feedback-panel" id="feedbackPanel">
+          <div class="feedback-message" id="feedbackMessage">Press Start Game to begin.</div>
+        </section>
+
+        <section class="results" id="resultsSection">
+          <div class="score-box" id="finalScore">Score: 0 / 10</div>
+          <p id="resultMessage"></p>
+          <div class="review-list" id="reviewList"></div>
+        </section>
+
+        <section class="bottom-grid">
+          <div class="panel controls">
+            <h2>Game Controls</h2>
+
+            <div class="settings">
+              <div>
+                <label for="wordCount">How many words?</label>
+                <select id="wordCount">
+                  <option value="8">8</option>
+                  <option value="10" selected>10</option>
+                  <option value="12">12</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="button-row">
+              <button id="startBtn" class="btn-start">Start Game</button>
+              <button id="playAgainBtn" class="btn-ghost">Play Again</button>
+            </div>
+
+            <div class="hint">
+              Click the correct noun type before moving to the next word.
+            </div>
+          </div>
+
+          <div class="panel">
+            <h2>How to Play</h2>
+            <ol class="instructions-list">
+              <li>Read the noun in the box.</li>
+              <li>Choose the correct noun type.</li>
+              <li>Correct answers earn a star.</li>
+              <li>Finish all words and check your score.</li>
+            </ol>
+          </div>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <script src="noun-sort-sprint.js"></script>
+</body>
+</html>
