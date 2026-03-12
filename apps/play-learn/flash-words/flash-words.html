@@ -1,42 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-<meta charset="UTF-8">
-<title>Flash Words</title>
-
-<link rel="stylesheet" href="flash-words.css">
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flash Words | Vocabulary Builder</title>
+  <link rel="stylesheet" href="flash-words.css" />
 </head>
-
 <body>
+  <main class="app">
+    <section class="card">
+      <header class="header">
+        <h1>Flash Words</h1>
+        <p>
+          Watch five words, remember them in order, then type them back.
+        </p>
+      </header>
 
-<h1>Flash Words</h1>
-<p>Watch the words carefully and type them in order.</p>
+      <div class="content">
+        <section class="top-grid">
+          <div class="panel controls">
+            <h2>Game Controls</h2>
 
-<div id="game-area">
+            <div class="settings">
+              <div>
+                <label for="levelSelect">Word Set</label>
+                <select id="levelSelect">
+                  <option value="easy">Easy Common Words</option>
+                  <option value="medium" selected>Medium Common Words</option>
+                  <option value="hard">Harder Common Words</option>
+                </select>
+              </div>
 
-<div id="word-display">Ready?</div>
+              <div>
+                <label for="flashTime">Flash Time (seconds)</label>
+                <input id="flashTime" type="number" min="1" max="5" step="1" value="2" />
+              </div>
 
-<button id="startBtn">Start Game</button>
+              <div>
+                <label for="blankTime">Pause Between Words (seconds)</label>
+                <input id="blankTime" type="number" min="0" max="3" step="1" value="1" />
+              </div>
+            </div>
 
-</div>
+            <div class="button-row">
+              <button id="startBtn" class="btn-start">Start Game</button>
+              <button id="checkBtn" class="btn-secondary" disabled>Check Answers</button>
+              <button id="playAgainBtn" class="btn-ghost">Play Again</button>
+            </div>
 
-<div id="answer-area">
+            <div class="hint">
+              Look carefully. Only the word in the flash box should appear during the flash round.
+            </div>
+          </div>
 
-<input class="answer" id="a1">
-<input class="answer" id="a2">
-<input class="answer" id="a3">
-<input class="answer" id="a4">
-<input class="answer" id="a5">
+          <div class="panel">
+            <h2>How to Play</h2>
+            <ol class="instructions-list">
+              <li>Watch each word in the flash box.</li>
+              <li>Remember the 5 words in order.</li>
+              <li>Type the words after the flashing ends.</li>
+              <li>Correct answers earn a star.</li>
+            </ol>
+          </div>
+        </section>
 
-<button id="checkBtn">Check Answers</button>
+        <section class="stage" aria-live="polite">
+          <div class="flash-wrap">
+            <div class="flash-label" id="flashLabel">Press “Start Game” to begin.</div>
 
-</div>
+            <div class="flash-box">
+              <div class="flash-word" id="flashWord">Ready?</div>
+            </div>
 
-<div id="result"></div>
+            <div class="countdown" id="countdownText"></div>
 
-<script src="flash-words.js"></script>
+            <div class="status-bar">
+              <span class="status-pill" id="statusRound">Words: 0 / 5</span>
+              <span class="status-pill" id="statusMode">Mode: Waiting</span>
+            </div>
+          </div>
+        </section>
 
+        <section class="answer-section" id="answerSection">
+          <div class="panel">
+            <h2>Type the words in order</h2>
+            <div class="answer-grid" id="answerGrid"></div>
+          </div>
+        </section>
+
+        <section class="results" id="resultsSection">
+          <div class="score-box" id="scoreBox">Score: 0 / 5</div>
+          <p id="resultMessage"></p>
+          <div class="word-review" id="wordReview"></div>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <script src="flash-words.js"></script>
 </body>
 </html>
