@@ -224,7 +224,7 @@
       border-radius: 18px;
       padding: 14px;
       outline: none;
-      line-height: 1.7;
+      line-height: 1.8;
       font-size: 1rem;
       background: white;
       overflow: auto;
@@ -307,25 +307,49 @@
       white-space: pre-wrap;
     }
 
+    .checked-line {
+      display: block;
+      position: relative;
+      padding-left: 30px;
+      margin: 0 0 6px;
+      line-height: 1.8;
+    }
+
+    .checked-line::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: #16a34a;
+      font-weight: 800;
+      font-size: 1rem;
+    }
+
+    .unchecked-line {
+      display: block;
+      padding-left: 30px;
+      margin: 0 0 6px;
+      line-height: 1.8;
+    }
+
     .spell-error {
       text-decoration: underline wavy red;
       text-decoration-thickness: 2px;
+      text-underline-offset: 2px;
       cursor: pointer;
       background: rgba(255, 0, 0, 0.04);
     }
 
     .grammar-error {
       border: 2px solid #dc2626;
-      border-radius: 6px;
-      padding: 1px 2px;
-      background: rgba(220, 38, 38, 0.06);
+      border-radius: 8px;
+      padding: 2px 4px;
+      background: rgba(220, 38, 38, 0.08);
       cursor: pointer;
     }
 
-    .correct-text {
-      background: rgba(34, 197, 94, 0.12);
-      border-bottom: 2px solid #22c55e;
-      border-radius: 4px;
+    .speaker-label {
+      font-weight: 700;
     }
 
     .suggestion-popup {
@@ -463,7 +487,6 @@
           <div class="toolbar">
             <button class="tool-btn" type="button" onclick="formatText('bold')"><strong>B</strong></button>
             <button class="tool-btn" type="button" onclick="formatText('underline')"><u>U</u></button>
-            <button class="tool-btn" type="button" onclick="formatText('insertUnorderedList')">• List</button>
             <button class="tool-btn" type="button" onclick="formatText('removeFormat')">Clear</button>
           </div>
 
@@ -552,6 +575,13 @@ Lerato: You are welcome. Maybe we can both borrow a book today.</p>
              category.includes("misspelling");
     }
 
+    function closePopup() {
+      if (popupEl) {
+        popupEl.remove();
+        popupEl = null;
+      }
+    }
+
     function attachErrorClickHandlers() {
       document.querySelectorAll(".spell-error, .grammar-error").forEach(el => {
         el.addEventListener("click", (event) => {
@@ -559,13 +589,6 @@ Lerato: You are welcome. Maybe we can both borrow a book today.</p>
           showSuggestionPopup(el);
         });
       });
-    }
-
-    function closePopup() {
-      if (popupEl) {
-        popupEl.remove();
-        popupEl = null;
-      }
     }
 
     function showSuggestionPopup(target) {
@@ -603,23 +626,37 @@ Lerato: You are welcome. Maybe we can both borrow a book today.</p>
       popupEl.style.top = `${window.scrollY + rect.bottom + 8}px`;
     }
 
-    function renderHighlightedText(text, matches) {
-      const sorted = [...matches].sort((a, b) => a.offset - b.offset);
+    function getSpeakerLabel(line) {
+      const match = line.match(/^\s*([A-Za-z][A-Za-z\s'-]{0,30}):\s*/);
+      return match ? match[0] : "";
+    }
+
+    function makeCheckText(line) {
+      const speaker = getSpeakerLabel(line);
+      const rest = line.slice(speaker.length);
+      return {
+        speaker,
+        rest,
+        checkable: rest.trim() ? rest : ""
+      };
+    }
+
+    function buildMatchesForLine(lineText, lineMatches) {
       let html = "";
       let cursor = 0;
 
-      sorted.forEach((match, index) => {
+      lineMatches.sort((a, b) => a.offset - b.offset);
+
+      for (let i = 0; i < lineMatches.length; i++) {
+        const match = lineMatches[i];
         const start = match.offset;
         const end = match.offset + match.length;
 
-        if (start < cursor) return;
+        if (start < cursor) continue;
 
-        const cleanText = text.slice(cursor, start);
-        if (cleanText) {
-          html += `<span class="correct-text">${escapeHtml(cleanText)}</span>`;
-        }
+        html += escapeHtml(lineText.slice(cursor, start));
 
-        const original = text.slice(start, end);
+        const original = lineText.slice(start, end);
         const cssClass = isSpellingMatch(match) ? "spell-error" : "grammar-error";
         const suggestions = (match.replacements || []).slice(0, 3).map(r => r.value);
 
@@ -632,20 +669,38 @@ Lerato: You are welcome. Maybe we can both borrow a book today.</p>
         `;
 
         cursor = end;
-      });
-
-      const remaining = text.slice(cursor);
-      if (remaining) {
-        html += `<span class="correct-text">${escapeHtml(remaining)}</span>`;
       }
 
-      editor.innerHTML = html;
+      html += escapeHtml(lineText.slice(cursor));
+      return html;
+    }
+
+    function renderDialogueLines(lines, lineMatchMap) {
+      const html = lines.map((line, index) => {
+        const speaker = getSpeakerLabel(line);
+        const rest = line.slice(speaker.length);
+        const lineMatches = lineMatchMap[index] || [];
+        const hasErrors = lineMatches.length > 0;
+
+        const renderedRest = hasErrors
+          ? buildMatchesForLine(rest, lineMatches)
+          : escapeHtml(rest);
+
+        const lineClass = hasErrors ? "unchecked-line" : "checked-line";
+        const speakerHtml = speaker
+          ? `<span class="speaker-label">${escapeHtml(speaker)}</span>`
+          : "";
+
+        return `<div class="${lineClass}">${speakerHtml}${renderedRest}</div>`;
+      }).join("");
+
+      editor.innerHTML = html || "";
       attachErrorClickHandlers();
     }
 
     function showFeedbackList(matches) {
       if (!matches.length) {
-        feedbackList.innerHTML = "<li>Excellent work. No spelling or grammar issues were found.</li>";
+        feedbackList.innerHTML = "<li>Excellent work. All lines checked are error free.</li>";
         return;
       }
 
@@ -655,8 +710,24 @@ Lerato: You are welcome. Maybe we can both borrow a book today.</p>
       }).join("");
     }
 
+    async function checkSingleLine(text) {
+      const formData = new URLSearchParams();
+      formData.append("text", text);
+      formData.append("language", "en-US");
+
+      const response = await fetch("https://api.languagetool.org/v2/check", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: formData.toString()
+      });
+
+      return response.json();
+    }
+
     async function submitWriting() {
-      const rawText = (editor.innerText || "").trim();
+      const rawText = (editor.innerText || "").replace(/\r/g, "").trim();
 
       if (!rawText) {
         feedbackList.innerHTML = "<li>Please write your dialogue first.</li>";
@@ -665,23 +736,32 @@ Lerato: You are welcome. Maybe we can both borrow a book today.</p>
       }
 
       try {
-        const formData = new URLSearchParams();
-        formData.append("text", rawText);
-        formData.append("language", "en-US");
+        const lines = rawText.split("\n");
+        const lineMatchMap = {};
+        const allMatches = [];
 
-        const response = await fetch("https://api.languagetool.org/v2/check", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
-          },
-          body: formData.toString()
-        });
+        for (let i = 0; i < lines.length; i++) {
+          const line = lines[i];
+          const parts = makeCheckText(line);
+          const checkText = parts.checkable;
 
-        const data = await response.json();
-        const matches = data.matches || [];
+          if (!checkText.trim()) {
+            lineMatchMap[i] = [];
+            continue;
+          }
 
-        renderHighlightedText(rawText, matches);
-        showFeedbackList(matches);
+          const data = await checkSingleLine(checkText);
+          const matches = (data.matches || []).filter(match => {
+            const badWord = checkText.slice(match.offset, match.offset + match.length).trim().toLowerCase();
+            return badWord !== "lerato" && badWord !== "thabo";
+          });
+
+          lineMatchMap[i] = matches;
+          allMatches.push(...matches);
+        }
+
+        renderDialogueLines(lines, lineMatchMap);
+        showFeedbackList(allMatches);
         results.classList.add("show");
         results.scrollIntoView({ behavior: "smooth", block: "start" });
       } catch (error) {
