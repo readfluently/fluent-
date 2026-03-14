@@ -3,22 +3,32 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Fluent | Picture-Guided Writing</title>
+  <title>Fluent | Writing Studio</title>
   <style>
     :root {
       --bg: #f6f8fc;
       --surface: #ffffff;
+      --surface-soft: #eef4ff;
+      --surface-soft-2: #f5f3ff;
       --text: #1f2937;
       --muted: #667085;
       --line: #d9e2f0;
       --primary: #2563eb;
       --primary-dark: #1d4ed8;
+      --secondary: #7c3aed;
+      --secondary-dark: #6d28d9;
       --shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
       --shadow-hover: 0 18px 34px rgba(15, 23, 42, 0.14);
       --max-width: 1180px;
     }
 
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
 
     body {
       margin: 0;
@@ -26,17 +36,13 @@
       color: var(--text);
       background:
         radial-gradient(circle at top left, #dbeafe 0%, transparent 26%),
+        radial-gradient(circle at top right, #ede9fe 0%, transparent 24%),
         linear-gradient(180deg, #f8fbff 0%, #f4f7fb 100%);
     }
 
     a {
       text-decoration: none;
       color: inherit;
-    }
-
-    img {
-      display: block;
-      max-width: 100%;
     }
 
     .page {
@@ -47,10 +53,10 @@
 
     .topbar {
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
       gap: 16px;
-      margin-bottom: 24px;
+      margin-bottom: 22px;
     }
 
     .brand {
@@ -58,6 +64,7 @@
       align-items: center;
       gap: 12px;
       font-weight: 800;
+      font-size: 1.08rem;
     }
 
     .brand-badge {
@@ -66,142 +73,326 @@
       border-radius: 14px;
       display: grid;
       place-items: center;
-      color: white;
-      background: linear-gradient(135deg, #2563eb, #60a5fa);
+      color: #fff;
+      background: linear-gradient(135deg, #2563eb, #7c3aed);
       box-shadow: var(--shadow);
       font-size: 1.15rem;
     }
 
-    .nav-links {
+    .top-links {
       display: flex;
       gap: 10px;
       flex-wrap: wrap;
     }
 
-    .nav-links a {
+    .top-links a {
       padding: 10px 14px;
       border: 1px solid var(--line);
       border-radius: 999px;
-      background: rgba(255,255,255,0.85);
+      background: rgba(255, 255, 255, 0.84);
       color: var(--muted);
       font-weight: 700;
       font-size: 0.95rem;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .top-links a:hover {
+      transform: translateY(-1px);
+      box-shadow: var(--shadow);
     }
 
     .hero {
-      background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 100%);
-      color: white;
-      border-radius: 28px;
-      padding: 28px 24px;
+      background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 48%, #7c3aed 100%);
+      color: #fff;
+      border-radius: 30px;
+      padding: 34px 28px;
       box-shadow: var(--shadow);
-      margin-bottom: 26px;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 28px;
+    }
+
+    .hero::before,
+    .hero::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .hero::before {
+      width: 220px;
+      height: 220px;
+      top: -70px;
+      right: -50px;
+    }
+
+    .hero::after {
+      width: 160px;
+      height: 160px;
+      bottom: -55px;
+      left: -25px;
+    }
+
+    .hero-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1.3fr 0.95fr;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.15);
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 12px;
     }
 
     .hero h1 {
-      margin: 0 0 10px;
-      font-size: clamp(1.9rem, 5vw, 2.7rem);
+      margin: 0 0 12px;
+      font-size: clamp(2rem, 5vw, 3rem);
+      line-height: 1.08;
     }
 
     .hero p {
       margin: 0;
-      max-width: 760px;
       line-height: 1.65;
-      color: rgba(255,255,255,0.92);
+      color: rgba(255, 255, 255, 0.93);
+      font-size: 1.03rem;
+      max-width: 720px;
+    }
+
+    .hero-points {
+      display: grid;
+      gap: 12px;
+    }
+
+    .hero-point {
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.12);
+      line-height: 1.45;
+      font-weight: 700;
+    }
+
+    .section {
+      margin-top: 30px;
     }
 
     .section-title {
       margin: 0 0 8px;
-      font-size: 1.5rem;
+      font-size: 1.55rem;
     }
 
     .section-text {
       margin: 0 0 18px;
       color: var(--muted);
       line-height: 1.6;
+      max-width: 880px;
     }
 
-    .library-grid {
+    .feature-grid {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 18px;
+      margin-top: 18px;
     }
 
-    .card {
+    .feature-card {
       background: var(--surface);
       border: 1px solid var(--line);
-      border-radius: 22px;
-      overflow: hidden;
+      border-radius: 26px;
+      padding: 22px;
       box-shadow: var(--shadow);
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
       display: flex;
       flex-direction: column;
-      transition: transform 0.18s ease, box-shadow 0.18s ease;
     }
 
-    .card:hover {
+    .feature-card:hover {
       transform: translateY(-3px);
       box-shadow: var(--shadow-hover);
     }
 
-    .card img {
-      width: 100%;
-      aspect-ratio: 16 / 10;
-      object-fit: cover;
-      background: #dbeafe;
+    .icon {
+      width: 58px;
+      height: 58px;
+      border-radius: 18px;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-size: 1.5rem;
+      margin-bottom: 14px;
     }
 
-    .card-body {
-      padding: 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      flex: 1;
+    .picture-icon {
+      background: linear-gradient(135deg, #2563eb, #60a5fa);
     }
 
-    .card-body h3 {
-      margin: 0;
-      font-size: 1.08rem;
+    .template-icon {
+      background: linear-gradient(135deg, #7c3aed, #a78bfa);
     }
 
-    .meta-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
+    .feature-card h3 {
+      margin: 0 0 10px;
+      font-size: 1.3rem;
     }
 
-    .pill {
-      background: #eef4ff;
-      color: #1d4ed8;
-      border-radius: 999px;
-      padding: 6px 10px;
-      font-size: 0.82rem;
-      font-weight: 800;
-    }
-
-    .card-body p {
-      margin: 0;
+    .feature-card p {
+      margin: 0 0 14px;
       color: var(--muted);
-      line-height: 1.55;
+      line-height: 1.62;
+    }
+
+    .mini-points {
+      display: grid;
+      gap: 9px;
+      margin-bottom: 18px;
+    }
+
+    .mini-points span {
+      background: #f8fbff;
+      border: 1px solid #e4ecf8;
+      border-radius: 14px;
+      padding: 10px 12px;
       font-size: 0.95rem;
+      font-weight: 700;
+    }
+
+    .btn-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: auto;
     }
 
     .btn {
       display: inline-block;
       padding: 12px 16px;
       border-radius: 14px;
-      background: var(--primary);
-      color: white;
       font-weight: 800;
       font-size: 0.95rem;
-      margin-top: auto;
+      transition: transform 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
     }
 
     .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: var(--shadow);
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .btn-primary:hover {
       background: var(--primary-dark);
     }
 
-    @media (max-width: 1000px) {
-      .library-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+    .btn-secondary {
+      background: var(--secondary);
+      color: #fff;
+    }
+
+    .btn-secondary:hover {
+      background: var(--secondary-dark);
+    }
+
+    .overview-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .overview-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 20px;
+      box-shadow: var(--shadow);
+    }
+
+    .overview-card h4 {
+      margin: 0 0 10px;
+      font-size: 1.1rem;
+    }
+
+    .overview-card p {
+      margin: 0 0 12px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .pill-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .pill {
+      padding: 7px 10px;
+      border-radius: 999px;
+      font-size: 0.84rem;
+      font-weight: 800;
+    }
+
+    .pill.blue {
+      background: #eef4ff;
+      color: #1d4ed8;
+    }
+
+    .pill.purple {
+      background: #f3e8ff;
+      color: #6d28d9;
+    }
+
+    .support-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .support-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .support-card h4 {
+      margin: 0 0 10px;
+      font-size: 1.02rem;
+    }
+
+    .support-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 0.95rem;
+    }
+
+    .footer-note {
+      margin-top: 30px;
+      text-align: center;
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 0.94rem;
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .feature-grid,
+      .overview-grid,
+      .support-grid {
+        grid-template-columns: 1fr;
       }
     }
 
@@ -210,8 +401,8 @@
         width: min(100% - 18px, var(--max-width));
       }
 
-      .library-grid {
-        grid-template-columns: 1fr;
+      .hero {
+        padding: 24px 18px;
       }
 
       .topbar {
@@ -225,83 +416,164 @@
   <div class="page">
     <header class="topbar">
       <div class="brand">
-        <div class="brand-badge">🖼️</div>
+        <div class="brand-badge">✍️</div>
         <div>
-          <div>Picture-Guided Writing</div>
-          <div style="font-size:0.9rem; color:var(--muted); font-weight:700;">Observe • Think • Write</div>
+          <div>Fluent</div>
+          <div style="font-size:0.9rem; color:var(--muted); font-weight:700;">Writing Studio</div>
         </div>
       </div>
 
-      <nav class="nav-links">
-        <a href="./writing.html">← Writing Home</a>
+      <nav class="top-links">
+        <a href="../index.html">← Back to Home</a>
+        <a href="./picture-guided.html">Picture-Guided Writing</a>
         <a href="./transactional-writing.html">Transactional Writing</a>
       </nav>
     </header>
 
     <section class="hero">
-      <h1>Choose a picture prompt</h1>
-      <p>
-        Learners study the image first, then write an explanatory or informative paragraph of about
-        100 to 150 words. Exemplar writing and self-check support appear only after submission.
-      </p>
+      <div class="hero-grid">
+        <div>
+          <span class="eyebrow">Build writing confidence</span>
+          <h1>Write with guidance, then improve with feedback.</h1>
+          <p>
+            Practice writing from pictures or use CAPS-aligned structured templates for
+            invitations, directions, procedures, advertisements, personal recounts,
+            dialogues, reviews, and articles. Learners write independently first, then
+            receive support and teacher-style feedback after submission.
+          </p>
+        </div>
+
+        <div class="hero-points">
+          <div class="hero-point">🖼️ Picture-Guided Writing for short focused paragraph tasks</div>
+          <div class="hero-point">📄 CAPS-aligned transactional and response writing for Grade 4–6</div>
+          <div class="hero-point">✅ Feedback appears after submit, not while typing</div>
+        </div>
+      </div>
     </section>
 
-    <section>
-      <h2 class="section-title">Available prompts</h2>
+    <section class="section">
+      <h2 class="section-title">Choose a writing path</h2>
       <p class="section-text">
-        Start with a picture that encourages explanation, observation, and clear paragraph writing.
+        Start with an image prompt or choose a structured writing form. Both paths are designed
+        to help learners write with purpose, structure, and reflection.
       </p>
 
-      <div class="library-grid">
-        <article class="card">
-          <img src="../../shared/assets/images/earth-layers-infographic.png" alt="Layers of the Earth infographic" />
-          <div class="card-body">
-            <h3>Layers of the Earth</h3>
-            <div class="meta-row">
-              <span class="pill">Explanatory paragraph</span>
-              <span class="pill">100–150 words</span>
-              <span class="pill">Intermediate</span>
-            </div>
-            <p>
-              Study the infographic and explain the main layers of the Earth and how they differ.
-            </p>
-            <a class="btn" href="./prompts/earth-layers.html">Open task</a>
+      <div class="feature-grid">
+        <article class="feature-card">
+          <div class="icon picture-icon">🖼️</div>
+          <h3>Picture-Guided Writing</h3>
+          <p>
+            Learners observe a picture, think carefully, and write an explanatory,
+            descriptive, or informative paragraph before seeing an exemplar.
+          </p>
+
+          <div class="mini-points">
+            <span>100–150 word paragraph tasks</span>
+            <span>Library-style picture prompt selection</span>
+            <span>Exemplar and self-check after submission</span>
+          </div>
+
+          <div class="btn-row">
+            <a class="btn btn-primary" href="./picture-guided.html">Open Picture-Guided Writing</a>
           </div>
         </article>
 
-        <article class="card">
-          <img src="../../shared/assets/images/river-meander.jpg" alt="River meander geography prompt" />
-          <div class="card-body">
-            <h3>River Meander</h3>
-            <div class="meta-row">
-              <span class="pill">Geography explanation</span>
-              <span class="pill">100–150 words</span>
-              <span class="pill">Intermediate</span>
-            </div>
-            <p>
-              Explain how erosion and deposition shape the inside and outside bends of a meander.
-            </p>
-            <a class="btn" href="./prompts/river-meander.html">Open task</a>
-          </div>
-        </article>
+        <article class="feature-card">
+          <div class="icon template-icon">📄</div>
+          <h3>Transactional &amp; Response Writing</h3>
+          <p>
+            Learners use CAPS-aligned Grade 4–6 writing templates for invitations,
+            directions, procedures, advertisements, recounts, dialogues, reviews,
+            and articles.
+          </p>
 
-        <article class="card">
-          <img src="../../shared/assets/images/balanced-diet-poster.png" alt="Balanced diet writing prompt" />
-          <div class="card-body">
-            <h3>Balanced Diet Poster</h3>
-            <div class="meta-row">
-              <span class="pill">Informative paragraph</span>
-              <span class="pill">100–150 words</span>
-              <span class="pill">Developing</span>
-            </div>
-            <p>
-              Use the poster to explain the food groups in a balanced diet and why they matter.
-            </p>
-            <a class="btn" href="./prompts/balanced-diet.html">Open task</a>
+          <div class="mini-points">
+            <span>CAPS-aligned text types for Grade 4–6</span>
+            <span>Clear purpose, structure, and language features</span>
+            <span>Teacher-style feedback after submission</span>
+          </div>
+
+          <div class="btn-row">
+            <a class="btn btn-secondary" href="./transactional-writing.html">Open Transactional Writing</a>
           </div>
         </article>
       </div>
     </section>
+
+    <section class="section">
+      <h2 class="section-title">What learners will do</h2>
+      <p class="section-text">
+        The Writing Studio is designed to support independent writing first, followed by guided reflection.
+      </p>
+
+      <div class="overview-grid">
+        <article class="overview-card">
+          <h4>In Picture-Guided Writing</h4>
+          <p>
+            Learners study an image, read the task, and write their own paragraph in a focused writing
+            space. After submitting, they can compare their work with a guideline and exemplar response.
+          </p>
+          <div class="pill-list">
+            <span class="pill blue">Observe the image</span>
+            <span class="pill blue">Plan ideas</span>
+            <span class="pill blue">Write independently</span>
+            <span class="pill blue">Compare with exemplar</span>
+          </div>
+        </article>
+
+        <article class="overview-card">
+          <h4>In Transactional &amp; Response Writing</h4>
+          <p>
+            Learners choose a text type, use the writing template to check structure and language
+            requirements, and then submit their work for teacher-style feedback on form, spelling,
+            and grammar.
+          </p>
+          <div class="pill-list">
+            <span class="pill purple">Check the purpose</span>
+            <span class="pill purple">Follow the structure</span>
+            <span class="pill purple">Write on a topic</span>
+            <span class="pill purple">Review feedback</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">What support is built in</h2>
+      <p class="section-text">
+        The page is designed to feel supportive without doing the writing for the learner.
+      </p>
+
+      <div class="support-grid">
+        <article class="support-card">
+          <h4>No autocorrect while typing</h4>
+          <p>
+            Learners write freely and think for themselves first. Corrections are shown only after
+            they choose to submit their work.
+          </p>
+        </article>
+
+        <article class="support-card">
+          <h4>Clear writing expectations</h4>
+          <p>
+            Each task or template gives the learner a clear sense of what the writing should include,
+            how it should be organised, and which language features matter.
+          </p>
+        </article>
+
+        <article class="support-card">
+          <h4>Self-assessment and reflection</h4>
+          <p>
+            Exemplar responses, checklists, and teacher-style comments help learners compare, improve,
+            and gradually mark their own work with confidence.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <p class="footer-note">
+      Fluent Writing Studio helps learners plan, write, reflect, and improve through guided practice.
+    </p>
   </div>
 </body>
 </html>
