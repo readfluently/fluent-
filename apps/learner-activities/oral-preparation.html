@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fluent | Oral Preparation</title>
+  <link rel="stylesheet" href="../../shared/css/oral-preparation.css" />
+</head>
+<body>
+  <div class="page-shell">
+    <header class="hero">
+      <div class="hero-text">
+        <p class="eyebrow">Learner Activities</p>
+        <h1>🗣️ Oral Preparation</h1>
+        <p class="hero-copy">
+          Practise your prepared speech by typing, pasting, or uploading text.
+          Then let Fluent read it aloud so you can listen to pronunciation,
+          pacing, and flow.
+        </p>
+      </div>
+    </header>
+
+    <main class="content-grid">
+      <section class="panel panel-main">
+        <div class="panel-header">
+          <h2>Your speech text</h2>
+          <p>Type, paste, or upload a plain text file.</p>
+        </div>
+
+        <div class="input-actions">
+          <label class="upload-btn" for="textFile">
+            Upload .txt file
+          </label>
+          <input type="file" id="textFile" accept=".txt" />
+          <button id="clearTextBtn" class="ghost-btn" type="button">Clear text</button>
+        </div>
+
+        <textarea
+          id="speechText"
+          placeholder="Type or paste your speech here..."
+          aria-label="Speech text"
+        ></textarea>
+
+        <div class="text-info">
+          <span id="wordCount">0 words</span>
+          <span id="charCount">0 characters</span>
+        </div>
+      </section>
+
+      <aside class="panel panel-side">
+        <div class="panel-header">
+          <h2>Read aloud controls</h2>
+          <p>Choose a voice and control playback.</p>
+        </div>
+
+        <div class="control-group">
+          <label for="voiceSelect">Voice</label>
+          <select id="voiceSelect" aria-label="Voice selection"></select>
+        </div>
+
+        <div class="control-group">
+          <label for="rateRange">Speed <span id="rateValue">1.0x</span></label>
+          <input id="rateRange" type="range" min="0.7" max="1.3" step="0.1" value="1.0" />
+        </div>
+
+        <div class="control-group">
+          <label for="pitchRange">Pitch <span id="pitchValue">1.0</span></label>
+          <input id="pitchRange" type="range" min="0.8" max="1.2" step="0.1" value="1.0" />
+        </div>
+
+        <div class="button-stack">
+          <button id="readBtn" class="primary-btn" type="button">🔊 Read Aloud</button>
+          <button id="pauseBtn" class="secondary-btn" type="button">⏸ Pause</button>
+          <button id="resumeBtn" class="secondary-btn" type="button">▶ Resume</button>
+          <button id="stopBtn" class="danger-btn" type="button">⏹ Stop</button>
+        </div>
+
+        <div class="status-box" id="statusBox" aria-live="polite">
+          Ready to read.
+        </div>
+      </aside>
+    </main>
+
+    <section class="tips-section">
+      <div class="tip-card">
+        <h3>Practice tip</h3>
+        <p>Listen to your speech one paragraph at a time if the whole speech feels too long.</p>
+      </div>
+      <div class="tip-card">
+        <h3>Pronunciation tip</h3>
+        <p>Replay difficult words or names and say them aloud after Fluent reads them.</p>
+      </div>
+      <div class="tip-card">
+        <h3>Presentation tip</h3>
+        <p>Use a slower speed first, then switch to normal speed once you feel confident.</p>
+      </div>
+    </section>
+  </div>
+
+  <script src="../../shared/js/oral-preparation.js"></script>
+</body>
+</html>
