@@ -26,6 +26,10 @@ let currentUtterance = null;
 let savedSelectionStart = 0;
 let savedSelectionEnd = 0;
 let savedSelectedText = "";
+let mediaRecorder = null;
+let recordedChunks = [];
+let recordedBlob = null;
+let recordedAudioUrl = "";
 
 function setStatus(message) {
   statusBox.textContent = message;
