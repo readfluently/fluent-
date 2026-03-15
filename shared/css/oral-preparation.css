@@ -219,11 +219,22 @@ select {
   margin: 20px 0;
 }
 
+.mini-label {
+  margin: 6px 0 10px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
 .recording-stack {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px;
-  margin-bottom: 16px;
+  margin: 4px 0 16px;
+}
+
+.recording-stack button {
+  width: 100%;
 }
 
 #learnerPlayback {
