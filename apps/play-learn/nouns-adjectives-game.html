@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fluent | Nouns and Adjectives Game</title>
+  <link rel="stylesheet" href="../../shared/css/nouns-adjectives-game.css" />
+</head>
+<body>
+  <div class="page">
+    <header class="hero">
+      <p class="eyebrow">Grammar Game</p>
+      <h1>Nouns and Adjectives</h1>
+      <p>
+        This board game helps learners practise nouns, adjectives, and pronouns through play.
+        It includes common nouns, proper nouns, abstract nouns, collective nouns, descriptive
+        adjectives, and simple pronoun questions.
+      </p>
+    </header>
+
+    <section class="layout">
+      <section class="card">
+        <h2>Quick lesson</h2>
+        <p>
+          A noun names a person, place, thing, idea, or feeling. An adjective describes a noun.
+          A pronoun replaces a noun so we do not repeat it too often.
+        </p>
+
+        <div class="lesson-grid">
+          <div class="mini common">
+            <h3>Common nouns</h3>
+            <ul>
+              <li>boy</li>
+              <li>school</li>
+              <li>dog</li>
+              <li>book</li>
+              <li>city</li>
+            </ul>
+          </div>
+
+          <div class="mini proper">
+            <h3>Proper nouns</h3>
+            <ul>
+              <li>Sipho</li>
+              <li>Cape Town</li>
+              <li>Monday</li>
+              <li>Africa</li>
+              <li>Netflix</li>
+            </ul>
+          </div>
+
+          <div class="mini abstract">
+            <h3>Abstract nouns</h3>
+            <ul>
+              <li>happiness</li>
+              <li>fear</li>
+              <li>honesty</li>
+              <li>courage</li>
+              <li>love</li>
+            </ul>
+          </div>
+
+          <div class="mini collective">
+            <h3>Collective nouns</h3>
+            <ul>
+              <li>a team of players</li>
+              <li>a class of learners</li>
+              <li>a herd of cows</li>
+              <li>a bunch of keys</li>
+              <li>a pack of cards</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="board-wrap">
+          <h2>Game board</h2>
+          <div class="board" id="board"></div>
+        </div>
+      </section>
+
+      <aside class="sidebar-grid">
+        <section class="card">
+          <h2>How to play</h2>
+          <ul class="info-list">
+            <li>2–4 players can play.</li>
+            <li>All players start at START.</li>
+            <li>Roll the dice and move forward.</li>
+            <li>Read the instruction aloud and answer it.</li>
+            <li>If the answer is wrong, move back one square.</li>
+            <li>The first player to reach the final square wins.</li>
+          </ul>
+
+          <div class="legend">
+            <div class="legend-item"><span class="swatch swatch-start"></span> Start</div>
+            <div class="legend-item"><span class="swatch swatch-question"></span> Question square</div>
+            <div class="legend-item"><span class="swatch swatch-special"></span> Special square</div>
+            <div class="legend-item"><span class="swatch swatch-finish"></span> Finish</div>
+          </div>
+        </section>
+
+        <section class="card">
+          <h2>Player controls</h2>
+
+          <div class="turn-box">
+            <strong>Current turn</strong>
+            <div id="turnText">Player 1</div>
+          </div>
+
+          <div class="control-row">
+            <button class="primary" id="rollBtn">🎲 Roll Dice</button>
+            <button class="secondary" id="nextBtn">Next Player</button>
+            <button class="danger" id="resetBtn">Reset Game</button>
+          </div>
+
+          <div class="turn-box">
+            <strong>Dice result</strong>
+            <div class="dice" id="diceText">Roll to begin</div>
+          </div>
+
+          <div class="question-box">
+            <strong>Square instruction</strong>
+            <div id="questionText">The question for the current square will appear here.</div>
+          </div>
+
+          <div class="answers">
+            <textarea placeholder="Learner can say the answer aloud, or write it here for practice..."></textarea>
+            <div class="control-row">
+              <button class="success" id="correctBtn">✅ Correct</button>
+              <button class="danger" id="wrongBtn">↩ Incorrect</button>
+            </div>
+          </div>
+
+          <div class="status" id="statusBox">
+            Ready to play.
+          </div>
+        </section>
+      </aside>
+    </section>
+  </div>
+
+  <script src="../../shared/js/nouns-adjectives-game.js"></script>
+</body>
+</html>
