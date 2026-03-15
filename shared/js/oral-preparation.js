@@ -16,7 +16,11 @@ const resumeBtn = document.getElementById("resumeBtn");
 const stopBtn = document.getElementById("stopBtn");
 const clearTextBtn = document.getElementById("clearTextBtn");
 
-
+const recordBtn = document.getElementById("recordBtn");
+const stopRecordBtn = document.getElementById("stopRecordBtn");
+const playRecordingBtn = document.getElementById("playRecordingBtn");
+const downloadRecordingBtn = document.getElementById("downloadRecordingBtn");
+const learnerPlayback = document.getElementById("learnerPlayback");
 
 const statusBox = document.getElementById("statusBox");
 const wordCount = document.getElementById("wordCount");
