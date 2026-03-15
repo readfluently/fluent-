@@ -9,6 +9,8 @@ const rateValue = document.getElementById("rateValue");
 const pitchValue = document.getElementById("pitchValue");
 
 const readBtn = document.getElementById("readBtn");
+const selectionBtn = document.getElementById("selectionBtn");
+const sentenceBtn = document.getElementById("sentenceBtn");
 const pauseBtn = document.getElementById("pauseBtn");
 const resumeBtn = document.getElementById("resumeBtn");
 const stopBtn = document.getElementById("stopBtn");
