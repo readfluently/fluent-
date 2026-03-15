@@ -35,6 +35,13 @@
           <button id="clearTextBtn" class="ghost-btn" type="button">Clear text</button>
         </div>
 
+         <div class="recording-stack">
+       <button id="recordBtn" class="primary-btn" type="button">🎙 Start Recording</button>
+       <button id="stopRecordBtn" class="secondary-btn" type="button" disabled>⏹ Stop Recording</button>
+       <button id="playRecordingBtn" class="secondary-btn" type="button" disabled>▶ Play My Recording</button>
+       <button id="downloadRecordingBtn" class="ghost-btn" type="button" disabled>⬇ Download My Recording</button>
+    </div>
+
         <textarea
           id="speechText"
           placeholder="Type or paste your speech here..."
@@ -76,13 +83,6 @@
           <button id="resumeBtn" class="secondary-btn" type="button">▶ Resume</button>
           <button id="stopBtn" class="danger-btn" type="button">⏹ Stop</button>
         </div>
-
-        <div class="recording-stack">
-       <button id="recordBtn" class="primary-btn" type="button">🎙 Start Recording</button>
-       <button id="stopRecordBtn" class="secondary-btn" type="button" disabled>⏹ Stop Recording</button>
-       <button id="playRecordingBtn" class="secondary-btn" type="button" disabled>▶ Play My Recording</button>
-       <button id="downloadRecordingBtn" class="ghost-btn" type="button" disabled>⬇ Download My Recording</button>
-</div>
 
 <audio id="learnerPlayback" controls hidden></audio>
 
