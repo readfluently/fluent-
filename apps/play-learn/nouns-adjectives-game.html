@@ -12,9 +12,7 @@
       <p class="eyebrow">Grammar Game</p>
       <h1>Nouns and Adjectives</h1>
       <p>
-        This board game helps learners practise nouns, adjectives, and pronouns through play.
-        It includes common nouns, proper nouns, abstract nouns, collective nouns, descriptive
-        adjectives, and simple pronoun questions.
+        Roll the dice, move across the board, listen to the question, and record your spoken answer.
       </p>
     </header>
 
@@ -82,20 +80,13 @@
         <section class="card">
           <h2>How to play</h2>
           <ul class="info-list">
-            <li>2–4 players can play.</li>
-            <li>All players start at START.</li>
+            <li>2 players can play.</li>
             <li>Roll the dice and move forward.</li>
-            <li>Read the instruction aloud and answer it.</li>
+            <li>The landed square is read aloud automatically.</li>
+            <li>The player records a spoken answer.</li>
             <li>If the answer is wrong, move back one square.</li>
-            <li>The first player to reach the final square wins.</li>
+            <li>The first player to reach the finish wins.</li>
           </ul>
-
-          <div class="legend">
-            <div class="legend-item"><span class="swatch swatch-start"></span> Start</div>
-            <div class="legend-item"><span class="swatch swatch-question"></span> Question square</div>
-            <div class="legend-item"><span class="swatch swatch-special"></span> Special square</div>
-            <div class="legend-item"><span class="swatch swatch-finish"></span> Finish</div>
-          </div>
         </section>
 
         <section class="card">
@@ -108,6 +99,7 @@
 
           <div class="control-row">
             <button class="primary" id="rollBtn">🎲 Roll Dice</button>
+            <button class="secondary" id="readQuestionBtn">🔊 Read Block</button>
             <button class="secondary" id="nextBtn">Next Player</button>
             <button class="danger" id="resetBtn">Reset Game</button>
           </div>
@@ -122,8 +114,30 @@
             <div id="questionText">The question for the current square will appear here.</div>
           </div>
 
+          <div class="record-panel">
+            <h3>Player 1 Recording</h3>
+            <div class="recording-stack">
+              <button class="primary" id="recordBtnP1">🎙 Start Recording</button>
+              <button class="secondary" id="stopRecordBtnP1" disabled>⏹ Stop Recording</button>
+              <button class="secondary" id="playRecordingBtnP1" disabled>▶ Play Recording</button>
+              <button class="ghost" id="downloadRecordingBtnP1" disabled>⬇ Download</button>
+            </div>
+            <audio id="playerPlaybackP1" controls hidden></audio>
+          </div>
+
+          <div class="record-panel">
+            <h3>Player 2 Recording</h3>
+            <div class="recording-stack">
+              <button class="primary" id="recordBtnP2">🎙 Start Recording</button>
+              <button class="secondary" id="stopRecordBtnP2" disabled>⏹ Stop Recording</button>
+              <button class="secondary" id="playRecordingBtnP2" disabled>▶ Play Recording</button>
+              <button class="ghost" id="downloadRecordingBtnP2" disabled>⬇ Download</button>
+            </div>
+            <audio id="playerPlaybackP2" controls hidden></audio>
+          </div>
+
           <div class="answers">
-            <textarea placeholder="Learner can say the answer aloud, or write it here for practice..."></textarea>
+            <textarea placeholder="Learner can also write the answer here if needed..."></textarea>
             <div class="control-row">
               <button class="success" id="correctBtn">✅ Correct</button>
               <button class="danger" id="wrongBtn">↩ Incorrect</button>
