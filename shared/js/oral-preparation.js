@@ -275,6 +275,108 @@ clearTextBtn.addEventListener("click", () => {
   setStatus("Text cleared. Ready for new practice.");
 });
 
+async function startRecording() {
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+    setStatus("Audio recording is not supported in this browser.");
+    return;
+  }
+
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+
+    recordedChunks = [];
+    recordedBlob = null;
+
+    if (recordedAudioUrl) {
+      URL.revokeObjectURL(recordedAudioUrl);
+      recordedAudioUrl = "";
+    }
+
+    mediaRecorder = new MediaRecorder(stream);
+
+    mediaRecorder.ondataavailable = (event) => {
+      if (event.data && event.data.size > 0) {
+        recordedChunks.push(event.data);
+      }
+    };
+
+    mediaRecorder.onstop = () => {
+      recordedBlob = new Blob(recordedChunks, {
+        type: mediaRecorder.mimeType || "audio/webm"
+      });
+
+      recordedAudioUrl = URL.createObjectURL(recordedBlob);
+      learnerPlayback.src = recordedAudioUrl;
+      learnerPlayback.hidden = false;
+
+      playRecordingBtn.disabled = false;
+      downloadRecordingBtn.disabled = false;
+      stopRecordBtn.disabled = true;
+      recordBtn.disabled = false;
+
+      setStatus("Recording saved. You can now play or download it.");
+
+      stream.getTracks().forEach((track) => track.stop());
+    };
+
+    mediaRecorder.start();
+
+    recordBtn.disabled = true;
+    stopRecordBtn.disabled = false;
+    playRecordingBtn.disabled = true;
+    downloadRecordingBtn.disabled = true;
+
+    setStatus("Recording in progress...");
+  } catch (error) {
+    setStatus("Microphone access was denied or unavailable.");
+  }
+}
+
+function stopRecording() {
+  if (mediaRecorder && mediaRecorder.state !== "inactive") {
+    mediaRecorder.stop();
+    setStatus("Stopping recording...");
+  }
+}
+
+function playRecording() {
+  if (!recordedAudioUrl) {
+    setStatus("There is no recording to play yet.");
+    return;
+  }
+
+  learnerPlayback.hidden = false;
+  learnerPlayback.play();
+  setStatus("Playing your recording...");
+}
+
+function downloadRecording() {
+  if (!recordedBlob || !recordedAudioUrl) {
+    setStatus("There is no recording to download yet.");
+    return;
+  }
+
+  const extension = recordedBlob.type.includes("ogg")
+    ? "ogg"
+    : recordedBlob.type.includes("mp4")
+    ? "m4a"
+    : "webm";
+
+  const link = document.createElement("a");
+  link.href = recordedAudioUrl;
+  link.download = `oral-practice-recording.${extension}`;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+
+  setStatus("Your recording download has started.");
+}
+
+recordBtn.addEventListener("click", startRecording);
+stopRecordBtn.addEventListener("click", stopRecording);
+playRecordingBtn.addEventListener("click", playRecording);
+downloadRecordingBtn.addEventListener("click", downloadRecording);
+
 updateCounts();
 loadVoices();
 
