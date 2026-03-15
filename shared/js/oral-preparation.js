@@ -16,6 +16,8 @@ const resumeBtn = document.getElementById("resumeBtn");
 const stopBtn = document.getElementById("stopBtn");
 const clearTextBtn = document.getElementById("clearTextBtn");
 
+
+
 const statusBox = document.getElementById("statusBox");
 const wordCount = document.getElementById("wordCount");
 const charCount = document.getElementById("charCount");
