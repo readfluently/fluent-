@@ -23,6 +23,10 @@ const charCount = document.getElementById("charCount");
 let availableVoices = [];
 let currentUtterance = null;
 
+let savedSelectionStart = 0;
+let savedSelectionEnd = 0;
+let savedSelectedText = "";
+
 function setStatus(message) {
   statusBox.textContent = message;
 }
@@ -38,7 +42,6 @@ function updateCounts() {
 
 function loadVoices() {
   availableVoices = window.speechSynthesis.getVoices();
-
   voiceSelect.innerHTML = "";
 
   if (!availableVoices.length) {
@@ -78,12 +81,11 @@ function stopSpeech() {
   currentUtterance = null;
 }
 
-function speakText() {
-  const text = speechText.value.trim();
+function speakContent(text, statusMessage = "Reading aloud...") {
+  const cleanText = text.trim();
 
-  if (!text) {
-    setStatus("Please type, paste, or upload some text first.");
-    speechText.focus();
+  if (!cleanText) {
+    setStatus("There is no text to read.");
     return;
   }
 
@@ -94,7 +96,7 @@ function speakText() {
 
   stopSpeech();
 
-  currentUtterance = new SpeechSynthesisUtterance(text);
+  currentUtterance = new SpeechSynthesisUtterance(cleanText);
 
   const selectedVoice = availableVoices[Number(voiceSelect.value)];
   if (selectedVoice) {
@@ -106,7 +108,7 @@ function speakText() {
   currentUtterance.volume = 1;
 
   currentUtterance.onstart = () => {
-    setStatus("Reading aloud...");
+    setStatus(statusMessage);
   };
 
   currentUtterance.onend = () => {
@@ -118,6 +120,70 @@ function speakText() {
   };
 
   window.speechSynthesis.speak(currentUtterance);
+}
+
+function rememberSelection() {
+  savedSelectionStart = speechText.selectionStart || 0;
+  savedSelectionEnd = speechText.selectionEnd || 0;
+  savedSelectedText = speechText.value.substring(savedSelectionStart, savedSelectionEnd).trim();
+}
+
+function speakText() {
+  speakContent(speechText.value, "Reading full text...");
+}
+
+function speakSelection() {
+  const selectedNow = speechText.value
+    .substring(speechText.selectionStart || 0, speechText.selectionEnd || 0)
+    .trim();
+
+  const textToRead = selectedNow || savedSelectedText;
+
+  if (!textToRead) {
+    setStatus("Please highlight a word or phrase first.");
+    speechText.focus();
+    return;
+  }
+
+  speakContent(textToRead, "Pronouncing selected text...");
+}
+
+function speakCurrentSentence() {
+  const text = speechText.value;
+
+  if (!text.trim()) {
+    setStatus("Please type, paste, or upload some text first.");
+    speechText.focus();
+    return;
+  }
+
+  const cursorPos = savedSelectionStart || speechText.selectionStart || 0;
+
+  let sentenceStart = 0;
+  let sentenceEnd = text.length;
+
+  for (let i = cursorPos - 1; i >= 0; i--) {
+    if (/[.!?]/.test(text[i])) {
+      sentenceStart = i + 1;
+      break;
+    }
+  }
+
+  for (let i = cursorPos; i < text.length; i++) {
+    if (/[.!?]/.test(text[i])) {
+      sentenceEnd = i + 1;
+      break;
+    }
+  }
+
+  const sentence = text.slice(sentenceStart, sentenceEnd).trim();
+
+  if (!sentence) {
+    setStatus("Could not find a sentence to read.");
+    return;
+  }
+
+  speakContent(sentence, "Reading current sentence...");
 }
 
 textFile.addEventListener("change", (event) => {
@@ -150,6 +216,11 @@ textFile.addEventListener("change", (event) => {
 });
 
 speechText.addEventListener("input", updateCounts);
+speechText.addEventListener("select", rememberSelection);
+speechText.addEventListener("click", rememberSelection);
+speechText.addEventListener("keyup", rememberSelection);
+speechText.addEventListener("mouseup", rememberSelection);
+speechText.addEventListener("touchend", rememberSelection);
 
 rateRange.addEventListener("input", () => {
   rateValue.textContent = `${Number(rateRange.value).toFixed(1)}x`;
@@ -160,6 +231,8 @@ pitchRange.addEventListener("input", () => {
 });
 
 readBtn.addEventListener("click", speakText);
+selectionBtn.addEventListener("click", speakSelection);
+sentenceBtn.addEventListener("click", speakCurrentSentence);
 
 pauseBtn.addEventListener("click", () => {
   if (window.speechSynthesis.speaking && !window.speechSynthesis.paused) {
@@ -184,6 +257,9 @@ clearTextBtn.addEventListener("click", () => {
   stopSpeech();
   speechText.value = "";
   textFile.value = "";
+  savedSelectionStart = 0;
+  savedSelectionEnd = 0;
+  savedSelectedText = "";
   updateCounts();
   setStatus("Text cleared. Ready for new practice.");
 });
