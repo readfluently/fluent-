@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fluent | Phonics Path</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fluent | Language Blocks</title>
   <style>
     :root {
       --bg: #f7f8fc;
@@ -32,47 +32,35 @@
       padding: 28px 20px 40px;
     }
 
-    .hero {
-  background: #ffffff;
-  border: 1px solid var(--line);
-  border-radius: 18px;
-  box-shadow: var(--shadow);
-  padding: 20px;
-  margin-bottom: 22px;
-  text-align: center;
-}
-
-.hero-banner {
-  width: 100%;
-  max-width: 1100px;
-  display: block;
-  margin: 0 auto 18px;
-  border-radius: 16px;
-}
-
-.hero h1 {
-  margin: 0 0 10px;
-  color: #23406f;
-  font-size: clamp(1.7rem, 3vw, 2.3rem);
-}
-
-.hero p {
-  margin: 0 auto;
-  max-width: 700px;
-  color: var(--muted);
-  line-height: 1.6;
-}
-    .hero h1 {
-      margin: 0 0 10px;
+    .back-link {
+      display: inline-block;
+      margin-bottom: 16px;
+      text-decoration: none;
       color: #23406f;
-      font-size: clamp(1.7rem, 3vw, 2.3rem);
+      font-weight: 700;
     }
 
-    .hero p {
+    .back-link:hover,
+    .back-link:focus-visible {
+      text-decoration: underline;
+      outline: none;
+    }
+
+    .hero {
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      padding: 0;
+      margin-bottom: 18px;
+      text-align: center;
+    }
+
+    .hero-banner {
+      width: 100%;
+      max-width: 860px;
+      display: block;
       margin: 0 auto;
-      max-width: 700px;
-      color: var(--muted);
-      line-height: 1.6;
+      border-radius: 16px;
     }
 
     .tiles {
@@ -127,18 +115,12 @@
       background: #f3edff;
     }
 
-    .back-link {
-      display: inline-block;
-      margin-bottom: 16px;
-      text-decoration: none;
-      color: #23406f;
-      font-weight: 700;
+    .tile-flash {
+      background: #fff4e8;
     }
 
-    .back-link:hover,
-    .back-link:focus-visible {
-      text-decoration: underline;
-      outline: none;
+    .tile-noun {
+      background: #f5f7ff;
     }
 
     @media (max-width: 860px) {
@@ -155,6 +137,10 @@
       .tiles {
         grid-template-columns: 1fr;
       }
+
+      .hero-banner {
+        max-width: 100%;
+      }
     }
   </style>
 </head>
@@ -162,24 +148,15 @@
   <main class="page">
     <a class="back-link" href="../../index.html">← Back to Home</a>
 
-.hero {
-  background: transparent;
-  border: none;
-  box-shadow: none;
-  padding: 0;
-  margin-bottom: 18px;
-  text-align: center;
-}
+    <section class="hero">
+      <img
+        class="hero-banner"
+        src="../../shared/assets/images/language-blocks-banner.png"
+        alt="Language Blocks banner"
+      />
+    </section>
 
-.hero-banner {
-  width: 100%;
-  max-width: 980px;
-  display: block;
-  margin: 0 auto;
-  border-radius: 16px;
-}
-
-    <section class="tiles" aria-label="Phonics Path activities">
+    <section class="tiles" aria-label="Language Blocks activities">
       <a class="tile tile-memory" href="../play-learn/memory.html">
         <strong>🧠 Memory Match</strong>
         <span>Match sounds and letter patterns in a fun phonics game.</span>
@@ -196,14 +173,14 @@
       </a>
 
       <a class="tile tile-flash" href="../play-learn/flash-words/flash-words.html">
-  <strong>⚡ Flash Words</strong>
-  <span>Watch five words flash on the screen and type them from memory to build automatic word recognition.</span>
-</a>
+        <strong>⚡ Flash Words</strong>
+        <span>Watch five words flash on the screen and type them from memory to build automatic word recognition.</span>
+      </a>
 
       <a class="tile tile-noun" href="../play-learn/noun-sort-sprint/noun-sort-sprint.html">
-  <strong>🏷️ Noun Sort Sprint</strong>
-  <span>Sort words into common, proper, abstract, and collective nouns.</span>
-</a>
+        <strong>🏷️ Noun Sort Sprint</strong>
+        <span>Sort words into common, proper, abstract, and collective nouns.</span>
+      </a>
     </section>
   </main>
 </body>
