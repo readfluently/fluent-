@@ -14,7 +14,6 @@
       --line:#d9e2f0;
       --primary:#2563eb;
       --secondary:#7c3aed;
-      --accent:#f59e0b;
       --shadow:0 12px 28px rgba(15,23,42,0.08);
       --shadow-hover:0 16px 34px rgba(15,23,42,0.12);
       --max-width:1280px;
@@ -71,95 +70,37 @@
       font-size:0.95rem;
     }
 
-    .hero{
-      background:linear-gradient(135deg, #1d4ed8, #2563eb 48%, #7c3aed 100%);
-      color:#fff;
+    .library-banner{
+      display:flex;
+      align-items:center;
+      gap:18px;
+      margin-bottom:26px;
+      padding:18px 20px;
       border-radius:34px;
-      padding:34px 28px;
-      box-shadow:0 20px 42px rgba(37,99,235,0.24);
-      margin-bottom:28px;
-      position:relative;
+      background:linear-gradient(135deg, #1d4ed8, #2563eb 52%, #7c3aed 100%);
+      box-shadow:0 16px 34px rgba(37,99,235,0.20);
+      color:#fff;
       overflow:hidden;
     }
 
-    .hero::after{
-      content:"";
-      position:absolute;
-      right:-50px;
-      top:-50px;
-      width:220px;
-      height:220px;
-      border-radius:50%;
-      background:rgba(255,255,255,0.12);
-    }
-
-    .hero-badge{
+    .library-banner-pill{
+      flex:0 0 auto;
       display:inline-flex;
       align-items:center;
-      gap:8px;
-      padding:8px 14px;
+      padding:14px 20px;
       border-radius:999px;
       background:rgba(255,255,255,0.14);
-      border:1px solid rgba(255,255,255,0.24);
-      font-size:0.92rem;
-      margin-bottom:14px;
-      position:relative;
-      z-index:1;
-    }
-
-    .hero h1{
-      margin:0 0 10px;
-      font-size:clamp(2rem, 4vw, 3rem);
-      line-height:1.08;
-      max-width:700px;
-      position:relative;
-      z-index:1;
-    }
-
-    .hero p{
-      margin:0;
-      max-width:760px;
-      line-height:1.6;
-      color:rgba(255,255,255,0.92);
-      position:relative;
-      z-index:1;
-    }
-
-    .intro{
-      background:var(--surface);
-      border:1px solid var(--line);
-      border-radius:28px;
-      box-shadow:var(--shadow);
-      padding:22px;
-      margin-bottom:28px;
-    }
-
-    .intro h2{
-      margin:0 0 8px;
-      font-size:1.25rem;
-    }
-
-    .intro p{
-      margin:0;
-      color:var(--muted);
-      line-height:1.6;
-    }
-
-    .tags{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      margin-top:16px;
-    }
-
-    .tags span{
-      padding:9px 13px;
-      border-radius:999px;
-      background:var(--surface-soft);
-      border:1px solid rgba(37,99,235,0.14);
-      color:var(--primary);
-      font-size:0.92rem;
+      border:1px solid rgba(255,255,255,0.20);
+      font-size:1rem;
       font-weight:700;
+      white-space:nowrap;
+    }
+
+    .library-banner-text{
+      font-size:1rem;
+      font-weight:500;
+      line-height:1.4;
+      color:rgba(255,255,255,0.96);
     }
 
     .shelf-section{
@@ -185,13 +126,6 @@
       color:var(--muted);
       line-height:1.5;
       font-size:0.95rem;
-    }
-
-    .see-all{
-      color:var(--primary);
-      font-weight:700;
-      font-size:0.95rem;
-      white-space:nowrap;
     }
 
     .book-row{
@@ -313,12 +247,6 @@
       color:#fff;
     }
 
-    .btn-secondary{
-      background:#fff;
-      color:var(--text);
-      border:1px solid var(--line);
-    }
-
     .soon-card{
       opacity:0.92;
     }
@@ -332,10 +260,19 @@
         padding:18px 14px 42px;
       }
 
-      .hero,
-      .intro{
-        padding:20px;
-        border-radius:24px;
+      .library-banner{
+        flex-direction:column;
+        align-items:flex-start;
+        border-radius:26px;
+        padding:18px;
+      }
+
+      .library-banner-pill{
+        padding:12px 18px;
+      }
+
+      .library-banner-text{
+        font-size:0.98rem;
       }
 
       .book-row{
@@ -355,10 +292,10 @@
       <div class="crumb">Fluent Library</div>
     </div>
 
-   <div class="library-banner">
-  <div class="library-banner-pill">📚 Fluent Library</div>
-  <div class="library-banner-text">Explore books by shelf, theme, level, and purpose</div>
-</div>
+    <div class="library-banner">
+      <div class="library-banner-pill">📚 Fluent Library</div>
+      <div class="library-banner-text">Explore books by shelf, theme, level, and purpose</div>
+    </div>
 
     <section class="shelf-section">
       <div class="shelf-header">
