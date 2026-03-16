@@ -1,0 +1,326 @@
+{
+  "title": "Grade 4 English Home Language",
+  "coverImage": "../../shared/assets/images/grade4-english-cover.png",
+  "chapters": {
+    "ch1": {
+      "title": "Chapter 1: Welcome to English Home Language",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "English Home Language helps learners read, write, listen, speak, and think with confidence. In this book, you will explore stories, information texts, vocabulary, grammar, and writing activities."
+        },
+        {
+          "type": "paragraph",
+          "text": "Each chapter is designed to help you grow step by step. You will read carefully, notice language patterns, build your [[vocabulary]], and improve your [[comprehension]]."
+        },
+        {
+          "type": "image",
+          "src": "../../shared/assets/images/grade4-english-classroom.png",
+          "alt": "Learners reading and writing in class",
+          "caption": "English helps learners read, write, speak, and understand the world around them."
+        },
+        {
+          "type": "paragraph",
+          "text": "Good readers do more than say words correctly. They think about meaning, ask questions, and connect what they read to what they already know."
+        }
+      ],
+      "glossary": {
+        "vocabulary": {
+          "definition": "The words a person knows and understands.",
+          "pronunciation": "voh-KAB-yuh-lair-ee"
+        },
+        "comprehension": {
+          "definition": "The ability to understand what you read or hear.",
+          "pronunciation": "kom-pri-HEN-shuhn"
+        }
+      },
+      "worksheet": {
+        "title": "Getting Started",
+        "prompt": "1. What do you think you will learn in English Home Language?\n\n2. Why is reading important?\n\n3. Write one sentence about how you want to improve this year."
+      }
+    },
+    "ch2": {
+      "title": "Chapter 2: Reading a Story",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Stories help us imagine people, places, and events. When we read a story, we learn to follow [[characters]], understand the [[setting]], and notice the [[plot]]."
+        },
+        {
+          "type": "paragraph",
+          "text": "A character is a person or animal in a story. The setting is where and when the story takes place. The plot is the series of events that happen in the story."
+        },
+        {
+          "type": "image",
+          "src": "../../shared/assets/images/story-elements-grade4.png",
+          "alt": "Story elements chart showing characters, setting and plot",
+          "caption": "Characters, setting, and plot are important parts of a story."
+        },
+        {
+          "type": "paragraph",
+          "text": "As you read, ask yourself: Who is in the story? Where does it happen? What problem do the characters face? How is the problem solved?"
+        }
+      ],
+      "glossary": {
+        "characters": {
+          "definition": "The people or animals in a story.",
+          "pronunciation": "KAR-ik-ters"
+        },
+        "setting": {
+          "definition": "The place and time in which a story happens.",
+          "pronunciation": "SET-ing"
+        },
+        "plot": {
+          "definition": "The events that happen in a story.",
+          "pronunciation": "plot"
+        }
+      },
+      "worksheet": {
+        "title": "Understanding Story Elements",
+        "prompt": "1. What is a character?\n\n2. What is a setting?\n\n3. Explain what plot means in your own words."
+      }
+    },
+    "ch3": {
+      "title": "Chapter 3: Reading an Information Text",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Not all texts are stories. Some texts are written to inform. These are called [[information texts]]. They help readers learn facts about a topic."
+        },
+        {
+          "type": "paragraph",
+          "text": "Information texts often include headings, pictures, labels, captions, and key facts. These features help readers find and understand important ideas."
+        },
+        {
+          "type": "image",
+          "src": "../../shared/assets/images/information-text-features.png",
+          "alt": "Features of an information text",
+          "caption": "Information texts often use headings, labels, and captions."
+        },
+        {
+          "type": "paragraph",
+          "text": "When reading an information text, look for the [[main idea]] and the details that support it."
+        }
+      ],
+      "glossary": {
+        "information texts": {
+          "definition": "Texts written to give facts and explain ideas.",
+          "pronunciation": "in-fuh-MAY-shun texts"
+        },
+        "main idea": {
+          "definition": "The most important point in a paragraph or text.",
+          "pronunciation": "MAYN eye-DEE-uh"
+        }
+      },
+      "worksheet": {
+        "title": "Facts and Features",
+        "prompt": "1. What is an information text?\n\n2. Name two features of an information text.\n\n3. Why do headings and pictures help readers?"
+      }
+    },
+    "ch4": {
+      "title": "Chapter 4: Building Vocabulary",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Vocabulary grows when learners read, listen, speak, and write often. The more words you know, the easier it becomes to understand texts and explain your ideas."
+        },
+        {
+          "type": "paragraph",
+          "text": "A [[synonym]] is a word with a similar meaning. An [[antonym]] is a word with an opposite meaning."
+        },
+        {
+          "type": "paragraph",
+          "text": "For example, happy and joyful are synonyms. Happy and sad are antonyms."
+        }
+      ],
+      "glossary": {
+        "synonym": {
+          "definition": "A word with the same or nearly the same meaning as another word.",
+          "pronunciation": "SIN-uh-nim"
+        },
+        "antonym": {
+          "definition": "A word with the opposite meaning of another word.",
+          "pronunciation": "AN-tuh-nim"
+        }
+      },
+      "worksheet": {
+        "title": "Words and Meanings",
+        "prompt": "1. What is a synonym?\n\n2. What is an antonym?\n\n3. Write one pair of synonyms and one pair of antonyms."
+      }
+    },
+    "ch5": {
+      "title": "Chapter 5: Nouns and Pronouns",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "A [[noun]] names a person, place, animal, or thing. A [[pronoun]] takes the place of a noun so that we do not repeat the same word too many times."
+        },
+        {
+          "type": "paragraph",
+          "text": "For example: Naledi reads her book. She enjoys it. In this example, the word she is a pronoun because it replaces Naledi."
+        },
+        {
+          "type": "image",
+          "src": "../../shared/assets/images/nouns-pronouns-grade4.png",
+          "alt": "Examples of nouns and pronouns",
+          "caption": "Pronouns help replace nouns in sentences."
+        }
+      ],
+      "glossary": {
+        "noun": {
+          "definition": "A word that names a person, place, animal, or thing.",
+          "pronunciation": "nown"
+        },
+        "pronoun": {
+          "definition": "A word that takes the place of a noun.",
+          "pronunciation": "PROH-noun"
+        }
+      },
+      "worksheet": {
+        "title": "Naming Words",
+        "prompt": "1. What is a noun?\n\n2. What is a pronoun?\n\n3. Rewrite this sentence using a pronoun: Sipho is running because Sipho is late."
+      }
+    },
+    "ch6": {
+      "title": "Chapter 6: Verbs and Adjectives",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "A [[verb]] shows action or state of being. An [[adjective]] describes a noun."
+        },
+        {
+          "type": "paragraph",
+          "text": "For example: The small dog runs quickly. In this sentence, small is an adjective and runs is a verb."
+        },
+        {
+          "type": "paragraph",
+          "text": "Adjectives make writing more interesting because they give more detail. Verbs show what is happening."
+        }
+      ],
+      "glossary": {
+        "verb": {
+          "definition": "A word that shows action or state of being.",
+          "pronunciation": "verb"
+        },
+        "adjective": {
+          "definition": "A word that describes a noun.",
+          "pronunciation": "AD-jik-tiv"
+        }
+      },
+      "worksheet": {
+        "title": "Actions and Descriptions",
+        "prompt": "1. What does a verb do?\n\n2. What does an adjective do?\n\n3. Write one sentence that includes both a verb and an adjective."
+      }
+    },
+    "ch7": {
+      "title": "Chapter 7: Sentences and Punctuation",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "A sentence is a group of words that makes complete sense. Every sentence begins with a capital letter and ends with [[punctuation]]."
+        },
+        {
+          "type": "paragraph",
+          "text": "A full stop ends a statement. A question mark ends a question. An exclamation mark shows strong feeling."
+        },
+        {
+          "type": "image",
+          "src": "../../shared/assets/images/punctuation-grade4.png",
+          "alt": "Examples of punctuation marks",
+          "caption": "Punctuation helps readers understand sentences clearly."
+        }
+      ],
+      "glossary": {
+        "punctuation": {
+          "definition": "Marks used in writing to show meaning and structure, such as full stops and question marks.",
+          "pronunciation": "punk-choo-AY-shun"
+        }
+      },
+      "worksheet": {
+        "title": "Writing Correct Sentences",
+        "prompt": "1. Why is punctuation important?\n\n2. What mark ends a question?\n\n3. Write one statement and one question."
+      }
+    },
+    "ch8": {
+      "title": "Chapter 8: Paragraph Writing",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "A paragraph is a group of sentences about one main idea. Good paragraphs stay on topic and include supporting details."
+        },
+        {
+          "type": "paragraph",
+          "text": "When writing a paragraph, begin with a clear sentence about the topic. Then add details that explain or support the idea."
+        },
+        {
+          "type": "paragraph",
+          "text": "Finally, read your work again and check spelling, punctuation, and meaning."
+        }
+      ],
+      "glossary": {
+        "paragraph": {
+          "definition": "A group of sentences that stay on one topic.",
+          "pronunciation": "PAR-uh-graf"
+        }
+      },
+      "worksheet": {
+        "title": "Writing a Paragraph",
+        "prompt": "1. What is a paragraph?\n\n2. Why should all the sentences in a paragraph stay on one topic?\n\n3. Write a short paragraph about your favourite place."
+      }
+    },
+    "ch9": {
+      "title": "Chapter 9: Listening and Speaking",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Listening and speaking are important language skills. Good listeners pay attention, think carefully, and respond respectfully."
+        },
+        {
+          "type": "paragraph",
+          "text": "Good speakers use clear words, an audible voice, and complete ideas. They also listen to others before replying."
+        },
+        {
+          "type": "paragraph",
+          "text": "When learners discuss a topic, ask questions, or present to the class, they are practising listening and speaking skills."
+        }
+      ],
+      "glossary": {
+        "audible": {
+          "definition": "Loud enough to be heard clearly.",
+          "pronunciation": "AW-duh-buhl"
+        }
+      },
+      "worksheet": {
+        "title": "Speaking with Confidence",
+        "prompt": "1. What makes a good listener?\n\n2. What makes a good speaker?\n\n3. Why is respectful listening important in class?"
+      }
+    },
+    "ch10": {
+      "title": "Chapter 10: Becoming a Strong Language Learner",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "You have learned about stories, information texts, vocabulary, grammar, writing, listening, and speaking. All these skills work together."
+        },
+        {
+          "type": "paragraph",
+          "text": "Strong language learners read often, ask questions, practise writing, and keep improving. They understand that learning takes time."
+        },
+        {
+          "type": "paragraph",
+          "text": "The more you read and use language, the stronger and more confident you become."
+        }
+      ],
+      "glossary": {
+        "language learner": {
+          "definition": "A person who is developing skill in reading, writing, speaking, and understanding language.",
+          "pronunciation": "LANG-gwij LUR-ner"
+        }
+      },
+      "worksheet": {
+        "title": "Looking Back",
+        "prompt": "1. Name two important things you learned from this book.\n\n2. Which chapter helped you the most, and why?\n\n3. How will you keep improving your English this year?"
+      }
+    }
+  }
+}
