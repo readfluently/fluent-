@@ -53,6 +53,21 @@
       padding: 28px 0 60px;
     }
 
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 18px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.92);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow-soft);
+      color: var(--muted);
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+
     .hero {
       background: linear-gradient(135deg, #1d4ed8, #2563eb 48%, #7c3aed 100%);
       color: #fff;
@@ -111,6 +126,27 @@
       color: rgba(255, 255, 255, 0.94);
       position: relative;
       z-index: 1;
+    }
+
+    .book-cover-panel {
+      margin: 0 0 28px;
+      padding: 24px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      box-shadow: var(--shadow-soft);
+      display: flex;
+      justify-content: center;
+    }
+
+    .book-cover-image {
+      width: min(320px, 100%);
+      height: auto;
+      display: block;
+      border-radius: 22px;
+      border: 1px solid #e6edf7;
+      box-shadow: 0 18px 36px rgba(15, 23, 42, 0.14);
+      background: #fff;
     }
 
     .layout {
@@ -281,6 +317,44 @@
       letter-spacing: 0.02em;
     }
 
+    .glossary-term {
+      color: #6d28d9;
+      font-weight: 700;
+      cursor: pointer;
+      background: rgba(109, 40, 217, 0.08);
+      padding: 1px 5px;
+      border-radius: 7px;
+      transition: background 0.18s ease, color 0.18s ease;
+    }
+
+    .glossary-term:hover {
+      background: rgba(109, 40, 217, 0.16);
+      color: #5b21b6;
+    }
+
+    .glossary-popup {
+      position: absolute;
+      max-width: 280px;
+      background: #ffffff;
+      color: #1f2937;
+      border: 1px solid #ddd6fe;
+      border-left: 5px solid #7c3aed;
+      border-radius: 16px;
+      padding: 12px 14px;
+      box-shadow: 0 18px 36px rgba(15, 23, 42, 0.16);
+      font-size: 0.92rem;
+      line-height: 1.5;
+      z-index: 1000;
+      display: none;
+    }
+
+    .glossary-popup strong {
+      display: block;
+      margin-bottom: 6px;
+      color: #5b21b6;
+      font-size: 0.95rem;
+    }
+
     .footer-note {
       text-align: center;
       color: var(--muted);
@@ -309,14 +383,25 @@
         border-radius: 26px;
       }
 
+      .book-cover-panel {
+        padding: 16px;
+        border-radius: 22px;
+      }
+
       .section {
         padding: 18px;
+      }
+
+      .glossary-popup {
+        max-width: min(260px, calc(100vw - 28px));
       }
     }
   </style>
 </head>
 <body>
   <div class="page">
+    <a class="back-link" href="../library/library.html">← Back to Library</a>
+
     <header class="hero">
       <div class="hero-badge">📘 Growth Mindset Collection</div>
       <h1>The Platform Economy for Young Minds</h1>
@@ -326,6 +411,14 @@
         how digital platforms work, how creators earn, and how AI is changing the modern economy.
       </p>
     </header>
+
+    <section class="book-cover-panel">
+      <img
+        src="../../shared/assets/images/platform-economy-young-minds-cover.png"
+        alt="The Platform Economy for Young Minds cover"
+        class="book-cover-image"
+      />
+    </section>
 
     <main class="layout">
       <aside class="sidebar">
@@ -363,8 +456,10 @@
           <p>
             The digital world is part of everyday life. Many learners wake up to a phone alarm,
             watch videos online, listen to music through an app, send messages, search for information,
-            and use digital tools for schoolwork. All of these activities take place on platforms.
-            A platform is more than just a website or an app. It is a system that connects different
+            and use digital tools for schoolwork. All of these activities take place on
+            <span class="glossary-term" data-definition="Digital systems that connect different groups of people so they can exchange value, content, services, or products.">platforms</span>.
+            A <span class="glossary-term" data-definition="A digital system that connects people or groups and helps them interact and exchange value.">platform</span>
+            is more than just a website or an app. It is a system that connects different
             groups of people so that they can exchange something of value.
           </p>
           <p>
@@ -377,8 +472,10 @@
           <p>
             This book explains how the platform economy works in a simple and engaging way.
             It is designed for learners who want to understand how digital platforms make money,
-            why creators matter, what ownership means, and how artificial intelligence is changing
-            the economy. By the end of the book, you will not only understand how platforms work
+            why <span class="glossary-term" data-definition="People who make something of value such as videos, lessons, books, music, art, software, or products.">creators</span> matter,
+            what ownership means, and how
+            <span class="glossary-term" data-definition="Technology that helps computers perform tasks such as generating ideas, analysing information, making recommendations, or creating content.">artificial intelligence</span>
+            is changing the economy. By the end of the book, you will not only understand how platforms work
             but also begin to imagine how you could become a creator, builder, or entrepreneur
             in the digital world.
           </p>
@@ -411,14 +508,20 @@
             find information, and make decisions.
           </p>
           <p>
-            A digital platform is a system that connects people and helps them interact through technology.
-            It may connect buyers and sellers, creators and audiences, teachers and learners, drivers and passengers,
+            A digital <span class="glossary-term" data-definition="A digital system that connects people and helps them interact through technology.">platform</span>
+            is a system that connects people and helps them interact through technology.
+            It may connect buyers and sellers,
+            <span class="glossary-term" data-definition="People who produce value such as videos, songs, lessons, games, books, software, artwork, or products.">creators</span>
+            and
+            <span class="glossary-term" data-definition="The people who watch, buy, read, listen to, or use what creators provide.">consumers</span>,
+            teachers and learners, drivers and passengers,
             or businesses and customers. The platform provides the space, tools, and rules that allow people to meet
             and exchange value.
           </p>
           <p>
             Think about an online video platform. Some people create videos. Other people watch them.
-            Advertisers may pay to place adverts near the videos. The company that owns the platform provides
+            <span class="glossary-term" data-definition="Messages paid for by businesses to attract attention and promote products or services.">Advertisers</span>
+            may pay to place adverts near the videos. The company that owns the platform provides
             the technology that stores the videos, recommends them to viewers, and records what people watch.
             Without the platform, it would be much harder for the creators and viewers to find one another.
           </p>
@@ -479,7 +582,8 @@
           <div class="chapter-tag">Chapter 2</div>
           <h2>What Is a Platform?</h2>
           <p>
-            A platform is a place where different groups of people meet and exchange value.
+            A <span class="glossary-term" data-definition="A place or system where different groups meet and exchange value.">platform</span>
+            is a place where different groups of people meet and exchange value.
             In the physical world, a market is a type of platform. Farmers bring food to sell,
             and customers come to buy it. The market itself does not grow the vegetables,
             but it provides a place where exchange can happen. A digital platform works in a similar way,
@@ -494,7 +598,8 @@
           <p>
             The important idea is that a platform does not always make the main product itself.
             Instead, it builds the system that allows others to create, share, buy, sell, or communicate.
-            That system may include an app, a website, payment tools, search tools, recommendation systems,
+            That system may include an app, a website, payment tools, search tools,
+            <span class="glossary-term" data-definition="Systems that help decide what users see based on their behaviour, interests, or needs.">recommendation systems</span>,
             user profiles, review features, and customer support.
           </p>
           <p>
@@ -547,8 +652,10 @@
           <div class="chapter-tag">Chapter 3</div>
           <h2>The Three Main Players</h2>
           <p>
-            Most digital platforms involve three main groups: creators, consumers, and platform owners.
-            These groups may play different roles, but the platform depends on all of them.
+            Most digital platforms involve three main groups:
+            <span class="glossary-term" data-definition="People who make or produce value on a platform.">creators</span>,
+            <span class="glossary-term" data-definition="People who use, watch, buy, read, listen to, or learn from what creators provide.">consumers</span>,
+            and platform owners. These groups may play different roles, but the platform depends on all of them.
             If one group disappears, the system becomes weaker.
           </p>
           <p>
@@ -606,9 +713,13 @@
           <div class="chapter-tag">Chapter 4</div>
           <h2>How Platforms Make Money</h2>
           <p>
-            Platforms may look free at first, but they almost always have a business model.
+            Platforms may look free at first, but they almost always have a
+            <span class="glossary-term" data-definition="The way a company earns money and sustains itself.">business model</span>.
             A business model explains how a company earns money. Digital platforms usually make money
-            in several common ways, including subscriptions, advertising, commissions,
+            in several common ways, including
+            <span class="glossary-term" data-definition="A regular payment, often monthly or yearly, for continued access to a service or platform.">subscriptions</span>,
+            <span class="glossary-term" data-definition="Paid messages that help businesses promote products or services to users.">advertising</span>,
+            <span class="glossary-term" data-definition="A percentage of each sale or transaction kept by the platform.">commissions</span>,
             data-driven services, and premium features.
           </p>
           <p>
@@ -672,12 +783,15 @@
           </p>
           <p>
             Ownership matters because it decides who has the right to copy, sell, share, perform,
-            or change a piece of work. In many countries, these rights are protected by copyright law.
+            or change a piece of work. In many countries, these rights are protected by
+            <span class="glossary-term" data-definition="The legal protection given to creators over their original work such as writing, music, films, code, or artwork.">copyright</span> law.
             Copyright gives creators legal protection over their original work.
           </p>
           <p>
             This is why platforms need permission. A platform cannot simply take songs, movies, or books
-            from anywhere and offer them to users. It usually needs licences or agreements with rights holders.
+            from anywhere and offer them to users. It usually needs
+            <span class="glossary-term" data-definition="Official permissions or agreements allowing someone to use, distribute, stream, or sell content.">licences</span>
+            or agreements with rights holders.
           </p>
           <p>
             Ownership can become more complicated when many people contribute to one piece of work.
@@ -717,7 +831,8 @@
           <div class="chapter-tag">Chapter 6</div>
           <h2>Licensing and Royalties</h2>
           <p>
-            Licensing is the process of getting permission to use, distribute, stream,
+            <span class="glossary-term" data-definition="The process of getting permission to use, distribute, stream, or sell someone else’s content.">Licensing</span>
+            is the process of getting permission to use, distribute, stream,
             or sell someone else’s content. In the platform economy, licences are essential
             because platforms often provide access to content that they did not create themselves.
           </p>
@@ -726,7 +841,8 @@
             from artists around the world without permission. It must enter into agreements with rights holders.
           </p>
           <p>
-            Royalties are payments made when content is used. A musician may receive royalties when songs are streamed.
+            <span class="glossary-term" data-definition="Payments made to creators or rights holders when their content is used, sold, streamed, or distributed.">Royalties</span>
+            are payments made when content is used. A musician may receive royalties when songs are streamed.
             A writer may receive royalties when books are sold. A filmmaker may receive royalties when films are distributed.
           </p>
           <p>
@@ -770,7 +886,8 @@
           <div class="chapter-tag">Chapter 7</div>
           <h2>The Power of Network Effects</h2>
           <p>
-            One reason platforms grow so quickly is something called a network effect.
+            One reason platforms grow so quickly is something called a
+            <span class="glossary-term" data-definition="When a platform becomes more valuable as more people use it.">network effect</span>.
             A network effect happens when a platform becomes more valuable as more people use it.
           </p>
           <p>
@@ -852,7 +969,8 @@
             Because there is so much content, it can be hard to stand out.
           </p>
           <p>
-            Algorithms are systems that help decide what users see.
+            <span class="glossary-term" data-definition="Systems that help decide what users see based on behaviour such as viewing time, clicks, likes, or shares.">Algorithms</span>
+            are systems that help decide what users see.
             On user-generated platforms, algorithms often recommend content based on behaviour
             such as viewing time, clicks, likes, or shares.
           </p>
@@ -880,7 +998,8 @@
           <div class="chapter-tag">Chapter 9</div>
           <h2>Artificial Intelligence and the New Economy</h2>
           <p>
-            Artificial intelligence, often called AI, is changing the platform economy.
+            <span class="glossary-term" data-definition="Technology that helps computers perform tasks such as generating content, making recommendations, analysing information, or assisting users.">Artificial intelligence</span>,
+            often called AI, is changing the platform economy.
             AI tools can help people write, edit, design, translate, search, analyse data,
             recommend content, and even generate images, music, and code.
           </p>
@@ -1047,5 +1166,54 @@
       </section>
     </main>
   </div>
+
+  <div id="glossary-popup" class="glossary-popup"></div>
+
+  <script>
+    const glossaryPopup = document.getElementById("glossary-popup");
+    const glossaryTerms = document.querySelectorAll(".glossary-term");
+
+    glossaryTerms.forEach(term => {
+      term.addEventListener("click", (event) => {
+        event.stopPropagation();
+
+        const word = term.textContent.trim();
+        const definition = term.dataset.definition || "No definition available.";
+
+        glossaryPopup.innerHTML = `<strong>${word}</strong>${definition}`;
+        glossaryPopup.style.display = "block";
+
+        const rect = term.getBoundingClientRect();
+        const popupWidth = glossaryPopup.offsetWidth || 280;
+        let left = rect.left + window.scrollX;
+        let top = rect.bottom + window.scrollY + 10;
+
+        if (left + popupWidth > window.scrollX + window.innerWidth - 16) {
+          left = window.scrollX + window.innerWidth - popupWidth - 16;
+        }
+
+        if (left < window.scrollX + 12) {
+          left = window.scrollX + 12;
+        }
+
+        glossaryPopup.style.left = left + "px";
+        glossaryPopup.style.top = top + "px";
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!event.target.classList.contains("glossary-term")) {
+        glossaryPopup.style.display = "none";
+      }
+    });
+
+    window.addEventListener("scroll", () => {
+      glossaryPopup.style.display = "none";
+    });
+
+    window.addEventListener("resize", () => {
+      glossaryPopup.style.display = "none";
+    });
+  </script>
 </body>
 </html>
