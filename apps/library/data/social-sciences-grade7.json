@@ -1,0 +1,43 @@
+{
+  "title": "Social Sciences Grade 7",
+  "coverImage": "../../shared/assets/images/social-sciences-grade7-cover.png",
+  "chapters": {
+    "ch1": {
+      "title": "Chapter 1: The Kingdom of Mali",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "The [[Kingdom of Mali]] was one of the great empires of West Africa."
+        },
+        {
+          "type": "image",
+          "src": "../../shared/assets/images/kingdom-of-mali-map.png",
+          "alt": "Map of the Kingdom of Mali",
+          "caption": "The Kingdom of Mali grew into a powerful trading empire in West Africa."
+        },
+        {
+          "type": "paragraph",
+          "text": "Mali became known for its wealth, especially through the trade of [[gold]] and [[salt]]."
+        }
+      ],
+      "glossary": {
+        "kingdom of mali": {
+          "definition": "A powerful West African empire known for trade, wealth, and learning.",
+          "pronunciation": "KING-dum of MAH-lee"
+        },
+        "gold": {
+          "definition": "A valuable yellow metal used in trade and wealth.",
+          "pronunciation": "gohld"
+        },
+        "salt": {
+          "definition": "A mineral used in food and trade.",
+          "pronunciation": "sawlt"
+        }
+      },
+      "worksheet": {
+        "title": "Understanding the Kingdom of Mali",
+        "prompt": "1. Where was the Kingdom of Mali located?\n\n2. Why did Mali become wealthy?\n\n3. What do the picture and map help you understand?"
+      }
+    }
+  }
+}
