@@ -1,85 +1,618 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fluent Library</title>
+  <style>
+    :root{
+      --bg:#f5f7fb;
+      --surface:#ffffff;
+      --surface-soft:#eef4ff;
+      --text:#1f2937;
+      --muted:#667085;
+      --line:#d9e2f0;
+      --primary:#2563eb;
+      --secondary:#7c3aed;
+      --accent:#f59e0b;
+      --shadow:0 12px 28px rgba(15,23,42,0.08);
+      --shadow-hover:0 16px 34px rgba(15,23,42,0.12);
+      --max-width:1280px;
+    }
 
-<title>Fluent Library</title>
+    *{
+      box-sizing:border-box;
+    }
 
-<style>
+    html{
+      scroll-behavior:smooth;
+    }
 
-.book{
-display:block;
-text-decoration:none;
-color:inherit;
-}
+    body{
+      margin:0;
+      font-family:Arial, sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at top right, rgba(37,99,235,0.10), transparent 28%),
+        radial-gradient(circle at bottom left, rgba(124,58,237,0.10), transparent 24%),
+        var(--bg);
+    }
 
-body{
-font-family: Arial, sans-serif;
-background:#f5f7fb;
-margin:0;
-padding:40px;
-}
+    a{
+      color:inherit;
+      text-decoration:none;
+    }
 
-h1{
-text-align:center;
-margin-bottom:40px;
-}
+    .page{
+      width:min(100%, var(--max-width));
+      margin:0 auto;
+      padding:24px 18px 56px;
+    }
 
-.library{
-display:grid;
-grid-template-columns:repeat(auto-fill,200px);
-gap:30px;
-justify-content:center;
-}
+    .topbar{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:16px;
+      flex-wrap:wrap;
+      margin-bottom:20px;
+    }
 
-.book{
-background:white;
-border-radius:10px;
-padding:15px;
-text-align:center;
-box-shadow:0 5px 15px rgba(0,0,0,0.1);
-cursor:pointer;
-transition:transform 0.2s;
-}
+    .crumb{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 14px;
+      background:rgba(255,255,255,0.9);
+      border:1px solid rgba(217,226,240,0.95);
+      border-radius:999px;
+      color:var(--muted);
+      box-shadow:var(--shadow);
+      font-size:0.95rem;
+    }
 
-.book:hover{
-transform:scale(1.05);
-}
+    .hero{
+      background:linear-gradient(135deg, #1d4ed8, #2563eb 48%, #7c3aed 100%);
+      color:#fff;
+      border-radius:34px;
+      padding:34px 28px;
+      box-shadow:0 20px 42px rgba(37,99,235,0.24);
+      margin-bottom:28px;
+      position:relative;
+      overflow:hidden;
+    }
 
-.book img{
-width:100%;
-height:260px;
-object-fit:cover;
-border-radius:6px;
-}
+    .hero::after{
+      content:"";
+      position:absolute;
+      right:-50px;
+      top:-50px;
+      width:220px;
+      height:220px;
+      border-radius:50%;
+      background:rgba(255,255,255,0.12);
+    }
 
-</style>
+    .hero-badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 14px;
+      border-radius:999px;
+      background:rgba(255,255,255,0.14);
+      border:1px solid rgba(255,255,255,0.24);
+      font-size:0.92rem;
+      margin-bottom:14px;
+      position:relative;
+      z-index:1;
+    }
 
+    .hero h1{
+      margin:0 0 10px;
+      font-size:clamp(2rem, 4vw, 3rem);
+      line-height:1.08;
+      max-width:700px;
+      position:relative;
+      z-index:1;
+    }
+
+    .hero p{
+      margin:0;
+      max-width:760px;
+      line-height:1.6;
+      color:rgba(255,255,255,0.92);
+      position:relative;
+      z-index:1;
+    }
+
+    .intro{
+      background:var(--surface);
+      border:1px solid var(--line);
+      border-radius:28px;
+      box-shadow:var(--shadow);
+      padding:22px;
+      margin-bottom:28px;
+    }
+
+    .intro h2{
+      margin:0 0 8px;
+      font-size:1.25rem;
+    }
+
+    .intro p{
+      margin:0;
+      color:var(--muted);
+      line-height:1.6;
+    }
+
+    .tags{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:16px;
+    }
+
+    .tags span{
+      padding:9px 13px;
+      border-radius:999px;
+      background:var(--surface-soft);
+      border:1px solid rgba(37,99,235,0.14);
+      color:var(--primary);
+      font-size:0.92rem;
+      font-weight:700;
+    }
+
+    .shelf-section{
+      margin-bottom:30px;
+    }
+
+    .shelf-header{
+      display:flex;
+      justify-content:space-between;
+      align-items:end;
+      gap:16px;
+      margin-bottom:14px;
+      flex-wrap:wrap;
+    }
+
+    .shelf-title-wrap h2{
+      margin:0 0 4px;
+      font-size:1.45rem;
+    }
+
+    .shelf-title-wrap p{
+      margin:0;
+      color:var(--muted);
+      line-height:1.5;
+      font-size:0.95rem;
+    }
+
+    .see-all{
+      color:var(--primary);
+      font-weight:700;
+      font-size:0.95rem;
+      white-space:nowrap;
+    }
+
+    .book-row{
+      display:grid;
+      grid-auto-flow:column;
+      grid-auto-columns:minmax(190px, 220px);
+      gap:16px;
+      overflow-x:auto;
+      padding:6px 4px 14px;
+      scroll-snap-type:x proximity;
+      scrollbar-width:thin;
+      scrollbar-color:rgba(37,99,235,0.35) transparent;
+    }
+
+    .book-row::-webkit-scrollbar{
+      height:10px;
+    }
+
+    .book-row::-webkit-scrollbar-thumb{
+      background:rgba(37,99,235,0.35);
+      border-radius:999px;
+    }
+
+    .book-card{
+      background:var(--surface);
+      border:1px solid var(--line);
+      border-radius:24px;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      scroll-snap-align:start;
+      transition:transform .2s ease, box-shadow .2s ease;
+      min-height:100%;
+      display:block;
+    }
+
+    .book-card:hover{
+      transform:translateY(-4px);
+      box-shadow:var(--shadow-hover);
+    }
+
+    .book-cover-wrap{
+      padding:16px 16px 10px;
+      background:linear-gradient(180deg, #ffffff, #f8fbff);
+    }
+
+    .book-cover{
+      width:100%;
+      aspect-ratio:3 / 4;
+      object-fit:cover;
+      border-radius:16px;
+      display:block;
+      border:1px solid #eef2f7;
+      background:#fff;
+    }
+
+    .book-body{
+      padding:0 16px 16px;
+      display:grid;
+      gap:12px;
+    }
+
+    .book-meta{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      padding:7px 10px;
+      border-radius:999px;
+      background:#f8fbff;
+      border:1px solid var(--line);
+      color:var(--muted);
+      font-size:0.82rem;
+      font-weight:700;
+    }
+
+    .title{
+      font-weight:800;
+      margin:0;
+      font-size:1.05rem;
+      line-height:1.25;
+    }
+
+    .desc{
+      margin:0;
+      color:var(--muted);
+      font-size:0.93rem;
+      line-height:1.5;
+      min-height:56px;
+    }
+
+    .book-actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:10px 14px;
+      border-radius:14px;
+      font-size:0.92rem;
+      font-weight:700;
+      transition:transform 0.18s ease, opacity 0.18s ease;
+    }
+
+    .btn:hover{
+      transform:translateY(-1px);
+      opacity:0.96;
+    }
+
+    .btn-primary{
+      background:linear-gradient(135deg, var(--primary), var(--secondary));
+      color:#fff;
+    }
+
+    .btn-secondary{
+      background:#fff;
+      color:var(--text);
+      border:1px solid var(--line);
+    }
+
+    .soon-card{
+      opacity:0.92;
+    }
+
+    .soon-card .btn-primary{
+      background:linear-gradient(135deg, #64748b, #475569);
+    }
+
+    @media (max-width:640px){
+      .page{
+        padding:18px 14px 42px;
+      }
+
+      .hero,
+      .intro{
+        padding:20px;
+        border-radius:24px;
+      }
+
+      .book-row{
+        grid-auto-columns:minmax(180px, 190px);
+      }
+
+      .shelf-title-wrap h2{
+        font-size:1.25rem;
+      }
+    }
+  </style>
 </head>
-
 <body>
+  <div class="page">
+    <div class="topbar">
+      <a class="crumb" href="../../index.html">← Back to Fluent</a>
+      <div class="crumb">Fluent Library</div>
+    </div>
 
-<h1>Books Library</h1>
+    <header class="hero">
+      <div class="hero-badge">📚 Read Fluently Library</div>
+      <h1>Browse books by shelf, theme, level, and purpose</h1>
+      <p>
+        Explore growth mindset books, new titles, curriculum-linked reads, entry-level books,
+        fiction, and upcoming additions in scrollable shelves.
+      </p>
+    </header>
 
-<div class="library">
+    <section class="intro">
+      <h2>A growing library for real learners</h2>
+      <p>
+        This layout helps learners browse more naturally while giving Fluent a richer content feel.
+        As you add more books, each shelf can grow without changing the structure of the page.
+      </p>
+      <div class="tags">
+        <span>Growth Mindset First</span>
+        <span>Scrollable Shelves</span>
+        <span>Mobile Friendly</span>
+        <span>Easy to Expand</span>
+      </div>
+    </section>
 
-<a class="book" href="book.html?book=reading-comprehension">
-  <img src="https://readfluently.github.io/fluent-/shared/assets/images/reading-comprehension.png">
-  <h3>Reading Comprehension</h3>
-</a>
+    <section class="shelf-section">
+      <div class="shelf-header">
+        <div class="shelf-title-wrap">
+          <h2>Growth Mindset</h2>
+          <p>Books that build confidence, reflection, resilience, and positive learning habits.</p>
+        </div>
+      </div>
 
-<a class="book" href="book.html?book=tech-journey">
-  <img src="https://readfluently.github.io/fluent-/shared/assets/images/tech-journey.png">
-  <h3>Tech Journey</h3>
-</a>
+      <div class="book-row">
+        <a class="book-card" href="book.html?book=reading-comprehension">
+          <div class="book-cover-wrap">
+            <img class="book-cover" src="https://readfluently.github.io/fluent-/shared/assets/images/reading-comprehension.png" alt="Reading Comprehension cover">
+          </div>
+          <div class="book-body">
+            <div class="book-meta">
+              <span class="chip">Growth Mindset</span>
+              <span class="chip">Reflection</span>
+            </div>
+            <h3 class="title">Reading Comprehension</h3>
+            <p class="desc">A book that supports better thinking about reading, understanding, and how the brain learns.</p>
+            <div class="book-actions">
+              <span class="btn btn-primary">Open book</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </section>
 
-<a class="book" href="book.html?book=dictionary">
-  <img src="https://readfluently.github.io/fluent-/shared/assets/images/dictionary.png">
-  <h3>Dictionary</h3>
-</a>
+    <section class="shelf-section">
+      <div class="shelf-header">
+        <div class="shelf-title-wrap">
+          <h2>New Books</h2>
+          <p>Recently added titles that help the library feel fresh and active.</p>
+        </div>
+      </div>
 
-</div>
+      <div class="book-row">
+        <a class="book-card" href="book.html?book=tech-journey">
+          <div class="book-cover-wrap">
+            <img class="book-cover" src="https://readfluently.github.io/fluent-/shared/assets/images/tech-journey.png" alt="Tech Journey cover">
+          </div>
+          <div class="book-body">
+            <div class="book-meta">
+              <span class="chip">New</span>
+              <span class="chip">Technology</span>
+            </div>
+            <h3 class="title">Tech Journey</h3>
+            <p class="desc">An engaging title about technology, innovation, and the world young learners are growing into.</p>
+            <div class="book-actions">
+              <span class="btn btn-primary">Open book</span>
+            </div>
+          </div>
+        </a>
 
+        <a class="book-card" href="book.html?book=dictionary">
+          <div class="book-cover-wrap">
+            <img class="book-cover" src="https://readfluently.github.io/fluent-/shared/assets/images/dictionary.png" alt="Dictionary cover">
+          </div>
+          <div class="book-body">
+            <div class="book-meta">
+              <span class="chip">New</span>
+              <span class="chip">Reference</span>
+            </div>
+            <h3 class="title">Dictionary</h3>
+            <p class="desc">A practical support tool that helps learners build vocabulary and understand words independently.</p>
+            <div class="book-actions">
+              <span class="btn btn-primary">Open book</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <section class="shelf-section">
+      <div class="shelf-header">
+        <div class="shelf-title-wrap">
+          <h2>Curriculum-Aligned Books</h2>
+          <p>Books that connect clearly to classroom learning and educational support.</p>
+        </div>
+      </div>
+
+      <div class="book-row">
+        <a class="book-card" href="book.html?book=reading-comprehension">
+          <div class="book-cover-wrap">
+            <img class="book-cover" src="https://readfluently.github.io/fluent-/shared/assets/images/reading-comprehension.png" alt="Reading Comprehension cover">
+          </div>
+          <div class="book-body">
+            <div class="book-meta">
+              <span class="chip">English</span>
+              <span class="chip">Comprehension</span>
+            </div>
+            <h3 class="title">Reading Comprehension</h3>
+            <p class="desc">Supports reading strategies, understanding text, and stronger comprehension skills.</p>
+            <div class="book-actions">
+              <span class="btn btn-primary">Open book</span>
+            </div>
+          </div>
+        </a>
+
+        <a class="book-card" href="book.html?book=dictionary">
+          <div class="book-cover-wrap">
+            <img class="book-cover" src="https://readfluently.github.io/fluent-/shared/assets/images/dictionary.png" alt="Dictionary cover">
+          </div>
+          <div class="book-body">
+            <div class="book-meta">
+              <span class="chip">Vocabulary</span>
+              <span class="chip">Support</span>
+            </div>
+            <h3 class="title">Dictionary</h3>
+            <p class="desc">Strengthens word knowledge and helps learners make sense of unfamiliar language in context.</p>
+            <div class="book-actions">
+              <span class="btn btn-primary">Open book</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <section class="shelf-section">
+      <div class="shelf-header">
+        <div class="shelf-title-wrap">
+          <h2>Entry-Level Books</h2>
+          <p>Supportive books for learners who need confidence, accessible language, and a gentler reading experience.</p>
+        </div>
+      </div>
+
+      <div class="book-row">
+        <a class="book-card" href="book.html?book=dictionary">
+          <div class="book-cover-wrap">
+            <img class="book-cover" src="https://readfluently.github.io/fluent-/shared/assets/images/dictionary.png" alt="Dictionary cover">
+          </div>
+          <div class="book-body">
+            <div class="book-meta">
+              <span class="chip">Accessible</span>
+              <span class="chip">Support Tool</span>
+            </div>
+            <h3 class="title">Dictionary</h3>
+            <p class="desc">A strong entry support tool for learners who need help with meaning, vocabulary, and language confidence.</p>
+            <div class="book-actions">
+              <span class="btn btn-primary">Open book</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <section class="shelf-section">
+      <div class="shelf-header">
+        <div class="shelf-title-wrap">
+          <h2>Fiction Books</h2>
+          <p>Imaginative and story-based books. Add these as your Fluent fiction library grows.</p>
+        </div>
+      </div>
+
+      <div class="book-row">
+        <a class="book-card soon-card" href="#">
+          <div class="book-cover-wrap">
+            <img class="book-cover" src="https://readfluently.github.io/fluent-/shared/assets/images/books.png" alt="Coming soon fiction cover">
+          </div>
+          <div class="book-body">
+            <div class="book-meta">
+              <span class="chip">Fiction</span>
+              <span class="chip">Coming Soon</span>
+            </div>
+            <h3 class="title">Fiction Shelf Growing Soon</h3>
+            <p class="desc">This row is ready for your future storybooks, imaginative reads, and learner-friendly fiction titles.</p>
+            <div class="book-actions">
+              <span class="btn btn-primary">Coming soon</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <section class="shelf-section">
+      <div class="shelf-header">
+        <div class="shelf-title-wrap">
+          <h2>Coming Soon</h2>
+          <p>Future books that show learners and teachers that the Fluent library is still growing.</p>
+        </div>
+      </div>
+
+      <div class="book-row">
+        <a class="book-card soon-card" href="#">
+          <div class="book-cover-wrap">
+            <img class="book-cover" src="https://readfluently.github.io/fluent-/shared/assets/images/books.png" alt="Coming soon book cover">
+          </div>
+          <div class="book-body">
+            <div class="book-meta">
+              <span class="chip">Coming Soon</span>
+              <span class="chip">Growth</span>
+            </div>
+            <h3 class="title">New Growth Mindset Book</h3>
+            <p class="desc">Reserve this space for your next mindset-focused title when you are ready to publish it.</p>
+            <div class="book-actions">
+              <span class="btn btn-primary">Coming soon</span>
+            </div>
+          </div>
+        </a>
+
+        <a class="book-card soon-card" href="#">
+          <div class="book-cover-wrap">
+            <img class="book-cover" src="https://readfluently.github.io/fluent-/shared/assets/images/books.png" alt="Coming soon book cover">
+          </div>
+          <div class="book-body">
+            <div class="book-meta">
+              <span class="chip">Coming Soon</span>
+              <span class="chip">Curriculum</span>
+            </div>
+            <h3 class="title">New Curriculum Book</h3>
+            <p class="desc">Use this card for an upcoming curriculum-aligned title as your content library expands.</p>
+            <div class="book-actions">
+              <span class="btn btn-primary">Coming soon</span>
+            </div>
+          </div>
+        </a>
+
+        <a class="book-card soon-card" href="#">
+          <div class="book-cover-wrap">
+            <img class="book-cover" src="https://readfluently.github.io/fluent-/shared/assets/images/books.png" alt="Coming soon book cover">
+          </div>
+          <div class="book-body">
+            <div class="book-meta">
+              <span class="chip">Coming Soon</span>
+              <span class="chip">Fiction</span>
+            </div>
+            <h3 class="title">New Fiction Title</h3>
+            <p class="desc">Use this space for a future Fluent storybook when your fiction shelf is ready to launch.</p>
+            <div class="book-actions">
+              <span class="btn btn-primary">Coming soon</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </section>
+  </div>
 </body>
-
 </html>
