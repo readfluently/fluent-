@@ -62,6 +62,503 @@
       "syllables": ["ac", "cept"],
       "definition": "To agree to take something that is offered.",
       "example": "She accepted the teacher's help."
+    },
+    {
+      "word": "algorithm",
+      "partOfSpeech": "noun",
+      "syllables": ["al", "go", "ri", "thm"],
+      "definition": "A set of steps or rules used to solve a problem or make a decision.",
+      "example": "A video app uses an algorithm to suggest what you may want to watch next."
+    },
+    {
+      "word": "artificial intelligence",
+      "partOfSpeech": "noun",
+      "syllables": ["ar", "ti", "fi", "cial", "in", "tel", "li", "gence"],
+      "definition": "Technology that helps computers perform tasks such as analysing information, finding patterns, making predictions, or generating responses.",
+      "example": "Artificial intelligence can help organise large amounts of information."
+    },
+    {
+      "word": "audience",
+      "partOfSpeech": "noun",
+      "syllables": ["au", "di", "ence"],
+      "definition": "The people who watch, read, or listen to something.",
+      "example": "The teacher created videos for a large audience of learners."
+    },
+    {
+      "word": "background knowledge",
+      "partOfSpeech": "noun",
+      "syllables": ["back", "ground", "know", "ledge"],
+      "definition": "What you already know about a topic before you read or learn more about it.",
+      "example": "Her background knowledge helped her understand the story."
+    },
+    {
+      "word": "being engaged",
+      "partOfSpeech": "phrase",
+      "syllables": ["be", "ing", "en", "gaged"],
+      "definition": "Being focused and involved while learning or reading.",
+      "example": "Being engaged helps learners understand more."
+    },
+    {
+      "word": "business model",
+      "partOfSpeech": "noun",
+      "syllables": ["busi", "ness", "mod", "el"],
+      "definition": "The way a company earns money and keeps operating.",
+      "example": "Subscriptions are one kind of business model."
+    },
+    {
+      "word": "clarifying",
+      "partOfSpeech": "verb",
+      "syllables": ["clar", "i", "fy", "ing"],
+      "definition": "Stopping to fix confusion when something does not make sense.",
+      "example": "Clarifying helped her understand the difficult sentence."
+    },
+    {
+      "word": "code",
+      "partOfSpeech": "noun",
+      "syllables": ["code"],
+      "definition": "A set of instructions written for a computer to follow.",
+      "example": "The program works because the code tells it what to do."
+    },
+    {
+      "word": "commission",
+      "partOfSpeech": "noun",
+      "syllables": ["com", "mis", "sion"],
+      "definition": "A percentage of money taken from a sale or payment.",
+      "example": "The platform earns a commission from every product sold."
+    },
+    {
+      "word": "comprehension",
+      "partOfSpeech": "noun",
+      "syllables": ["com", "pre", "hen", "sion"],
+      "definition": "The ability to understand what you read or hear.",
+      "example": "Good readers focus on comprehension, not just saying the words."
+    },
+    {
+      "word": "consumer",
+      "partOfSpeech": "noun",
+      "syllables": ["con", "su", "mer"],
+      "definition": "A person who uses, buys, watches, reads, or listens to what others provide.",
+      "example": "A viewer on a video platform is a consumer."
+    },
+    {
+      "word": "copyright",
+      "partOfSpeech": "noun",
+      "syllables": ["cop", "y", "right"],
+      "definition": "The legal protection given to creators over their original work.",
+      "example": "Songs and books are protected by copyright."
+    },
+    {
+      "word": "creator",
+      "partOfSpeech": "noun",
+      "syllables": ["cre", "a", "tor"],
+      "definition": "A person who makes something valuable such as a video, lesson, book, song, or product.",
+      "example": "A teacher who makes online lessons is a creator."
+    },
+    {
+      "word": "critical thinking",
+      "partOfSpeech": "noun",
+      "syllables": ["crit", "i", "cal", "think", "ing"],
+      "definition": "Carefully analysing and evaluating information before accepting it as true.",
+      "example": "Critical thinking helps readers evaluate ideas in a text."
+    },
+    {
+      "word": "data",
+      "partOfSpeech": "noun",
+      "syllables": ["da", "ta"],
+      "definition": "Facts or information collected for use, study, or decision-making.",
+      "example": "A system may use data to find patterns."
+    },
+    {
+      "word": "dependencies",
+      "partOfSpeech": "noun",
+      "syllables": ["de", "pen", "den", "cies"],
+      "definition": "Parts of a system that rely on other parts in order to work properly.",
+      "example": "If one part changes, broken dependencies can cause problems."
+    },
+    {
+      "word": "dictionary",
+      "partOfSpeech": "noun",
+      "syllables": ["dic", "tion", "ar", "y"],
+      "definition": "A reference book or tool that explains the meanings of words.",
+      "example": "She checked the dictionary to understand the new word."
+    },
+    {
+      "word": "effort",
+      "partOfSpeech": "noun",
+      "syllables": ["ef", "fort"],
+      "definition": "Energy and determination used when trying to achieve something.",
+      "example": "Effort helps learners improve their skills."
+    },
+    {
+      "word": "engaged",
+      "partOfSpeech": "adjective",
+      "syllables": ["en", "gaged"],
+      "definition": "Being focused and mentally involved while reading or learning.",
+      "example": "She stayed engaged while reading the chapter."
+    },
+    {
+      "word": "engagement",
+      "partOfSpeech": "noun",
+      "syllables": ["en", "gage", "ment"],
+      "definition": "Being fully focused, involved, and mentally active while reading or learning.",
+      "example": "Engagement helps readers understand more deeply."
+    },
+    {
+      "word": "evidence",
+      "partOfSpeech": "noun",
+      "syllables": ["ev", "i", "dence"],
+      "definition": "Facts, examples, or information that support an idea.",
+      "example": "The writer used evidence to support the main point."
+    },
+    {
+      "word": "expression",
+      "partOfSpeech": "noun",
+      "syllables": ["ex", "pres", "sion"],
+      "definition": "Reading or speaking with the correct tone, pauses, and feeling.",
+      "example": "Good readers use expression when reading aloud."
+    },
+    {
+      "word": "fact",
+      "partOfSpeech": "noun",
+      "syllables": ["fact"],
+      "definition": "A statement that can be proven true with evidence.",
+      "example": "Water freezes at zero degrees Celsius is a fact."
+    },
+    {
+      "word": "flash drive",
+      "partOfSpeech": "noun",
+      "syllables": ["flash", "drive"],
+      "definition": "A small storage device used to save and move digital files.",
+      "example": "He saved the work on a flash drive."
+    },
+    {
+      "word": "fluent reading",
+      "partOfSpeech": "noun",
+      "syllables": ["flu", "ent", "read", "ing"],
+      "definition": "Reading smoothly, clearly, and with natural expression.",
+      "example": "Fluent reading makes the story easier to understand."
+    },
+    {
+      "word": "fluency",
+      "partOfSpeech": "noun",
+      "syllables": ["flu", "en", "cy"],
+      "definition": "The ability to read smoothly, accurately, and with expression.",
+      "example": "Practising reading helps improve fluency."
+    },
+    {
+      "word": "foundation",
+      "partOfSpeech": "noun",
+      "syllables": ["foun", "da", "tion"],
+      "definition": "The basic skills or base that support further learning.",
+      "example": "Listening skills form the foundation of reading."
+    },
+    {
+      "word": "future",
+      "partOfSpeech": "noun",
+      "syllables": ["fu", "ture"],
+      "definition": "The time that is still to come.",
+      "example": "Learners often wonder what the future will look like."
+    },
+    {
+      "word": "glossary",
+      "partOfSpeech": "noun",
+      "syllables": ["glos", "sa", "ry"],
+      "definition": "A list of important words with their meanings.",
+      "example": "The glossary explains difficult words in the chapter."
+    },
+    {
+      "word": "growth mindset",
+      "partOfSpeech": "noun",
+      "syllables": ["growth", "mind", "set"],
+      "definition": "The belief that abilities can improve through effort and practice.",
+      "example": "A growth mindset helps learners stay motivated."
+    },
+    {
+      "word": "innovation",
+      "partOfSpeech": "noun",
+      "syllables": ["in", "no", "va", "tion"],
+      "definition": "A new idea, method, or invention that improves something.",
+      "example": "Innovation can make learning tools more useful."
+    },
+    {
+      "word": "journey",
+      "partOfSpeech": "noun",
+      "syllables": ["jour", "ney"],
+      "definition": "An experience that happens over time as you move forward and learn.",
+      "example": "Learning to read well is a journey."
+    },
+    {
+      "word": "language patterns",
+      "partOfSpeech": "noun",
+      "syllables": ["lan", "guage", "pat", "terns"],
+      "definition": "The common ways words and sentences are used in a language.",
+      "example": "Children learn language patterns by listening to people speak."
+    },
+    {
+      "word": "licence",
+      "partOfSpeech": "noun",
+      "syllables": ["li", "cence"],
+      "definition": "Official permission to use, distribute, stream, or sell content.",
+      "example": "The company needed a licence to stream the film."
+    },
+    {
+      "word": "lifelong learner",
+      "partOfSpeech": "noun",
+      "syllables": ["life", "long", "learn", "er"],
+      "definition": "A person who continues learning throughout life.",
+      "example": "Reading can help someone become a lifelong learner."
+    },
+    {
+      "word": "listen and follow",
+      "partOfSpeech": "phrase",
+      "syllables": ["lis", "ten", "and", "fol", "low"],
+      "definition": "A reading strategy where you listen to someone read while following the words in the text.",
+      "example": "The class used listen and follow to practise reading."
+    },
+    {
+      "word": "listening",
+      "partOfSpeech": "noun",
+      "syllables": ["lis", "ten", "ing"],
+      "definition": "Paying careful attention to spoken words in order to understand them.",
+      "example": "Listening to stories helps learners understand language."
+    },
+    {
+      "word": "logic",
+      "partOfSpeech": "noun",
+      "syllables": ["lo", "gic"],
+      "definition": "A clear system of rules and reasoning that helps things make sense.",
+      "example": "Good programming depends on logic."
+    },
+    {
+      "word": "main idea",
+      "partOfSpeech": "noun",
+      "syllables": ["main", "i", "dea"],
+      "definition": "The most important point in a paragraph or text.",
+      "example": "The main idea tells you what the paragraph is mostly about."
+    },
+    {
+      "word": "meaning",
+      "partOfSpeech": "noun",
+      "syllables": ["mean", "ing"],
+      "definition": "The message or idea that a writer is trying to communicate.",
+      "example": "She stopped reading to think about the meaning."
+    },
+    {
+      "word": "metacognition",
+      "partOfSpeech": "noun",
+      "syllables": ["me", "ta", "cog", "ni", "tion"],
+      "definition": "Thinking about how you think and learn.",
+      "example": "Metacognition helps readers monitor their understanding."
+    },
+    {
+      "word": "modelled reading",
+      "partOfSpeech": "noun",
+      "syllables": ["mod", "elled", "read", "ing"],
+      "definition": "When a teacher or skilled reader demonstrates fluent reading for learners.",
+      "example": "Modelled reading helps learners hear how good reading sounds."
+    },
+    {
+      "word": "network effect",
+      "partOfSpeech": "noun",
+      "syllables": ["net", "work", "ef", "fect"],
+      "definition": "When a platform becomes more valuable as more people use it.",
+      "example": "Messaging apps often grow through network effects."
+    },
+    {
+      "word": "neuroplasticity",
+      "partOfSpeech": "noun",
+      "syllables": ["neu", "ro", "plas", "ti", "ci", "ty"],
+      "definition": "The brain’s ability to change and grow stronger through practice and learning.",
+      "example": "Neuroplasticity helps readers improve with practice."
+    },
+    {
+      "word": "neurons",
+      "partOfSpeech": "noun",
+      "syllables": ["neu", "rons"],
+      "definition": "Special cells in the brain that send and receive information.",
+      "example": "Neurons help the brain learn new skills."
+    },
+    {
+      "word": "opinion",
+      "partOfSpeech": "noun",
+      "syllables": ["o", "pin", "ion"],
+      "definition": "A belief or feeling that someone has about something.",
+      "example": "Saying one season is the best is an opinion."
+    },
+    {
+      "word": "ownership",
+      "partOfSpeech": "noun",
+      "syllables": ["own", "er", "ship"],
+      "definition": "The legal right to control, use, or protect something that belongs to you.",
+      "example": "Ownership matters when creative work is shared online."
+    },
+    {
+      "word": "paraphrasing",
+      "partOfSpeech": "noun",
+      "syllables": ["par", "a", "phras", "ing"],
+      "definition": "Explaining an idea in your own words.",
+      "example": "Paraphrasing helps you check if you understood the chapter."
+    },
+    {
+      "word": "pathways",
+      "partOfSpeech": "noun",
+      "syllables": ["path", "ways"],
+      "definition": "Connections between brain cells that allow information to travel.",
+      "example": "Practice strengthens the pathways used for reading."
+    },
+    {
+      "word": "perseverance",
+      "partOfSpeech": "noun",
+      "syllables": ["per", "se", "ver", "ance"],
+      "definition": "Continuing to try even when something is difficult.",
+      "example": "Perseverance helps learners succeed in hard tasks."
+    },
+    {
+      "word": "platform",
+      "partOfSpeech": "noun",
+      "syllables": ["plat", "form"],
+      "definition": "A digital system that connects people or groups and helps them interact.",
+      "example": "A shopping app can be a platform."
+    },
+    {
+      "word": "precision",
+      "partOfSpeech": "noun",
+      "syllables": ["pre", "ci", "sion"],
+      "definition": "Being exact, careful, and accurate.",
+      "example": "Computers depend on precision."
+    },
+    {
+      "word": "predicting",
+      "partOfSpeech": "verb",
+      "syllables": ["pre", "dict", "ing"],
+      "definition": "Making a thoughtful guess about what might happen next or what a text may say.",
+      "example": "Predicting keeps readers actively thinking."
+    },
+    {
+      "word": "previewing",
+      "partOfSpeech": "verb",
+      "syllables": ["pre", "view", "ing"],
+      "definition": "Looking at the title, headings, or pictures before reading to prepare your mind.",
+      "example": "Previewing helps readers get ready for the text."
+    },
+    {
+      "word": "programming",
+      "partOfSpeech": "noun",
+      "syllables": ["pro", "gram", "ming"],
+      "definition": "The process of writing instructions that tell computers what to do.",
+      "example": "Programming allows people to build apps and tools."
+    },
+    {
+      "word": "purpose",
+      "partOfSpeech": "noun",
+      "syllables": ["pur", "pose"],
+      "definition": "The reason why something is created or written.",
+      "example": "The author’s purpose was to inform the reader."
+    },
+    {
+      "word": "questioning",
+      "partOfSpeech": "verb",
+      "syllables": ["ques", "tion", "ing"],
+      "definition": "Asking yourself questions while reading to help you understand.",
+      "example": "Questioning helps readers stay mentally active."
+    },
+    {
+      "word": "recommendation system",
+      "partOfSpeech": "noun",
+      "syllables": ["re", "com", "men", "da", "tion", "sys", "tem"],
+      "definition": "A system that helps decide what users should see next based on behaviour or interests.",
+      "example": "A recommendation system may suggest videos or songs."
+    },
+    {
+      "word": "repeated reading",
+      "partOfSpeech": "noun",
+      "syllables": ["re", "peat", "ed", "read", "ing"],
+      "definition": "Reading the same passage several times to improve fluency.",
+      "example": "Repeated reading helped her become smoother and more confident."
+    },
+    {
+      "word": "rereading",
+      "partOfSpeech": "verb",
+      "syllables": ["re", "read", "ing"],
+      "definition": "Reading a sentence or paragraph again to improve understanding.",
+      "example": "Rereading helped him understand the difficult paragraph."
+    },
+    {
+      "word": "royalties",
+      "partOfSpeech": "noun",
+      "syllables": ["roy", "al", "ties"],
+      "definition": "Payments made to creators or rights holders when their work is used.",
+      "example": "Musicians may earn royalties when songs are streamed."
+    },
+    {
+      "word": "self-checking",
+      "partOfSpeech": "noun",
+      "syllables": ["self", "check", "ing"],
+      "definition": "Noticing when something does not make sense and taking steps to understand it.",
+      "example": "Self-checking helped him realise he needed to pause and think."
+    },
+    {
+      "word": "self-monitoring",
+      "partOfSpeech": "noun",
+      "syllables": ["self", "mon", "i", "tor", "ing"],
+      "definition": "Checking your own understanding and fixing confusion when needed.",
+      "example": "Self-monitoring helped me notice that I needed to reread."
+    },
+    {
+      "word": "slowing down",
+      "partOfSpeech": "phrase",
+      "syllables": ["slow", "ing", "down"],
+      "definition": "Reducing your reading speed to understand difficult information better.",
+      "example": "Slowing down helped her understand the hard section."
+    },
+    {
+      "word": "strategy",
+      "partOfSpeech": "noun",
+      "syllables": ["strat", "e", "gy"],
+      "definition": "A plan or method used to achieve a goal or solve a problem.",
+      "example": "Readers use strategy to understand difficult text."
+    },
+    {
+      "word": "subscription",
+      "partOfSpeech": "noun",
+      "syllables": ["sub", "scrip", "tion"],
+      "definition": "A regular payment for continued access to a service or platform.",
+      "example": "Many streaming platforms use a subscription model."
+    },
+    {
+      "word": "summarising",
+      "partOfSpeech": "verb",
+      "syllables": ["sum", "ma", "ris", "ing"],
+      "definition": "Explaining the most important idea in your own words.",
+      "example": "Summarising helps readers remember what they read."
+    },
+    {
+      "word": "supporting details",
+      "partOfSpeech": "noun",
+      "syllables": ["sup", "port", "ing", "de", "tails"],
+      "definition": "Extra information that explains or proves the main idea.",
+      "example": "Supporting details help the reader understand the main idea."
+    },
+    {
+      "word": "technology",
+      "partOfSpeech": "noun",
+      "syllables": ["tech", "nol", "o", "gy"],
+      "definition": "Tools, systems, and machines created to solve problems or make life easier.",
+      "example": "Phones and computers are examples of technology."
+    },
+    {
+      "word": "visualising",
+      "partOfSpeech": "verb",
+      "syllables": ["vi", "su", "al", "is", "ing"],
+      "definition": "Creating pictures in your mind while reading or listening.",
+      "example": "Visualising helps readers understand scenes better."
+    },
+    {
+      "word": "vocabulary",
+      "partOfSpeech": "noun",
+      "syllables": ["vo", "cab", "u", "lar", "y"],
+      "definition": "The collection of words a person knows and understands.",
+      "example": "Reading helps grow vocabulary."
     }
   ]
 }
