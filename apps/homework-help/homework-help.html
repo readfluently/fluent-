@@ -239,7 +239,8 @@
     .input-card button:hover,
     .secondary-btn:hover,
     .support-btn:hover,
-    .primary-btn:hover {
+    .primary-btn:hover,
+    .pill-action:hover {
       transform: translateY(-1px);
     }
 
@@ -417,6 +418,17 @@
       color: var(--muted);
     }
 
+    .pill-action {
+      background: #fff;
+      border: 1px solid var(--line);
+      padding: 9px 13px;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      color: var(--muted);
+      cursor: pointer;
+      font: inherit;
+    }
+
     .tips {
       margin-top: 22px;
       display: grid;
@@ -490,7 +502,7 @@
 <body>
   <div class="page">
     <div class="topbar">
-      <a class="crumb" href="../learner-activities.html">← Back to Learner Activities</a>
+      <a class="crumb" href="../../index.html#learner-heading">← Back to Learner Activities</a>
       <div class="crumb">Fluent Support Tool</div>
     </div>
 
@@ -563,8 +575,8 @@
 
           <div class="status" id="statusText"></div>
           <p class="tiny-note">
-            This first version gives guided support inside the page. Later you can connect it to stronger AI, speech,
-            and image-reading services.
+            This first version gives guided support inside the page. Later you can connect it to stronger AI,
+            speech, and image-reading services.
           </p>
         </div>
       </section>
@@ -615,9 +627,9 @@
             <span class="empty">Your guidance will appear here after you enter homework and choose a support mode.</span>
           </div>
           <div class="helper-bar">
-            <span class="pill">Learner-friendly</span>
-            <span class="pill">Step-by-step</span>
-            <span class="pill">Supports independent learning</span>
+            <button class="pill-action" type="button" data-quick="explain">Learner-friendly</button>
+            <button class="pill-action" type="button" data-quick="steps">Step-by-step</button>
+            <button class="pill-action" type="button" data-quick="hint">Independent learning</button>
           </div>
         </div>
       </section>
@@ -655,6 +667,7 @@
     const supportOutput = document.getElementById('supportOutput');
     const statusText = document.getElementById('statusText');
     const supportButtons = document.querySelectorAll('.support-btn');
+    const quickActions = document.querySelectorAll('[data-quick]');
     const focusButtons = document.querySelectorAll('[data-focus]');
     const cardSpeak = document.getElementById('cardSpeak');
 
@@ -665,7 +678,9 @@
         const target = document.getElementById(button.dataset.focus);
         if (target) {
           target.focus();
-          target.click?.();
+          if (typeof target.click === 'function') {
+            target.click();
+          }
         }
       });
     });
@@ -687,7 +702,7 @@
       if (/(planet|energy|matter|force|experiment|animal|plant|habitat|photosynthesis|water cycle|electricity|science)/.test(lower)) {
         return 'Natural Sciences';
       }
-      if (/(map|river|settlement|climate|history|heritage|kingdom|trade|democracy|province|continent|geography)/.test(lower)) {
+      if (/(map|river|settlement|climate|history|heritage|kingdom|trade|democracy|province|continent|geography|san hunter-gatherers|stone age|southern africa)/.test(lower)) {
         return 'Social Sciences';
       }
       if (/(design|process|materials|structure|technology|make a model|prototype)/.test(lower)) {
@@ -699,6 +714,7 @@
     function detectTaskType(text) {
       const lower = text.toLowerCase();
 
+      if (/(make a poster|poster about)/.test(lower)) return 'Poster task';
       if (/(explain why|give reasons|why do|why did|discuss|describe)/.test(lower)) return 'Explanation';
       if (/(calculate|solve|work out|find the answer|complete the sum)/.test(lower)) return 'Problem solving';
       if (/(underline|circle|match|fill in|choose|select|tick)/.test(lower)) return 'Short response activity';
@@ -724,7 +740,7 @@
       subjectOutput.textContent = subject;
       taskOutput.textContent = taskType;
       supportOutput.textContent = 'Ready for guided help';
-      setStatus('Homework captured. Choose a support option on the right.', 'good');
+      setStatus('Homework captured. Choose a support option below.', 'good');
 
       responseContent.textContent =
         'I can help with this. Start by choosing one of the support buttons above. ' +
@@ -746,24 +762,49 @@
     }
 
     function buildExplainResponse(data) {
+      if (data.taskType === 'Poster task') {
+        return `This looks like ${data.subject.toLowerCase()} work.\n\nThe task type is: ${data.taskType}.\n\nIn simple words, the question is asking you to create an information poster, not just write one sentence. Your poster should show the most important facts clearly, use a heading, and organise ideas neatly.\n\nA strong poster for this topic could include:\n• A title\n• Where the San lived\n• How they got food\n• Tools and weapons\n• Shelters\n• Rock art and daily life\n\nUse short facts, not one long paragraph.`;
+      }
+
       return `This looks like ${data.subject.toLowerCase()} work.\n\nThe task type is: ${data.taskType}.\n\nIn simple words, the question is asking you to read the instruction carefully, spot the key information, and answer in the correct format. ${sentenceStarterForSubject(data.subject)}\n\nTry saying the question in your own words before answering.`;
     }
 
     function buildHintResponse(data) {
+      if (data.taskType === 'Poster task') {
+        return `Here is a helpful hint:\n\n• Think about what headings would make your poster easy to read.\n• Choose 4 to 6 important facts only.\n• Add short phrases instead of long paragraphs.\n• Make sure the facts match the topic exactly.\n\nA good first heading could be: Who were the San?`;
+      }
+
       return `Here is a helpful hint:\n\n• Look for the action word in the instruction. Words like underline, explain, solve, describe, and write tell you what to do.\n• Find the most important words in the question.\n• Think about one small first step before trying the whole answer.\n\n${sentenceStarterForSubject(data.subject)}`;
     }
 
     function buildStepsResponse(data) {
+      if (data.taskType === 'Poster task') {
+        return `Try these steps:\n\n1. Read the whole task carefully.\n2. Identify the topic of the poster.\n3. Write a clear title.\n4. Choose 4 to 6 headings.\n5. Add short facts under each heading.\n6. Check spelling and neatness.\n7. Add pictures or drawings if needed.\n\nFor this task, a useful structure could be:\n• Title\n• Where they lived\n• Food and hunting\n• Tools\n• Shelters\n• Rock art`;
+      }
+
       return `Try these steps:\n\n1. Read the whole question once.\n2. Underline or notice the instruction word.\n3. Identify the subject and topic.\n4. Decide what the answer should look like: a word, a sentence, a calculation, or a paragraph.\n5. Do the first part only.\n6. Check if your answer matches the instruction.\n\nFor this task, Fluent thinks the best focus is: ${sentenceStarterForSubject(data.subject)}`;
     }
 
     function buildCheckResponse(data) {
       const attempt = answerInput.value.trim();
+
       if (!attempt) {
         return 'Type your answer in the “My answer or attempt” box first, then press “Check my answer” again.';
       }
 
       let feedback = `I checked your attempt against the homework task.\n\nYour answer: ${attempt}\n\n`;
+
+      if (data.taskType === 'Poster task') {
+        if (attempt.length < 40) {
+          feedback += 'This looks too short for a poster task. A poster usually needs a title and several short facts or headings.';
+        } else {
+          feedback += 'Good start. Your facts match the topic, but remember that a poster should usually be organised with a title, headings, and short clear points rather than one long block of writing.';
+        }
+
+        feedback += `\n\nPoster self-check:\n• Do you have a clear title?\n• Did you include the most important facts?\n• Are your points short and easy to read?\n• Would a teacher recognise this as a poster and not just a paragraph?`;
+        return feedback;
+      }
+
       if (attempt.length < 12) {
         feedback += 'This answer looks quite short. You may need to add more detail or show more working.';
       } else {
@@ -807,6 +848,16 @@
         supportOutput.textContent = label;
         responseContent.textContent = message;
         setStatus('Support updated successfully.', 'good');
+      });
+    });
+
+    quickActions.forEach((button) => {
+      button.addEventListener('click', () => {
+        const mode = button.dataset.quick;
+        const targetButton = document.querySelector(`.support-btn[data-mode="${mode}"]`);
+        if (targetButton) {
+          targetButton.click();
+        }
       });
     });
 
