@@ -1,0 +1,19 @@
+{
+  "textbooks": {
+    "grade4-english-home-language": {
+      "title": "Grade 4 English Home Language",
+      "coverImage": "../../shared/assets/images/grade4-english-cover.png",
+      "dataFile": "./data/grade4-english-home-language.json"
+    },
+    "agricultural-science-grade10": {
+      "title": "Agricultural Science Grade 10",
+      "coverImage": "../../shared/assets/images/agricultural-science-cover.png",
+      "dataFile": "./data/agricultural-science-grade10.json"
+    },
+    "social-sciences-grade7": {
+      "title": "Social Sciences Grade 7",
+      "coverImage": "../../shared/assets/images/social-sciences-grade7-cover.png",
+      "dataFile": "./data/social-sciences-grade7.json"
+    }
+  }
+}
