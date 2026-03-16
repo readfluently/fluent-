@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fluent Textbook</title>
+
+  <style>
+    :root{
+      --bg:#fffdf7;
+      --surface:#ffffff;
+      --surface-soft:#f8fbff;
+      --text:#1f2937;
+      --muted:#667085;
+      --line:#d9e2f0;
+      --primary:#2563eb;
+      --secondary:#7c3aed;
+      --accent:#f59e0b;
+      --success:#16a34a;
+      --shadow:0 10px 24px rgba(15,23,42,0.08);
+      --shadow-soft:0 8px 18px rgba(15,23,42,0.06);
+      --radius:16px;
+    }
+
+    *{
+      box-sizing:border-box;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      margin:0;
+      font-family:Arial, sans-serif;
+      background:var(--bg);
+      color:var(--text);
+    }
+
+    .topbar{
+      position:sticky;
+      top:0;
+      z-index:20;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding:12px 14px;
+      background:rgba(255,253,247,0.96);
+      backdrop-filter:blur(8px);
+      border-bottom:1px solid #ececec;
+      flex-wrap:nowrap;
+      overflow-x:auto;
+      -webkit-overflow-scrolling:touch;
+    }
+
+    .topbar .btn,
+    .topbar .status{
+      white-space:nowrap;
+      flex:0 0 auto;
+    }
+
+    .btn{
+      padding:10px 12px;
+      border-radius:10px;
+      border:1px solid #ddd;
+      background:#fff;
+      cursor:pointer;
+      font-weight:700;
+      color:#243244;
+    }
+
+    .btn:hover{
+      background:#f8fbff;
+    }
+
+    .btn:disabled{
+      opacity:.5;
+      cursor:not-allowed;
+    }
+
+    .status{
+      font-size:13px;
+      color:#555;
+    }
+
+    .wrap{
+      display:grid;
+      grid-template-columns:1.6fr 1fr;
+      gap:14px;
+      padding:14px;
+      align-items:start;
+    }
+
+    .card{
+      background:var(--surface);
+      border-radius:18px;
+      padding:14px;
+      box-shadow:var(--shadow);
+      border:1px solid #eef2f7;
+      min-width:0;
+    }
+
+    .hero{
+      background:linear-gradient(135deg, #1d4ed8, #2563eb 52%, #7c3aed 100%);
+      color:#fff;
+      border-radius:20px;
+      padding:20px 18px;
+      margin-bottom:14px;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .hero::after{
+      content:"";
+      position:absolute;
+      right:-50px;
+      top:-50px;
+      width:180px;
+      height:180px;
+      border-radius:50%;
+      background:rgba(255,255,255,0.12);
+    }
+
+    .hero-badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 12px;
+      border-radius:999px;
+      background:rgba(255,255,255,0.14);
+      border:1px solid rgba(255,255,255,0.22);
+      font-size:13px;
+      margin-bottom:10px;
+      position:relative;
+      z-index:1;
+    }
+
+    .hero h1{
+      margin:0 0 8px;
+      font-size:clamp(1.5rem, 4vw, 2.3rem);
+      line-height:1.15;
+      position:relative;
+      z-index:1;
+    }
+
+    .hero p{
+      margin:0;
+      color:rgba(255,255,255,0.95);
+      line-height:1.55;
+      position:relative;
+      z-index:1;
+    }
+
+    .meta{
+      color:#555;
+      font-size:14px;
+      margin-bottom:10px;
+    }
+
+    .recorder{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+
+    audio{
+      width:100%;
+      margin-top:10px;
+    }
+
+    .divider{
+      height:1px;
+      background:#eee;
+      margin:12px 0;
+    }
+
+    .scrollText{
+      max-height:64vh;
+      overflow:auto;
+      padding-right:6px;
+    }
+
+    .scrollWork{
+      max-height:78vh;
+      overflow:auto;
+      padding-right:6px;
+    }
+
+    .textbook-content{
+      display:grid;
+      gap:16px;
+    }
+
+    .textbook-content p{
+      margin:0;
+      line-height:1.75;
+      font-size:18px;
+    }
+
+    .block-heading{
+      margin:10px 0 0;
+      font-size:1.2rem;
+      color:#1d3557;
+    }
+
+    .block-subheading{
+      margin:8px 0 0;
+      font-size:1.05rem;
+      color:#334155;
+    }
+
+    .image-block{
+      background:#fff;
+      border:1px solid #edf2f7;
+      border-radius:16px;
+      overflow:hidden;
+      box-shadow:var(--shadow-soft);
+    }
+
+    .image-block img{
+      display:block;
+      width:100%;
+      height:auto;
+      max-height:460px;
+      object-fit:cover;
+      background:#fff;
+    }
+
+    .image-caption{
+      padding:10px 12px 12px;
+      font-size:14px;
+      color:var(--muted);
+      line-height:1.5;
+      background:#fcfdff;
+      border-top:1px solid #edf2f7;
+    }
+
+    .fact-box,
+    .note-box,
+    .activity-box{
+      padding:14px;
+      border-radius:16px;
+      border:1px solid var(--line);
+    }
+
+    .fact-box{
+      background:#eef6ff;
+      border-color:#d5e4ff;
+    }
+
+    .note-box{
+      background:#fff8eb;
+      border-color:#f6df9f;
+    }
+
+    .activity-box{
+      background:#eefaf2;
+      border-color:#cdebd6;
+    }
+
+    .box-title{
+      margin:0 0 8px;
+      font-weight:800;
+      color:#243244;
+    }
+
+    .term{
+      color:#7b3ff2;
+      font-weight:700;
+      cursor:pointer;
+    }
+
+    .term:hover{
+      text-decoration:underline;
+    }
+
+    textarea{
+      width:100%;
+      min-height:170px;
+      resize:vertical;
+      border:1px solid #ddd;
+      border-radius:12px;
+      padding:10px;
+      font-size:15px;
+      font-family:Arial, sans-serif;
+    }
+
+    .small{
+      font-size:13px;
+      color:#555;
+      line-height:1.5;
+    }
+
+    .popup{
+      position:fixed;
+      left:50%;
+      top:18%;
+      transform:translateX(-50%);
+      width:min(540px, calc(100% - 28px));
+      background:#fff;
+      border:1px solid #e6e6e6;
+      box-shadow:0 12px 30px rgba(0,0,0,0.16);
+      border-radius:14px;
+      padding:14px;
+      z-index:9999;
+      display:none;
+    }
+
+    .popupHeader{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      margin-bottom:8px;
+    }
+
+    .popupTitle{
+      font-weight:800;
+      text-transform:capitalize;
+    }
+
+    .closeBtn{
+      border:1px solid #ddd;
+      background:#fff;
+      border-radius:10px;
+      padding:8px 10px;
+      cursor:pointer;
+    }
+
+    @media (max-width:900px){
+      .wrap{
+        display:flex;
+        flex-direction:column;
+        gap:12px;
+      }
+
+      .scrollText{
+        max-height:48vh;
+      }
+
+      .scrollWork{
+        max-height:42vh;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="topbar">
+    <button class="btn" onclick="history.back()">← Back</button>
+    <button class="btn" id="howBtn">How This Works</button>
+    <button class="btn" id="dictBtn">Dictionary</button>
+    <button class="btn" id="nextChapterBtn">Next Chapter →</button>
+    <div class="status" id="status">Loading…</div>
+  </div>
+
+  <div class="wrap">
+    <div class="card">
+      <div class="hero">
+        <div class="hero-badge">📘 Curriculum Textbook</div>
+        <h1 id="chapterTitle">Loading…</h1>
+        <p id="chapterMeta">Please wait while the textbook loads.</p>
+      </div>
+
+      <div id="chapterProgressWrap" style="margin:10px 0 14px;">
+        <div class="small" id="chapterProgressText">Progress</div>
+        <div style="height:10px; background:#eee; border-radius:999px; overflow:hidden; margin-top:6px;">
+          <div id="chapterProgressBar" style="height:10px; width:0%; background:#7b3ff2;"></div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="recorder">
+        <button class="btn" id="recBtn">⏺ Record</button>
+        <button class="btn" id="stopRecBtn" disabled>⏹ Stop</button>
+        <button class="btn" id="playBtn" disabled>▶ Play</button>
+        <button class="btn" id="clearBtn" disabled>🧹 Clear</button>
+        <button class="btn" id="downloadBtn" disabled>⬇ Download</button>
+        <div class="small" id="recStatus"></div>
+      </div>
+
+      <audio id="player" controls style="display:none;"></audio>
+
+      <div class="divider"></div>
+
+      <div class="scrollText">
+        <div class="textbook-content" id="chapterContent"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="scrollWork" id="worksheetBody">
+        <h2 style="margin-top:0;">Worksheet</h2>
+        <div class="small">Type your answers here. They save on this device.</div>
+
+        <div class="divider"></div>
+
+        <h3 style="margin:0 0 6px;" id="worksheetTitle">Worksheet</h3>
+        <div class="small" id="worksheetPrompt">Type your answers here.</div>
+        <textarea id="wsBox" placeholder="Type here..."></textarea>
+
+        <div class="divider"></div>
+
+        <h2 style="margin-top:0;">Glossary</h2>
+        <div class="small">Tap a purple word in the text to see a pop-up meaning.</div>
+        <div class="divider"></div>
+        <div id="glossaryHint" class="small">No word selected yet.</div>
+
+        <div class="divider"></div>
+        <button class="btn" id="speakWordBtn" disabled>🔊 Read Word + Meaning</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="popup" id="popup">
+    <div class="popupHeader">
+      <div class="popupTitle" id="popupTitle">Word</div>
+      <button class="closeBtn" id="closePopup">Close</button>
+    </div>
+    <div class="small" id="popupBody"></div>
+  </div>
+
+<script>
+  const params = new URLSearchParams(location.search);
+  const bookId = params.get("book");
+  const chapterId = params.get("chapter");
+
+  const statusEl = document.getElementById("status");
+  const chapterTitleEl = document.getElementById("chapterTitle");
+  const chapterMetaEl = document.getElementById("chapterMeta");
+  const chapterContentEl = document.getElementById("chapterContent");
+  const chapterProgressText = document.getElementById("chapterProgressText");
+  const chapterProgressBar = document.getElementById("chapterProgressBar");
+  const howBtn = document.getElementById("howBtn");
+  const dictBtn = document.getElementById("dictBtn");
+  const nextChapterBtn = document.getElementById("nextChapterBtn");
+
+  const worksheetTitleEl = document.getElementById("worksheetTitle");
+  const worksheetPromptEl = document.getElementById("worksheetPrompt");
+  const wsBox = document.getElementById("wsBox");
+
+  const speakWordBtn = document.getElementById("speakWordBtn");
+  const glossaryHint = document.getElementById("glossaryHint");
+  let selectedTerm = null;
+  let selectedDef = null;
+  let chapterGlossary = {};
+
+  const popup = document.getElementById("popup");
+  const popupTitle = document.getElementById("popupTitle");
+  const popupBody = document.getElementById("popupBody");
+  const closePopup = document.getElementById("closePopup");
+
+  const recBtn = document.getElementById("recBtn");
+  const stopRecBtn = document.getElementById("stopRecBtn");
+  const playBtn = document.getElementById("playBtn");
+  const clearBtn = document.getElementById("clearBtn");
+  const downloadBtn = document.getElementById("downloadBtn");
+  const recStatus = document.getElementById("recStatus");
+  const player = document.getElementById("player");
+
+  let mediaRecorder = null;
+  let chunks = [];
+  let audioBlob = null;
+  let audioUrl = null;
+
+  function setStatus(msg){
+    statusEl.textContent = msg || "";
+  }
+
+  function wsKey(){
+    return `tb_ws_${bookId}_${chapterId}`;
+  }
+
+  function escapeHtml(s){
+    return String(s)
+      .replace(/&/g,"&amp;")
+      .replace(/</g,"&lt;")
+      .replace(/>/g,"&gt;");
+  }
+
+  function loadWorksheet(ch){
+    const ws = ch.worksheet || null;
+
+    worksheetTitleEl.textContent = ws?.title || "Worksheet";
+    worksheetPromptEl.textContent = ws?.prompt || "Type your answers here.";
+
+    const saved = localStorage.getItem(wsKey());
+    wsBox.value = saved || "";
+
+    wsBox.oninput = () => {
+      localStorage.setItem(wsKey(), wsBox.value);
+    };
+  }
+
+  function getOrderedChapterKeys(chapters){
+    return Object.keys(chapters)
+      .filter(k => k !== "how-it-works")
+      .sort((a, b) => {
+        const ma = /^ch(\d+)$/i.exec(a);
+        const mb = /^ch(\d+)$/i.exec(b);
+
+        if (ma && mb) return Number(ma[1]) - Number(mb[1]);
+        if (ma) return -1;
+        if (mb) return 1;
+
+        return a.localeCompare(b);
+      });
+  }
+
+  function getNextChapter(current, chapters){
+    const keys = getOrderedChapterKeys(chapters);
+    const index = keys.indexOf(current);
+    if(index >= 0 && index < keys.length - 1){
+      return keys[index + 1];
+    }
+    return null;
+  }
+
+  async function loadTextbookIndex(){
+    const res = await fetch("./data/textbooks.json", { cache: "no-store" });
+    if(!res.ok) throw new Error("Could not fetch textbooks.json (" + res.status + ")");
+    return await res.json();
+  }
+
+  async function loadTextbookData(indexEntry){
+    if(indexEntry?.dataFile){
+      const res = await fetch(indexEntry.dataFile, { cache: "no-store" });
+      if(!res.ok) throw new Error("Could not fetch " + indexEntry.dataFile + " (" + res.status + ")");
+      return await res.json();
+    }
+    return indexEntry;
+  }
+
+  function renderInlineTerms(text){
+    const safe = escapeHtml(text);
+    return safe.replace(/\[\[([^\]]+)\]\]/g, (m, term) => {
+      const key = term.toLowerCase().trim();
+      return `<span class="term" data-term="${escapeHtml(key)}">${escapeHtml(term)}</span>`;
+    });
+  }
+
+  function renderBlocks(blocks){
+    chapterContentEl.innerHTML = "";
+
+    (blocks || []).forEach(block => {
+      const type = block?.type || "paragraph";
+      let el;
+
+      if(type === "heading"){
+        el = document.createElement("h2");
+        el.className = "block-heading";
+        el.textContent = block.text || "";
+      } else if(type === "subheading"){
+        el = document.createElement("h3");
+        el.className = "block-subheading";
+        el.textContent = block.text || "";
+      } else if(type === "image"){
+        el = document.createElement("figure");
+        el.className = "image-block";
+        el.innerHTML = `
+          <img src="${escapeHtml(block.src || "")}" alt="${escapeHtml(block.alt || "")}">
+          ${block.caption ? `<figcaption class="image-caption">${escapeHtml(block.caption)}</figcaption>` : ""}
+        `;
+      } else if(type === "fact-box"){
+        el = document.createElement("div");
+        el.className = "fact-box";
+        el.innerHTML = `
+          ${block.title ? `<div class="box-title">${escapeHtml(block.title)}</div>` : ""}
+          <div>${renderInlineTerms(block.text || "")}</div>
+        `;
+      } else if(type === "note-box"){
+        el = document.createElement("div");
+        el.className = "note-box";
+        el.innerHTML = `
+          ${block.title ? `<div class="box-title">${escapeHtml(block.title)}</div>` : ""}
+          <div>${renderInlineTerms(block.text || "")}</div>
+        `;
+      } else if(type === "activity-box"){
+        el = document.createElement("div");
+        el.className = "activity-box";
+        el.innerHTML = `
+          ${block.title ? `<div class="box-title">${escapeHtml(block.title)}</div>` : ""}
+          <div>${renderInlineTerms(block.text || "")}</div>
+        `;
+      } else {
+        el = document.createElement("p");
+        el.innerHTML = renderInlineTerms(block.text || "");
+      }
+
+      chapterContentEl.appendChild(el);
+    });
+
+    chapterContentEl.querySelectorAll(".term").forEach(el => {
+      el.addEventListener("click", () => {
+        const key = el.getAttribute("data-term");
+        const entry = chapterGlossary[key];
+
+        selectedTerm = key;
+        selectedDef = entry || null;
+
+        if(!entry){
+          glossaryHint.innerHTML = `<b>${escapeHtml(key)}</b><div class="small">No definition added yet.</div>`;
+          speakWordBtn.disabled = true;
+          return;
+        }
+
+        glossaryHint.innerHTML = `<b>${escapeHtml(key)}</b> selected.`;
+        speakWordBtn.disabled = false;
+        showPopup(key, entry);
+      });
+    });
+  }
+
+  function showPopup(termKey, entry){
+    popupTitle.textContent = termKey;
+    popupBody.innerHTML = `
+      <div><b>Pronunciation:</b> ${escapeHtml(entry.pronunciation || "-")}</div>
+      <div style="margin-top:6px;"><b>Meaning:</b> ${escapeHtml(entry.definition || "-")}</div>
+      ${entry.simpleMeaning ? `<div style="margin-top:10px;"><b>Simple meaning:</b> ${escapeHtml(entry.simpleMeaning)}</div>` : ""}
+      ${entry.example ? `<div style="margin-top:10px;"><b>Example:</b> ${escapeHtml(entry.example)}</div>` : ""}
+    `;
+    popup.style.display = "block";
+  }
+
+  function hidePopup(){
+    popup.style.display = "none";
+  }
+
+  closePopup.addEventListener("click", hidePopup);
+  popup.addEventListener("click", (e) => {
+    if(e.target === popup){
+      hidePopup();
+    }
+  });
+
+  function speak(text){
+    if(!("speechSynthesis" in window)){
+      alert("Text-to-speech is not supported on this browser.");
+      return;
+    }
+
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    speechSynthesis.speak(u);
+  }
+
+  speakWordBtn.addEventListener("click", () => {
+    if(!selectedTerm || !selectedDef) return;
+    const text = `${selectedTerm}. Pronunciation: ${selectedDef.pronunciation || ""}. Meaning: ${selectedDef.definition || ""}`;
+    speak(text);
+  });
+
+  async function startRecording(){
+    try{
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      mediaRecorder = new MediaRecorder(stream);
+      chunks = [];
+
+      mediaRecorder.ondataavailable = e => chunks.push(e.data);
+
+      mediaRecorder.onstop = () => {
+        audioBlob = new Blob(chunks, { type: "audio/webm" });
+
+        if(audioUrl){
+          URL.revokeObjectURL(audioUrl);
+        }
+
+        audioUrl = URL.createObjectURL(audioBlob);
+        player.src = audioUrl;
+        player.style.display = "block";
+
+        playBtn.disabled = false;
+        clearBtn.disabled = false;
+        downloadBtn.disabled = false;
+
+        recStatus.textContent = "Recording saved (on this page).";
+        stream.getTracks().forEach(t => t.stop());
+      };
+
+      mediaRecorder.start();
+      recStatus.textContent = "Recording…";
+      recBtn.disabled = true;
+      stopRecBtn.disabled = false;
+    }catch(err){
+      recStatus.textContent = "Mic permission blocked. Allow microphone access.";
+    }
+  }
+
+  function stopRecording(){
+    if(mediaRecorder && mediaRecorder.state !== "inactive"){
+      mediaRecorder.stop();
+      recBtn.disabled = false;
+      stopRecBtn.disabled = true;
+    }
+  }
+
+  function playRecording(){
+    if(!audioUrl) return;
+    player.play();
+  }
+
+  function clearRecording(){
+    audioBlob = null;
+
+    if(audioUrl){
+      URL.revokeObjectURL(audioUrl);
+    }
+
+    audioUrl = null;
+    player.pause();
+    player.removeAttribute("src");
+    player.style.display = "none";
+
+    playBtn.disabled = true;
+    clearBtn.disabled = true;
+    downloadBtn.disabled = true;
+
+    recStatus.textContent = "Cleared.";
+  }
+
+  function downloadRecording(){
+    if(!audioBlob) return;
+
+    const a = document.createElement("a");
+    const filename = `${bookId}-${chapterId}-reading.webm`;
+    a.href = audioUrl;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+  }
+
+  recBtn.addEventListener("click", startRecording);
+  stopRecBtn.addEventListener("click", stopRecording);
+  playBtn.addEventListener("click", playRecording);
+  clearBtn.addEventListener("click", clearRecording);
+  downloadBtn.addEventListener("click", downloadRecording);
+
+  async function loadChapter(){
+    try{
+      const indexData = await loadTextbookIndex();
+      const bookIndexEntry = indexData.textbooks?.[bookId];
+      if(!bookIndexEntry) throw new Error("Textbook not found: " + bookId);
+
+      const bookData = await loadTextbookData(bookIndexEntry);
+      const chapters = bookData.chapters || {};
+      const ch = chapters?.[chapterId];
+      if(!ch) throw new Error("Chapter not found: " + chapterId);
+
+      const orderedKeys = getOrderedChapterKeys(chapters);
+      const currentIndex = orderedKeys.indexOf(chapterId);
+
+      if(currentIndex >= 0){
+        const chapterNumber = currentIndex + 1;
+        const totalChapters = orderedKeys.length;
+        const percent = (chapterNumber / totalChapters) * 100;
+        chapterProgressText.textContent = `Chapter ${chapterNumber} of ${totalChapters}`;
+        chapterProgressBar.style.width = `${percent}%`;
+      } else {
+        chapterProgressText.textContent = "";
+        chapterProgressBar.style.width = "0%";
+      }
+
+      chapterTitleEl.textContent = ch.title || chapterId;
+      chapterMetaEl.textContent = `${bookData.title || bookIndexEntry.title || bookId} • ${chapterId}`;
+
+      howBtn.onclick = () => {
+        const howId = "how-it-works";
+        if(chapters?.[howId]){
+          location.href = `textbook.html?book=${encodeURIComponent(bookId)}&chapter=${encodeURIComponent(howId)}`;
+        } else {
+          alert("No 'How This Works' chapter yet for this textbook.");
+        }
+      };
+
+      dictBtn.onclick = () => {
+        location.href = `book.html?book=dictionary&chapter=main`;
+      };
+
+      const next = getNextChapter(chapterId, chapters);
+      if(next){
+        nextChapterBtn.style.display = "";
+        nextChapterBtn.onclick = () => {
+          location.href = `textbook.html?book=${encodeURIComponent(bookId)}&chapter=${encodeURIComponent(next)}`;
+        };
+      } else {
+        nextChapterBtn.style.display = "none";
+      }
+
+      chapterGlossary = ch.glossary || {};
+      renderBlocks(ch.blocks || []);
+      loadWorksheet(ch);
+      localStorage.setItem(`tb_last_${bookId}`, chapterId);
+
+      setStatus("Ready");
+    }catch(e){
+      chapterTitleEl.textContent = "Could not load textbook";
+      chapterMetaEl.textContent = e.message;
+      chapterContentEl.innerHTML = `<p>${escapeHtml(e.message)}</p>`;
+      chapterProgressText.textContent = "";
+      chapterProgressBar.style.width = "0%";
+      nextChapterBtn.style.display = "none";
+      setStatus("Error");
+    }
+  }
+
+  loadChapter();
+</script>
+
+</body>
+</html>
