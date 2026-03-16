@@ -1,0 +1,332 @@
+{
+  "title": "Agricultural Science Grade 10",
+  "coverImage": "../../shared/assets/images/agricultural-science-cover.png",
+  "chapters": {
+    "ch1": {
+      "title": "Chapter 1: Introduction to Agricultural Sciences",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Agricultural Sciences is the study of farming systems, plants, animals, soil, water, and the way people produce food and raw materials."
+        },
+        {
+          "type": "paragraph",
+          "text": "Agriculture is important because it supports food production, jobs, trade, and rural development. It also connects science with daily life."
+        },
+        {
+          "type": "image",
+          "src": "../../shared/assets/images/agriculture-intro-grade10.png",
+          "alt": "Farm scene with crops and animals",
+          "caption": "Agriculture includes crops, animals, soil, water, and technology."
+        },
+        {
+          "type": "paragraph",
+          "text": "A modern farmer needs knowledge, planning, and responsible use of natural resources."
+        }
+      ],
+      "glossary": {
+        "agriculture": {
+          "definition": "The practice and science of farming, including crops and animals.",
+          "pronunciation": "AG-ri-kul-chur"
+        },
+        "resources": {
+          "definition": "Useful materials or supplies such as soil, water, money, or tools.",
+          "pronunciation": "ri-SOR-siz"
+        }
+      },
+      "worksheet": {
+        "title": "Introducing Agriculture",
+        "prompt": "1. What is agriculture?\n\n2. Why is agriculture important in society?\n\n3. Name two things a farmer must manage well."
+      }
+    },
+    "ch2": {
+      "title": "Chapter 2: The Importance of Soil",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Soil is one of the most important natural resources in agriculture. Plants grow in soil, and soil provides water, air, and nutrients."
+        },
+        {
+          "type": "paragraph",
+          "text": "Healthy [[soil]] supports strong plant growth. Poor soil can reduce crop production."
+        },
+        {
+          "type": "image",
+          "src": "../../shared/assets/images/soil-profile-grade10.png",
+          "alt": "Layers of soil profile",
+          "caption": "Different layers of soil make up a soil profile."
+        },
+        {
+          "type": "paragraph",
+          "text": "Farmers need to understand soil texture, soil structure, drainage, and fertility."
+        }
+      ],
+      "glossary": {
+        "soil": {
+          "definition": "The upper layer of the earth in which plants grow.",
+          "pronunciation": "soyl"
+        },
+        "fertility": {
+          "definition": "The ability of soil to support plant growth by providing nutrients.",
+          "pronunciation": "fur-TIL-i-tee"
+        }
+      },
+      "worksheet": {
+        "title": "Why Soil Matters",
+        "prompt": "1. Why is soil important in agriculture?\n\n2. What does healthy soil provide for plants?\n\n3. What is soil fertility?"
+      }
+    },
+    "ch3": {
+      "title": "Chapter 3: Soil Formation and Soil Types",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Soil forms over a long time as rocks break down and organic matter mixes with minerals. Climate, living organisms, slope, parent material, and time all affect soil formation."
+        },
+        {
+          "type": "paragraph",
+          "text": "Different soils have different properties. Sandy soil drains quickly, clay soil holds more water, and loam is often suitable for agriculture because it balances drainage and water retention."
+        },
+        {
+          "type": "paragraph",
+          "text": "Understanding soil types helps farmers choose the right crop and management method."
+        }
+      ],
+      "glossary": {
+        "parent material": {
+          "definition": "The original rock or material from which soil develops.",
+          "pronunciation": "PAIR-ent muh-TEER-ee-uhl"
+        },
+        "loam": {
+          "definition": "A balanced soil type made of sand, silt, and clay.",
+          "pronunciation": "lohm"
+        }
+      },
+      "worksheet": {
+        "title": "Soil Types",
+        "prompt": "1. Name two factors that affect soil formation.\n\n2. How is sandy soil different from clay soil?\n\n3. Why is loam useful in agriculture?"
+      }
+    },
+    "ch4": {
+      "title": "Chapter 4: Water and Plant Growth",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Plants need water for growth, transport of nutrients, and photosynthesis. Without enough water, plants become weak and may not produce well."
+        },
+        {
+          "type": "paragraph",
+          "text": "Farmers must use water wisely. Too little water causes stress, while too much water can damage roots and reduce oxygen in the soil."
+        },
+        {
+          "type": "image",
+          "src": "../../shared/assets/images/irrigation-grade10.png",
+          "alt": "Irrigation on a farm",
+          "caption": "Irrigation helps supply water to crops when rainfall is not enough."
+        }
+      ],
+      "glossary": {
+        "photosynthesis": {
+          "definition": "The process by which green plants use sunlight, water, and carbon dioxide to make food.",
+          "pronunciation": "foh-toh-SIN-thuh-sis"
+        },
+        "irrigation": {
+          "definition": "The supply of water to crops by artificial means.",
+          "pronunciation": "ir-ri-GAY-shun"
+        }
+      },
+      "worksheet": {
+        "title": "Water on the Farm",
+        "prompt": "1. Why do plants need water?\n\n2. What can happen if plants get too little water?\n\n3. What is irrigation?"
+      }
+    },
+    "ch5": {
+      "title": "Chapter 5: Plant Nutrients",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Plants need nutrients to grow well. Important nutrients include nitrogen, phosphorus, and potassium."
+        },
+        {
+          "type": "paragraph",
+          "text": "Nitrogen supports leaf growth, phosphorus helps roots and flowers, and potassium helps general plant health."
+        },
+        {
+          "type": "paragraph",
+          "text": "If a plant lacks nutrients, it may show signs such as yellow leaves, weak stems, or poor growth."
+        }
+      ],
+      "glossary": {
+        "nutrients": {
+          "definition": "Substances needed for growth and health.",
+          "pronunciation": "NOO-tree-ents"
+        },
+        "nitrogen": {
+          "definition": "A nutrient that helps plants grow leaves and stems.",
+          "pronunciation": "NYE-truh-jen"
+        }
+      },
+      "worksheet": {
+        "title": "Feeding Plants",
+        "prompt": "1. What are nutrients?\n\n2. Name three important plant nutrients.\n\n3. What signs may show that a plant lacks nutrients?"
+      }
+    },
+    "ch6": {
+      "title": "Chapter 6: Farm Animals and Their Importance",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Farm animals are important in agriculture because they provide food, income, manure, fibre, and labour in some farming systems."
+        },
+        {
+          "type": "paragraph",
+          "text": "Common farm animals include cattle, sheep, goats, pigs, and poultry."
+        },
+        {
+          "type": "image",
+          "src": "../../shared/assets/images/farm-animals-grade10.png",
+          "alt": "Different farm animals",
+          "caption": "Farm animals support food production and livelihoods."
+        },
+        {
+          "type": "paragraph",
+          "text": "Farmers must provide animals with food, clean water, shelter, and health care."
+        }
+      ],
+      "glossary": {
+        "poultry": {
+          "definition": "Domestic birds kept for eggs or meat, such as chickens.",
+          "pronunciation": "POHL-tree"
+        },
+        "livelihoods": {
+          "definition": "Ways in which people earn a living.",
+          "pronunciation": "LYV-lee-hoodz"
+        }
+      },
+      "worksheet": {
+        "title": "Animals in Agriculture",
+        "prompt": "1. Why are farm animals important?\n\n2. Name four common farm animals.\n\n3. What do animals need to stay healthy?"
+      }
+    },
+    "ch7": {
+      "title": "Chapter 7: Animal Nutrition",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Animals need balanced feed to grow, stay healthy, and produce well. Feed provides energy, protein, vitamins, minerals, and water."
+        },
+        {
+          "type": "paragraph",
+          "text": "Different animals need different types of feed depending on their age, size, and purpose."
+        },
+        {
+          "type": "paragraph",
+          "text": "Poor nutrition can lead to slow growth, illness, and low production."
+        }
+      ],
+      "glossary": {
+        "protein": {
+          "definition": "A nutrient important for growth and repair in living organisms.",
+          "pronunciation": "PROH-teen"
+        },
+        "minerals": {
+          "definition": "Important substances needed in small amounts for healthy growth and body function.",
+          "pronunciation": "MIN-uh-rulz"
+        }
+      },
+      "worksheet": {
+        "title": "Feeding Animals",
+        "prompt": "1. Why is balanced feed important?\n\n2. Name three things feed provides.\n\n3. What can happen if an animal has poor nutrition?"
+      }
+    },
+    "ch8": {
+      "title": "Chapter 8: Sustainable Farming",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Sustainable farming means producing food in a way that protects natural resources and supports future production."
+        },
+        {
+          "type": "paragraph",
+          "text": "This includes conserving soil, using water wisely, avoiding waste, and managing animals and crops responsibly."
+        },
+        {
+          "type": "paragraph",
+          "text": "Sustainability is important because agriculture depends on the environment."
+        }
+      ],
+      "glossary": {
+        "sustainable": {
+          "definition": "Able to continue over time without damaging important resources.",
+          "pronunciation": "suh-STAY-nuh-buhl"
+        },
+        "conserving": {
+          "definition": "Protecting and using resources carefully so they are not wasted.",
+          "pronunciation": "kun-SUR-ving"
+        }
+      },
+      "worksheet": {
+        "title": "Farming for the Future",
+        "prompt": "1. What is sustainable farming?\n\n2. Why is sustainability important in agriculture?\n\n3. Name two ways a farmer can protect resources."
+      }
+    },
+    "ch9": {
+      "title": "Chapter 9: Agricultural Careers",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Agriculture offers many career paths. People can work as farmers, animal scientists, soil scientists, technicians, agricultural advisors, and researchers."
+        },
+        {
+          "type": "paragraph",
+          "text": "Modern agriculture also uses technology, business planning, and scientific research."
+        },
+        {
+          "type": "paragraph",
+          "text": "This means agriculture is not only about working in fields. It is also about solving problems, managing systems, and improving food production."
+        }
+      ],
+      "glossary": {
+        "researchers": {
+          "definition": "People who study and investigate topics carefully to discover new knowledge.",
+          "pronunciation": "ree-SUR-chers"
+        },
+        "technicians": {
+          "definition": "People skilled in practical and technical work.",
+          "pronunciation": "tek-NISH-enz"
+        }
+      },
+      "worksheet": {
+        "title": "Careers in Agriculture",
+        "prompt": "1. Name three careers in agriculture.\n\n2. Why is agriculture connected to science and technology?\n\n3. Which agricultural career sounds interesting to you, and why?"
+      }
+    },
+    "ch10": {
+      "title": "Chapter 10: Looking Back at Agricultural Sciences",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "In this book you learned about agriculture, soil, water, nutrients, animals, sustainability, and careers."
+        },
+        {
+          "type": "paragraph",
+          "text": "Agricultural Sciences helps learners understand how food is produced and why natural resources must be managed carefully."
+        },
+        {
+          "type": "paragraph",
+          "text": "The subject also teaches responsibility, observation, scientific thinking, and respect for life and the environment."
+        }
+      ],
+      "glossary": {
+        "environment": {
+          "definition": "The natural world around us, including land, water, air, plants, and animals.",
+          "pronunciation": "en-VY-run-ment"
+        }
+      },
+      "worksheet": {
+        "title": "Review and Reflect",
+        "prompt": "1. Name two things you learned from this book.\n\n2. Why is soil important in agriculture?\n\n3. Why should farmers protect natural resources?"
+      }
+    }
+  }
+}
