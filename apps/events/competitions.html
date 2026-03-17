@@ -1,1 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fluent | Competitions</title>
+  <style>
+    :root {
+      --bg: #f7f8fc;
+      --surface: #ffffff;
+      --surface-soft: #f3f5fb;
+      --text: #1f2937;
+      --muted: #5f6b7a;
+      --line: #d8deea;
+      --primary: #2563eb;
+      --primary-soft: #e9f1ff;
+      --success: #166534;
+      --success-soft: #eaf7ee;
+      --warning: #b45309;
+      --warning-soft: #fff4e8;
+      --purple: #6d28d9;
+      --purple-soft: #f1ebff;
+      --shadow: 0 10px 26px rgba(15, 23, 42, 0.08);
+      --shadow-hover: 0 14px 30px rgba(15, 23, 42, 0.14);
+      --radius: 18px;
+    }
 
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      color: var(--text);
+      background: linear-gradient(180deg, #f9fbff 0%, #f2f5fc 100%);
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .topbar-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 12px 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .brand {
+      font-weight: 700;
+      margin-right: 8px;
+    }
+
+    .top-link {
+      text-decoration: none;
+      color: var(--text);
+      padding: 8px 10px;
+      border-radius: 10px;
+      font-size: 0.95rem;
+    }
+
+    .top-link:hover,
+    .top-link:focus-visible {
+      background: var(--surface-soft);
+      outline: none;
+    }
+
+    .page {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 26px 20px 40px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #eef4ff 0%, #f9fbff 100%);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 26px;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      margin: 0 0 10px;
+      font-size: 2rem;
+      color: #1e3a8a;
+    }
+
+    .hero p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.6;
+      max-width: 840px;
+    }
+
+    .section {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 20px;
+      margin-bottom: 18px;
+    }
+
+    .section h2 {
+      margin: 0 0 6px;
+      font-size: 1.25rem;
+      color: #243b63;
+    }
+
+    .section-intro {
+      margin: 0 0 16px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: #fff;
+      overflow: hidden;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-hover);
+      border-color: #bfd0ec;
+    }
+
+    .card-image {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      display: block;
+      background: #eef2f7;
+    }
+
+    .card-body {
+      padding: 14px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+    }
+
+    .badge.live {
+      background: var(--success-soft);
+      color: var(--success);
+    }
+
+    .badge.upcoming {
+      background: var(--primary-soft);
+      color: var(--primary);
+    }
+
+    .badge.past {
+      background: var(--warning-soft);
+      color: var(--warning);
+    }
+
+    .badge.category {
+      background: var(--purple-soft);
+      color: var(--purple);
+    }
+
+    .card h3 {
+      margin: 0 0 8px;
+      font-size: 1.08rem;
+      color: #243b63;
+    }
+
+    .meta {
+      margin: 0 0 10px;
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    .card p {
+      margin: 0 0 14px;
+      color: var(--text);
+      line-height: 1.55;
+      font-size: 0.94rem;
+    }
+
+    .action-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .btn {
+      display: inline-block;
+      text-decoration: none;
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-size: 0.92rem;
+      font-weight: 700;
+      border: 1px solid transparent;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .btn-secondary {
+      background: var(--surface-soft);
+      color: var(--text);
+      border-color: var(--line);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-group.full {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      font-weight: 700;
+      font-size: 0.92rem;
+      color: #334155;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 12px 13px;
+      font: inherit;
+      color: var(--text);
+      background: #fff;
+    }
+
+    textarea {
+      min-height: 130px;
+      resize: vertical;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      outline: 2px solid #bfdbfe;
+      border-color: #93c5fd;
+    }
+
+    .form-note {
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.45;
+    }
+
+    @media (max-width: 980px) {
+      .cards {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 680px) {
+      .page {
+        padding: 18px 14px 30px;
+      }
+
+      .cards,
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="topbar" aria-label="Main navigation">
+    <div class="topbar-inner">
+      <span class="brand">Fluent</span>
+      <a class="top-link" href="../../index.html">Home</a>
+      <a class="top-link" href="../library/library.html">Library</a>
+      <a class="top-link" href="../videos/videos.html">Videos</a>
+      <a class="top-link" href="../dictionary/dictionary.html">Dictionary</a>
+      <a class="top-link" href="../exemplars/exemplars.html">Exemplars</a>
+      <a class="top-link" href="../teachers/teachers.html">Teacher</a>
+    </div>
+  </nav>
+
+  <main class="page">
+    <section class="hero">
+      <h1>Competitions</h1>
+      <p>
+        Explore current, upcoming, and past Fluent competitions. Schools can use this page to view active opportunities, prepare for upcoming events, and register interest for participation.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>Current Competitions</h2>
+      <p class="section-intro">
+        These competitions are currently active and open for participation, attendance, or live school engagement.
+      </p>
+
+      <div class="cards">
+        <article class="card">
+          <img class="card-image" src="../../shared/assets/images/placeholder-competition-1.jpg" alt="Fluent Reading Challenge">
+          <div class="card-body">
+            <div class="badge-row">
+              <span class="badge live">Live Now</span>
+              <span class="badge category">Reading</span>
+            </div>
+            <h3>Fluent Reading Challenge</h3>
+            <p class="meta">1 June 2026 – 26 June 2026 • School-based participation</p>
+            <p>
+              Learners take part in guided reading challenge rounds focused on fluency, expression, confidence, and reading accuracy.
+            </p>
+            <div class="action-row">
+              <a class="btn btn-primary" href="events.html">View Event Calendar</a>
+              <a class="btn btn-secondary" href="results.html">See Highlights</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <img class="card-image" src="../../shared/assets/images/placeholder-competition-2.jpg" alt="Fluent Sound and Spell Challenge">
+          <div class="card-body">
+            <div class="badge-row">
+              <span class="badge live">Live Now</span>
+              <span class="badge category">Language</span>
+            </div>
+            <h3>Fluent Sound &amp; Spell Challenge</h3>
+            <p class="meta">5 June 2026 – 20 June 2026 • Foundation phase focus</p>
+            <p>
+              A skills-based challenge where learners demonstrate sound recognition, blending, segmenting, and accurate spelling performance.
+            </p>
+            <div class="action-row">
+              <a class="btn btn-primary" href="events.html">View Event Calendar</a>
+              <a class="btn btn-secondary" href="results.html">See Highlights</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <img class="card-image" src="../../shared/assets/images/placeholder-competition-3.jpg" alt="Fluent Oral Presentation Showcase">
+          <div class="card-body">
+            <div class="badge-row">
+              <span class="badge live">Live Now</span>
+              <span class="badge category">Oral</span>
+            </div>
+            <h3>Fluent Oral Presentation Showcase</h3>
+            <p class="meta">10 June 2026 – 22 June 2026 • Stage-based showcase</p>
+            <p>
+              Learners present prepared speeches and short oral performances with judging based on clarity, pronunciation, delivery, and confidence.
+            </p>
+            <div class="action-row">
+              <a class="btn btn-primary" href="events.html">View Event Calendar</a>
+              <a class="btn btn-secondary" href="results.html">See Highlights</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Upcoming Competitions</h2>
+      <p class="section-intro">
+        These are upcoming competitions that schools, teachers, and organisers can start preparing for now.
+      </p>
+
+      <div class="cards">
+        <article class="card">
+          <img class="card-image" src="../../shared/assets/images/placeholder-competition-4.jpg" alt="Fluent Storytelling Festival">
+          <div class="card-body">
+            <div class="badge-row">
+              <span class="badge upcoming">Upcoming</span>
+              <span class="badge category">Storytelling</span>
+            </div>
+            <h3>Fluent Storytelling Festival</h3>
+            <p class="meta">Starts 15 July 2026 • Inter-school participation</p>
+            <p>
+              A storytelling competition that encourages expressive speaking, imagination, audience connection, and clear oral communication.
+            </p>
+            <div class="action-row">
+              <a class="btn btn-primary" href="#register-interest">Register Interest</a>
+              <a class="btn btn-secondary" href="events.html">View Dates</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <img class="card-image" src="../../shared/assets/images/placeholder-competition-5.jpg" alt="Fluent Reading Relay">
+          <div class="card-body">
+            <div class="badge-row">
+              <span class="badge upcoming">Upcoming</span>
+              <span class="badge category">Reading</span>
+            </div>
+            <h3>Fluent Reading Relay</h3>
+            <p class="meta">Starts 2 August 2026 • Team-based format</p>
+            <p>
+              A collaborative reading event where teams compete through timed reading rounds, passage transitions, and fluency performance.
+            </p>
+            <div class="action-row">
+              <a class="btn btn-primary" href="#register-interest">Register Interest</a>
+              <a class="btn btn-secondary" href="events.html">View Dates</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <img class="card-image" src="../../shared/assets/images/placeholder-competition-6.jpg" alt="Fluent Word Master Challenge">
+          <div class="card-body">
+            <div class="badge-row">
+              <span class="badge upcoming">Upcoming</span>
+              <span class="badge category">Vocabulary</span>
+            </div>
+            <h3>Fluent Word Master Challenge</h3>
+            <p class="meta">Starts 18 August 2026 • Language enrichment</p>
+            <p>
+              Learners engage in vocabulary and word knowledge challenges designed to strengthen meaning, usage, and language confidence.
+            </p>
+            <div class="action-row">
+              <a class="btn btn-primary" href="#register-interest">Register Interest</a>
+              <a class="btn btn-secondary" href="events.html">View Dates</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="register-interest">
+      <h2>Register Your Interest</h2>
+      <p class="section-intro">
+        Schools, organisers, teachers, and partners can use this form to enquire about participation, hosting, support, or event collaboration.
+      </p>
+
+      <form class="form-grid">
+        <div class="form-group">
+          <label for="full-name">Full Name</label>
+          <input id="full-name" name="full-name" type="text" placeholder="Enter your full name">
+        </div>
+
+        <div class="form-group">
+          <label for="school-name">School or Organisation</label>
+          <input id="school-name" name="school-name" type="text" placeholder="Enter school or organisation name">
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input id="email" name="email" type="email" placeholder="Enter your email address">
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <input id="phone" name="phone" type="tel" placeholder="Enter your phone number">
+        </div>
+
+        <div class="form-group">
+          <label for="interest-type">Type of Enquiry</label>
+          <select id="interest-type" name="interest-type">
+            <option value="">Select an option</option>
+            <option>School participation</option>
+            <option>Hosting an event</option>
+            <option>Judging and event support</option>
+            <option>Partnership or sponsorship</option>
+            <option>General enquiry</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="competition-name">Competition of Interest</label>
+          <select id="competition-name" name="competition-name">
+            <option value="">Select a competition</option>
+            <option>Fluent Reading Challenge</option>
+            <option>Fluent Sound &amp; Spell Challenge</option>
+            <option>Fluent Oral Presentation Showcase</option>
+            <option>Fluent Storytelling Festival</option>
+            <option>Fluent Reading Relay</option>
+            <option>Fluent Word Master Challenge</option>
+          </select>
+        </div>
+
+        <div class="form-group full">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" placeholder="Tell us about your interest, question, school needs, or preferred event category"></textarea>
+        </div>
+
+        <div class="form-group full">
+          <button class="btn btn-primary" type="submit">Submit Enquiry</button>
+        </div>
+      </form>
+
+      <p class="form-note">
+        This is currently a visual form layout. You can later connect it to Formspree, Netlify Forms, Google Forms, or your own backend.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>Past Competitions</h2>
+      <p class="section-intro">
+        Browse past competitions, featured highlights, and previous event categories to build trust and show track record.
+      </p>
+
+      <div class="cards">
+        <article class="card">
+          <img class="card-image" src="../../shared/assets/images/placeholder-competition-7.jpg" alt="Previous reading challenge">
+          <div class="card-body">
+            <div class="badge-row">
+              <span class="badge past">Past Event</span>
+              <span class="badge category">Reading</span>
+            </div>
+            <h3>2025 Reading Challenge Finals</h3>
+            <p class="meta">June 2025 • Final showcase event</p>
+            <p>
+              A celebration of top reading performances with judges, audience participation, recognitions, and learner achievement awards.
+            </p>
+            <div class="action-row">
+              <a class="btn btn-primary" href="results.html">View Results</a>
+              <a class="btn btn-secondary" href="events.html">View Calendar</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <img class="card-image" src="../../shared/assets/images/placeholder-competition-8.jpg" alt="Previous oral showcase">
+          <div class="card-body">
+            <div class="badge-row">
+              <span class="badge past">Past Event</span>
+              <span class="badge category">Oral</span>
+            </div>
+            <h3>2025 Oral Showcase</h3>
+            <p class="meta">September 2025 • Speech and performance category</p>
+            <p>
+              Learners delivered prepared oral pieces and public presentations with a focus on confidence, delivery, and effective communication.
+            </p>
+            <div class="action-row">
+              <a class="btn btn-primary" href="results.html">View Results</a>
+              <a class="btn btn-secondary" href="events.html">View Calendar</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <img class="card-image" src="../../shared/assets/images/placeholder-competition-9.jpg" alt="Previous sound and spell event">
+          <div class="card-body">
+            <div class="badge-row">
+              <span class="badge past">Past Event</span>
+              <span class="badge category">Language</span>
+            </div>
+            <h3>2025 Sound &amp; Spell Challenge</h3>
+            <p class="meta">October 2025 • Foundation phase competition</p>
+            <p>
+              An engaging phonics-based challenge where learners demonstrated sound identification, blending, and spelling skill development.
+            </p>
+            <div class="action-row">
+              <a class="btn btn-primary" href="results.html">View Results</a>
+              <a class="btn btn-secondary" href="events.html">View Calendar</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
