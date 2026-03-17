@@ -1,1 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fluent | Results & Highlights</title>
+  <style>
+    :root {
+      --bg: #f7f8fc;
+      --surface: #ffffff;
+      --surface-soft: #f3f5fb;
+      --text: #1f2937;
+      --muted: #5f6b7a;
+      --line: #d8deea;
+      --primary: #2563eb;
+      --primary-soft: #eaf1ff;
+      --gold: #b45309;
+      --gold-soft: #fff4e8;
+      --green: #166534;
+      --green-soft: #eaf7ee;
+      --purple: #6d28d9;
+      --purple-soft: #f1ebff;
+      --shadow: 0 10px 26px rgba(15, 23, 42, 0.08);
+      --shadow-hover: 0 14px 30px rgba(15, 23, 42, 0.14);
+      --radius: 18px;
+    }
 
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      color: var(--text);
+      background: linear-gradient(180deg, #f9fbff 0%, #f2f5fc 100%);
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .topbar-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 12px 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .brand {
+      font-weight: 700;
+      margin-right: 8px;
+    }
+
+    .top-link {
+      text-decoration: none;
+      color: var(--text);
+      padding: 8px 10px;
+      border-radius: 10px;
+      font-size: 0.95rem;
+    }
+
+    .top-link:hover,
+    .top-link:focus-visible {
+      background: var(--surface-soft);
+      outline: none;
+    }
+
+    .page {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 26px 20px 40px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #eef4ff 0%, #f9fbff 100%);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 26px;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      margin: 0 0 10px;
+      font-size: 2rem;
+      color: #1e3a8a;
+    }
+
+    .hero p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.6;
+      max-width: 860px;
+    }
+
+    .section {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 20px;
+      margin-bottom: 18px;
+    }
+
+    .section h2 {
+      margin: 0 0 8px;
+      font-size: 1.2rem;
+      color: #243b63;
+    }
+
+    .section-intro {
+      margin: 0 0 16px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .highlight-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .highlight-card {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: #fff;
+      overflow: hidden;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+    }
+
+    .highlight-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-hover);
+      border-color: #bfd0ec;
+    }
+
+    .highlight-card img {
+      width: 100%;
+      height: 190px;
+      object-fit: cover;
+      display: block;
+      background: #eef2f7;
+    }
+
+    .highlight-body {
+      padding: 14px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 0.76rem;
+      font-weight: 700;
+    }
+
+    .badge.gold {
+      background: var(--gold-soft);
+      color: var(--gold);
+    }
+
+    .badge.green {
+      background: var(--green-soft);
+      color: var(--green);
+    }
+
+    .badge.purple {
+      background: var(--purple-soft);
+      color: var(--purple);
+    }
+
+    .highlight-card h3,
+    .result-card h3 {
+      margin: 0 0 8px;
+      color: #243b63;
+      font-size: 1.05rem;
+    }
+
+    .meta {
+      margin: 0 0 10px;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.45;
+    }
+
+    .highlight-card p,
+    .result-card p,
+    .story-card p {
+      margin: 0;
+      line-height: 1.55;
+      font-size: 0.94rem;
+    }
+
+    .results-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .result-card {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: #fff;
+      padding: 16px;
+    }
+
+    .placements {
+      display: grid;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .placement {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 12px;
+      border-radius: 14px;
+      background: var(--surface-soft);
+      border: 1px solid #e4e9f3;
+    }
+
+    .medal {
+      width: 40px;
+      height: 40px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      flex-shrink: 0;
+      background: var(--gold-soft);
+      color: var(--gold);
+    }
+
+    .placement strong {
+      display: block;
+      margin-bottom: 4px;
+      color: #243b63;
+    }
+
+    .placement span {
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.4;
+    }
+
+    .story-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .story-card {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 16px;
+      background: #fff;
+    }
+
+    .action-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .btn {
+      display: inline-block;
+      text-decoration: none;
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-size: 0.92rem;
+      font-weight: 700;
+      border: 1px solid transparent;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .btn-secondary {
+      background: var(--surface-soft);
+      color: var(--text);
+      border-color: var(--line);
+    }
+
+    @media (max-width: 980px) {
+      .highlight-grid,
+      .story-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .results-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .page {
+        padding: 18px 14px 30px;
+      }
+
+      .highlight-grid,
+      .story-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="topbar" aria-label="Main navigation">
+    <div class="topbar-inner">
+      <span class="brand">Fluent</span>
+      <a class="top-link" href="../../index.html">Home</a>
+      <a class="top-link" href="../library/library.html">Library</a>
+      <a class="top-link" href="../videos/videos.html">Videos</a>
+      <a class="top-link" href="../dictionary/dictionary.html">Dictionary</a>
+      <a class="top-link" href="../exemplars/exemplars.html">Exemplars</a>
+      <a class="top-link" href="../teachers/teachers.html">Teacher</a>
+    </div>
+  </nav>
+
+  <main class="page">
+    <section class="hero">
+      <h1>Results &amp; Highlights</h1>
+      <p>
+        Explore competition outcomes, standout performances, featured schools, and memorable moments from Fluent events and competitions.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>Highlights Gallery</h2>
+      <p class="section-intro">
+        A visual showcase of key moments, proud achievements, and featured event experiences.
+      </p>
+
+      <div class="highlight-grid">
+        <article class="highlight-card">
+          <img src="../../shared/assets/images/placeholder-results-1.jpg" alt="Reading challenge winners on stage">
+          <div class="highlight-body">
+            <div class="badge-row">
+              <span class="badge gold">Featured Highlight</span>
+              <span class="badge purple">Reading</span>
+            </div>
+            <h3>Reading Challenge Awards Ceremony</h3>
+            <p class="meta">June 2026 • Main stage recognition</p>
+            <p>
+              Learners were recognised for confident reading, expressive delivery, and excellent fluency performance.
+            </p>
+          </div>
+        </article>
+
+        <article class="highlight-card">
+          <img src="../../shared/assets/images/placeholder-results-2.jpg" alt="School team celebration">
+          <div class="highlight-body">
+            <div class="badge-row">
+              <span class="badge green">School Spotlight</span>
+              <span class="badge purple">Competition</span>
+            </div>
+            <h3>Top School Team Celebration</h3>
+            <p class="meta">June 2026 • Inter-school participation</p>
+            <p>
+              A featured school team celebrated strong preparation, teamwork, and outstanding learner participation.
+            </p>
+          </div>
+        </article>
+
+        <article class="highlight-card">
+          <img src="../../shared/assets/images/placeholder-results-3.jpg" alt="Oral presentation moment">
+          <div class="highlight-body">
+            <div class="badge-row">
+              <span class="badge gold">Best Performance</span>
+              <span class="badge purple">Oral</span>
+            </div>
+            <h3>Outstanding Oral Presentation</h3>
+            <p class="meta">June 2026 • Showcase category</p>
+            <p>
+              A memorable learner presentation stood out for clarity, confidence, excellent pacing, and audience connection.
+            </p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Competition Results</h2>
+      <p class="section-intro">
+        Display final placements, winners, runner-up positions, and recognised schools across different categories.
+      </p>
+
+      <div class="results-grid">
+        <article class="result-card">
+          <div class="badge-row">
+            <span class="badge gold">Final Results</span>
+            <span class="badge purple">Reading</span>
+          </div>
+          <h3>Fluent Reading Challenge 2026</h3>
+          <p class="meta">Final round results • June 2026</p>
+          <p>Top placements from the reading challenge final showcase.</p>
+
+          <div class="placements">
+            <div class="placement">
+              <div class="medal">1</div>
+              <div>
+                <strong>1st Place — Learner Name</strong>
+                <span>School Name • Excellent fluency, expression, and reading confidence.</span>
+              </div>
+            </div>
+            <div class="placement">
+              <div class="medal">2</div>
+              <div>
+                <strong>2nd Place — Learner Name</strong>
+                <span>School Name • Strong accuracy, pacing, and clear pronunciation.</span>
+              </div>
+            </div>
+            <div class="placement">
+              <div class="medal">3</div>
+              <div>
+                <strong>3rd Place — Learner Name</strong>
+                <span>School Name • Impressive confidence and consistent reading performance.</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="result-card">
+          <div class="badge-row">
+            <span class="badge gold">Final Results</span>
+            <span class="badge purple">Language</span>
+          </div>
+          <h3>Sound &amp; Spell Challenge 2026</h3>
+          <p class="meta">Final round results • June 2026</p>
+          <p>Recognised learners and schools in the sound and spell competition.</p>
+
+          <div class="placements">
+            <div class="placement">
+              <div class="medal">1</div>
+              <div>
+                <strong>1st Place — Learner Name</strong>
+                <span>School Name • Excellent sound recognition, spelling accuracy, and consistency.</span>
+              </div>
+            </div>
+            <div class="placement">
+              <div class="medal">2</div>
+              <div>
+                <strong>2nd Place — Learner Name</strong>
+                <span>School Name • Strong decoding and confident phonics application.</span>
+              </div>
+            </div>
+            <div class="placement">
+              <div class="medal">3</div>
+              <div>
+                <strong>3rd Place — Learner Name</strong>
+                <span>School Name • Solid performance across challenge rounds.</span>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Featured Stories</h2>
+      <p class="section-intro">
+        Add short written recaps that celebrate learners, schools, teachers, and memorable event moments.
+      </p>
+
+      <div class="story-grid">
+        <article class="story-card">
+          <div class="badge-row">
+            <span class="badge green">Learner Spotlight</span>
+          </div>
+          <h3>A Journey of Reading Confidence</h3>
+          <p>
+            This story can highlight a learner who grew in confidence through preparation, practice, and event participation.
+          </p>
+        </article>
+
+        <article class="story-card">
+          <div class="badge-row">
+            <span class="badge green">School Spotlight</span>
+          </div>
+          <h3>A School That Hosted with Excellence</h3>
+          <p>
+            Use this space to feature a school that successfully hosted a Fluent event and created a vibrant learner experience.
+          </p>
+        </article>
+
+        <article class="story-card">
+          <div class="badge-row">
+            <span class="badge green">Teacher Spotlight</span>
+          </div>
+          <h3>Preparing Learners for Success</h3>
+          <p>
+            Recognise a teacher whose planning, encouragement, and support helped learners perform with confidence and pride.
+          </p>
+        </article>
+      </div>
+
+      <div class="action-row">
+        <a class="btn btn-primary" href="competitions.html">Back to Competitions</a>
+        <a class="btn btn-secondary" href="events.html">View Event Calendar</a>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
