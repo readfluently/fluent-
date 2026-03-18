@@ -1107,11 +1107,32 @@
       "example": "Good programming depends on logic."
     },
     {
+      "word": "machine",
+      "partOfSpeech": "noun",
+      "syllables": ["ma", "chine"],
+      "definition": "A device that uses power to do work.",
+      "example": "The washing machine cleans clothes."
+    },
+    {
       "word": "main idea",
       "partOfSpeech": "noun",
       "syllables": ["main", "i", "dea"],
       "definition": "The most important point in a paragraph or text.",
       "example": "The main idea tells you what the paragraph is mostly about."
+    },
+    {
+      "word": "maintain",
+      "partOfSpeech": "verb",
+      "syllables": ["main", "tain"],
+      "definition": "To keep something in good condition.",
+      "example": "It is important to maintain your school books."
+    },
+    {
+      "word": "major",
+      "partOfSpeech": "adjective",
+      "syllables": ["ma", "jor"],
+      "definition": "Very important or large.",
+      "example": "Reading is a major skill in school."
     },
     {
       "word": "meaning",
@@ -1121,6 +1142,20 @@
       "example": "She stopped reading to think about the meaning."
     },
     {
+      "word": "measure",
+      "partOfSpeech": "verb",
+      "syllables": ["mea", "sure"],
+      "definition": "To find the size, amount, or length of something.",
+      "example": "Use a ruler to measure the line."
+    },
+    {
+      "word": "memory",
+      "partOfSpeech": "noun",
+      "syllables": ["mem", "o", "ry"],
+      "definition": "The ability to remember information.",
+      "example": "Practice helps improve memory."
+    },
+    {
       "word": "metacognition",
       "partOfSpeech": "noun",
       "syllables": ["me", "ta", "cog", "ni", "tion"],
@@ -1128,11 +1163,81 @@
       "example": "Metacognition helps readers monitor their understanding."
     },
     {
+      "word": "method",
+      "partOfSpeech": "noun",
+      "syllables": ["me", "thod"],
+      "definition": "A way of doing something.",
+      "example": "This method makes solving problems easier."
+    },
+    {
+      "word": "middle",
+      "partOfSpeech": "noun",
+      "syllables": ["mid", "dle"],
+      "definition": "The centre part of something.",
+      "example": "The answer is in the middle of the paragraph."
+    },
+    {
+      "word": "mind",
+      "partOfSpeech": "noun",
+      "syllables": ["mind"],
+      "definition": "The part of a person that thinks and understands.",
+      "example": "Reading helps grow your mind."
+    },
+    {
+      "word": "mistake",
+      "partOfSpeech": "noun",
+      "syllables": ["mis", "take"],
+      "definition": "Something that is wrong or done incorrectly.",
+      "example": "Making a mistake helps you learn."
+    },
+    {
+      "word": "model",
+      "partOfSpeech": "noun",
+      "syllables": ["mod", "el"],
+      "definition": "An example or demonstration of how something works.",
+      "example": "The teacher showed a model of good reading."
+    },
+    {
       "word": "modelled reading",
       "partOfSpeech": "noun",
       "syllables": ["mod", "elled", "read", "ing"],
       "definition": "When a teacher or skilled reader demonstrates fluent reading for learners.",
       "example": "Modelled reading helps learners hear how good reading sounds."
+    },
+    {
+      "word": "monitor",
+      "partOfSpeech": "verb",
+      "syllables": ["mon", "i", "tor"],
+      "definition": "To check and keep track of something.",
+      "example": "Good readers monitor their understanding."
+    },
+    {
+      "word": "motivate",
+      "partOfSpeech": "verb",
+      "syllables": ["mo", "ti", "vate"],
+      "definition": "To encourage someone to take action.",
+      "example": "The teacher tries to motivate learners."
+    },
+    {
+      "word": "movement",
+      "partOfSpeech": "noun",
+      "syllables": ["move", "ment"],
+      "definition": "The act of changing position.",
+      "example": "The movement of air is called wind."
+    },
+    {
+      "word": "natural",
+      "partOfSpeech": "adjective",
+      "syllables": ["na", "tu", "ral"],
+      "definition": "Something that comes from nature, not made by humans.",
+      "example": "Plants are part of the natural world."
+    },
+    {
+      "word": "necessary",
+      "partOfSpeech": "adjective",
+      "syllables": ["ne", "ces", "sa", "ry"],
+      "definition": "Something that is needed.",
+      "example": "Water is necessary for life."
     },
     {
       "word": "network effect",
@@ -1156,11 +1261,53 @@
       "example": "Neurons help the brain learn new skills."
     },
     {
+      "word": "notice",
+      "partOfSpeech": "verb",
+      "syllables": ["no", "tice"],
+      "definition": "To see or become aware of something.",
+      "example": "Did you notice the new word?"
+    },
+    {
+      "word": "object",
+      "partOfSpeech": "noun",
+      "syllables": ["ob", "ject"],
+      "definition": "A thing that can be seen or touched.",
+      "example": "The object on the table is a book."
+    },
+    {
+      "word": "observe",
+      "partOfSpeech": "verb",
+      "syllables": ["ob", "serve"],
+      "definition": "To watch something carefully.",
+      "example": "The learners observe how plants grow."
+    },
+    {
+      "word": "occur",
+      "partOfSpeech": "verb",
+      "syllables": ["oc", "cur"],
+      "definition": "To happen.",
+      "example": "Rain can occur in summer."
+    },
+    {
       "word": "opinion",
       "partOfSpeech": "noun",
       "syllables": ["o", "pin", "ion"],
       "definition": "A belief or feeling that someone has about something.",
       "example": "Saying one season is the best is an opinion."
+    },
+    {
+      "word": "opportunity",
+      "partOfSpeech": "noun",
+      "syllables": ["op", "por", "tu", "ni", "ty"],
+      "definition": "A chance to do something.",
+      "example": "Reading gives you the opportunity to learn."
+    },
+    {
+      "word": "organise",
+      "partOfSpeech": "verb",
+      "syllables": ["or", "ga", "nise"],
+      "definition": "To arrange things in order.",
+      "example": "Organise your notes before studying."
     },
     {
       "word": "ownership",
@@ -1184,6 +1331,20 @@
       "example": "Practice strengthens the pathways used for reading."
     },
     {
+      "word": "pattern",
+      "partOfSpeech": "noun",
+      "syllables": ["pat", "tern"],
+      "definition": "A repeated design or sequence.",
+      "example": "The numbers follow a pattern."
+    },
+    {
+      "word": "perform",
+      "partOfSpeech": "verb",
+      "syllables": ["per", "form"],
+      "definition": "To carry out an action or task.",
+      "example": "The class will perform a play."
+    },
+    {
       "word": "perseverance",
       "partOfSpeech": "noun",
       "syllables": ["per", "se", "ver", "ance"],
@@ -1191,11 +1352,39 @@
       "example": "Perseverance helps learners succeed in hard tasks."
     },
     {
+      "word": "physical",
+      "partOfSpeech": "adjective",
+      "syllables": ["phy", "si", "cal"],
+      "definition": "Related to the body or real things you can touch.",
+      "example": "Exercise is important for physical health."
+    },
+    {
+      "word": "plan",
+      "partOfSpeech": "noun",
+      "syllables": ["plan"],
+      "definition": "A way to organise what you will do.",
+      "example": "Make a plan before starting your project."
+    },
+    {
       "word": "platform",
       "partOfSpeech": "noun",
       "syllables": ["plat", "form"],
       "definition": "A digital system that connects people or groups and helps them interact.",
       "example": "A shopping app can be a platform."
+    },
+    {
+      "word": "position",
+      "partOfSpeech": "noun",
+      "syllables": ["po", "si", "tion"],
+      "definition": "The place where something is located.",
+      "example": "The position of the sun changes during the day."
+    },
+    {
+      "word": "practice",
+      "partOfSpeech": "noun",
+      "syllables": ["prac", "tice"],
+      "definition": "Doing something again and again to improve.",
+      "example": "Practice helps you read better."
     },
     {
       "word": "precision",
@@ -1212,6 +1401,13 @@
       "example": "Predicting keeps readers actively thinking."
     },
     {
+      "word": "prepare",
+      "partOfSpeech": "verb",
+      "syllables": ["pre", "pare"],
+      "definition": "To get ready for something.",
+      "example": "Prepare for the test by studying."
+    },
+    {
       "word": "previewing",
       "partOfSpeech": "verb",
       "syllables": ["pre", "view", "ing"],
@@ -1219,11 +1415,39 @@
       "example": "Previewing helps readers get ready for the text."
     },
     {
+      "word": "process",
+      "partOfSpeech": "noun",
+      "syllables": ["pro", "cess"],
+      "definition": "A series of steps to achieve something.",
+      "example": "Reading is a process of understanding."
+    },
+    {
+      "word": "produce",
+      "partOfSpeech": "verb",
+      "syllables": ["pro", "duce"],
+      "definition": "To make or create something.",
+      "example": "Plants produce oxygen."
+    },
+    {
       "word": "programming",
       "partOfSpeech": "noun",
       "syllables": ["pro", "gram", "ming"],
       "definition": "The process of writing instructions that tell computers what to do.",
       "example": "Programming allows people to build apps and tools."
+    },
+    {
+      "word": "progress",
+      "partOfSpeech": "noun",
+      "syllables": ["pro", "gress"],
+      "definition": "Improvement over time.",
+      "example": "She made great progress in reading."
+    },
+    {
+      "word": "protect",
+      "partOfSpeech": "verb",
+      "syllables": ["pro", "tect"],
+      "definition": "To keep something safe.",
+      "example": "Trees help protect the soil."
     },
     {
       "word": "purpose",
