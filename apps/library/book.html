@@ -167,6 +167,7 @@
       background:#fff;
       border:1px solid #eee;
       border-radius:12px;
+      transition:border-color .2s ease, box-shadow .2s ease;
     }
 
     .dictionary-entry h3{
@@ -195,6 +196,36 @@
       color:#5b21b6;
     }
 
+    .searchBox{
+      width:100%;
+      padding:12px;
+      border:1px solid #ddd;
+      border-radius:12px;
+      font-size:15px;
+      margin-bottom:12px;
+    }
+
+    .search-result{
+      display:block;
+      padding:12px 14px;
+      margin-bottom:8px;
+      border:1px solid #e6e6e6;
+      border-radius:12px;
+      background:#fff;
+      cursor:pointer;
+    }
+
+    .search-result:hover{
+      background:#f8f6ff;
+      border-color:#d8c8ff;
+    }
+
+    .search-empty{
+      color:#777;
+      font-size:14px;
+      padding:8px 2px;
+    }
+
     @media (max-width: 820px){
       .wrap{
         display:flex;
@@ -215,6 +246,7 @@
     <button class="btn" id="howBtn">How This Works</button>
     <button class="btn" id="chaptersBtn">Chapters</button>
     <button class="btn" id="dictBtn">Dictionary</button>
+    <button class="btn" id="dictSearchBtn">Search</button>
     <button class="btn" id="nextChapterBtn">Next Chapter →</button>
     <div class="status" id="status">Loading…</div>
   </div>
@@ -291,6 +323,21 @@
     <div id="chaptersList"></div>
   </div>
 
+  <div class="popup" id="dictSearchPopup">
+    <div class="popupHeader">
+      <div class="popupTitle">Search Dictionary</div>
+      <button class="closeBtn" id="closeDictSearchPopup">Close</button>
+    </div>
+    <input
+      type="text"
+      id="dictSearchInput"
+      class="searchBox"
+      placeholder="Type a word..."
+      autocomplete="off"
+    />
+    <div id="dictSearchResults"></div>
+  </div>
+
 <script>
   const params = new URLSearchParams(location.search);
   const bookId = params.get("book");
@@ -305,6 +352,7 @@
   const howBtn = document.getElementById("howBtn");
   const chaptersBtn = document.getElementById("chaptersBtn");
   const dictBtn = document.getElementById("dictBtn");
+  const dictSearchBtn = document.getElementById("dictSearchBtn");
   const nextChapterBtn = document.getElementById("nextChapterBtn");
 
   const worksheetBody = document.getElementById("worksheetBody");
@@ -326,6 +374,12 @@
   const chaptersPopup = document.getElementById("chaptersPopup");
   const closeChaptersPopup = document.getElementById("closeChaptersPopup");
   const chaptersList = document.getElementById("chaptersList");
+
+  const dictSearchPopup = document.getElementById("dictSearchPopup");
+  const closeDictSearchPopup = document.getElementById("closeDictSearchPopup");
+  const dictSearchInput = document.getElementById("dictSearchInput");
+  const dictSearchResults = document.getElementById("dictSearchResults");
+  let dictionaryWordsData = [];
 
   const recBtn = document.getElementById("recBtn");
   const stopRecBtn = document.getElementById("stopRecBtn");
@@ -466,6 +520,49 @@
     chaptersPopup.style.display = "none";
   }
 
+  function showDictSearchPopup(){
+    dictSearchPopup.style.display = "block";
+    dictSearchInput.value = "";
+    renderDictionarySearchResults(dictionaryWordsData);
+    setTimeout(() => dictSearchInput.focus(), 0);
+  }
+
+  function hideDictSearchPopup(){
+    dictSearchPopup.style.display = "none";
+  }
+
+  function renderDictionarySearchResults(words){
+    if(!words.length){
+      dictSearchResults.innerHTML = `<div class="search-empty">No words found.</div>`;
+      return;
+    }
+
+    dictSearchResults.innerHTML = words.map(entry => `
+      <div class="search-result" data-word="${escapeHtml(entry.word || "")}">
+        <strong>${escapeHtml(entry.word || "")}</strong><br>
+        <span class="small">${escapeHtml(entry.definition || "")}</span>
+      </div>
+    `).join("");
+
+    dictSearchResults.querySelectorAll(".search-result").forEach(el => {
+      el.addEventListener("click", () => {
+        const selectedWord = (el.getAttribute("data-word") || "").toLowerCase();
+        hideDictSearchPopup();
+
+        const target = chapterTextEl.querySelector(`[data-word="${CSS.escape(selectedWord)}"]`);
+        if(target){
+          target.scrollIntoView({ behavior: "smooth", block: "start" });
+          target.style.borderColor = "#7b3ff2";
+          target.style.boxShadow = "0 0 0 3px rgba(123,63,242,0.12)";
+          setTimeout(() => {
+            target.style.borderColor = "#eee";
+            target.style.boxShadow = "none";
+          }, 1800);
+        }
+      });
+    });
+  }
+
   async function loadBookIndex(){
     const res = await fetch("./data/books.json", { cache: "no-store" });
     if(!res.ok) throw new Error("Could not fetch books.json (" + res.status + ")");
@@ -494,6 +591,8 @@
     nextChapterBtn.style.display = "none";
     howBtn.style.display = "none";
     chaptersBtn.style.display = "none";
+    dictSearchBtn.style.display = "";
+    dictSearchBtn.onclick = showDictSearchPopup;
 
     recBtn.style.display = "none";
     stopRecBtn.style.display = "none";
@@ -509,6 +608,8 @@
     const searchHelp = data.prologue?.searchHelp || "";
     const words = Array.isArray(data.words) ? data.words : [];
 
+    dictionaryWordsData = words;
+
     chapterTextEl.innerHTML = `
       <h2>${escapeHtml(prologueTitle)}</h2>
       <p>${escapeHtml(intro)}</p>
@@ -521,24 +622,27 @@
 
       <hr style="margin: 24px 0;">
 
-      ${words.map(entry => `
-        <div class="dictionary-entry">
-          <h3>${escapeHtml(entry.word || "")}</h3>
-          <p><strong>Part of Speech:</strong> ${escapeHtml(entry.partOfSpeech || "-")}</p>
-          <p><strong>Syllables:</strong> ${
-            Array.isArray(entry.syllables)
-              ? entry.syllables.map(s => escapeHtml(s)).join(" - ")
-              : "-"
-          }</p>
-          <p><strong>Definition:</strong> ${escapeHtml(entry.definition || "-")}</p>
-          <p><strong>Example:</strong> ${escapeHtml(entry.example || "-")}</p>
-        </div>
-      `).join("")}
+      <div id="dictionaryEntriesWrap"></div>
     `;
+
+    const dictionaryEntriesWrap = document.getElementById("dictionaryEntriesWrap");
+    dictionaryEntriesWrap.innerHTML = words.map((entry, index) => `
+      <div class="dictionary-entry" id="dict-word-${index}" data-word="${escapeHtml((entry.word || "").toLowerCase())}">
+        <h3>${escapeHtml(entry.word || "")}</h3>
+        <p><strong>Part of Speech:</strong> ${escapeHtml(entry.partOfSpeech || "-")}</p>
+        <p><strong>Syllables:</strong> ${
+          Array.isArray(entry.syllables)
+            ? entry.syllables.map(s => escapeHtml(s)).join(" - ")
+            : "-"
+        }</p>
+        <p><strong>Definition:</strong> ${escapeHtml(entry.definition || "-")}</p>
+        <p><strong>Example:</strong> ${escapeHtml(entry.example || "-")}</p>
+      </div>
+    `).join("");
 
     worksheetBody.innerHTML = `
       <h2 style="margin-top:0;">Dictionary</h2>
-      <div class="small">Search will be added next. For now, scroll and read the entries.</div>
+      <div class="small">Use the Search button to find words quickly.</div>
     `;
 
     setStatus("Ready");
@@ -598,6 +702,8 @@
         location.href = `book.html?book=dictionary&chapter=main`;
       };
 
+      dictSearchBtn.style.display = "none";
+
       const next = getNextChapter(chapterId, chapters);
       if(next){
         nextChapterBtn.style.display = "";
@@ -623,6 +729,7 @@
       chapterProgressBar.style.width = "0%";
       nextChapterBtn.style.display = "none";
       chaptersBtn.style.display = "none";
+      dictSearchBtn.style.display = "none";
       setStatus("Error");
     }
   }
@@ -656,6 +763,31 @@
     if(e.target === chaptersPopup){
       hideChaptersPopup();
     }
+  });
+
+  closeDictSearchPopup.addEventListener("click", hideDictSearchPopup);
+
+  dictSearchPopup.addEventListener("click", (e) => {
+    if(e.target === dictSearchPopup){
+      hideDictSearchPopup();
+    }
+  });
+
+  dictSearchInput.addEventListener("input", () => {
+    const query = dictSearchInput.value.trim().toLowerCase();
+
+    if(!query){
+      renderDictionarySearchResults(dictionaryWordsData);
+      return;
+    }
+
+    const filtered = dictionaryWordsData.filter(entry => {
+      const word = (entry.word || "").toLowerCase();
+      const definition = (entry.definition || "").toLowerCase();
+      return word.includes(query) || definition.includes(query);
+    });
+
+    renderDictionarySearchResults(filtered);
   });
 
   function renderText(paragraphs){
