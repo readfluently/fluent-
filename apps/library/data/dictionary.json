@@ -687,11 +687,249 @@
       "example": "Draw a horizontal line across the page."
     },
     {
+      "word": "idea",
+      "partOfSpeech": "noun",
+      "syllables": ["i", "dea"],
+      "definition": "A thought, plan, or suggestion in your mind.",
+      "example": "She had a good idea for the class project."
+    },
+    {
+      "word": "identify",
+      "partOfSpeech": "verb",
+      "syllables": ["i", "den", "ti", "fy"],
+      "definition": "To recognise or name something correctly.",
+      "example": "The learners had to identify the main idea of the passage."
+    },
+    {
+      "word": "ignore",
+      "partOfSpeech": "verb",
+      "syllables": ["ig", "nore"],
+      "definition": "To pay no attention to something or someone.",
+      "example": "Do not ignore the instructions on the worksheet."
+    },
+    {
+      "word": "image",
+      "partOfSpeech": "noun",
+      "syllables": ["im", "age"],
+      "definition": "A picture or visual representation of something.",
+      "example": "The image in the book helped the learners understand the topic."
+    },
+    {
+      "word": "imagine",
+      "partOfSpeech": "verb",
+      "syllables": ["i", "mag", "ine"],
+      "definition": "To form a picture or idea in your mind.",
+      "example": "Try to imagine the scene while you read the story."
+    },
+    {
+      "word": "immediate",
+      "partOfSpeech": "adjective",
+      "syllables": ["im", "me", "di", "ate"],
+      "definition": "Happening at once or without delay.",
+      "example": "The teacher needed an immediate answer."
+    },
+    {
+      "word": "important",
+      "partOfSpeech": "adjective",
+      "syllables": ["im", "por", "tant"],
+      "definition": "Having great value or meaning.",
+      "example": "It is important to listen carefully in class."
+    },
+    {
+      "word": "improve",
+      "partOfSpeech": "verb",
+      "syllables": ["im", "prove"],
+      "definition": "To make something better or become better.",
+      "example": "Daily practice will help improve your reading."
+    },
+    {
+      "word": "include",
+      "partOfSpeech": "verb",
+      "syllables": ["in", "clude"],
+      "definition": "To have something as part of a whole.",
+      "example": "The project must include a title and pictures."
+    },
+    {
+      "word": "increase",
+      "partOfSpeech": "verb",
+      "syllables": ["in", "crease"],
+      "definition": "To become more or make something more.",
+      "example": "Exercise can increase your energy."
+    },
+    {
+      "word": "independent",
+      "partOfSpeech": "adjective",
+      "syllables": ["in", "de", "pen", "dent"],
+      "definition": "Able to do things by yourself.",
+      "example": "She became a more independent reader."
+    },
+    {
+      "word": "indicate",
+      "partOfSpeech": "verb",
+      "syllables": ["in", "di", "cate"],
+      "definition": "To show or point out something.",
+      "example": "The graph can indicate a change in temperature."
+    },
+    {
+      "word": "individual",
+      "partOfSpeech": "noun",
+      "syllables": ["in", "di", "vid", "u", "al"],
+      "definition": "One single person.",
+      "example": "Each individual in the group had a task."
+    },
+    {
+      "word": "industry",
+      "partOfSpeech": "noun",
+      "syllables": ["in", "dus", "try"],
+      "definition": "A type of work or business activity.",
+      "example": "Technology is an important industry."
+    },
+    {
+      "word": "information",
+      "partOfSpeech": "noun",
+      "syllables": ["in", "for", "ma", "tion"],
+      "definition": "Facts or details about something.",
+      "example": "The text gave useful information about animals."
+    },
+    {
+      "word": "ingredient",
+      "partOfSpeech": "noun",
+      "syllables": ["in", "gre", "di", "ent"],
+      "definition": "One of the things used to make food or another mixture.",
+      "example": "Flour is one ingredient in bread."
+    },
+    {
+      "word": "inhabit",
+      "partOfSpeech": "verb",
+      "syllables": ["in", "hab", "it"],
+      "definition": "To live in a place.",
+      "example": "Many animals inhabit the forest."
+    },
+    {
+      "word": "initial",
+      "partOfSpeech": "adjective",
+      "syllables": ["i", "ni", "tial"],
+      "definition": "Happening at the beginning.",
+      "example": "Her initial answer was not correct."
+    },
+    {
       "word": "innovation",
       "partOfSpeech": "noun",
       "syllables": ["in", "no", "va", "tion"],
       "definition": "A new idea, method, or invention that improves something.",
       "example": "Innovation can make learning tools more useful."
+    },
+    {
+      "word": "injure",
+      "partOfSpeech": "verb",
+      "syllables": ["in", "jure"],
+      "definition": "To hurt someone physically.",
+      "example": "Be careful not to injure yourself during the game."
+    },
+    {
+      "word": "inspect",
+      "partOfSpeech": "verb",
+      "syllables": ["in", "spect"],
+      "definition": "To look at something carefully.",
+      "example": "The teacher asked the class to inspect the leaf closely."
+    },
+    {
+      "word": "inspire",
+      "partOfSpeech": "verb",
+      "syllables": ["in", "spire"],
+      "definition": "To fill someone with the wish to do something well.",
+      "example": "The story can inspire learners to keep trying."
+    },
+    {
+      "word": "install",
+      "partOfSpeech": "verb",
+      "syllables": ["in", "stall"],
+      "definition": "To put something in place so it can be used.",
+      "example": "They had to install the new software on the computer."
+    },
+    {
+      "word": "instant",
+      "partOfSpeech": "adjective",
+      "syllables": ["in", "stant"],
+      "definition": "Happening right away.",
+      "example": "She wanted an instant answer."
+    },
+    {
+      "word": "instead",
+      "partOfSpeech": "adverb",
+      "syllables": ["in", "stead"],
+      "definition": "In place of something else.",
+      "example": "He read the book instead of watching television."
+    },
+    {
+      "word": "instruction",
+      "partOfSpeech": "noun",
+      "syllables": ["in", "struc", "tion"],
+      "definition": "A direction or order telling you what to do.",
+      "example": "Read the instruction before starting the activity."
+    },
+    {
+      "word": "instrument",
+      "partOfSpeech": "noun",
+      "syllables": ["in", "stru", "ment"],
+      "definition": "A tool or device used for a special purpose, especially in music or science.",
+      "example": "A thermometer is an instrument used to measure temperature."
+    },
+    {
+      "word": "intelligent",
+      "partOfSpeech": "adjective",
+      "syllables": ["in", "tel", "li", "gent"],
+      "definition": "Good at learning, understanding, and solving problems.",
+      "example": "The learner gave an intelligent answer."
+    },
+    {
+      "word": "interest",
+      "partOfSpeech": "noun",
+      "syllables": ["in", "ter", "est"],
+      "definition": "A feeling of wanting to know more about something.",
+      "example": "He showed great interest in science."
+    },
+    {
+      "word": "interrupt",
+      "partOfSpeech": "verb",
+      "syllables": ["in", "ter", "rupt"],
+      "definition": "To stop someone while they are speaking or doing something.",
+      "example": "Please do not interrupt when someone is reading."
+    },
+    {
+      "word": "introduce",
+      "partOfSpeech": "verb",
+      "syllables": ["in", "tro", "duce"],
+      "definition": "To present something or someone for the first time.",
+      "example": "The teacher will introduce a new topic today."
+    },
+    {
+      "word": "investigate",
+      "partOfSpeech": "verb",
+      "syllables": ["in", "ves", "ti", "gate"],
+      "definition": "To look into something carefully to learn more about it.",
+      "example": "The class will investigate how plants grow."
+    },
+    {
+      "word": "invitation",
+      "partOfSpeech": "noun",
+      "syllables": ["in", "vi", "ta", "tion"],
+      "definition": "A request asking someone to come or take part.",
+      "example": "She received an invitation to the school event."
+    },
+    {
+      "word": "involve",
+      "partOfSpeech": "verb",
+      "syllables": ["in", "volve"],
+      "definition": "To include or require something as part of an activity.",
+      "example": "The experiment will involve water and sunlight."
+    },
+    {
+      "word": "issue",
+      "partOfSpeech": "noun",
+      "syllables": ["is", "sue"],
+      "definition": "A problem or topic that needs attention.",
+      "example": "The class discussed the issue of littering."
     },
     {
       "word": "journey",
@@ -701,11 +939,123 @@
       "example": "Learning to read well is a journey."
     },
     {
+      "word": "judge",
+      "partOfSpeech": "verb",
+      "syllables": ["judge"],
+      "definition": "To form an opinion about something or someone.",
+      "example": "Do not judge a book by its cover."
+    },
+    {
+      "word": "justice",
+      "partOfSpeech": "noun",
+      "syllables": ["jus", "tice"],
+      "definition": "Fair treatment according to what is right.",
+      "example": "The story teaches an important lesson about justice."
+    },
+    {
+      "word": "keen",
+      "partOfSpeech": "adjective",
+      "syllables": ["keen"],
+      "definition": "Very interested or eager.",
+      "example": "She is keen to learn more about space."
+    },
+    {
+      "word": "kidney",
+      "partOfSpeech": "noun",
+      "syllables": ["kid", "ney"],
+      "definition": "One of the organs in the body that cleans the blood.",
+      "example": "The kidneys help remove waste from the body."
+    },
+    {
+      "word": "knowledge",
+      "partOfSpeech": "noun",
+      "syllables": ["know", "ledge"],
+      "definition": "What you know because you have learned it.",
+      "example": "Reading builds knowledge about the world."
+    },
+    {
+      "word": "label",
+      "partOfSpeech": "noun",
+      "syllables": ["la", "bel"],
+      "definition": "A word, tag, or short description used to identify something.",
+      "example": "Put a label on your folder with your name."
+    },
+    {
+      "word": "language",
+      "partOfSpeech": "noun",
+      "syllables": ["lan", "guage"],
+      "definition": "Words and sentences used for speaking, reading, and writing.",
+      "example": "English is one language used at school."
+    },
+    {
       "word": "language patterns",
       "partOfSpeech": "noun",
       "syllables": ["lan", "guage", "pat", "terns"],
       "definition": "The common ways words and sentences are used in a language.",
       "example": "Children learn language patterns by listening to people speak."
+    },
+    {
+      "word": "larger",
+      "partOfSpeech": "adjective",
+      "syllables": ["lar", "ger"],
+      "definition": "Bigger in size.",
+      "example": "The blue box is larger than the red one."
+    },
+    {
+      "word": "launch",
+      "partOfSpeech": "verb",
+      "syllables": ["launch"],
+      "definition": "To start something such as a product, plan, or event.",
+      "example": "The school will launch a new reading programme."
+    },
+    {
+      "word": "layer",
+      "partOfSpeech": "noun",
+      "syllables": ["lay", "er"],
+      "definition": "One thickness or level placed over or under another.",
+      "example": "The Earth has several layers."
+    },
+    {
+      "word": "leader",
+      "partOfSpeech": "noun",
+      "syllables": ["lead", "er"],
+      "definition": "A person who guides or directs others.",
+      "example": "The group chose a leader for the project."
+    },
+    {
+      "word": "learn",
+      "partOfSpeech": "verb",
+      "syllables": ["learn"],
+      "definition": "To gain knowledge or skill.",
+      "example": "We learn new words by reading often."
+    },
+    {
+      "word": "learner",
+      "partOfSpeech": "noun",
+      "syllables": ["learn", "er"],
+      "definition": "A person who is learning.",
+      "example": "Each learner brought a book to class."
+    },
+    {
+      "word": "lesson",
+      "partOfSpeech": "noun",
+      "syllables": ["les", "son"],
+      "definition": "A period of learning or something taught.",
+      "example": "Today’s lesson was about fractions."
+    },
+    {
+      "word": "level",
+      "partOfSpeech": "noun",
+      "syllables": ["lev", "el"],
+      "definition": "A stage, amount, or height.",
+      "example": "This book is at the right level for Grade 5."
+    },
+    {
+      "word": "library",
+      "partOfSpeech": "noun",
+      "syllables": ["li", "bra", "ry"],
+      "definition": "A place where books and other reading materials are kept.",
+      "example": "The learners visited the library after break."
     },
     {
       "word": "licence",
@@ -722,6 +1072,13 @@
       "example": "Reading can help someone become a lifelong learner."
     },
     {
+      "word": "listen",
+      "partOfSpeech": "verb",
+      "syllables": ["lis", "ten"],
+      "definition": "To pay attention to sounds or spoken words.",
+      "example": "Please listen carefully to the instructions."
+    },
+    {
       "word": "listen and follow",
       "partOfSpeech": "phrase",
       "syllables": ["lis", "ten", "and", "fol", "low"],
@@ -734,6 +1091,13 @@
       "syllables": ["lis", "ten", "ing"],
       "definition": "Paying careful attention to spoken words in order to understand them.",
       "example": "Listening to stories helps learners understand language."
+    },
+    {
+      "word": "locate",
+      "partOfSpeech": "verb",
+      "syllables": ["lo", "cate"],
+      "definition": "To find the position of something.",
+      "example": "Use the map to locate the river."
     },
     {
       "word": "logic",
