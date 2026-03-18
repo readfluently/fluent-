@@ -183,11 +183,102 @@
       "example": "She checked the dictionary to understand the new word."
     },
     {
+      "word": "eager",
+      "partOfSpeech": "adjective",
+      "syllables": ["ea", "ger"],
+      "definition": "Very ready and excited to do something.",
+      "example": "The learners were eager to start the science experiment."
+    },
+    {
+      "word": "earn",
+      "partOfSpeech": "verb",
+      "syllables": ["earn"],
+      "definition": "To get something because you worked for it.",
+      "example": "She worked hard to earn a good mark."
+    },
+    {
+      "word": "edge",
+      "partOfSpeech": "noun",
+      "syllables": ["edge"],
+      "definition": "The outside border of something.",
+      "example": "The cup was close to the edge of the table."
+    },
+    {
+      "word": "edit",
+      "partOfSpeech": "verb",
+      "syllables": ["ed", "it"],
+      "definition": "To change or improve writing or work by correcting it.",
+      "example": "He had to edit his paragraph before handing it in."
+    },
+    {
+      "word": "education",
+      "partOfSpeech": "noun",
+      "syllables": ["ed", "u", "ca", "tion"],
+      "definition": "The process of learning at school or from study.",
+      "example": "Education helps people build knowledge and skills."
+    },
+    {
+      "word": "effect",
+      "partOfSpeech": "noun",
+      "syllables": ["ef", "fect"],
+      "definition": "A result or change caused by something else.",
+      "example": "Too little sleep can have a bad effect on learning."
+    },
+    {
       "word": "effort",
       "partOfSpeech": "noun",
       "syllables": ["ef", "fort"],
       "definition": "Energy and determination used when trying to achieve something.",
       "example": "Effort helps learners improve their skills."
+    },
+    {
+      "word": "elderly",
+      "partOfSpeech": "adjective",
+      "syllables": ["eld", "er", "ly"],
+      "definition": "Old or fairly old.",
+      "example": "The boy helped the elderly woman carry her bag."
+    },
+    {
+      "word": "elect",
+      "partOfSpeech": "verb",
+      "syllables": ["e", "lect"],
+      "definition": "To choose someone by voting.",
+      "example": "The class will elect a new monitor."
+    },
+    {
+      "word": "electricity",
+      "partOfSpeech": "noun",
+      "syllables": ["e", "lec", "tric", "i", "ty"],
+      "definition": "A form of energy that gives power to lights and machines.",
+      "example": "The storm caused the electricity to go off."
+    },
+    {
+      "word": "element",
+      "partOfSpeech": "noun",
+      "syllables": ["el", "e", "ment"],
+      "definition": "A basic part of something.",
+      "example": "Water is an important element of life."
+    },
+    {
+      "word": "encourage",
+      "partOfSpeech": "verb",
+      "syllables": ["en", "cour", "age"],
+      "definition": "To give someone support or confidence.",
+      "example": "The teacher used kind words to encourage the class."
+    },
+    {
+      "word": "enemy",
+      "partOfSpeech": "noun",
+      "syllables": ["en", "e", "my"],
+      "definition": "A person or group that is against another.",
+      "example": "In the story, the hero faced a powerful enemy."
+    },
+    {
+      "word": "energy",
+      "partOfSpeech": "noun",
+      "syllables": ["en", "er", "gy"],
+      "definition": "Strength and power to do work or move.",
+      "example": "Healthy food gives your body energy."
     },
     {
       "word": "engaged",
@@ -204,11 +295,151 @@
       "example": "Engagement helps readers understand more deeply."
     },
     {
+      "word": "enormous",
+      "partOfSpeech": "adjective",
+      "syllables": ["e", "nor", "mous"],
+      "definition": "Very large.",
+      "example": "They saw an enormous elephant at the park."
+    },
+    {
+      "word": "enter",
+      "partOfSpeech": "verb",
+      "syllables": ["en", "ter"],
+      "definition": "To go into a place.",
+      "example": "The learners lined up before they could enter the hall."
+    },
+    {
+      "word": "equal",
+      "partOfSpeech": "adjective",
+      "syllables": ["e", "qual"],
+      "definition": "The same in number, amount, or value.",
+      "example": "Two halves make equal parts."
+    },
+    {
+      "word": "escape",
+      "partOfSpeech": "verb",
+      "syllables": ["es", "cape"],
+      "definition": "To get away from a place or danger.",
+      "example": "The bird tried to escape from the cage."
+    },
+    {
+      "word": "essential",
+      "partOfSpeech": "adjective",
+      "syllables": ["es", "sen", "tial"],
+      "definition": "Very important and necessary.",
+      "example": "Water is essential for all living things."
+    },
+    {
+      "word": "estimate",
+      "partOfSpeech": "verb",
+      "syllables": ["es", "ti", "mate"],
+      "definition": "To make a careful guess.",
+      "example": "Please estimate how many books are on the shelf."
+    },
+    {
+      "word": "event",
+      "partOfSpeech": "noun",
+      "syllables": ["e", "vent"],
+      "definition": "Something that happens, especially something important.",
+      "example": "Sports day is a big school event."
+    },
+    {
       "word": "evidence",
       "partOfSpeech": "noun",
       "syllables": ["ev", "i", "dence"],
       "definition": "Facts, examples, or information that support an idea.",
       "example": "The writer used evidence to support the main point."
+    },
+    {
+      "word": "examine",
+      "partOfSpeech": "verb",
+      "syllables": ["ex", "am", "ine"],
+      "definition": "To look at something carefully.",
+      "example": "The learners examined the insect with a magnifying glass."
+    },
+    {
+      "word": "example",
+      "partOfSpeech": "noun",
+      "syllables": ["ex", "am", "ple"],
+      "definition": "Something that shows what another thing is like.",
+      "example": "The teacher gave an example of a proper sentence."
+    },
+    {
+      "word": "excellent",
+      "partOfSpeech": "adjective",
+      "syllables": ["ex", "cel", "lent"],
+      "definition": "Very good.",
+      "example": "She did an excellent job on her project."
+    },
+    {
+      "word": "except",
+      "partOfSpeech": "preposition",
+      "syllables": ["ex", "cept"],
+      "definition": "Not including.",
+      "example": "Everyone came to school except Musa."
+    },
+    {
+      "word": "exchange",
+      "partOfSpeech": "verb",
+      "syllables": ["ex", "change"],
+      "definition": "To give one thing and receive another.",
+      "example": "The learners exchanged books after reading."
+    },
+    {
+      "word": "excited",
+      "partOfSpeech": "adjective",
+      "syllables": ["ex", "cit", "ed"],
+      "definition": "Very happy and full of interest about something.",
+      "example": "The class was excited about the trip."
+    },
+    {
+      "word": "exercise",
+      "partOfSpeech": "noun",
+      "syllables": ["ex", "er", "cise"],
+      "definition": "Activity that helps keep the body strong and healthy.",
+      "example": "Running is a good form of exercise."
+    },
+    {
+      "word": "exhausted",
+      "partOfSpeech": "adjective",
+      "syllables": ["ex", "haust", "ed"],
+      "definition": "Very tired.",
+      "example": "After the race, the runners felt exhausted."
+    },
+    {
+      "word": "exist",
+      "partOfSpeech": "verb",
+      "syllables": ["ex", "ist"],
+      "definition": "To be real or to be present.",
+      "example": "Many kinds of plants exist in the forest."
+    },
+    {
+      "word": "expand",
+      "partOfSpeech": "verb",
+      "syllables": ["ex", "pand"],
+      "definition": "To grow bigger or make something bigger.",
+      "example": "Heat can expand some materials."
+    },
+    {
+      "word": "experience",
+      "partOfSpeech": "noun",
+      "syllables": ["ex", "pe", "ri", "ence"],
+      "definition": "Something that happens to you and teaches you something.",
+      "example": "The camp was a fun learning experience."
+    },
+    {
+      "word": "explain",
+      "partOfSpeech": "verb",
+      "syllables": ["ex", "plain"],
+      "definition": "To make something clear by telling more about it.",
+      "example": "Please explain how you got your answer."
+    },
+    {
+      "word": "explore",
+      "partOfSpeech": "verb",
+      "syllables": ["ex", "plore"],
+      "definition": "To look around and learn more about something.",
+      "example": "The class went outside to explore the school garden."
     },
     {
       "word": "expression",
@@ -218,11 +449,67 @@
       "example": "Good readers use expression when reading aloud."
     },
     {
+      "word": "extra",
+      "partOfSpeech": "adjective",
+      "syllables": ["ex", "tra"],
+      "definition": "More than what is usual or needed.",
+      "example": "She brought an extra pencil to class."
+    },
+    {
       "word": "fact",
       "partOfSpeech": "noun",
       "syllables": ["fact"],
       "definition": "A statement that can be proven true with evidence.",
       "example": "Water freezes at zero degrees Celsius is a fact."
+    },
+    {
+      "word": "faint",
+      "partOfSpeech": "adjective",
+      "syllables": ["faint"],
+      "definition": "Not strong, clear, or easy to notice.",
+      "example": "We heard a faint sound from outside."
+    },
+    {
+      "word": "faithful",
+      "partOfSpeech": "adjective",
+      "syllables": ["faith", "ful"],
+      "definition": "Loyal and trustworthy.",
+      "example": "The dog was a faithful friend."
+    },
+    {
+      "word": "familiar",
+      "partOfSpeech": "adjective",
+      "syllables": ["fa", "mil", "iar"],
+      "definition": "Well known to you.",
+      "example": "The song sounded familiar to the learners."
+    },
+    {
+      "word": "famous",
+      "partOfSpeech": "adjective",
+      "syllables": ["fa", "mous"],
+      "definition": "Known by many people.",
+      "example": "Table Mountain is a famous place in South Africa."
+    },
+    {
+      "word": "feature",
+      "partOfSpeech": "noun",
+      "syllables": ["fea", "ture"],
+      "definition": "An important part of something.",
+      "example": "A beak is a feature of a bird."
+    },
+    {
+      "word": "fierce",
+      "partOfSpeech": "adjective",
+      "syllables": ["fierce"],
+      "definition": "Strong, wild, or dangerous.",
+      "example": "The lion gave a fierce roar."
+    },
+    {
+      "word": "final",
+      "partOfSpeech": "adjective",
+      "syllables": ["fi", "nal"],
+      "definition": "Last.",
+      "example": "The final question was the hardest."
     },
     {
       "word": "flash drive",
@@ -246,11 +533,53 @@
       "example": "Practising reading helps improve fluency."
     },
     {
+      "word": "focus",
+      "partOfSpeech": "verb",
+      "syllables": ["fo", "cus"],
+      "definition": "To pay close attention to something.",
+      "example": "Try to focus on the main idea."
+    },
+    {
+      "word": "fortunate",
+      "partOfSpeech": "adjective",
+      "syllables": ["for", "tu", "nate"],
+      "definition": "Lucky.",
+      "example": "We were fortunate that the rain stopped."
+    },
+    {
       "word": "foundation",
       "partOfSpeech": "noun",
       "syllables": ["foun", "da", "tion"],
       "definition": "The basic skills or base that support further learning.",
       "example": "Listening skills form the foundation of reading."
+    },
+    {
+      "word": "fragile",
+      "partOfSpeech": "adjective",
+      "syllables": ["frag", "ile"],
+      "definition": "Easy to break or damage.",
+      "example": "Glass is fragile, so handle it carefully."
+    },
+    {
+      "word": "frequent",
+      "partOfSpeech": "adjective",
+      "syllables": ["fre", "quent"],
+      "definition": "Happening often.",
+      "example": "Frequent practice helps learners improve."
+    },
+    {
+      "word": "frustrated",
+      "partOfSpeech": "adjective",
+      "syllables": ["frus", "tra", "ted"],
+      "definition": "Upset because something is difficult or not working.",
+      "example": "He felt frustrated when he could not solve the problem."
+    },
+    {
+      "word": "function",
+      "partOfSpeech": "noun",
+      "syllables": ["func", "tion"],
+      "definition": "The job or purpose of something.",
+      "example": "The function of roots is to hold the plant and take in water."
     },
     {
       "word": "future",
@@ -260,6 +589,27 @@
       "example": "Learners often wonder what the future will look like."
     },
     {
+      "word": "gather",
+      "partOfSpeech": "verb",
+      "syllables": ["ga", "ther"],
+      "definition": "To bring things or people together.",
+      "example": "The children gathered around the teacher."
+    },
+    {
+      "word": "generous",
+      "partOfSpeech": "adjective",
+      "syllables": ["gen", "er", "ous"],
+      "definition": "Willing to share and give kindly.",
+      "example": "It was generous of her to share her lunch."
+    },
+    {
+      "word": "gentle",
+      "partOfSpeech": "adjective",
+      "syllables": ["gen", "tle"],
+      "definition": "Kind, calm, and not rough.",
+      "example": "Use a gentle voice when speaking to younger children."
+    },
+    {
       "word": "glossary",
       "partOfSpeech": "noun",
       "syllables": ["glos", "sa", "ry"],
@@ -267,11 +617,74 @@
       "example": "The glossary explains difficult words in the chapter."
     },
     {
+      "word": "goal",
+      "partOfSpeech": "noun",
+      "syllables": ["goal"],
+      "definition": "Something you want to achieve.",
+      "example": "Her goal was to finish the book by Friday."
+    },
+    {
+      "word": "grateful",
+      "partOfSpeech": "adjective",
+      "syllables": ["grate", "ful"],
+      "definition": "Feeling thankful.",
+      "example": "I am grateful for your help."
+    },
+    {
       "word": "growth mindset",
       "partOfSpeech": "noun",
       "syllables": ["growth", "mind", "set"],
       "definition": "The belief that abilities can improve through effort and practice.",
       "example": "A growth mindset helps learners stay motivated."
+    },
+    {
+      "word": "guide",
+      "partOfSpeech": "verb",
+      "syllables": ["guide"],
+      "definition": "To show or lead someone in the right direction.",
+      "example": "The map will guide us to the museum."
+    },
+    {
+      "word": "habit",
+      "partOfSpeech": "noun",
+      "syllables": ["hab", "it"],
+      "definition": "Something you do regularly.",
+      "example": "Reading every day is a good habit."
+    },
+    {
+      "word": "harmful",
+      "partOfSpeech": "adjective",
+      "syllables": ["harm", "ful"],
+      "definition": "Causing damage or hurt.",
+      "example": "Too much smoke can be harmful to health."
+    },
+    {
+      "word": "harvest",
+      "partOfSpeech": "noun",
+      "syllables": ["har", "vest"],
+      "definition": "The time when crops are picked and collected.",
+      "example": "Farmers work hard during the harvest."
+    },
+    {
+      "word": "hesitate",
+      "partOfSpeech": "verb",
+      "syllables": ["hes", "i", "tate"],
+      "definition": "To pause because you are unsure.",
+      "example": "Do not hesitate to ask for help."
+    },
+    {
+      "word": "honest",
+      "partOfSpeech": "adjective",
+      "syllables": ["hon", "est"],
+      "definition": "Truthful and not trying to cheat.",
+      "example": "It is important to be honest in your work."
+    },
+    {
+      "word": "horizontal",
+      "partOfSpeech": "adjective",
+      "syllables": ["hor", "i", "zon", "tal"],
+      "definition": "Going from side to side, not up and down.",
+      "example": "Draw a horizontal line across the page."
     },
     {
       "word": "innovation",
