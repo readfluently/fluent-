@@ -129,6 +129,8 @@
       top:18%;
       transform:translateX(-50%);
       width:min(520px, calc(100% - 28px));
+      max-height:70vh;
+      overflow:auto;
       background:white;
       border:1px solid #e6e6e6;
       box-shadow:0 12px 30px rgba(0,0,0,0.16);
@@ -171,6 +173,28 @@
       margin:0 0 8px 0;
     }
 
+    .chapter-link{
+      display:block;
+      padding:12px 14px;
+      margin-bottom:8px;
+      border:1px solid #e6e6e6;
+      border-radius:12px;
+      background:#fff;
+      cursor:pointer;
+      font-weight:600;
+    }
+
+    .chapter-link:hover{
+      background:#f8f6ff;
+      border-color:#d8c8ff;
+    }
+
+    .chapter-link.current{
+      background:#f3edff;
+      border-color:#7b3ff2;
+      color:#5b21b6;
+    }
+
     @media (max-width: 820px){
       .wrap{
         display:flex;
@@ -189,6 +213,7 @@
   <div class="topbar">
     <button class="btn" onclick="history.back()">← Back</button>
     <button class="btn" id="howBtn">How This Works</button>
+    <button class="btn" id="chaptersBtn">Chapters</button>
     <button class="btn" id="dictBtn">Dictionary</button>
     <button class="btn" id="nextChapterBtn">Next Chapter →</button>
     <div class="status" id="status">Loading…</div>
@@ -258,6 +283,14 @@
     <div class="small" id="popupBody"></div>
   </div>
 
+  <div class="popup" id="chaptersPopup">
+    <div class="popupHeader">
+      <div class="popupTitle">Choose a Chapter</div>
+      <button class="closeBtn" id="closeChaptersPopup">Close</button>
+    </div>
+    <div id="chaptersList"></div>
+  </div>
+
 <script>
   const params = new URLSearchParams(location.search);
   const bookId = params.get("book");
@@ -270,6 +303,7 @@
   const chapterProgressText = document.getElementById("chapterProgressText");
   const chapterProgressBar = document.getElementById("chapterProgressBar");
   const howBtn = document.getElementById("howBtn");
+  const chaptersBtn = document.getElementById("chaptersBtn");
   const dictBtn = document.getElementById("dictBtn");
   const nextChapterBtn = document.getElementById("nextChapterBtn");
 
@@ -288,6 +322,10 @@
   const popupTitle = document.getElementById("popupTitle");
   const popupBody = document.getElementById("popupBody");
   const closePopup = document.getElementById("closePopup");
+
+  const chaptersPopup = document.getElementById("chaptersPopup");
+  const closeChaptersPopup = document.getElementById("closeChaptersPopup");
+  const chaptersList = document.getElementById("chaptersList");
 
   const recBtn = document.getElementById("recBtn");
   const stopRecBtn = document.getElementById("stopRecBtn");
@@ -382,6 +420,52 @@
       });
   }
 
+  function getAllChapterKeys(chapters){
+    return Object.keys(chapters).sort((a, b) => {
+      if (a === "how-it-works") return -1;
+      if (b === "how-it-works") return 1;
+
+      const ma = /^ch(\d+)$/i.exec(a);
+      const mb = /^ch(\d+)$/i.exec(b);
+
+      if (ma && mb) return Number(ma[1]) - Number(mb[1]);
+      if (ma) return -1;
+      if (mb) return 1;
+
+      return a.localeCompare(b);
+    });
+  }
+
+  function renderChapterMenu(chapters){
+    const orderedKeys = getAllChapterKeys(chapters);
+
+    chaptersList.innerHTML = orderedKeys.map(key => {
+      const ch = chapters[key];
+      const currentClass = key === chapterId ? " current" : "";
+      return `
+        <div class="chapter-link${currentClass}" data-chapter="${escapeHtml(key)}">
+          ${escapeHtml(ch.title || key)}
+        </div>
+      `;
+    }).join("");
+
+    chaptersList.querySelectorAll(".chapter-link").forEach(el => {
+      el.addEventListener("click", () => {
+        const targetChapter = el.getAttribute("data-chapter");
+        hideChaptersPopup();
+        location.href = `book.html?book=${encodeURIComponent(bookId)}&chapter=${encodeURIComponent(targetChapter)}`;
+      });
+    });
+  }
+
+  function showChaptersPopup(){
+    chaptersPopup.style.display = "block";
+  }
+
+  function hideChaptersPopup(){
+    chaptersPopup.style.display = "none";
+  }
+
   async function loadBookIndex(){
     const res = await fetch("./data/books.json", { cache: "no-store" });
     if(!res.ok) throw new Error("Could not fetch books.json (" + res.status + ")");
@@ -409,6 +493,7 @@
     chapterProgressBar.style.width = "0%";
     nextChapterBtn.style.display = "none";
     howBtn.style.display = "none";
+    chaptersBtn.style.display = "none";
 
     recBtn.style.display = "none";
     stopRecBtn.style.display = "none";
@@ -475,6 +560,8 @@
       const ch = chapters?.[chapterId];
       if(!ch) throw new Error("Chapter not found: " + chapterId);
 
+      renderChapterMenu(chapters);
+
       const orderedKeys = getOrderedChapterKeys(chapters);
       const currentIndex = orderedKeys.indexOf(chapterId);
 
@@ -486,7 +573,7 @@
         chapterProgressText.textContent = `Chapter ${chapterNumber} of ${totalChapters}`;
         chapterProgressBar.style.width = `${percent}%`;
       } else {
-        chapterProgressText.textContent = "";
+        chapterProgressText.textContent = chapterId === "how-it-works" ? "How This Works" : "";
         chapterProgressBar.style.width = "0%";
       }
 
@@ -503,6 +590,10 @@
         }
       };
 
+      chaptersBtn.style.display = "";
+      chaptersBtn.onclick = showChaptersPopup;
+
+      dictBtn.style.display = "";
       dictBtn.onclick = () => {
         location.href = `book.html?book=dictionary&chapter=main`;
       };
@@ -531,6 +622,7 @@
       chapterProgressText.textContent = "";
       chapterProgressBar.style.width = "0%";
       nextChapterBtn.style.display = "none";
+      chaptersBtn.style.display = "none";
       setStatus("Error");
     }
   }
@@ -555,6 +647,14 @@
   popup.addEventListener("click", (e) => {
     if(e.target === popup){
       hidePopup();
+    }
+  });
+
+  closeChaptersPopup.addEventListener("click", hideChaptersPopup);
+
+  chaptersPopup.addEventListener("click", (e) => {
+    if(e.target === chaptersPopup){
+      hideChaptersPopup();
     }
   });
 
