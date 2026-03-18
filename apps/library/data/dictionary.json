@@ -2298,6 +2298,69 @@
   "syllables": ["xy", "lo", "phone"],
   "definition": "A musical instrument with wooden bars that make sounds when hit.",
   "example": "She played a song on the xylophone."
+},
+{
+  "word": "yard",
+  "partOfSpeech": "noun",
+  "syllables": ["yard"],
+  "definition": "An area of ground next to a house, school, or building.",
+  "example": "The learners played in the school yard."
+},
+{
+  "word": "year",
+  "partOfSpeech": "noun",
+  "syllables": ["year"],
+  "definition": "A period of twelve months.",
+  "example": "This year we are learning many new skills."
+},
+{
+  "word": "yellow",
+  "partOfSpeech": "adjective",
+  "syllables": ["yel", "low"],
+  "definition": "A colour like the sun or a lemon.",
+  "example": "She used a yellow crayon to colour the star."
+},
+{
+  "word": "yield",
+  "partOfSpeech": "verb",
+  "syllables": ["yield"],
+  "definition": "To produce or give something.",
+  "example": "Healthy soil can yield good crops."
+},
+{
+  "word": "young",
+  "partOfSpeech": "adjective",
+  "syllables": ["young"],
+  "definition": "Not old.",
+  "example": "The young plant needed water every day."
+},
+{
+  "word": "youth",
+  "partOfSpeech": "noun",
+  "syllables": ["youth"],
+  "definition": "The time of being young, or young people as a group.",
+  "example": "The programme was created to support youth reading."
+},
+{
+  "word": "zero",
+  "partOfSpeech": "noun",
+  "syllables": ["ze", "ro"],
+  "definition": "The number that means nothing or none.",
+  "example": "The temperature dropped to zero degrees."
+},
+{
+  "word": "zone",
+  "partOfSpeech": "noun",
+  "syllables": ["zone"],
+  "definition": "An area or region with a special purpose or feature.",
+  "example": "This is a quiet reading zone."
+},
+{
+  "word": "zoom",
+  "partOfSpeech": "verb",
+  "syllables": ["zoom"],
+  "definition": "To move quickly or to make something appear larger on a screen.",
+  "example": "Zoom in to see the picture clearly."
 }
   
   ]
