@@ -33,11 +33,10 @@
       "coverImage": "../../shared/assets/images/dictionary.png",
       "dataFile": "./data/dictionary.json"
     },
-  "id": "thinking-skills",
-  "title": "Thinking Skills",
-  "cover": "thinking-skills.png",
-  "path": "ext/thinking-skills.json",
-  "category": "Ext Library"
+    "thinking-skills": {
+      "title": "Thinking Skills",
+      "coverImage": "../../shared/assets/images/thinking-skills.png",
+      "dataFile": "./data/thinking-skills.json"
     }
   }
 }
