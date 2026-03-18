@@ -1667,55 +1667,147 @@
   "definition": "To look at something again to improve understanding.",
   "example": "Review your notes before the test."
 }
-    {
-      "word": "self-checking",
-      "partOfSpeech": "noun",
-      "syllables": ["self", "check", "ing"],
-      "definition": "Noticing when something does not make sense and taking steps to understand it.",
-      "example": "Self-checking helped him realise he needed to pause and think."
-    },
-    {
-      "word": "self-monitoring",
-      "partOfSpeech": "noun",
-      "syllables": ["self", "mon", "i", "tor", "ing"],
-      "definition": "Checking your own understanding and fixing confusion when needed.",
-      "example": "Self-monitoring helped me notice that I needed to reread."
-    },
-    {
-      "word": "slowing down",
-      "partOfSpeech": "phrase",
-      "syllables": ["slow", "ing", "down"],
-      "definition": "Reducing your reading speed to understand difficult information better.",
-      "example": "Slowing down helped her understand the hard section."
-    },
-    {
-      "word": "strategy",
-      "partOfSpeech": "noun",
-      "syllables": ["strat", "e", "gy"],
-      "definition": "A plan or method used to achieve a goal or solve a problem.",
-      "example": "Readers use strategy to understand difficult text."
-    },
-    {
-      "word": "subscription",
-      "partOfSpeech": "noun",
-      "syllables": ["sub", "scrip", "tion"],
-      "definition": "A regular payment for continued access to a service or platform.",
-      "example": "Many streaming platforms use a subscription model."
-    },
-    {
-      "word": "summarising",
-      "partOfSpeech": "verb",
-      "syllables": ["sum", "ma", "ris", "ing"],
-      "definition": "Explaining the most important idea in your own words.",
-      "example": "Summarising helps readers remember what they read."
-    },
-    {
-      "word": "supporting details",
-      "partOfSpeech": "noun",
-      "syllables": ["sup", "port", "ing", "de", "tails"],
-      "definition": "Extra information that explains or proves the main idea.",
-      "example": "Supporting details help the reader understand the main idea."
-    },
+    ,
+{
+  "word": "safe",
+  "partOfSpeech": "adjective",
+  "syllables": ["safe"],
+  "definition": "Free from danger or harm.",
+  "example": "The learners stayed safe during the experiment."
+},
+{
+  "word": "sample",
+  "partOfSpeech": "noun",
+  "syllables": ["sam", "ple"],
+  "definition": "A small part taken to show what the whole is like.",
+  "example": "The teacher showed a sample of good writing."
+},
+{
+  "word": "satisfy",
+  "partOfSpeech": "verb",
+  "syllables": ["sat", "is", "fy"],
+  "definition": "To meet a need or expectation.",
+  "example": "Her answer satisfied the question."
+},
+{
+  "word": "save",
+  "partOfSpeech": "verb",
+  "syllables": ["save"],
+  "definition": "To keep something so it can be used later.",
+  "example": "Remember to save your work on the computer."
+},
+{
+  "word": "scene",
+  "partOfSpeech": "noun",
+  "syllables": ["scene"],
+  "definition": "A part of a story or a view of a place.",
+  "example": "The scene in the story was very exciting."
+},
+{
+  "word": "schedule",
+  "partOfSpeech": "noun",
+  "syllables": ["sched", "ule"],
+  "definition": "A plan that shows when things will happen.",
+  "example": "The class followed a reading schedule."
+},
+{
+  "word": "science",
+  "partOfSpeech": "noun",
+  "syllables": ["sci", "ence"],
+  "definition": "The study of the natural world through observation and experiments.",
+  "example": "Science helps us understand how things work."
+},
+{
+  "word": "search",
+  "partOfSpeech": "verb",
+  "syllables": ["search"],
+  "definition": "To look for something carefully.",
+  "example": "Use the search button to find a word."
+},
+{
+  "word": "section",
+  "partOfSpeech": "noun",
+  "syllables": ["sec", "tion"],
+  "definition": "A part of something larger.",
+  "example": "Read the next section of the chapter."
+},
+{
+  "word": "select",
+  "partOfSpeech": "verb",
+  "syllables": ["se", "lect"],
+  "definition": "To choose something.",
+  "example": "Select the correct answer."
+},
+{
+  "word": "sequence",
+  "partOfSpeech": "noun",
+  "syllables": ["se", "quence"],
+  "definition": "The order in which things happen.",
+  "example": "Put the events in the correct sequence."
+},
+{
+  "word": "series",
+  "partOfSpeech": "noun",
+  "syllables": ["se", "ries"],
+  "definition": "A number of things that follow one another.",
+  "example": "She read a series of books."
+},
+{
+  "word": "signal",
+  "partOfSpeech": "noun",
+  "syllables": ["sig", "nal"],
+  "definition": "A sign that gives information or a message.",
+  "example": "The bell is a signal to start class."
+},
+{
+  "word": "similar",
+  "partOfSpeech": "adjective",
+  "syllables": ["si", "mi", "lar"],
+  "definition": "Almost the same.",
+  "example": "The two answers were very similar."
+},
+{
+  "word": "simple",
+  "partOfSpeech": "adjective",
+  "syllables": ["sim", "ple"],
+  "definition": "Easy to understand or do.",
+  "example": "She gave a simple explanation."
+},
+{
+  "word": "solve",
+  "partOfSpeech": "verb",
+  "syllables": ["solve"],
+  "definition": "To find an answer to a problem.",
+  "example": "Try to solve the question step by step."
+},
+{
+  "word": "source",
+  "partOfSpeech": "noun",
+  "syllables": ["source"],
+  "definition": "Where something comes from.",
+  "example": "Books are a good source of information."
+},
+{
+  "word": "specific",
+  "partOfSpeech": "adjective",
+  "syllables": ["spe", "ci", "fic"],
+  "definition": "Clear and exact.",
+  "example": "Give a specific example."
+},
+{
+  "word": "structure",
+  "partOfSpeech": "noun",
+  "syllables": ["struc", "ture"],
+  "definition": "The way parts are arranged.",
+  "example": "The structure of the paragraph is clear."
+},
+{
+  "word": "summarise",
+  "partOfSpeech": "verb",
+  "syllables": ["sum", "ma", "rise"],
+  "definition": "To give the main idea in a short way.",
+  "example": "Summarise the paragraph in one sentence."
+}
     {
       "word": "technology",
       "partOfSpeech": "noun",
