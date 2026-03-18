@@ -1808,6 +1808,35 @@
   "definition": "To give the main idea in a short way.",
   "example": "Summarise the paragraph in one sentence."
 }
+   ,
+{
+  "word": "table",
+  "partOfSpeech": "noun",
+  "syllables": ["ta", "ble"],
+  "definition": "A set of facts or numbers arranged in rows and columns.",
+  "example": "The data is shown in a table."
+},
+{
+  "word": "task",
+  "partOfSpeech": "noun",
+  "syllables": ["task"],
+  "definition": "A piece of work to be done.",
+  "example": "Complete the task before break."
+},
+{
+  "word": "teach",
+  "partOfSpeech": "verb",
+  "syllables": ["teach"],
+  "definition": "To help someone learn something.",
+  "example": "The teacher will teach a new lesson."
+},
+{
+  "word": "team",
+  "partOfSpeech": "noun",
+  "syllables": ["team"],
+  "definition": "A group of people working together.",
+  "example": "The team worked on the project together."
+},
     {
       "word": "technology",
       "partOfSpeech": "noun",
@@ -1815,6 +1844,118 @@
       "definition": "Tools, systems, and machines created to solve problems or make life easier.",
       "example": "Phones and computers are examples of technology."
     },
+{
+  "word": "temperature",
+  "partOfSpeech": "noun",
+  "syllables": ["tem", "per", "a", "ture"],
+  "definition": "How hot or cold something is.",
+  "example": "The temperature dropped during the night."
+},
+{
+  "word": "text",
+  "partOfSpeech": "noun",
+  "syllables": ["text"],
+  "definition": "Written words that you read.",
+  "example": "Read the text carefully."
+},
+{
+  "word": "theme",
+  "partOfSpeech": "noun",
+  "syllables": ["theme"],
+  "definition": "The main idea or message of a text.",
+  "example": "The theme of the story is friendship."
+},
+{
+  "word": "theory",
+  "partOfSpeech": "noun",
+  "syllables": ["the", "o", "ry"],
+  "definition": "An idea used to explain something.",
+  "example": "The theory explains how plants grow."
+},
+{
+  "word": "think",
+  "partOfSpeech": "verb",
+  "syllables": ["think"],
+  "definition": "To use your mind to understand or decide.",
+  "example": "Think carefully before answering."
+},
+{
+  "word": "thinking",
+  "partOfSpeech": "noun",
+  "syllables": ["think", "ing"],
+  "definition": "The process of using your mind to understand ideas.",
+  "example": "Good thinking helps solve problems."
+},
+{
+  "word": "topic",
+  "partOfSpeech": "noun",
+  "syllables": ["to", "pic"],
+  "definition": "The subject being discussed or written about.",
+  "example": "The topic of the lesson was energy."
+},
+{
+  "word": "total",
+  "partOfSpeech": "noun",
+  "syllables": ["to", "tal"],
+  "definition": "The whole amount.",
+  "example": "The total number of learners was thirty."
+},
+{
+  "word": "trace",
+  "partOfSpeech": "verb",
+  "syllables": ["trace"],
+  "definition": "To follow or copy the shape of something.",
+  "example": "Trace the letters to practise writing."
+},
+{
+  "word": "track",
+  "partOfSpeech": "verb",
+  "syllables": ["track"],
+  "definition": "To follow progress or movement.",
+  "example": "The app helps track reading progress."
+},
+{
+  "word": "train",
+  "partOfSpeech": "verb",
+  "syllables": ["train"],
+  "definition": "To practise to improve a skill.",
+  "example": "Readers train by reading every day."
+},
+{
+  "word": "transfer",
+  "partOfSpeech": "verb",
+  "syllables": ["trans", "fer"],
+  "definition": "To move something from one place to another.",
+  "example": "Transfer the file to your device."
+},
+{
+  "word": "translate",
+  "partOfSpeech": "verb",
+  "syllables": ["trans", "late"],
+  "definition": "To change words into another language.",
+  "example": "She can translate the sentence into English."
+},
+{
+  "word": "trend",
+  "partOfSpeech": "noun",
+  "syllables": ["trend"],
+  "definition": "A general direction in which something is changing.",
+  "example": "There is a trend of improving results."
+},
+{
+  "word": "trial",
+  "partOfSpeech": "noun",
+  "syllables": ["tri", "al"],
+  "definition": "A test to see how something works.",
+  "example": "They did a trial before the final test."
+},
+{
+  "word": "type",
+  "partOfSpeech": "noun",
+  "syllables": ["type"],
+  "definition": "A kind or category of something.",
+  "example": "This is a type of question."
+}
     {
       "word": "visualising",
       "partOfSpeech": "verb",
