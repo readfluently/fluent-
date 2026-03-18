@@ -26,6 +26,47 @@
           "pronunciation": "kree-AY-ter",
           "simpleMeaning": "Someone who makes useful or creative things.",
           "example": "A teacher who makes online lessons is a creator."
+        }
+      },
+      "worksheet": {
+        "title": "Getting Ready",
+        "prompt": "What do you think this book will teach you about digital platforms, creators, and technology?"
+      }
+    },
+    "ch1": {
+      "title": "Chapter 1: The Digital World Around Us",
+      "content": [
+        "The digital world is part of everyday life.",
+        "Many learners wake up to a phone alarm, watch videos online, listen to music through an app, send messages, search for information, and use digital tools for schoolwork.",
+        "All of these activities take place on [[platforms]].",
+        "A [[platform]] is more than just a website or an app. It is a system that connects different groups of people so that they can exchange something of value.",
+        "In the past, people often bought physical products such as CDs, DVDs, books, or newspapers.",
+        "Today, much of that has moved online.",
+        "Instead of owning every song or movie, people often pay for access.",
+        "Instead of walking into a shop to sell goods, people can open an online store.",
+        "Instead of needing a large company to publish ideas, individuals can share content directly with a global audience.",
+        "This book explains how the platform economy works in a simple and engaging way.",
+        "It is designed for learners who want to understand how digital platforms make money, why [[creators]] matter, what ownership means, and how [[artificial intelligence]] is changing the economy.",
+        "By the end of the book, you will not only understand how platforms work but also begin to imagine how you could become a creator, builder, or entrepreneur in the digital world."
+      ],
+      "glossary": {
+        "platforms": {
+          "definition": "Digital systems that connect groups of people so they can exchange content, services, products, or value.",
+          "pronunciation": "PLAT-forms",
+          "simpleMeaning": "Online places where people connect and do things.",
+          "example": "Streaming apps and shopping apps are platforms."
+        },
+        "platform": {
+          "definition": "A digital system that connects people or groups and helps them interact.",
+          "pronunciation": "PLAT-form",
+          "simpleMeaning": "An online system that brings people together.",
+          "example": "A marketplace app is a platform."
+        },
+        "creators": {
+          "definition": "People who make something valuable such as videos, books, music, lessons, art, or products.",
+          "pronunciation": "kree-AY-ters",
+          "simpleMeaning": "People who make useful or creative things.",
+          "example": "Teachers who make online lessons are creators."
         },
         "artificial intelligence": {
           "definition": "Technology that helps computers perform tasks such as generating ideas, analysing information, or assisting users.",
@@ -35,60 +76,364 @@
         }
       },
       "worksheet": {
-        "title": "Getting Ready",
-        "prompt": "What do you think this book will teach you about digital platforms, creators, and technology?"
-      }
-    },
-
-    "ch1": {
-      "title": "Chapter 1: The Digital World Around Us",
-      "content": [
-        "The digital world is part of everyday life.",
-        "Many learners wake up to a phone alarm, watch videos online, listen to music through an app, send messages, search for information, and use digital tools for schoolwork.",
-        "All of these activities take place on [[platform]].",
-        "A [[platform]] is more than just a website or an app. It is a system that connects different groups of people so that they can exchange something of value.",
-        "Instead of owning every song or movie, people often pay for access.",
-        "This book explains how the platform economy works in a simple and engaging way."
-      ],
-      "glossary": {
-        "platform": {
-          "definition": "A system that connects people and allows them to exchange value.",
-          "pronunciation": "PLAT-form",
-          "simpleMeaning": "A place where people connect online.",
-          "example": "Streaming apps are platforms."
-        },
-        "artificial intelligence": {
-          "definition": "Technology that helps computers perform tasks like thinking or assisting users.",
-          "pronunciation": "ar-tuh-FISH-uhl in-TEL-uh-jens",
-          "simpleMeaning": "Smart computer tools.",
-          "example": "AI can help organise information."
-        }
-      },
-      "worksheet": {
         "title": "Understanding Chapter 1",
-        "prompt": "1. What is a platform?\n\n2. Name two ways digital platforms are part of daily life."
+        "prompt": "1. What is a platform?\n\n2. Name two ways digital platforms are part of daily life.\n\n3. Why is it important for learners to understand how platforms work?"
       }
     },
-
     "ch2": {
       "title": "Chapter 2: What Is a Platform?",
       "content": [
-        "A [[platform]] is a place where people meet and exchange value.",
+        "A [[platform]] is a place where different groups of people meet and exchange value.",
+        "In the physical world, a market is a type of platform.",
+        "Farmers bring food to sell, and customers come to buy it.",
+        "The market itself does not grow the vegetables, but it provides a place where exchange can happen.",
+        "A digital platform works in a similar way, but it does so online.",
+        "Digital platforms can take many forms.",
         "A shopping platform connects sellers with buyers.",
+        "A streaming platform connects creators with viewers or listeners.",
         "A learning platform connects teachers with learners.",
-        "Platforms act like bridges between groups."
+        "A ride-hailing platform connects drivers with passengers.",
+        "In every case, the platform acts like a bridge between groups that need one another.",
+        "The important idea is that a platform does not always make the main product itself.",
+        "Instead, it builds the system that allows others to create, share, buy, sell, or communicate.",
+        "That system may include an app, a website, payment tools, search tools, [[recommendation systems]], user profiles, review features, and customer support.",
+        "A good platform solves problems for more than one group.",
+        "It helps creators reach audiences, helps audiences find useful content, and helps buyers discover products more easily.",
+        "When all sides gain value, the platform becomes stronger.",
+        "Platforms also create rules. They decide who can join, what content is allowed, how money is shared, and how users are treated.",
+        "This means platform owners hold a lot of power."
       ],
       "glossary": {
         "platform": {
-          "definition": "A system that connects people and helps them interact.",
+          "definition": "A place or system where different groups meet and exchange value.",
           "pronunciation": "PLAT-form",
           "simpleMeaning": "A system that brings people together.",
-          "example": "A marketplace app is a platform."
+          "example": "A classroom app can be a platform."
+        },
+        "recommendation systems": {
+          "definition": "Systems that help decide what users see based on behaviour, interests, or needs.",
+          "pronunciation": "rek-uh-men-DAY-shun SIS-temz",
+          "simpleMeaning": "Tools that suggest what to watch, read, or buy.",
+          "example": "Recommendation systems suggest videos to viewers."
         }
       },
       "worksheet": {
         "title": "What Makes a Platform?",
-        "prompt": "1. In your own words, explain what a platform is."
+        "prompt": "1. In your own words, explain what a platform is.\n\n2. Name two different kinds of digital platforms.\n\n3. Why do platform owners have a lot of power?"
+      }
+    },
+    "ch3": {
+      "title": "Chapter 3: The Three Main Players",
+      "content": [
+        "Most digital platforms involve three main groups: [[creators]], [[consumers]], and platform owners.",
+        "These groups may play different roles, but the platform depends on all of them.",
+        "If one group disappears, the system becomes weaker.",
+        "Creators are the people who produce value on a platform.",
+        "They may make videos, songs, lessons, games, books, software, artwork, or physical products.",
+        "Consumers are the people who use, watch, buy, read, listen to, or learn from what creators provide.",
+        "They may be viewers, listeners, readers, shoppers, students, or subscribers.",
+        "Platform owners build and manage the system that brings creators and consumers together.",
+        "They design the app or website, create the rules, maintain the technology, process payments, and often decide how content is recommended or displayed.",
+        "These three groups depend on one another.",
+        "Without creators, there is no content or product.",
+        "Without consumers, there is no audience or market.",
+        "Without the platform owner, there is no organised system to connect everyone efficiently.",
+        "Even though all three groups are important, they do not always have equal power.",
+        "Platform owners often control the rules and the systems that decide visibility.",
+        "Creators may produce the content, but they sometimes have less control than people expect.",
+        "A healthy platform usually tries to keep all groups satisfied."
+      ],
+      "glossary": {
+        "creators": {
+          "definition": "People who make or produce value on a platform.",
+          "pronunciation": "kree-AY-ters",
+          "simpleMeaning": "People who make things.",
+          "example": "A musician on a streaming app is a creator."
+        },
+        "consumers": {
+          "definition": "People who use, watch, buy, read, listen to, or learn from what creators provide.",
+          "pronunciation": "kun-SOO-mers",
+          "simpleMeaning": "People who use or enjoy what is offered.",
+          "example": "Viewers on a video app are consumers."
+        }
+      },
+      "worksheet": {
+        "title": "Who Makes Platforms Work?",
+        "prompt": "1. Name the three main players on a digital platform.\n\n2. What does a creator do?\n\n3. Which group do you think has the most power, and why?"
+      }
+    },
+    "ch4": {
+      "title": "Chapter 4: How Platforms Make Money",
+      "content": [
+        "Platforms may look free at first, but they almost always have a [[business model]].",
+        "A business model explains how a company earns money.",
+        "Digital platforms usually make money in several common ways, including [[subscriptions]], [[advertising]], [[commissions]], data-driven services, and premium features.",
+        "Subscriptions are one of the easiest models to understand.",
+        "Users pay a regular fee, often monthly or yearly, in exchange for access to content or services.",
+        "Advertising is another major source of income.",
+        "Many platforms allow users to join for free, but then show adverts.",
+        "Advertisers pay the platform because they want access to users’ attention.",
+        "Commission is common on shopping and service platforms.",
+        "The platform takes a percentage of each sale or payment.",
+        "Some platforms use a freemium model.",
+        "This means the basic service is free, but advanced features cost money.",
+        "Data can also play a role in platform income.",
+        "Platforms often collect information about what people click, watch, buy, or search for.",
+        "This helps them improve recommendations and target adverts more effectively.",
+        "Different platforms combine these methods.",
+        "A music platform may use subscriptions and advertising.",
+        "A shopping platform may use commissions and advertising.",
+        "An educational platform may use subscriptions, school licences, and premium teacher tools.",
+        "Understanding the business model helps us understand the platform’s choices."
+      ],
+      "glossary": {
+        "business model": {
+          "definition": "The way a company earns money and sustains itself.",
+          "pronunciation": "BIZ-ness MOD-uhl",
+          "simpleMeaning": "How a business makes money.",
+          "example": "Subscriptions are one kind of business model."
+        },
+        "subscriptions": {
+          "definition": "Regular payments, often monthly or yearly, for continued access to a service or platform.",
+          "pronunciation": "sub-SKRIP-shunz",
+          "simpleMeaning": "Paying again and again to keep using something.",
+          "example": "A music app may use subscriptions."
+        },
+        "advertising": {
+          "definition": "Paid messages that help businesses promote products or services to users.",
+          "pronunciation": "AD-ver-ty-zing",
+          "simpleMeaning": "Paid promotion shown to users.",
+          "example": "Video platforms often earn through advertising."
+        },
+        "commissions": {
+          "definition": "Percentages of each sale or transaction kept by the platform.",
+          "pronunciation": "kuh-MISH-unz",
+          "simpleMeaning": "The platform’s share of a sale.",
+          "example": "Shopping platforms may earn commissions."
+        }
+      },
+      "worksheet": {
+        "title": "Money and Platforms",
+        "prompt": "1. What is a business model?\n\n2. Name three ways platforms can make money.\n\n3. Which method do you think suits an educational platform best, and why?"
+      }
+    },
+    "ch5": {
+      "title": "Chapter 5: Ownership of Content",
+      "content": [
+        "One of the most important ideas in the digital economy is ownership.",
+        "Just because something appears on a platform does not mean the platform owns it.",
+        "Songs, books, videos, games, and software often belong to the people or companies who created them or paid to produce them.",
+        "Ownership matters because it decides who has the right to copy, sell, share, perform, or change a piece of work.",
+        "In many countries, these rights are protected by [[copyright]] law.",
+        "Copyright gives creators legal protection over their original work.",
+        "This is why platforms need permission.",
+        "A platform cannot simply take songs, movies, or books from anywhere and offer them to users.",
+        "It usually needs [[licences]] or agreements with rights holders.",
+        "Ownership can become more complicated when many people contribute to one piece of work.",
+        "Digital platforms have changed how ownership feels to users.",
+        "People may think, \"I pay every month, so I own this music,\" but usually they are paying for access, not ownership.",
+        "If the platform loses the licence to that music, the songs may disappear from the app.",
+        "Platforms also create terms of service, which are the rules users agree to when joining.",
+        "Respecting ownership encourages fairness.",
+        "It means creators are recognised and rewarded for their work."
+      ],
+      "glossary": {
+        "copyright": {
+          "definition": "The legal protection given to creators over their original work such as writing, music, films, code, or artwork.",
+          "pronunciation": "KOP-ee-ryt",
+          "simpleMeaning": "Legal protection for original work.",
+          "example": "Books and songs are protected by copyright."
+        },
+        "licences": {
+          "definition": "Official permissions or agreements allowing someone to use, distribute, stream, or sell content.",
+          "pronunciation": "LY-sen-siz",
+          "simpleMeaning": "Permissions to use something legally.",
+          "example": "A streaming service needs licences for films."
+        }
+      },
+      "worksheet": {
+        "title": "Ownership and Access",
+        "prompt": "1. Why does ownership matter in the digital world?\n\n2. What is the difference between ownership and access?\n\n3. Why do platforms need licences?"
+      }
+    },
+    "ch6": {
+      "title": "Chapter 6: Licensing and Royalties",
+      "content": [
+        "[[Licensing]] is the process of getting permission to use, distribute, stream, or sell someone else’s content.",
+        "In the platform economy, licences are essential because platforms often provide access to content that they did not create themselves.",
+        "Imagine a streaming service that wants to offer music.",
+        "It cannot simply upload songs from artists around the world without permission.",
+        "It must enter into agreements with rights holders.",
+        "[[Royalties]] are payments made when content is used.",
+        "A musician may receive royalties when songs are streamed.",
+        "A writer may receive royalties when books are sold.",
+        "A filmmaker may receive royalties when films are distributed.",
+        "Licensing and royalties are important because digital platforms can make content available at huge scale.",
+        "If millions of people stream a song, watch a film, or read a text, the system needs a way to track usage and share income fairly.",
+        "Many learners are surprised to discover that one play or one view often earns only a tiny amount.",
+        "Licences can also limit where content appears.",
+        "A movie may be available on one streaming service in one country, but not in another.",
+        "Some creators choose open licences.",
+        "These allow others to share or use the work under certain conditions.",
+        "For creators, understanding licences helps them make smarter decisions."
+      ],
+      "glossary": {
+        "licensing": {
+          "definition": "The process of getting permission to use, distribute, stream, or sell someone else’s content.",
+          "pronunciation": "LY-sen-sing",
+          "simpleMeaning": "Getting legal permission to use content.",
+          "example": "Licensing is important for streaming services."
+        },
+        "royalties": {
+          "definition": "Payments made to creators or rights holders when their content is used, sold, streamed, or distributed.",
+          "pronunciation": "ROY-uhl-teez",
+          "simpleMeaning": "Money paid when creative work is used.",
+          "example": "Artists may earn royalties from streamed songs."
+        }
+      },
+      "worksheet": {
+        "title": "Permissions and Payments",
+        "prompt": "1. What is licensing?\n\n2. What are royalties?\n\n3. Why are licensing and royalties important in digital platforms?"
+      }
+    },
+    "ch7": {
+      "title": "Chapter 7: The Power of Network Effects",
+      "content": [
+        "One reason platforms grow so quickly is something called a [[network effect]].",
+        "A network effect happens when a platform becomes more valuable as more people use it.",
+        "Think about a messaging app.",
+        "If only two people use it, it has limited value.",
+        "But if your family, classmates, teachers, and friends all use it, it becomes much more useful.",
+        "Network effects create a cycle.",
+        "More creators attract more consumers because there is more to watch, buy, or learn from.",
+        "More consumers attract more creators because there is a bigger audience.",
+        "As both sides grow, the platform becomes stronger and more attractive.",
+        "Once a platform becomes large, it can be difficult for new competitors to catch up.",
+        "Even if another platform has better features, people may stay with the one that already has the most users, content, or trust.",
+        "Network effects can be positive, but they can also create problems.",
+        "A very powerful platform may begin to set tough rules or reduce payments to creators because it knows many people depend on it.",
+        "There are different kinds of network effects.",
+        "A direct network effect happens when more users directly make the service better.",
+        "An indirect network effect happens when growth on one side helps another side."
+      ],
+      "glossary": {
+        "network effect": {
+          "definition": "When a platform becomes more valuable as more people use it.",
+          "pronunciation": "NET-wurk ih-FEKT",
+          "simpleMeaning": "The more users join, the more useful it becomes.",
+          "example": "Messaging apps grow stronger through network effects."
+        }
+      },
+      "worksheet": {
+        "title": "Why Big Platforms Grow Fast",
+        "prompt": "1. What is a network effect?\n\n2. Why do network effects help platforms grow quickly?\n\n3. What problem can happen when one platform becomes very powerful?"
+      }
+    },
+    "ch8": {
+      "title": "Chapter 8: The Rise of User-Generated Platforms",
+      "content": [
+        "Some platforms do not depend mainly on content bought from large companies.",
+        "Instead, they allow users to upload and share their own content.",
+        "These are called user-generated platforms.",
+        "On a user-generated platform, ordinary people can become creators.",
+        "A learner can upload study notes, a gamer can stream gameplay, an artist can share designs, a teacher can post mini lessons, and a young writer can publish short stories.",
+        "Traditional media usually worked through gatekeepers.",
+        "Platforms reduced some of these barriers.",
+        "Now many people can publish directly and build an audience over time.",
+        "This change has benefits.",
+        "It allows more voices to be heard.",
+        "It gives people a chance to experiment, build communities, and sometimes earn income.",
+        "But user-generated platforms also bring challenges.",
+        "If millions of people upload content every day, how does the platform check quality, safety, truthfulness, and originality?",
+        "Platforms therefore need rules and moderation systems.",
+        "[[Algorithms]] often help decide what users see based on behaviour such as viewing time, clicks, likes, or shares.",
+        "For learners, user-generated platforms can be exciting places to share ideas and learn from others.",
+        "But they also require digital responsibility."
+      ],
+      "glossary": {
+        "algorithms": {
+          "definition": "Systems that help decide what users see based on behaviour such as viewing time, clicks, likes, or shares.",
+          "pronunciation": "AL-guh-rith-umz",
+          "simpleMeaning": "Rules or systems that choose what appears on the screen.",
+          "example": "Algorithms may recommend videos to viewers."
+        }
+      },
+      "worksheet": {
+        "title": "Anyone Can Publish",
+        "prompt": "1. What is a user-generated platform?\n\n2. Name two opportunities created by user-generated platforms.\n\n3. Name one risk or challenge of these platforms."
+      }
+    },
+    "ch9": {
+      "title": "Chapter 9: Artificial Intelligence and the New Economy",
+      "content": [
+        "[[Artificial intelligence]], often called AI, is changing the platform economy.",
+        "AI tools can help people write, edit, design, translate, search, analyse data, recommend content, and even generate images, music, and code.",
+        "In the past, building digital products often required a large team with specialised skills.",
+        "Today, one person with the right tools can design a simple app, create a video lesson, write an ebook, produce graphics, and launch a website.",
+        "Platforms use AI in many ways.",
+        "Recommendation systems suggest what to watch, read, buy, or learn next.",
+        "Moderation tools help detect harmful content.",
+        "Search systems help users find relevant information.",
+        "Customer support bots answer basic questions.",
+        "For creators, AI can be a helpful assistant.",
+        "A teacher might use AI to draft reading questions.",
+        "A designer might use AI to generate ideas.",
+        "A small business owner might use AI to write product descriptions.",
+        "However, AI also raises questions.",
+        "Who owns AI-generated work?",
+        "How do we know whether information is correct?",
+        "What happens if AI copies the style of a human creator?",
+        "People who understand both creativity and technology will be better prepared for the future.",
+        "Young people today can become builders, not just users."
+      ],
+      "glossary": {
+        "artificial intelligence": {
+          "definition": "Technology that helps computers perform tasks such as generating content, making recommendations, analysing information, or assisting users.",
+          "pronunciation": "ar-tuh-FISH-uhl in-TEL-uh-jens",
+          "simpleMeaning": "Smart computer systems that can help with many tasks.",
+          "example": "Artificial intelligence can help generate ideas."
+        }
+      },
+      "worksheet": {
+        "title": "AI and the Future",
+        "prompt": "1. What is artificial intelligence?\n\n2. Name three ways AI can help creators or platforms.\n\n3. What is one important question people should ask about AI?"
+      }
+    },
+    "ch10": {
+      "title": "Chapter 10: Becoming a Creator or Builder",
+      "content": [
+        "Young people today have opportunities that previous generations never had.",
+        "With a device, internet access, creativity, and determination, it is possible to build projects that reach people far beyond one school or neighbourhood.",
+        "A [[creator]] makes something of value.",
+        "This could be stories, lessons, videos, art, music, games, study guides, designs, or coding projects.",
+        "A builder creates systems, tools, or businesses that help others.",
+        "The first step is often to notice a real need.",
+        "Maybe younger learners need easier reading support.",
+        "Maybe teachers need reusable classroom resources.",
+        "Maybe families need safe educational audio stories.",
+        "The second step is to make something simple.",
+        "Many successful projects begin small.",
+        "The third step is to understand your audience.",
+        "Who are you creating for? What level are they at? What do they struggle with?",
+        "The fourth step is to understand value.",
+        "People return to a platform or product when it solves a problem, saves time, brings joy, teaches clearly, or supports growth.",
+        "The fifth step is to learn the basics of ownership, licensing, and fairness.",
+        "The sixth step is to keep learning.",
+        "The platform economy changes quickly.",
+        "The platform economy offers more than entertainment.",
+        "It offers opportunities to teach, solve problems, earn income, and build useful tools for others."
+      ],
+      "glossary": {
+        "creator": {
+          "definition": "A person who makes something of value such as stories, lessons, videos, art, music, games, or tools.",
+          "pronunciation": "kree-AY-ter",
+          "simpleMeaning": "Someone who makes something helpful or creative.",
+          "example": "A learner can become a creator by making useful study guides."
+        }
+      },
+      "worksheet": {
+        "title": "Build Something Helpful",
+        "prompt": "1. What is a creator?\n\n2. What is one real need you could help solve?\n\n3. Describe an idea for a platform, tool, or resource you would like to build."
       }
     }
   }
