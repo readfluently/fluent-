@@ -1455,7 +1455,76 @@
       "syllables": ["pur", "pose"],
       "definition": "The reason why something is created or written.",
       "example": "The author’s purpose was to inform the reader."
-    },
+    },{
+  "word": "quality",
+  "partOfSpeech": "noun",
+  "syllables": ["qual", "i", "ty"],
+  "definition": "How good or bad something is.",
+  "example": "The quality of her work improved over time."
+},
+{
+  "word": "quantity",
+  "partOfSpeech": "noun",
+  "syllables": ["quan", "ti", "ty"],
+  "definition": "The amount or number of something.",
+  "example": "The recipe tells us the quantity of flour to use."
+},
+{
+  "word": "quarter",
+  "partOfSpeech": "noun",
+  "syllables": ["quar", "ter"],
+  "definition": "One of four equal parts.",
+  "example": "A quarter of the class was absent."
+},
+{
+  "word": "question",
+  "partOfSpeech": "noun",
+  "syllables": ["ques", "tion"],
+  "definition": "Something you ask in order to get information.",
+  "example": "She asked a good question in class."
+},
+{
+  "word": "questioning",
+  "partOfSpeech": "verb",
+  "syllables": ["ques", "tion", "ing"],
+  "definition": "Asking yourself questions while reading to help you understand.",
+  "example": "Questioning helps readers stay mentally active."
+},
+{
+  "word": "queue",
+  "partOfSpeech": "noun",
+  "syllables": ["queue"],
+  "definition": "A line of people waiting for something.",
+  "example": "The learners stood in a queue outside the hall."
+},
+{
+  "word": "quick",
+  "partOfSpeech": "adjective",
+  "syllables": ["quick"],
+  "definition": "Fast.",
+  "example": "She gave a quick answer."
+},
+{
+  "word": "quiet",
+  "partOfSpeech": "adjective",
+  "syllables": ["qui", "et"],
+  "definition": "Making very little noise.",
+  "example": "The library was quiet during reading time."
+},
+{
+  "word": "quite",
+  "partOfSpeech": "adverb",
+  "syllables": ["quite"],
+  "definition": "To a fairly large degree or amount.",
+  "example": "The test was quite difficult."
+},
+{
+  "word": "quotation",
+  "partOfSpeech": "noun",
+  "syllables": ["quo", "ta", "tion"],
+  "definition": "Words taken exactly from what someone said or wrote.",
+  "example": "She copied the quotation carefully."
+}
     {
       "word": "questioning",
       "partOfSpeech": "verb",
