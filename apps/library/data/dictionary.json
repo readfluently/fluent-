@@ -1526,7 +1526,6 @@
   "definition": "Words taken exactly from what someone said or wrote.",
   "example": "She copied the quotation carefully."
 },
-   ,
 {
   "word": "range",
   "partOfSpeech": "noun",
@@ -2139,7 +2138,7 @@
       "syllables": ["vo", "cab", "u", "lar", "y"],
       "definition": "The collection of words a person knows and understands.",
       "example": "Reading helps grow vocabulary."
-    }
+    },
 {
   "word": "voice",
   "partOfSpeech": "noun",
