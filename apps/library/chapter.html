@@ -384,68 +384,119 @@
   async function loadChapter(){
     try{
       if (bookId === "dictionary") {
-        const res = await fetch("./data/dictionary.json", { cache: "no-store" });
-        if (!res.ok) throw new Error("Could not fetch dictionary.json (" + res.status + ")");
+  const res = await fetch("./data/dictionary.json", { cache: "no-store" });
+  if (!res.ok) throw new Error("Could not fetch dictionary.json (" + res.status + ")");
 
-        const data = await res.json();
+  const data = await res.json();
 
-        chapterTitleEl.textContent = data.title || "Dictionary";
-        chapterMetaEl.textContent = "A–D";
-        chapterProgressText.textContent = "";
-        chapterProgressBar.style.width = "0%";
-        nextChapterBtn.style.display = "none";
-        howBtn.style.display = "none";
+  chapterTitleEl.textContent = data.title || "Dictionary";
+  chapterMetaEl.textContent = "";
+  chapterProgressText.textContent = "";
+  chapterProgressBar.style.width = "0%";
+  nextChapterBtn.style.display = "none";
+  howBtn.style.display = "none";
 
-        recBtn.style.display = "none";
-        stopRecBtn.style.display = "none";
-        playBtn.style.display = "none";
-        clearBtn.style.display = "none";
-        downloadBtn.style.display = "none";
-        recStatus.textContent = "";
-        player.style.display = "none";
+  recBtn.style.display = "none";
+  stopRecBtn.style.display = "none";
+  playBtn.style.display = "none";
+  clearBtn.style.display = "none";
+  downloadBtn.style.display = "none";
+  recStatus.textContent = "";
+  player.style.display = "none";
 
-        const prologueTitle = data.prologue?.title || "How to Use This Dictionary";
-        const intro = data.prologue?.intro || "";
-        const parts = Array.isArray(data.prologue?.parts) ? data.prologue.parts : [];
-        const searchHelp = data.prologue?.searchHelp || "";
-        const words = Array.isArray(data.words) ? data.words : [];
+  const prologueTitle = data.prologue?.title || "How to Use This Dictionary";
+  const intro = data.prologue?.intro || "";
+  const parts = Array.isArray(data.prologue?.parts) ? data.prologue.parts : [];
+  const searchHelp = data.prologue?.searchHelp || "";
+  const words = Array.isArray(data.words) ? data.words : [];
 
-        chapterTextEl.innerHTML = `
-          <h2>${escapeHtml(prologueTitle)}</h2>
-          <p>${escapeHtml(intro)}</p>
+  chapterTextEl.innerHTML = `
+    <h2>${escapeHtml(prologueTitle)}</h2>
+    <p>${escapeHtml(intro)}</p>
 
-          ${parts.map(part => `
-            <p><strong>${escapeHtml(part.name)}:</strong> ${escapeHtml(part.explanation)}</p>
-          `).join("")}
+    ${parts.map(part => `
+      <p><strong>${escapeHtml(part.name)}:</strong> ${escapeHtml(part.explanation)}</p>
+    `).join("")}
 
-          <p><strong>Search:</strong> ${escapeHtml(searchHelp)}</p>
+    <p><strong>Search:</strong> ${escapeHtml(searchHelp)}</p>
+  `;
 
-          <hr style="margin: 24px 0;">
+  worksheetBody.innerHTML = `
+    <h2 style="margin-top:0;">Dictionary</h2>
+    <div class="small">Use the search box to find words quickly.</div>
 
-          ${words.map(entry => `
-            <div class="dictionary-entry">
-              <h3>${escapeHtml(entry.word || "")}</h3>
-              <p><strong>Part of Speech:</strong> ${escapeHtml(entry.partOfSpeech || "-")}</p>
-              <p><strong>Syllables:</strong> ${
-                Array.isArray(entry.syllables)
-                  ? entry.syllables.map(s => escapeHtml(s)).join(" - ")
-                  : "-"
-              }</p>
-              <p><strong>Definition:</strong> ${escapeHtml(entry.definition || "-")}</p>
-              <p><strong>Example:</strong> ${escapeHtml(entry.example || "-")}</p>
-            </div>
-          `).join("")}
-        `;
+    <div class="divider"></div>
 
-        worksheetBody.innerHTML = `
-          <h2 style="margin-top:0;">Dictionary</h2>
-          <div class="small">Search will be added next. For now, scroll and read the entries.</div>
-        `;
+    <input
+      id="dictionarySearchInput"
+      type="text"
+      placeholder="Search for a word..."
+      style="
+        width:100%;
+        padding:10px 12px;
+        border:1px solid #ddd;
+        border-radius:12px;
+        font-size:15px;
+      "
+    />
 
-        setStatus("Ready");
-        return;
-      }
+    <div class="divider"></div>
 
+    <div id="dictionaryResults"></div>
+  `;
+
+  const dictionarySearchInput = document.getElementById("dictionarySearchInput");
+  const dictionaryResults = document.getElementById("dictionaryResults");
+
+  function renderDictionaryResults(list){
+    if(!list.length){
+      dictionaryResults.innerHTML = `<div class="small">No matching words found.</div>`;
+      return;
+    }
+
+    dictionaryResults.innerHTML = list.map(entry => `
+      <div class="dictionary-entry">
+        <h3>${escapeHtml(entry.word || "")}</h3>
+        <p><strong>Part of Speech:</strong> ${escapeHtml(entry.partOfSpeech || "-")}</p>
+        <p><strong>Syllables:</strong> ${
+          Array.isArray(entry.syllables)
+            ? entry.syllables.map(s => escapeHtml(s)).join(" - ")
+            : "-"
+        }</p>
+        <p><strong>Definition:</strong> ${escapeHtml(entry.definition || "-")}</p>
+        <p><strong>Example:</strong> ${escapeHtml(entry.example || "-")}</p>
+      </div>
+    `).join("");
+  }
+
+  renderDictionaryResults(words);
+
+  dictionarySearchInput.addEventListener("input", () => {
+    const query = dictionarySearchInput.value.trim().toLowerCase();
+
+    if(!query){
+      renderDictionaryResults(words);
+      return;
+    }
+
+    const filtered = words.filter(entry => {
+      const word = String(entry.word || "").toLowerCase();
+      const definition = String(entry.definition || "").toLowerCase();
+      const example = String(entry.example || "").toLowerCase();
+
+      return (
+        word.includes(query) ||
+        definition.includes(query) ||
+        example.includes(query)
+      );
+    });
+
+    renderDictionaryResults(filtered);
+  });
+
+  setStatus("Ready");
+  return;
+}
       const res = await fetch("./data/books.json", { cache: "no-store" });
       if(!res.ok) throw new Error("Could not fetch books.json (" + res.status + ")");
       const data = await res.json();
