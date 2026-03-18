@@ -2055,6 +2055,112 @@
   "definition": "Normal or common.",
   "example": "She followed her usual routine."
 }  
+    ,
+{
+  "word": "value",
+  "partOfSpeech": "noun",
+  "syllables": ["val", "ue"],
+  "definition": "How important or useful something is.",
+  "example": "Reading has great value for learning."
+},
+{
+  "word": "variable",
+  "partOfSpeech": "noun",
+  "syllables": ["va", "ri", "a", "ble"],
+  "definition": "Something that can change.",
+  "example": "In an experiment, a variable can change."
+},
+{
+  "word": "variety",
+  "partOfSpeech": "noun",
+  "syllables": ["va", "ri", "e", "ty"],
+  "definition": "A range of different things.",
+  "example": "The library has a variety of books."
+},
+{
+  "word": "vary",
+  "partOfSpeech": "verb",
+  "syllables": ["va", "ry"],
+  "definition": "To change or be different.",
+  "example": "Answers may vary from learner to learner."
+},
+{
+  "word": "verb",
+  "partOfSpeech": "noun",
+  "syllables": ["verb"],
+  "definition": "A word that shows an action or state.",
+  "example": "Run is a verb."
+},
+{
+  "word": "verify",
+  "partOfSpeech": "verb",
+  "syllables": ["ver", "i", "fy"],
+  "definition": "To check if something is true or correct.",
+  "example": "Verify your answer before submitting."
+},
+{
+  "word": "version",
+  "partOfSpeech": "noun",
+  "syllables": ["ver", "sion"],
+  "definition": "A form of something that may be different from others.",
+  "example": "This is the latest version of the app."
+},
+{
+  "word": "vertical",
+  "partOfSpeech": "adjective",
+  "syllables": ["ver", "ti", "cal"],
+  "definition": "Going up and down.",
+  "example": "Draw a vertical line on the page."
+},
+{
+  "word": "view",
+  "partOfSpeech": "noun",
+  "syllables": ["view"],
+  "definition": "What you see or your opinion.",
+  "example": "From this view, you can see the whole school."
+},
+{
+  "word": "visible",
+  "partOfSpeech": "adjective",
+  "syllables": ["vi", "si", "ble"],
+  "definition": "Able to be seen.",
+  "example": "The writing was clearly visible."
+},
+ {
+      "word": "visualising",
+      "partOfSpeech": "verb",
+      "syllables": ["vi", "su", "al", "is", "ing"],
+      "definition": "Creating pictures in your mind while reading or listening.",
+      "example": "Visualising helps readers understand scenes better."
+    },
+  {
+      "word": "vocabulary",
+      "partOfSpeech": "noun",
+      "syllables": ["vo", "cab", "u", "lar", "y"],
+      "definition": "The collection of words a person knows and understands.",
+      "example": "Reading helps grow vocabulary."
+    }
+{
+  "word": "voice",
+  "partOfSpeech": "noun",
+  "syllables": ["voice"],
+  "definition": "The sound made when a person speaks.",
+  "example": "Read with a clear voice."
+},
+{
+  "word": "volume",
+  "partOfSpeech": "noun",
+  "syllables": ["vol", "ume"],
+  "definition": "How loud or soft a sound is.",
+  "example": "Adjust the volume when listening."
+},
+{
+  "word": "vote",
+  "partOfSpeech": "verb",
+  "syllables": ["vote"],
+  "definition": "To choose by making a decision or showing a choice.",
+  "example": "The class will vote for a leader."
+}
     {
       "word": "visualising",
       "partOfSpeech": "verb",
@@ -2062,12 +2168,6 @@
       "definition": "Creating pictures in your mind while reading or listening.",
       "example": "Visualising helps readers understand scenes better."
     },
-    {
-      "word": "vocabulary",
-      "partOfSpeech": "noun",
-      "syllables": ["vo", "cab", "u", "lar", "y"],
-      "definition": "The collection of words a person knows and understands.",
-      "example": "Reading helps grow vocabulary."
-    }
+  
   ]
 }
