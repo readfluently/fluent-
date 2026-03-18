@@ -3,6 +3,7 @@
   "coverImage": "../../shared/assets/images/thinking-skills.png",
   "chapters": {
     "how-it-works": {
+      "id":"how-it-works",
       "title": "How This Works",
       "type": "howto",
       "content": [
@@ -24,8 +25,11 @@
         "prompt": "Write one sentence explaining what you think this book will teach you about thinking."
       }
     },
+
     "ch1": {
+      "id":"ch1",
       "title": "Chapter 1: The Same Problem",
+      "type":"chapter",
       "content": [
         "The classroom was quiet except for the scratching of pencils and the soft turning of pages.",
         "On the board, the teacher had written a single question: Build the strongest bridge you can using only paper.",
@@ -34,408 +38,108 @@
         "Kgosi stared at the paper, turning it slowly in his hands.",
         "He did not start folding immediately. He first asked himself what makes something strong.",
         "Thando began quickly. She folded her paper neatly, believing that if she did it correctly, it would work.",
-        "Sizwe tested the paper, changed direction, and started rolling it into tight tubes.",
+        "Sizwe tested the paper and started rolling it into tight tubes.",
         "Ayanda folded quickly, decided it was easy, and then lost interest.",
-        "In another classroom, Jason made a simple structure that seemed safe and likely to work.",
+        "In another classroom, Jason made a simple structure that seemed safe.",
         "Priya wanted to know if there was a correct method before she began.",
-        "Daniel tested ideas and kept adjusting them because he wanted to understand what shape carries weight best.",
+        "Daniel tested ideas and kept adjusting them.",
         "Emma worked confidently because she believed she already knew how to do it.",
         "When the bridges were tested, some collapsed quickly and some stayed standing.",
-        "Kgosi’s bridge held more books than many people expected.",
-        "The teacher looked around the room and saw something important.",
-        "The learners had all been given the same task, but they had used different kinds of [[thinking]].",
-        "This chapter shows that the same problem can reveal many different ways of thinking.",
-        "Some learners rushed to finish.",
+        "Kgosi’s bridge held more books than many expected.",
+        "The learners had all been given the same task but used different kinds of [[thinking]].",
+        "Some rushed.",
         "Some searched for the correct answer.",
         "Some experimented.",
         "Some became bored.",
-        "And some slowed down long enough to ask why something worked.",
-        "That difference would matter more and more as time went on."
+        "Some slowed down long enough to ask why something worked."
       ],
+
       "glossary": {
         "problem": {
           "definition": "A challenge or question that needs to be solved.",
           "pronunciation": "PROB-luhm",
-          "simpleMeaning": "Something that needs an answer or solution.",
-          "example": "The paper bridge task was a problem the learners had to solve."
+          "simpleMeaning": "Something that needs an answer.",
+          "example": "The paper bridge task was a problem."
         },
+
         "thinking": {
-          "definition": "Using your mind to understand, question, compare, and solve things.",
+          "definition": "Using your mind to understand and solve things.",
           "pronunciation": "THING-king",
-          "simpleMeaning": "Using your brain to work something out.",
-          "example": "Different learners used different kinds of thinking during the task."
+          "simpleMeaning": "Using your brain.",
+          "example": "Different learners used different thinking."
         },
+
         "structure": {
-          "definition": "Something that is built or arranged in a particular way.",
+          "definition": "Something built in a particular way.",
           "pronunciation": "STRUK-chur",
-          "simpleMeaning": "The way something is put together.",
-          "example": "The learners built a paper structure to hold books."
+          "simpleMeaning": "How something is built.",
+          "example": "They built a paper structure."
         },
+
         "experiment": {
-          "definition": "To try something out in order to learn what happens.",
+          "definition": "To test something to learn what happens.",
           "pronunciation": "ik-SPER-uh-ment",
-          "simpleMeaning": "Testing an idea to see if it works.",
-          "example": "Daniel liked to experiment with different shapes."
+          "simpleMeaning": "Trying an idea.",
+          "example": "Daniel liked to experiment."
         }
       },
+
       "worksheet": {
         "title": "Different Ways of Thinking",
-        "prompt": "1. In your own words, explain what made Kgosi, Thando, and Sizwe approach the task differently.\n\n2. Why do you think the teacher gave the learners a task without instructions?\n\n3. Write one sentence about how you usually solve a problem."
+        "prompt": "1. Explain what made Kgosi, Thando, and Sizwe different.\n\n2. Why did the teacher give no instructions?\n\n3. How do you solve problems?"
       }
     },
+
     "ch2": {
+      "id":"ch2",
       "title": "Chapter 2: Labels Begin",
-      "content": [
-        "A week later, the paper bridges were gone, but something else had taken their place: marks.",
-        "The teacher returned the activity and praised different learners in different ways.",
-        "Emma was called clever. Daniel was praised for strong thinking. Sizwe was called creative. Thando was told her work was neat and accurate.",
-        "Ayanda was told she had [[potential]] but needed to focus.",
-        "Kgosi’s work was described as interesting.",
-        "After class, the learners began giving one another labels.",
-        "Some said Emma was the smartest.",
-        "Some said Thando was hardworking.",
-        "Some said Sizwe was lucky.",
-        "Some said Ayanda did not care.",
-        "And some called Kgosi average or different.",
-        "Later, the class completed a worksheet with clear questions and clear answers.",
-        "This kind of task rewarded speed, memory, and familiar patterns.",
-        "Kgosi noticed something strange. He kept asking why the answers worked, but the class was mostly focused on finishing.",
-        "When the marks came back, learners quickly decided who was smart and who was not.",
-        "These [[labels]] began to shape how the learners saw themselves.",
-        "A label can be powerful because it can feel like a fact, even when it is only someone’s opinion.",
-        "Some labels make people feel safe.",
-        "Some labels make people feel small.",
-        "Some labels make people stop trying new things.",
-        "And some labels stay in the mind for a very long time.",
-        "This chapter shows how school can begin to define learners before they fully understand themselves.",
-        "It also shows that marks do not always reveal how deeply someone understands."
+      "type":"chapter",
+
+      "content":[
+        "A week later the bridges were gone but marks remained.",
+        "Emma was called clever.",
+        "Daniel was praised for thinking.",
+        "Sizwe was called creative.",
+        "Thando was called accurate.",
+        "Ayanda was told she had [[potential]].",
+        "Kgosi was called average.",
+        "Soon learners started giving each other [[labels]].",
+        "Some labels make people feel strong.",
+        "Some make people feel small.",
+        "Some make people stop trying."
       ],
-      "glossary": {
-        "potential": {
-          "definition": "The ability to grow, improve, or become something greater in the future.",
-          "pronunciation": "puh-TEN-shuhl",
-          "simpleMeaning": "What you may be able to do in the future.",
-          "example": "Ayanda had potential, but she was not using it fully."
+
+      "glossary":{
+
+        "potential":{
+          "definition":"Ability to grow in future.",
+          "pronunciation":"puh-TEN-shuhl",
+          "simpleMeaning":"What you could become.",
+          "example":"Ayanda had potential."
         },
-        "labels": {
-          "definition": "Names or descriptions people give others that can shape how they are seen.",
-          "pronunciation": "LAY-buhlz",
-          "simpleMeaning": "Words people use to describe someone.",
-          "example": "The learners began using labels like smart, average, and hardworking."
+
+        "labels":{
+          "definition":"Names people give others.",
+          "pronunciation":"LAY-buhlz",
+          "simpleMeaning":"Words describing someone.",
+          "example":"Smart was a label."
         },
-        "average": {
-          "definition": "Seen as ordinary or in the middle, not especially high or low.",
-          "pronunciation": "AV-er-ij",
-          "simpleMeaning": "In the middle, not seen as special.",
-          "example": "Kgosi was called average even though his thinking was deeper than many realised."
+
+        "average":{
+          "definition":"In the middle.",
+          "pronunciation":"AV-er-ij",
+          "simpleMeaning":"Not high or low.",
+          "example":"Kgosi was called average."
         }
+
       },
-      "worksheet": {
-        "title": "How Labels Shape People",
-        "prompt": "1. What labels were given to different learners in this chapter?\n\n2. Why can labels be dangerous?\n\n3. Write one sentence explaining why marks do not always show true understanding."
+
+      "worksheet":{
+        "title":"How Labels Shape People",
+        "prompt":"1. What labels were used?\n\n2. Why are labels dangerous?\n\n3. Why marks do not show understanding?"
       }
-    },
-    "ch3": {
-      "title": "Chapter 3: The Group Task",
-      "content": [
-        "The desks were no longer in rows. They were arranged in groups.",
-        "The learners were told to build a structure using straws and tape that could hold as many books as possible.",
-        "This time the task was not only about solving a problem. It was also about working together.",
-        "Kgosi, Sizwe, Thando, and Ayanda were placed in one group.",
-        "Jason, Priya, Daniel, and Emma were placed in another.",
-        "In Kgosi’s group, different ideas clashed quickly.",
-        "Thando wanted a neat and correct method.",
-        "Sizwe wanted to test what made the structure stronger.",
-        "Ayanda stayed back and said she would help later.",
-        "Kgosi tried to understand both Thando and Sizwe and suggested that they test more than one idea.",
-        "But the group never truly became a team.",
-        "In the other group, Daniel suggested using triangles because they distribute weight well.",
-        "Priya wanted to follow the design correctly.",
-        "Emma worked with confidence.",
-        "Jason helped the group keep moving.",
-        "When Daniel noticed a weak point, the group adjusted the plan.",
-        "That group was not perfect, but they showed [[collaboration]].",
-        "When the structures were tested, Kgosi’s group collapsed earlier than expected.",
-        "Daniel’s group held much more weight.",
-        "The teacher then explained that the lesson was not only about building a structure.",
-        "It was also about learning how to think with others.",
-        "This chapter shows that intelligence is not enough by itself.",
-        "To solve some problems, people must listen, adapt, and improve together.",
-        "That is one part of [[teamwork]]."
-      ],
-      "glossary": {
-        "collaboration": {
-          "definition": "Working together with others in order to reach a goal.",
-          "pronunciation": "kuh-lab-uh-RAY-shuhn",
-          "simpleMeaning": "Working together well.",
-          "example": "Daniel’s group succeeded because they used collaboration."
-        },
-        "teamwork": {
-          "definition": "The combined effort of people working together effectively.",
-          "pronunciation": "TEEM-wurk",
-          "simpleMeaning": "Helping one another to do something well.",
-          "example": "Good teamwork helped the second group build a stronger structure."
-        },
-        "adapt": {
-          "definition": "To change your approach when something is not working.",
-          "pronunciation": "uh-DAPT",
-          "simpleMeaning": "To adjust when needed.",
-          "example": "Daniel’s group had to adapt when they noticed a weak point."
-        }
-      },
-      "worksheet": {
-        "title": "Thinking Together",
-        "prompt": "1. Why did Kgosi’s group struggle to succeed?\n\n2. What did Daniel’s group do differently?\n\n3. Write one sentence explaining why teamwork is a thinking skill."
-      }
-    },
-    "ch4": {
-      "title": "Chapter 4: The Quiet Divide",
-      "content": [
-        "The classroom became quieter as the end-of-term assessments approached.",
-        "These tests were different from simple worksheets because they required deeper understanding.",
-        "Thando revised carefully and repeatedly.",
-        "Emma studied in order to remain at the top.",
-        "Priya followed a strict study plan.",
-        "Jason remained steady and balanced.",
-        "Sizwe tried to rely on himself.",
-        "Ayanda barely prepared.",
-        "Daniel kept asking questions about how things worked.",
-        "Kgosi also began focusing more on understanding than on simply remembering.",
-        "When the test papers were handed out, many learners noticed that the questions had changed.",
-        "They were not simple copies of what had been practised.",
-        "Suddenly, some learners who depended on memory felt uncertain.",
-        "This is where the quiet divide appeared.",
-        "The divide was not between rich and poor, or between one school and another.",
-        "It was between learners trying mostly to remember and learners beginning to understand how to think.",
-        "When the marks came back, Kgosi performed far better than people expected.",
-        "Emma, Thando, and Priya did not fail, but they felt something unfamiliar: uncertainty.",
-        "Daniel saw that Kgosi’s strength was not luck. It was [[understanding]].",
-        "This chapter shows that school can reward memorisation for a while, but deeper thinking becomes more important when problems change.",
-        "That is the beginning of a real [[divide]]."
-      ],
-      "glossary": {
-        "understanding": {
-          "definition": "Knowing how or why something works, not just remembering it.",
-          "pronunciation": "un-der-STAN-ding",
-          "simpleMeaning": "Really knowing what something means.",
-          "example": "Kgosi’s understanding helped him when the questions changed."
-        },
-        "divide": {
-          "definition": "A separation that begins to form between people, ideas, or results.",
-          "pronunciation": "duh-VYD",
-          "simpleMeaning": "A growing gap.",
-          "example": "A divide began to form between memorisers and deeper thinkers."
-        },
-        "memorisation": {
-          "definition": "Learning something by repeating it so that you can remember it exactly.",
-          "pronunciation": "mem-uh-ry-ZAY-shuhn",
-          "simpleMeaning": "Trying to remember something exactly.",
-          "example": "Memorisation can help for some tasks, but it is not always enough."
-        }
-      },
-      "worksheet": {
-        "title": "Marks and Understanding",
-        "prompt": "1. Why were some learners surprised by the test?\n\n2. What does the chapter mean by the quiet divide?\n\n3. Write one sentence explaining the difference between memorisation and understanding."
-      }
-    },
-    "ch5": {
-      "title": "Chapter 5: The Conversation",
-      "content": [
-        "One afternoon after school, Kgosi sat alone looking at a question from the test.",
-        "He was not focused on the mark. He was focused on why the question had been asked in that way.",
-        "Daniel approached him and noticed that Kgosi was still thinking about it.",
-        "The two learners began talking about what had happened in the assessment.",
-        "Daniel explained that many learners practise answers, but if the question changes, they may struggle.",
-        "Kgosi realised that understanding the idea is stronger than only remembering a pattern.",
-        "Daniel also explained something very important: good thinkers do not only think about answers. They think about how they think.",
-        "This is called [[metacognition]].",
-        "Kgosi had never heard the word before, but he understood the idea.",
-        "Daniel also admitted that even though he had scored well, he still wanted to examine his own mistakes.",
-        "That surprised Kgosi.",
-        "He had expected top learners to care mostly about marks.",
-        "Instead, Daniel cared about improving his method of thinking.",
-        "This conversation changed something in Kgosi.",
-        "For the first time, he began to feel that being different did not mean being weak.",
-        "It might mean that he was developing a different kind of strength.",
-        "This chapter shows that one honest conversation can help someone see themselves differently.",
-        "It also introduces the idea that deeper learning often begins when people reflect on their own [[thinking process]]."
-      ],
-      "glossary": {
-        "metacognition": {
-          "definition": "Thinking about your own thinking and becoming aware of how your mind works.",
-          "pronunciation": "met-uh-kog-NISH-uhn",
-          "simpleMeaning": "Thinking about how you think.",
-          "example": "Daniel used metacognition when he reflected on his mistakes."
-        },
-        "thinking process": {
-          "definition": "The steps your mind takes when solving a problem or making sense of something.",
-          "pronunciation": "THING-king PROH-sess",
-          "simpleMeaning": "How your mind works through a problem.",
-          "example": "Kgosi began paying attention to his thinking process."
-        },
-        "reflection": {
-          "definition": "Carefully thinking back about what happened in order to learn from it.",
-          "pronunciation": "ri-FLEK-shuhn",
-          "simpleMeaning": "Looking back and learning from it.",
-          "example": "Reflection helped Daniel improve more than marks alone could."
-        }
-      },
-      "worksheet": {
-        "title": "Thinking About Thinking",
-        "prompt": "1. What important idea did Daniel explain to Kgosi?\n\n2. Why did Kgosi feel different after the conversation?\n\n3. In your own words, explain what metacognition means."
-      }
-    },
-    "ch6": {
-      "title": "Chapter 6: The Drift",
-      "content": [
-        "Not all change is loud.",
-        "Sometimes it begins quietly, through small choices repeated over time.",
-        "Ayanda stopped raising her hand and began leaning away from school.",
-        "She still noticed things, but she no longer believed it mattered enough to try.",
-        "Sizwe remained capable and sharp outside the classroom, especially when fixing and building practical things.",
-        "But inside school, he began to feel that the system did not recognise the kind of intelligence he had.",
-        "Thando worked harder and harder, but the changing questions kept shaking her confidence.",
-        "Priya followed structure carefully, yet she struggled when tasks became uncertain.",
-        "Emma pushed for control and excellence because she disliked the feeling of slipping.",
-        "Jason stayed steady, but he was not really changing.",
-        "Daniel and Kgosi both began writing down thoughts about how they learn and when they make mistakes.",
-        "This was not just studying. It was [[self-awareness]].",
-        "The chapter shows that learners do not always move in the same direction.",
-        "Some begin growing inwardly even before the marks show it.",
-        "Some continue doing well without growing deeply.",
-        "And some begin to drift away from effort, belief, or school itself.",
-        "Drift can be dangerous because it is slow and easy to miss.",
-        "By the time others notice it, the person may already feel far away.",
-        "This chapter shows that growth and decline can both happen quietly.",
-        "What matters is the direction a person is moving in.",
-        "That direction shapes future [[identity]]."
-      ],
-      "glossary": {
-        "self-awareness": {
-          "definition": "Understanding your own thoughts, behaviour, strengths, and weaknesses.",
-          "pronunciation": "self uh-WAIR-ness",
-          "simpleMeaning": "Knowing yourself better.",
-          "example": "Kgosi’s notes helped him build self-awareness."
-        },
-        "identity": {
-          "definition": "The way a person sees themselves and who they believe they are.",
-          "pronunciation": "eye-DEN-ti-tee",
-          "simpleMeaning": "How you see yourself.",
-          "example": "Labels and experiences were shaping each learner’s identity."
-        },
-        "drift": {
-          "definition": "To slowly move away from focus, effort, or purpose over time.",
-          "pronunciation": "drift",
-          "simpleMeaning": "To slowly move off course.",
-          "example": "Ayanda began to drift away from trying."
-        }
-      },
-      "worksheet": {
-        "title": "Slow Changes",
-        "prompt": "1. What does the chapter mean by drift?\n\n2. How were Ayanda and Sizwe drifting in different ways?\n\n3. Write one sentence explaining why direction matters over time."
-      }
-    },
-    "ch7": {
-      "title": "Chapter 7: The Choice",
-      "content": [
-        "The future did not begin with a loud moment.",
-        "It began with choices.",
-        "Small choices that no one celebrated, but that slowly shaped each learner’s direction.",
-        "Kgosi chose curiosity. He began recording what helped him think clearly.",
-        "Daniel chose deeper discipline. He reflected on how he thought, not just on what he got right.",
-        "Thando chose greater effort, but not yet a new way of thinking.",
-        "Priya chose caution and stayed close to familiar methods.",
-        "Emma chose control and pride, pushing harder inside the system instead of questioning it.",
-        "Jason chose comfort and balance, which protected him from panic but also limited his growth.",
-        "Sizwe chose distance, deciding that school did not deserve his best thinking.",
-        "Ayanda chose numbness, pretending not to care in order to protect herself from disappointment.",
-        "Later, the learners were given a task with one important instruction: explain your thinking.",
-        "This instruction mattered because it rewarded reasoning, not only answers.",
-        "Kgosi and Daniel were able to show their thought process.",
-        "Thando and Priya struggled to explain deeply.",
-        "Emma sounded confident, but she had not fully examined her assumptions.",
-        "Jason gave a safe answer.",
-        "Sizwe saw more than he managed to write.",
-        "Ayanda barely responded.",
-        "The comments on their papers revealed something important.",
-        "Each learner now stood in front of a deeper kind of choice: whether to grow, hide, resist, or adapt.",
-        "This chapter shows that growth is shaped not only by talent or background, but by repeated [[choices]].",
-        "It also shows that when thinking becomes difficult, each person reveals a different response to [[challenge]]."
-      ],
-      "glossary": {
-        "choices": {
-          "definition": "Decisions people make that shape what they do next.",
-          "pronunciation": "CHOY-siz",
-          "simpleMeaning": "The decisions you make.",
-          "example": "Small choices can shape a person’s future over time."
-        },
-        "challenge": {
-          "definition": "Something difficult that tests your ability, effort, or thinking.",
-          "pronunciation": "CHAL-inj",
-          "simpleMeaning": "Something hard that pushes you.",
-          "example": "A challenge can help reveal how a person responds under pressure."
-        },
-        "reasoning": {
-          "definition": "The process of thinking carefully and logically about something.",
-          "pronunciation": "REE-zuh-ning",
-          "simpleMeaning": "Thinking through something step by step.",
-          "example": "The task rewarded reasoning, not only the final answer."
-        }
-      },
-      "worksheet": {
-        "title": "The Choices That Shape Us",
-        "prompt": "1. What choice did Kgosi make? What choice did Ayanda make?\n\n2. Why was the instruction 'explain your thinking' important?\n\n3. Write one sentence explaining how small choices can affect the future."
-      }
-    },
-    "ch8": {
-      "title": "Chapter 8: The Line You Cannot See",
-      "content": [
-        "Nothing dramatic happened.",
-        "The classroom still looked the same.",
-        "But the learners were no longer the same inside.",
-        "Kgosi no longer felt average when he did not understand something. He felt unfinished and wanted to understand more deeply.",
-        "Daniel kept pushing himself to look for weak thinking and hidden assumptions.",
-        "Thando continued working hard, but quiet questions had begun to rise inside her.",
-        "Priya still trusted structure, but uncertainty had started to trouble her.",
-        "Emma recovered her position, but no longer felt untouchable.",
-        "Jason remained steady, yet his growth had begun to slow.",
-        "Sizwe had not fully left school in his mind, but he was leaning away from it.",
-        "Ayanda still saw more than she showed, but she had stopped reaching.",
-        "A line had begun to form, but it was not visible.",
-        "It was not a line of race, wealth, marks, or school type.",
-        "It was a line of [[response]].",
-        "It separated those beginning to question from those trying only to be correct.",
-        "It separated those learning how to think from those learning only how to answer.",
-        "That is why the line could not be seen easily.",
-        "No one knew the exact moment they had crossed it.",
-        "But their futures would be shaped by the direction of their responses.",
-        "This chapter closes the first part of the story by showing that thinking becomes a way of living, one decision at a time.",
-        "That is how a hidden line becomes a real [[path]]."
-      ],
-      "glossary": {
-        "response": {
-          "definition": "The way a person reacts to a problem, challenge, or situation.",
-          "pronunciation": "ri-SPONS",
-          "simpleMeaning": "How you react to something.",
-          "example": "The hidden line was really a line of response."
-        },
-        "path": {
-          "definition": "A direction or course that develops over time.",
-          "pronunciation": "path",
-          "simpleMeaning": "The way forward.",
-          "example": "Small decisions slowly formed each learner’s path."
-        },
-        "assumption": {
-          "definition": "Something a person believes without fully checking whether it is true.",
-          "pronunciation": "uh-SUMP-shuhn",
-          "simpleMeaning": "An idea you accept too quickly.",
-          "example": "Daniel trained himself to notice weak assumptions."
-        }
-      },
-      "worksheet": {
-        "title": "The Hidden Line",
-        "prompt": "1. What is the invisible line in this chapter?\n\n2. Why is it important that the line is not about background or marks?\n\n3. Write one sentence explaining how thinking can become a way of living."
-      }
+
     }
+
   }
 }
