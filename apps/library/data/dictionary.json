@@ -2159,7 +2159,6 @@
   "definition": "To choose by making a decision or showing a choice.",
   "example": "The class will vote for a leader."
 },
-    ,
 {
   "word": "wait",
   "partOfSpeech": "verb",
@@ -2271,8 +2270,35 @@
   "syllables": ["writ", "ing"],
   "definition": "The activity of creating text using words.",
   "example": "Her writing improved with practice."
+},
+   {
+  "word": "x-axis",
+  "partOfSpeech": "noun",
+  "syllables": ["x", "ax", "is"],
+  "definition": "The horizontal line on a graph.",
+  "example": "Time was shown on the x-axis of the graph."
+},
+{
+  "word": "x-ray",
+  "partOfSpeech": "noun",
+  "syllables": ["x-ray"],
+  "definition": "A picture of the inside of the body made using a special kind of radiation.",
+  "example": "The doctor used an x-ray to check his arm."
+},
+{
+  "word": "xylem",
+  "partOfSpeech": "noun",
+  "syllables": ["xy", "lem"],
+  "definition": "The part of a plant that carries water from the roots to the rest of the plant.",
+  "example": "Water moves through the xylem in the stem."
+},
+{
+  "word": "xylophone",
+  "partOfSpeech": "noun",
+  "syllables": ["xy", "lo", "phone"],
+  "definition": "A musical instrument with wooden bars that make sounds when hit.",
+  "example": "She played a song on the xylophone."
 }
-   
   
   ]
 }
