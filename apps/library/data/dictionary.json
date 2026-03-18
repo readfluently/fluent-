@@ -1526,34 +1526,147 @@
   "definition": "Words taken exactly from what someone said or wrote.",
   "example": "She copied the quotation carefully."
 },
-    {
-      "word": "recommendation system",
-      "partOfSpeech": "noun",
-      "syllables": ["re", "com", "men", "da", "tion", "sys", "tem"],
-      "definition": "A system that helps decide what users should see next based on behaviour or interests.",
-      "example": "A recommendation system may suggest videos or songs."
-    },
-    {
-      "word": "repeated reading",
-      "partOfSpeech": "noun",
-      "syllables": ["re", "peat", "ed", "read", "ing"],
-      "definition": "Reading the same passage several times to improve fluency.",
-      "example": "Repeated reading helped her become smoother and more confident."
-    },
-    {
-      "word": "rereading",
-      "partOfSpeech": "verb",
-      "syllables": ["re", "read", "ing"],
-      "definition": "Reading a sentence or paragraph again to improve understanding.",
-      "example": "Rereading helped him understand the difficult paragraph."
-    },
-    {
-      "word": "royalties",
-      "partOfSpeech": "noun",
-      "syllables": ["roy", "al", "ties"],
-      "definition": "Payments made to creators or rights holders when their work is used.",
-      "example": "Musicians may earn royalties when songs are streamed."
-    },
+   ,
+{
+  "word": "range",
+  "partOfSpeech": "noun",
+  "syllables": ["range"],
+  "definition": "The difference between the lowest and highest values or a variety of things.",
+  "example": "The book covers a wide range of topics."
+},
+{
+  "word": "rare",
+  "partOfSpeech": "adjective",
+  "syllables": ["rare"],
+  "definition": "Not common.",
+  "example": "It is rare to see snow in this area."
+},
+{
+  "word": "rate",
+  "partOfSpeech": "noun",
+  "syllables": ["rate"],
+  "definition": "The speed or level at which something happens.",
+  "example": "Her reading rate improved with practice."
+},
+{
+  "word": "react",
+  "partOfSpeech": "verb",
+  "syllables": ["re", "act"],
+  "definition": "To respond to something that happens.",
+  "example": "He reacted quickly to the question."
+},
+{
+  "word": "realise",
+  "partOfSpeech": "verb",
+  "syllables": ["re", "al", "ise"],
+  "definition": "To understand something clearly.",
+  "example": "She realised she had made a mistake."
+},
+{
+  "word": "reason",
+  "partOfSpeech": "noun",
+  "syllables": ["rea", "son"],
+  "definition": "A cause or explanation for something.",
+  "example": "He gave a good reason for his answer."
+},
+{
+  "word": "recognise",
+  "partOfSpeech": "verb",
+  "syllables": ["re", "cog", "nise"],
+  "definition": "To know something because you have seen or learned it before.",
+  "example": "She could recognise the word easily."
+},
+{
+  "word": "record",
+  "partOfSpeech": "verb",
+  "syllables": ["re", "cord"],
+  "definition": "To capture sound, video, or information so it can be used later.",
+  "example": "The learner used the app to record her reading."
+},
+{
+  "word": "reduce",
+  "partOfSpeech": "verb",
+  "syllables": ["re", "duce"],
+  "definition": "To make something smaller or less.",
+  "example": "Practice can reduce mistakes."
+},
+{
+  "word": "reflect",
+  "partOfSpeech": "verb",
+  "syllables": ["re", "flect"],
+  "definition": "To think carefully about something.",
+  "example": "Take time to reflect on what you learned."
+},
+{
+  "word": "region",
+  "partOfSpeech": "noun",
+  "syllables": ["re", "gion"],
+  "definition": "An area of a place.",
+  "example": "This region gets a lot of rain."
+},
+{
+  "word": "regular",
+  "partOfSpeech": "adjective",
+  "syllables": ["re", "gu", "lar"],
+  "definition": "Happening often in a steady way.",
+  "example": "Regular reading improves fluency."
+},
+{
+  "word": "related",
+  "partOfSpeech": "adjective",
+  "syllables": ["re", "la", "ted"],
+  "definition": "Connected in some way.",
+  "example": "The two ideas are closely related."
+},
+{
+  "word": "release",
+  "partOfSpeech": "verb",
+  "syllables": ["re", "lease"],
+  "definition": "To let something go or make it available.",
+  "example": "The company will release a new app."
+},
+{
+  "word": "relevant",
+  "partOfSpeech": "adjective",
+  "syllables": ["rel", "e", "vant"],
+  "definition": "Connected to what is being discussed.",
+  "example": "Include only relevant information in your answer."
+},
+{
+  "word": "repeat",
+  "partOfSpeech": "verb",
+  "syllables": ["re", "peat"],
+  "definition": "To do or say something again.",
+  "example": "Please repeat the sentence."
+},
+{
+  "word": "research",
+  "partOfSpeech": "noun",
+  "syllables": ["re", "search"],
+  "definition": "Careful study to learn new information.",
+  "example": "The learners did research on animals."
+},
+{
+  "word": "respond",
+  "partOfSpeech": "verb",
+  "syllables": ["re", "spond"],
+  "definition": "To answer or reply.",
+  "example": "She responded to the question clearly."
+},
+{
+  "word": "result",
+  "partOfSpeech": "noun",
+  "syllables": ["re", "sult"],
+  "definition": "What happens because of something.",
+  "example": "The result of practice is improvement."
+},
+{
+  "word": "review",
+  "partOfSpeech": "verb",
+  "syllables": ["re", "view"],
+  "definition": "To look at something again to improve understanding.",
+  "example": "Review your notes before the test."
+}
     {
       "word": "self-checking",
       "partOfSpeech": "noun",
