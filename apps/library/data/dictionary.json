@@ -1455,7 +1455,8 @@
       "syllables": ["pur", "pose"],
       "definition": "The reason why something is created or written.",
       "example": "The author’s purpose was to inform the reader."
-    },{
+    },
+    {
   "word": "quality",
   "partOfSpeech": "noun",
   "syllables": ["qual", "i", "ty"],
@@ -1524,14 +1525,7 @@
   "syllables": ["quo", "ta", "tion"],
   "definition": "Words taken exactly from what someone said or wrote.",
   "example": "She copied the quotation carefully."
-}
-    {
-      "word": "questioning",
-      "partOfSpeech": "verb",
-      "syllables": ["ques", "tion", "ing"],
-      "definition": "Asking yourself questions while reading to help you understand.",
-      "example": "Questioning helps readers stay mentally active."
-    },
+},
     {
       "word": "recommendation system",
       "partOfSpeech": "noun",
