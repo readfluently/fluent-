@@ -2053,8 +2053,7 @@
   "syllables": ["u", "su", "al"],
   "definition": "Normal or common.",
   "example": "She followed her usual routine."
-}  
-    ,
+},
 {
   "word": "value",
   "partOfSpeech": "noun",
@@ -2125,20 +2124,20 @@
   "definition": "Able to be seen.",
   "example": "The writing was clearly visible."
 },
- {
-      "word": "visualising",
-      "partOfSpeech": "verb",
-      "syllables": ["vi", "su", "al", "is", "ing"],
-      "definition": "Creating pictures in your mind while reading or listening.",
-      "example": "Visualising helps readers understand scenes better."
-    },
-  {
-      "word": "vocabulary",
-      "partOfSpeech": "noun",
-      "syllables": ["vo", "cab", "u", "lar", "y"],
-      "definition": "The collection of words a person knows and understands.",
-      "example": "Reading helps grow vocabulary."
-    },
+{
+  "word": "visualising",
+  "partOfSpeech": "verb",
+  "syllables": ["vi", "su", "al", "is", "ing"],
+  "definition": "Creating pictures in your mind while reading or listening.",
+  "example": "Visualising helps readers understand scenes better."
+},
+{
+  "word": "vocabulary",
+  "partOfSpeech": "noun",
+  "syllables": ["vo", "cab", "u", "lar", "y"],
+  "definition": "The collection of words a person knows and understands.",
+  "example": "Reading helps grow vocabulary."
+},
 {
   "word": "voice",
   "partOfSpeech": "noun",
@@ -2159,14 +2158,121 @@
   "syllables": ["vote"],
   "definition": "To choose by making a decision or showing a choice.",
   "example": "The class will vote for a leader."
+},
+    ,
+{
+  "word": "wait",
+  "partOfSpeech": "verb",
+  "syllables": ["wait"],
+  "definition": "To stay until something happens.",
+  "example": "Please wait for your turn."
+},
+{
+  "word": "want",
+  "partOfSpeech": "verb",
+  "syllables": ["want"],
+  "definition": "To wish for something.",
+  "example": "She wants to improve her reading."
+},
+{
+  "word": "warm",
+  "partOfSpeech": "adjective",
+  "syllables": ["warm"],
+  "definition": "A little hot, but not too hot.",
+  "example": "The water felt warm."
+},
+{
+  "word": "warn",
+  "partOfSpeech": "verb",
+  "syllables": ["warn"],
+  "definition": "To tell someone about possible danger.",
+  "example": "The teacher warned the class to be careful."
+},
+{
+  "word": "watch",
+  "partOfSpeech": "verb",
+  "syllables": ["watch"],
+  "definition": "To look at something carefully over time.",
+  "example": "Watch how the experiment works."
+},
+{
+  "word": "wave",
+  "partOfSpeech": "noun",
+  "syllables": ["wave"],
+  "definition": "A moving pattern, often seen in water or sound.",
+  "example": "Sound travels in waves."
+},
+{
+  "word": "way",
+  "partOfSpeech": "noun",
+  "syllables": ["way"],
+  "definition": "A method or manner of doing something.",
+  "example": "Find a better way to solve the problem."
+},
+{
+  "word": "weather",
+  "partOfSpeech": "noun",
+  "syllables": ["weath", "er"],
+  "definition": "The condition of the air outside, such as rain or sunshine.",
+  "example": "The weather was sunny today."
+},
+{
+  "word": "weight",
+  "partOfSpeech": "noun",
+  "syllables": ["weight"],
+  "definition": "How heavy something is.",
+  "example": "The weight of the bag was too much."
+},
+{
+  "word": "whole",
+  "partOfSpeech": "noun",
+  "syllables": ["whole"],
+  "definition": "All of something.",
+  "example": "She read the whole book."
+},
+{
+  "word": "wide",
+  "partOfSpeech": "adjective",
+  "syllables": ["wide"],
+  "definition": "Having a large distance from side to side.",
+  "example": "The river is very wide."
+},
+{
+  "word": "word",
+  "partOfSpeech": "noun",
+  "syllables": ["word"],
+  "definition": "A unit of language that has meaning.",
+  "example": "Learn a new word every day."
+},
+{
+  "word": "work",
+  "partOfSpeech": "noun",
+  "syllables": ["work"],
+  "definition": "Tasks or activities that need effort.",
+  "example": "Finish your work before playing."
+},
+{
+  "word": "world",
+  "partOfSpeech": "noun",
+  "syllables": ["world"],
+  "definition": "The Earth and everything on it.",
+  "example": "Books help us learn about the world."
+},
+{
+  "word": "write",
+  "partOfSpeech": "verb",
+  "syllables": ["write"],
+  "definition": "To form letters and words on a surface.",
+  "example": "Write your answer clearly."
+},
+{
+  "word": "writing",
+  "partOfSpeech": "noun",
+  "syllables": ["writ", "ing"],
+  "definition": "The activity of creating text using words.",
+  "example": "Her writing improved with practice."
 }
-    {
-      "word": "visualising",
-      "partOfSpeech": "verb",
-      "syllables": ["vi", "su", "al", "is", "ing"],
-      "definition": "Creating pictures in your mind while reading or listening.",
-      "example": "Visualising helps readers understand scenes better."
-    },
+   
   
   ]
 }
