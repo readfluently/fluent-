@@ -1956,6 +1956,105 @@
   "definition": "A kind or category of something.",
   "example": "This is a type of question."
 }
+  ,
+{
+  "word": "understand",
+  "partOfSpeech": "verb",
+  "syllables": ["un", "der", "stand"],
+  "definition": "To know what something means.",
+  "example": "She tried to understand the story."
+},
+{
+  "word": "understanding",
+  "partOfSpeech": "noun",
+  "syllables": ["un", "der", "stand", "ing"],
+  "definition": "The ability to know what something means.",
+  "example": "Reading improves understanding."
+},
+{
+  "word": "underline",
+  "partOfSpeech": "verb",
+  "syllables": ["un", "der", "line"],
+  "definition": "To draw a line under words to show they are important.",
+  "example": "Underline the main idea in the paragraph."
+},
+{
+  "word": "uniform",
+  "partOfSpeech": "noun",
+  "syllables": ["u", "ni", "form"],
+  "definition": "Special clothes worn by members of a group.",
+  "example": "Learners wear a school uniform."
+},
+{
+  "word": "unit",
+  "partOfSpeech": "noun",
+  "syllables": ["u", "nit"],
+  "definition": "A part of a larger whole.",
+  "example": "This unit is about energy."
+},
+{
+  "word": "universe",
+  "partOfSpeech": "noun",
+  "syllables": ["u", "ni", "verse"],
+  "definition": "All of space and everything in it.",
+  "example": "The universe contains stars and planets."
+},
+{
+  "word": "unknown",
+  "partOfSpeech": "adjective",
+  "syllables": ["un", "known"],
+  "definition": "Not known or not understood.",
+  "example": "The answer was unknown to the class."
+},
+{
+  "word": "unusual",
+  "partOfSpeech": "adjective",
+  "syllables": ["un", "u", "su", "al"],
+  "definition": "Not common or different from usual.",
+  "example": "It was unusual to see snow."
+},
+{
+  "word": "update",
+  "partOfSpeech": "verb",
+  "syllables": ["up", "date"],
+  "definition": "To make something more current or correct.",
+  "example": "Update your work before submitting."
+},
+{
+  "word": "upgrade",
+  "partOfSpeech": "verb",
+  "syllables": ["up", "grade"],
+  "definition": "To improve something to a better level.",
+  "example": "They upgraded the app with new features."
+},
+{
+  "word": "use",
+  "partOfSpeech": "verb",
+  "syllables": ["use"],
+  "definition": "To do something with a tool or resource.",
+  "example": "Use the dictionary to find meanings."
+},
+{
+  "word": "useful",
+  "partOfSpeech": "adjective",
+  "syllables": ["use", "ful"],
+  "definition": "Helpful or important for a purpose.",
+  "example": "This tool is useful for learning."
+},
+{
+  "word": "user",
+  "partOfSpeech": "noun",
+  "syllables": ["u", "ser"],
+  "definition": "A person who uses something.",
+  "example": "Each user can search for words."
+},
+{
+  "word": "usual",
+  "partOfSpeech": "adjective",
+  "syllables": ["u", "su", "al"],
+  "definition": "Normal or common.",
+  "example": "She followed her usual routine."
+}  
     {
       "word": "visualising",
       "partOfSpeech": "verb",
