@@ -1,46 +1,458 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Fluent | Read Fluently</title>
-<link rel="stylesheet" href="read-fluently.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Read Aloud Sentence Tracker</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7f8fc;
+      margin: 0;
+      padding: 40px 20px;
+      text-align: center;
+      color: #222;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: white;
+      padding: 30px;
+      border-radius: 18px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    }
+
+    h1 {
+      margin-top: 0;
+      font-size: 2rem;
+    }
+
+    p.instructions {
+      color: #555;
+      margin-bottom: 24px;
+    }
+
+    .sentence-label {
+      font-size: 1rem;
+      color: #666;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    .reading-box {
+      font-size: 2rem;
+      line-height: 2.2;
+      margin: 20px 0 10px;
+      padding: 24px;
+      border: 2px solid #e3e7f0;
+      border-radius: 14px;
+      background: #fafbff;
+      min-height: 120px;
+    }
+
+    .word {
+      display: inline-block;
+      margin: 0 6px;
+      padding: 6px 10px;
+      border-radius: 10px;
+      transition: all 0.2s ease;
+    }
+
+    .word.active {
+      background: #ffde59;
+      color: #000;
+      transform: scale(1.08);
+    }
+
+    .word.done {
+      background: #c8f7c5;
+      color: #1f5f2a;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    button {
+      border: none;
+      border-radius: 12px;
+      padding: 14px 22px;
+      font-size: 1rem;
+      cursor: pointer;
+      background: #4f46e5;
+      color: white;
+      font-weight: bold;
+    }
+
+    button:hover {
+      opacity: 0.92;
+    }
+
+    button.secondary {
+      background: #64748b;
+    }
+
+    button.success {
+      background: #16a34a;
+    }
+
+    .status {
+      margin-top: 20px;
+      font-size: 1rem;
+      color: #444;
+      min-height: 24px;
+    }
+
+    .small {
+      margin-top: 12px;
+      font-size: 0.9rem;
+      color: #777;
+    }
+
+    .progress {
+      margin-top: 18px;
+      font-size: 1rem;
+      color: #444;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
 </head>
-
 <body>
+  <div class="container">
+    <h1>Read Aloud Sentence Tracker</h1>
+    <p class="instructions">
+      Click Start and read the sentence aloud. When you finish one sentence, click Next Sentence to move on.
+    </p>
 
-<h1>The Day Peter Became a Confident Reader</h1>
-<div id="text">
+    <div class="sentence-label" id="sentenceLabel">Sentence 1</div>
+    <div class="reading-box" id="readingBox"></div>
 
-<span class="word">Peter</span>
-<span class="word">sat</span>
-<span class="word">at</span>
-<span class="word">his</span>
-<span class="word">desk</span>
-<span class="word">with</span>
-<span class="word">a</span>
-<span class="word">small</span>
-<span class="word">book</span>
-<span class="word">in</span>
-<span class="word">his</span>
-<span class="word">hands.</span>
+    <div class="controls">
+      <button id="start">Start Reading</button>
+      <button id="stop" class="secondary">Stop</button>
+      <button id="restart" class="secondary">Restart Sentence</button>
+      <button id="nextSentence" class="success hidden">Next Sentence</button>
+    </div>
 
-</div>
+    <div class="progress" id="progress"></div>
+    <div class="status" id="status">Press Start to begin.</div>
+    <div class="small">Best used in Chrome or Edge.</div>
+  </div>
 
-<br>
+  <script>
+    const sentences = [
+      "The cat sat on the mat.",
+      "The dog ran to the gate.",
+      "I can see the big red ball.",
+      "We like to read at school.",
+      "The sun is bright in the sky."
+    ];
 
-<button id="start">Start Reading</button>
+    const readingBox = document.getElementById("readingBox");
+    const startButton = document.getElementById("start");
+    const stopButton = document.getElementById("stop");
+    const restartButton = document.getElementById("restart");
+    const nextSentenceButton = document.getElementById("nextSentence");
+    const statusText = document.getElementById("status");
+    const sentenceLabel = document.getElementById("sentenceLabel");
+    const progressText = document.getElementById("progress");
 
- <p style="margin-top:40px; font-size:18px;">
-🚧 Our advanced AI reading engine is currently under development.
-Future versions of Fluent will automatically track learner reading
-and provide real-time fluency feedback.
-</p> 
-  
-<div class="engine-note">
-<img src="../../shared/assets/images/reading-engine-construction.png" 
-alt="Reading engine in construction" 
-style="width:100%; max-width:900px; margin-top:40px;">
-</div>
+    let currentSentenceIndex = 0;
+    let words = [];
+    let index = 0;
+    let encourageTimer = null;
+    let readTimer = null;
+    let recognition = null;
+    let isReadingActive = false;
+    let isSpeakingPrompt = false;
+    let spokenBuffer = [];
+    let sentenceCompleted = false;
 
+    function setStatus(message) {
+      statusText.textContent = message;
+    }
+
+    function updateProgress() {
+      progressText.textContent = `Sentence ${currentSentenceIndex + 1} of ${sentences.length}`;
+    }
+
+    function speak(text) {
+      if (!text) return;
+
+      window.speechSynthesis.cancel();
+      isSpeakingPrompt = true;
+
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.rate = 0.85;
+      utterance.pitch = 1;
+
+      utterance.onend = () => {
+        isSpeakingPrompt = false;
+      };
+
+      utterance.onerror = () => {
+        isSpeakingPrompt = false;
+      };
+
+      window.speechSynthesis.speak(utterance);
+    }
+
+    function normalizeWord(word) {
+      return word
+        .toLowerCase()
+        .replace(/[.,!?;:"'()]/g, "")
+        .trim();
+    }
+
+    function clearTimers() {
+      clearTimeout(encourageTimer);
+      clearTimeout(readTimer);
+    }
+
+    function setTimers() {
+      clearTimers();
+
+      encourageTimer = setTimeout(() => {
+        if (!isReadingActive || index >= words.length) return;
+        speak(`Try the word ${words[index].innerText}`);
+        setStatus(`Try the word: ${words[index].innerText}`);
+      }, 5000);
+
+      readTimer = setTimeout(() => {
+        if (!isReadingActive || index >= words.length) return;
+        speak(words[index].innerText);
+        setStatus(`Listen: ${words[index].innerText}`);
+      }, 8000);
+    }
+
+    function renderSentence() {
+      const sentence = sentences[currentSentenceIndex];
+      const sentenceWords = sentence.split(" ");
+
+      readingBox.innerHTML = sentenceWords
+        .map(word => `<span class="word">${word}</span>`)
+        .join(" ");
+
+      words = Array.from(document.querySelectorAll(".word"));
+      sentenceLabel.textContent = `Sentence ${currentSentenceIndex + 1}`;
+      updateProgress();
+      clearHighlights();
+      nextSentenceButton.classList.add("hidden");
+      sentenceCompleted = false;
+    }
+
+    function clearHighlights() {
+      words.forEach((word) => {
+        word.classList.remove("active");
+        word.classList.remove("done");
+      });
+    }
+
+    function highlightWord() {
+      clearHighlights();
+
+      for (let i = 0; i < index; i++) {
+        words[i].classList.add("done");
+      }
+
+      if (index >= words.length) {
+        finishSentence();
+        return;
+      }
+
+      words[index].classList.add("active");
+      setStatus(`Read this word: ${words[index].innerText}`);
+      setTimers();
+    }
+
+    function moveToNextWord() {
+      index += 1;
+      highlightWord();
+    }
+
+    function finishSentence() {
+      isReadingActive = false;
+      clearTimers();
+      sentenceCompleted = true;
+
+      clearHighlights();
+      words.forEach((word) => word.classList.add("done"));
+
+      if (currentSentenceIndex < sentences.length - 1) {
+        setStatus("Well done. You finished this sentence. Click Next Sentence.");
+        speak("Well done. You finished this sentence.");
+        nextSentenceButton.classList.remove("hidden");
+      } else {
+        setStatus("Excellent. You finished all the sentences.");
+        speak("Excellent. You finished all the sentences.");
+      }
+
+      if (recognition) {
+        try {
+          recognition.stop();
+        } catch (error) {
+          console.log("Recognition stop error:", error);
+        }
+      }
+    }
+
+    function stopReading() {
+      isReadingActive = false;
+      clearTimers();
+      window.speechSynthesis.cancel();
+      isSpeakingPrompt = false;
+      spokenBuffer = [];
+      setStatus("Reading stopped.");
+
+      if (recognition) {
+        try {
+          recognition.stop();
+        } catch (error) {
+          console.log("Recognition stop error:", error);
+        }
+      }
+    }
+
+    function restartSentence() {
+      stopReading();
+      index = 0;
+      spokenBuffer = [];
+      sentenceCompleted = false;
+      nextSentenceButton.classList.add("hidden");
+      clearHighlights();
+      setStatus("Press Start to read this sentence again.");
+    }
+
+    function goToNextSentence() {
+      if (currentSentenceIndex >= sentences.length - 1) return;
+
+      stopReading();
+      currentSentenceIndex += 1;
+      index = 0;
+      spokenBuffer = [];
+      renderSentence();
+      setStatus("Press Start to read the next sentence.");
+    }
+
+    function processSpokenWords() {
+      while (spokenBuffer.length > 0 && index < words.length) {
+        const targetWord = normalizeWord(words[index].innerText);
+        const nextSpokenWord = spokenBuffer[0];
+
+        if (nextSpokenWord === targetWord) {
+          spokenBuffer.shift();
+          moveToNextWord();
+        } else {
+          spokenBuffer.shift();
+        }
+      }
+    }
+
+    function setupRecognition() {
+      const SpeechRecognition =
+        window.SpeechRecognition || window.webkitSpeechRecognition;
+
+      if (!SpeechRecognition) {
+        alert("Speech recognition is not supported in this browser. Please use Chrome or Edge.");
+        return null;
+      }
+
+      const sr = new SpeechRecognition();
+      sr.continuous = true;
+      sr.interimResults = false;
+      sr.lang = "en-US";
+
+      sr.onstart = () => {
+        setStatus("Listening...");
+      };
+
+      sr.onresult = (event) => {
+        if (!isReadingActive || index >= words.length || isSpeakingPrompt) return;
+
+        let finalWords = [];
+
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+          if (event.results[i].isFinal) {
+            const transcript = event.results[i][0].transcript;
+
+            finalWords.push(
+              ...transcript
+                .split(/\s+/)
+                .map(normalizeWord)
+                .filter(Boolean)
+            );
+          }
+        }
+
+        if (finalWords.length === 0) return;
+
+        spokenBuffer.push(...finalWords);
+        processSpokenWords();
+      };
+
+      sr.onerror = (event) => {
+        console.log("Speech recognition error:", event.error);
+
+        if (event.error === "not-allowed") {
+          setStatus("Microphone permission was blocked.");
+        } else {
+          setStatus(`Speech recognition error: ${event.error}`);
+        }
+      };
+
+      sr.onend = () => {
+        if (isReadingActive) {
+          try {
+            sr.start();
+          } catch (error) {
+            console.log("Recognition restart blocked:", error);
+          }
+        }
+      };
+
+      return sr;
+    }
+
+    function startReading() {
+      if (sentenceCompleted) return;
+
+      if (!recognition) {
+        recognition = setupRecognition();
+      }
+
+      if (!recognition) return;
+
+      window.speechSynthesis.cancel();
+      isSpeakingPrompt = false;
+      clearTimers();
+
+      index = 0;
+      spokenBuffer = [];
+      isReadingActive = true;
+
+      highlightWord();
+
+      try {
+        recognition.start();
+      } catch (error) {
+        console.log("Recognition already started:", error);
+      }
+    }
+
+    startButton.addEventListener("click", startReading);
+    stopButton.addEventListener("click", stopReading);
+    restartButton.addEventListener("click", restartSentence);
+    nextSentenceButton.addEventListener("click", goToNextSentence);
+
+    renderSentence();
+  </script>
 </body>
 </html>

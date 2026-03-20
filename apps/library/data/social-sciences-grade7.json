@@ -7,36 +7,108 @@
       "blocks": [
         {
           "type": "paragraph",
-          "text": "The [[Kingdom of Mali]] was one of the great empires of West Africa."
-        },
-        {
-          "type": "image",
-          "src": "../../shared/assets/images/kingdom-of-mali-map.png",
-          "alt": "Map of the Kingdom of Mali",
-          "caption": "The Kingdom of Mali grew into a powerful trading empire in West Africa."
+          "text": "Trade is the exchange of goods between people or places. People trade when they have something they can offer and want something they need in return."
         },
         {
           "type": "paragraph",
-          "text": "Mali became known for its wealth, especially through the trade of [[gold]] and [[salt]]."
+          "text": "Between about 800 [[ce]] and 1600 [[ce]], trade took place across the Sahara Desert, linking North Africa, West Africa, and parts of Europe. This was known as trans-Saharan trade. It was carried out by [[traders]] who travelled long distances to exchange goods."
+        },
+        {
+          "type": "paragraph",
+          "text": "Through this trade, the [[kingdom of mali]] began to grow into a powerful and wealthy empire in West Africa."
+        },
+        {
+          "type": "image",
+          "src": "../../shared/assets/images/trans-saharan-trade-map.png",
+          "alt": "Map showing trans-Saharan trade routes and the location of Mali",
+          "caption": "Trade routes across the Sahara Desert linked Mali to North Africa and beyond."
+        },
+        {
+          "type": "paragraph",
+          "text": "To travel across the hot and dry Sahara Desert, traders used long groups of camels called [[camel caravans]]. These caravans often included many animals and people travelling together for safety."
+        },
+        {
+          "type": "paragraph",
+          "text": "Camels were especially suited for desert travel because they could survive for many days without water, carry heavy loads, walk easily on sand with their wide feet, and withstand extreme heat."
+        },
+        {
+          "type": "paragraph",
+          "text": "Because of these features, camels became the most reliable form of transport across the desert."
+        },
+        {
+          "type": "paragraph",
+          "text": "These journeys were long and dangerous. Traders faced intense heat, sandstorms, and the risk of getting lost. Travelling in caravans helped them stay safe and reach their destinations."
+        },
+        {
+          "type": "image",
+          "src": "../../shared/assets/images/camel-caravan-sahara.png",
+          "alt": "Camel caravan crossing the Sahara Desert",
+          "caption": "Camel caravans were used to carry goods safely across the Sahara Desert."
+        },
+        {
+          "type": "paragraph",
+          "text": "During this period, traders brought goods such as [[salt]] from North Africa and parts of Europe into West Africa. Salt was very important because it helped preserve food and maintain health."
+        },
+        {
+          "type": "paragraph",
+          "text": "In return, traders received valuable goods from Mali, including [[gold]], slaves, ivory, and ostrich feathers."
+        },
+        {
+          "type": "paragraph",
+          "text": "Gold from West Africa was especially valuable and was traded across many regions of the world. The exchange of salt for gold made the [[kingdom of mali]] extremely rich."
+        },
+        {
+          "type": "image",
+          "src": "../../shared/assets/images/gold-and-salt-trade.png",
+          "alt": "Salt blocks and gold used in trade",
+          "caption": "Salt from North Africa was exchanged for gold and other valuable goods from Mali."
+        },
+        {
+          "type": "paragraph",
+          "text": "Trade was not only about goods. As traders travelled across regions, they also shared ideas, cultures, and beliefs."
+        },
+        {
+          "type": "paragraph",
+          "text": "One of the most important ideas that spread through trade was [[Islam]]. From around the 9th century, Islam spread across North Africa and into West Africa through trading [[networks]]."
         }
       ],
       "glossary": {
+        "ce": {
+          "definition": "Common Era. It is used to show years in the calendar counting forward from year 1.",
+          "pronunciation": "see-ee"
+        },
+        "traders": {
+          "definition": "People who buy, sell, or exchange goods.",
+          "pronunciation": "TRAY-duhz"
+        },
         "kingdom of mali": {
-          "definition": "A powerful West African empire known for trade, wealth, and learning.",
+          "definition": "A powerful West African empire that became rich through trade.",
           "pronunciation": "KING-dum of MAH-lee"
         },
-        "gold": {
-          "definition": "A valuable yellow metal used in trade and wealth.",
-          "pronunciation": "gohld"
+        "camel caravans": {
+          "definition": "Long groups of camels travelling together to carry people and goods across the desert.",
+          "pronunciation": "KAM-uhl kuh-RAV-uhnz"
         },
         "salt": {
-          "definition": "A mineral used in food and trade.",
+          "definition": "A mineral used to preserve food and keep people healthy.",
           "pronunciation": "sawlt"
+        },
+        "gold": {
+          "definition": "A valuable yellow metal traded for wealth.",
+          "pronunciation": "gohld"
+        },
+        "islam": {
+          "definition": "A major world religion that spread into West Africa through trade.",
+          "pronunciation": "IZ-lahm"
+        },
+        "networks": {
+          "definition": "Connected routes or systems that link people and places.",
+          "pronunciation": "NET-wurks"
         }
       },
       "worksheet": {
-        "title": "Understanding the Kingdom of Mali",
-        "prompt": "1. Where was the Kingdom of Mali located?\n\n2. Why did Mali become wealthy?\n\n3. What do the picture and map help you understand?"
+        "title": "Trade Across the Sahara Desert",
+        "prompt": "1. What is trade?\n\n2. Between which years did trans-Saharan trade take place?\n\n3. Why were camels used to cross the Sahara Desert?\n\n4. What goods were brought into Mali?\n\n5. What goods were taken out of Mali?\n\n6. How did trade help the Kingdom of Mali become rich?\n\n7. What else spread through trade besides goods?"
       }
     }
   }
