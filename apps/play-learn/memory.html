@@ -1,104 +1,122 @@
 <!DOCTYPE html>
 <html>
+
 <head>
+
 <meta charset="UTF-8">
+
 <title>Memory Match</title>
 
 <style>
+
 body{
-  font-family:Arial, sans-serif;
-  text-align:center;
-  background:#f6f6f6;
-  margin:0;
-  padding:20px;
+font-family:Arial,sans-serif;
+text-align:center;
+background:#f6f6f6;
+margin:0;
+padding:20px;
 }
 
-h1{
-  margin-top:10px;
-  color:#333;
-}
+h1{color:#333;}
 
-#levelTitle{
-  margin-top:10px;
-  color:#555;
-}
+#levelTitle{color:#555;}
 
 #progressContainer{
-  width:320px;
-  height:12px;
-  background:#ddd;
-  margin:10px auto 20px auto;
-  border-radius:10px;
-  overflow:hidden;
+
+width:320px;
+height:12px;
+background:#ddd;
+margin:10px auto 20px;
+border-radius:10px;
+overflow:hidden;
+
 }
 
 #progressBar{
-  height:100%;
-  width:0%;
-  background:#4CAF50;
-  transition:width 0.3s;
+
+height:100%;
+width:0%;
+background:#4CAF50;
+transition:.3s;
+
 }
 
 .grid{
-  display:grid;
-  grid-template-columns:repeat(4,120px);
-  gap:15px;
-  justify-content:center;
-  margin-top:30px;
+
+display:grid;
+grid-template-columns:repeat(4,120px);
+gap:15px;
+justify-content:center;
+margin-top:30px;
+
 }
 
 .tile{
-  width:120px;
-  height:120px;
-  background:#4CAF50;
-  color:white;
-  font-size:30px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  cursor:pointer;
-  border-radius:14px;
-  user-select:none;
-  transition:transform 0.2s, background 0.2s;
+
+width:120px;
+height:120px;
+background:#4CAF50;
+color:white;
+font-size:30px;
+display:flex;
+align-items:center;
+justify-content:center;
+cursor:pointer;
+border-radius:14px;
+user-select:none;
+transition:.2s;
+
 }
 
 .tile:hover{
-  transform:scale(1.04);
+transform:scale(1.05);
 }
 
 .tile.flipped{
-  background:#CFE8CF;
-  color:#333;
+
+background:#CFE8CF;
+color:#333;
+
 }
 
 .tile.trophy{
-  background:#D4AF37;
-  color:white;
-  font-size:44px;
-  animation:bounce 0.6s infinite alternate;
+
+background:#D4AF37;
+font-size:44px;
+animation:bounce .6s infinite alternate;
+
 }
 
 @keyframes bounce{
-  from{transform:translateY(0);}
-  to{transform:translateY(-10px);}
+
+from{transform:translateY(0);}
+to{transform:translateY(-10px);}
+
 }
 
 #message{
-  margin-top:25px;
-  font-size:22px;
-  font-weight:bold;
-  color:#444;
+
+margin-top:25px;
+font-size:22px;
+font-weight:bold;
+color:#444;
+
 }
+
 </style>
+
 </head>
 
 <body>
 
 <h1>Memory Match</h1>
-<h2 id="levelTitle">Level 1</h2>
+
+<h2 id="levelTitle"></h2>
 
 <div id="progressContainer">
-  <div id="progressBar"></div>
+
+<div id="progressBar"></div>
+
 </div>
 
 <div class="grid" id="grid"></div>
@@ -106,171 +124,332 @@ h1{
 <div id="message"></div>
 
 <script>
-const levels = [
-  ["bl","br","cl","cr"],
-  ["fl","fr","gl","gr"],
-  ["pl","sl","sm","sn"]
+
+/* ==========================
+FLUENT SOUND SYSTEM
+========================== */
+
+const SOUND_PATH = "../../shared/assets/sounds/";
+
+const soundCache={};
+
+const levels=[
+
+["bl","br","cl","cr"],
+["fl","fr","gl","gr"],
+["pl","sl","sm","sn"]
+
 ];
 
-let currentLevel = 0;
-let matchedPairs = 0;
-let first = null;
-let second = null;
-let lockBoard = false;
+function preloadSounds(){
 
-const grid = document.getElementById("grid");
-const levelTitle = document.getElementById("levelTitle");
-const message = document.getElementById("message");
-const progressBar = document.getElementById("progressBar");
+const sounds=levels.flat();
+
+sounds.forEach(sound=>{
+
+const path = `${SOUND_PATH}beginning-blends/${sound}.mp3`;
+
+soundCache[sound]=new Audio(path);
+
+soundCache[sound].addEventListener("error",()=>{
+
+console.log("Missing:",path);
+
+});
+
+});
+
+/* clap */
+
+soundCache["clap"]=new Audio(
+`${SOUND_PATH}clap.mp3`
+);
+
+}
+
+/* ==========================
+PLAY SOUND
+========================== */
 
 function playSound(sound){
-  let audio = new Audio(`/fluent-/shared/assets/sounds/beginning-blends/beginning-blends/${sound}.mp3`);
-  audio.play().catch(() => {});
+
+if(!soundCache[sound]) return;
+
+const audio=soundCache[sound].cloneNode(true);
+
+audio.currentTime=0;
+
+audio.play().catch(()=>{});
+
 }
 
 function playClap(){
-  let audio = new Audio(`/fluent-/shared/assets/sounds/clap.mp3`);
-  audio.play().catch(() => {});
+
+const audio=soundCache["clap"].cloneNode(true);
+
+audio.currentTime=0;
+
+audio.play().catch(()=>{});
+
 }
 
+/* ==========================
+GAME ENGINE
+========================== */
+
+let currentLevel=0;
+
+let matchedPairs=0;
+
+let first=null;
+
+let second=null;
+
+let lockBoard=false;
+
+const grid=document.getElementById("grid");
+
+const levelTitle=document.getElementById("levelTitle");
+
+const message=document.getElementById("message");
+
+const progressBar=document.getElementById("progressBar");
+
 function updateProgress(){
-  const totalPairs = levels[currentLevel].length;
-  const percent = (matchedPairs / totalPairs) * 100;
-  progressBar.style.width = percent + "%";
+
+const total=levels[currentLevel].length;
+
+const percent=(matchedPairs/total)*100;
+
+progressBar.style.width=percent+"%";
+
 }
 
 function launchConfetti(){
-  for(let i = 0; i < 40; i++){
-    let confetti = document.createElement("div");
 
-    confetti.style.position = "fixed";
-    confetti.style.left = Math.random() * 100 + "vw";
-    confetti.style.top = "-10px";
-    confetti.style.width = "10px";
-    confetti.style.height = "10px";
-    confetti.style.background = ["#ff0","#f00","#0f0","#00f","#ff8800"][Math.floor(Math.random() * 5)];
-    confetti.style.opacity = "0.8";
-    confetti.style.zIndex = "999";
-    confetti.style.pointerEvents = "none";
+for(let i=0;i<40;i++){
 
-    document.body.appendChild(confetti);
+let c=document.createElement("div");
 
-    let fall = Math.random() * 3 + 2;
+c.style.position="fixed";
 
-    confetti.animate(
-      [
-        { transform:"translateY(0) rotate(0deg)" },
-        { transform:`translateY(100vh) rotate(${Math.random() * 720}deg)` }
-      ],
-      {
-        duration: fall * 1000,
-        easing: "linear"
-      }
-    );
+c.style.left=Math.random()*100+"vw";
 
-    setTimeout(() => confetti.remove(), 4000);
-  }
+c.style.top="-10px";
+
+c.style.width="10px";
+
+c.style.height="10px";
+
+c.style.background=[
+
+"#ff0",
+"#f00",
+"#0f0",
+"#00f",
+"#ff8800"
+
+][Math.floor(Math.random()*5)];
+
+c.style.opacity="0.8";
+
+c.style.zIndex="999";
+
+document.body.appendChild(c);
+
+c.animate(
+
+[
+{transform:"translateY(0)"},
+{transform:"translateY(100vh)"}
+],
+
+{
+
+duration:3000,
+easing:"linear"
+
+}
+
+);
+
+setTimeout(()=>c.remove(),4000);
+
+}
+
 }
 
 function loadLevel(){
-  grid.innerHTML = "";
-  message.innerHTML = "";
-  first = null;
-  second = null;
-  matchedPairs = 0;
-  lockBoard = false;
-  progressBar.style.width = "0%";
 
-  levelTitle.innerText = "Level " + (currentLevel + 1);
+grid.innerHTML="";
 
-  const sounds = levels[currentLevel];
-  let cards = [...sounds, ...sounds];
+message.innerHTML="";
 
-  cards.sort(() => 0.5 - Math.random());
+first=null;
 
-  cards.forEach(sound => {
-    let card = document.createElement("div");
-    card.className = "tile";
-    card.dataset.sound = sound;
-    card.innerHTML = "?";
-    card.onclick = () => flip(card);
-    grid.appendChild(card);
-  });
+second=null;
+
+matchedPairs=0;
+
+lockBoard=false;
+
+progressBar.style.width="0%";
+
+levelTitle.innerText=
+"Level "+(currentLevel+1);
+
+const sounds=levels[currentLevel];
+
+let cards=[...sounds,...sounds];
+
+cards.sort(()=>0.5-Math.random());
+
+cards.forEach(sound=>{
+
+let card=document.createElement("div");
+
+card.className="tile";
+
+card.dataset.sound=sound;
+
+card.innerHTML="?";
+
+card.onclick=()=>flip(card);
+
+grid.appendChild(card);
+
+});
+
 }
 
 function flip(card){
-  if(lockBoard) return;
-  if(card.innerHTML !== "?") return;
-  if(first === card) return;
 
-  card.innerHTML = card.dataset.sound;
-  playSound(card.dataset.sound);
+if(lockBoard) return;
 
-  if(!first){
-    first = card;
-    return;
-  }
+if(card.innerHTML!=="?") return;
 
-  second = card;
-  lockBoard = true;
+if(first===card) return;
 
-  if(first.dataset.sound === second.dataset.sound){
-    setTimeout(() => {
-      first.classList.add("flipped");
-      second.classList.add("flipped");
+card.innerHTML=card.dataset.sound;
 
-      matchedPairs++;
-      updateProgress();
+playSound(card.dataset.sound);
 
-      first = null;
-      second = null;
-      lockBoard = false;
+if(!first){
 
-      checkLevelComplete();
-    }, 500);
-  } else {
-    setTimeout(() => {
-      first.innerHTML = "?";
-      second.innerHTML = "?";
-      first = null;
-      second = null;
-      lockBoard = false;
-    }, 900);
-  }
+first=card;
+
+return;
+
+}
+
+second=card;
+
+lockBoard=true;
+
+if(first.dataset.sound===second.dataset.sound){
+
+setTimeout(()=>{
+
+first.classList.add("flipped");
+
+second.classList.add("flipped");
+
+matchedPairs++;
+
+updateProgress();
+
+first=null;
+
+second=null;
+
+lockBoard=false;
+
+checkLevelComplete();
+
+},500);
+
+}
+
+else{
+
+setTimeout(()=>{
+
+first.innerHTML="?";
+
+second.innerHTML="?";
+
+first=null;
+
+second=null;
+
+lockBoard=false;
+
+},900);
+
+}
+
 }
 
 function checkLevelComplete(){
-  const totalPairs = levels[currentLevel].length;
 
-  if(matchedPairs === totalPairs){
-    const allTiles = document.querySelectorAll(".tile");
+const total=levels[currentLevel].length;
 
-    allTiles.forEach(tile => {
-      tile.innerHTML = "🏆";
-      tile.classList.remove("flipped");
-      tile.classList.add("trophy");
-    });
+if(matchedPairs===total){
 
-    playClap();
-    launchConfetti();
+document
+.querySelectorAll(".tile")
+.forEach(tile=>{
 
-    setTimeout(() => {
-      currentLevel++;
+tile.innerHTML="🏆";
 
-      if(currentLevel < levels.length){
-        loadLevel();
-      } else {
-        grid.innerHTML = "";
-        levelTitle.innerText = "All Levels Complete";
-        message.innerHTML = "Excellent work! You finished the game. 🏆👏🎉";
-        progressBar.style.width = "100%";
-      }
-    }, 2500);
-  }
-}
+tile.classList.add("trophy");
+
+});
+
+playClap();
+
+launchConfetti();
+
+setTimeout(()=>{
+
+currentLevel++;
+
+if(currentLevel<levels.length){
 
 loadLevel();
+
+}
+
+else{
+
+grid.innerHTML="";
+
+levelTitle.innerText=
+"All Levels Complete";
+
+message.innerHTML=
+"Excellent work!";
+
+progressBar.style.width="100%";
+
+}
+
+},2500);
+
+}
+
+}
+
+/* ==========================
+START GAME
+========================== */
+
+preloadSounds();
+
+loadLevel();
+
 </script>
 
 </body>
+
 </html>

@@ -1,132 +1,739 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Build the Word</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Build the Word</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-<style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f7f8fc;
+      color: #1f2937;
+    }
 
-body{
-font-family:Arial;
-background:#FFFDF7;
-text-align:center;
-padding:20px;
-}
+    .page {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 24px 16px 40px;
+    }
 
-.wordSlots{
-display:flex;
-justify-content:center;
-gap:10px;
-margin:30px;
-}
+    .topbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
 
-.slot{
-width:60px;
-height:60px;
-border:2px dashed #ccc;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:28px;
-}
+    .title-wrap h1 {
+      margin: 0;
+      font-size: 2rem;
+    }
 
-.letters{
-display:flex;
-justify-content:center;
-gap:10px;
-flex-wrap:wrap;
-}
+    .title-wrap p {
+      margin: 6px 0 0;
+      color: #4b5563;
+    }
 
-.letter{
-width:60px;
-height:60px;
-background:#4CAF50;
-color:white;
-display:flex;
-align-items:center;
-justify-content:center;
-cursor:pointer;
-border-radius:10px;
-font-size:26px;
-}
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
 
-.correct{
-background:#D4AF37;
-}
+    button {
+      border: none;
+      border-radius: 12px;
+      padding: 12px 16px;
+      font-size: 1rem;
+      cursor: pointer;
+      background: #4f46e5;
+      color: white;
+      font-weight: 700;
+    }
 
-</style>
+    button.secondary {
+      background: #e5e7eb;
+      color: #111827;
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .panel {
+      background: white;
+      border-radius: 18px;
+      padding: 18px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+      margin-bottom: 18px;
+    }
+
+    .status-row {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(120px, 1fr));
+      gap: 12px;
+    }
+
+    .stat-box {
+      background: #eef2ff;
+      border-radius: 14px;
+      padding: 14px;
+    }
+
+    .stat-label {
+      font-size: 0.85rem;
+      color: #4b5563;
+      margin-bottom: 6px;
+    }
+
+    .stat-value {
+      font-size: 1.25rem;
+      font-weight: 800;
+    }
+
+    .prompt-card {
+      text-align: center;
+      padding: 28px 18px;
+    }
+
+    .prompt-card h2 {
+      margin: 0 0 10px;
+      font-size: 1.8rem;
+    }
+
+    .prompt-card p {
+      margin: 0 0 18px;
+      color: #4b5563;
+    }
+
+    .word-image {
+      width: 100%;
+      max-width: 260px;
+      margin: 0 auto 18px;
+      min-height: 150px;
+      border-radius: 22px;
+      background: linear-gradient(135deg, #dbeafe, #ede9fe);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4.3rem;
+      box-shadow: inset 0 0 0 2px rgba(255,255,255,0.5);
+    }
+
+    .picture-label {
+      font-size: 1.35rem;
+      font-weight: 800;
+      margin-bottom: 10px;
+      letter-spacing: 0.02em;
+    }
+
+    .hint {
+      color: #6b7280;
+      font-size: 0.98rem;
+    }
+
+    .answer-row {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      min-height: 78px;
+      margin-top: 22px;
+    }
+
+    .answer-slot {
+      min-width: 100px;
+      height: 74px;
+      border-radius: 16px;
+      border: 3px dashed #c7d2fe;
+      background: #f8faff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.45rem;
+      font-weight: 800;
+      padding: 8px 14px;
+    }
+
+    .tiles-panel h3 {
+      margin-top: 0;
+      margin-bottom: 14px;
+    }
+
+    .tiles {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+      gap: 12px;
+    }
+
+    .tile {
+      min-height: 72px;
+      border-radius: 16px;
+      border: 2px solid #c7d2fe;
+      background: #eef2ff;
+      color: #111827;
+      font-size: 1.15rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+      transition: transform 0.12s ease, opacity 0.12s ease;
+    }
+
+    .tile:hover {
+      transform: translateY(-1px);
+    }
+
+    .tile.used {
+      opacity: 0.45;
+      pointer-events: none;
+    }
+
+    .feedback {
+      text-align: center;
+      font-size: 1.1rem;
+      font-weight: 700;
+      min-height: 32px;
+      margin-top: 14px;
+    }
+
+    .feedback.good {
+      color: #15803d;
+    }
+
+    .feedback.bad {
+      color: #b91c1c;
+    }
+
+    .feedback.leveldone {
+      color: #7c3aed;
+    }
+
+    .level-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .level-chip {
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: #e5e7eb;
+      color: #111827;
+      border: 2px solid transparent;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .level-chip.active {
+      background: #ede9fe;
+      border-color: #7c3aed;
+      color: #4c1d95;
+    }
+
+    @media (max-width: 700px) {
+      .status-row {
+        grid-template-columns: repeat(2, minmax(120px, 1fr));
+      }
+
+      .answer-slot {
+        min-width: 84px;
+      }
+
+      .word-image {
+        font-size: 3.6rem;
+      }
+    }
+  </style>
 </head>
-
 <body>
+  <div class="page">
+    <div class="topbar">
+      <div class="title-wrap">
+        <h1>Build the Word</h1>
+        <p>Look at the picture, listen to the blend, and build the word.</p>
+      </div>
 
-<h1>Build the Word</h1>
+      <div class="controls">
+        <button id="startBtn">Start</button>
+        <button id="playSoundBtn" class="secondary" disabled>🔊 Play Blend</button>
+        <button id="nextBtn" class="secondary" disabled>Next</button>
+      </div>
+    </div>
 
-<div class="wordSlots" id="slots"></div>
+    <div class="panel">
+      <div class="status-row">
+        <div class="stat-box">
+          <div class="stat-label">Level</div>
+          <div class="stat-value" id="levelName">Not started</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">Round</div>
+          <div class="stat-value" id="roundText">0 / 0</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">Score</div>
+          <div class="stat-value" id="scoreText">0</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">Best Streak</div>
+          <div class="stat-value" id="streakText">0</div>
+        </div>
+      </div>
+    </div>
 
-<div class="letters" id="letters"></div>
+    <div class="panel">
+      <h3>Levels</h3>
+      <div class="level-list" id="levelList"></div>
+    </div>
 
-<script>
+    <div class="panel prompt-card">
+      <div class="word-image" id="wordImage">🧩</div>
+      <div class="picture-label" id="pictureLabel">Picture clue</div>
+      <h2 id="promptTitle">Press Start</h2>
+      <p id="promptText">The game waits for your click before playing sound.</p>
 
-const word="block";
+      <div class="hint" id="hintText">Build the word from the tiles below.</div>
 
-const slots=document.getElementById("slots");
-const letters=document.getElementById("letters");
+      <div class="answer-row">
+        <div class="answer-slot" id="slot1">?</div>
+        <div class="answer-slot" id="slot2">?</div>
+      </div>
 
-let built="";
+      <div class="feedback" id="feedback"></div>
+    </div>
 
-function playSound(){
-let audio=new Audio("/fluent-/shared/assets/sounds/beginning-blends/beginning-blends/bl.mp3");
-audio.play();
-}
+    <div class="panel tiles-panel">
+      <h3>Choose the correct parts</h3>
+      <div class="tiles" id="tiles"></div>
+    </div>
+  </div>
 
-playSound();
+  <script>
+    const SOUND_PATH = "../../shared/assets/sounds/";
+    const BLEND_PATH = `${SOUND_PATH}beginning-blends/`;
+    const CLAP_PATH = `${SOUND_PATH}clap.mp3`;
 
-word.split("").forEach(()=>{
-let slot=document.createElement("div");
-slot.className="slot";
-slots.appendChild(slot);
-});
+    // Level sizes: 2, 5, 8, 11
+    // No level repeats words from previous levels.
+    const allLevels = [
+      {
+        name: "Level 1",
+        words: [
+          { word: "flag", parts: ["fl", "ag"], image: "🚩", clue: "What is this picture?" },
+          { word: "clap", parts: ["cl", "ap"], image: "👏", clue: "What is this picture?" }
+        ]
+      },
+      {
+        name: "Level 2",
+        words: [
+          { word: "frog", parts: ["fr", "og"], image: "🐸", clue: "What is this picture?" },
+          { word: "glass", parts: ["gl", "ass"], image: "🥛", clue: "What is this picture?" },
+          { word: "plug", parts: ["pl", "ug"], image: "🔌", clue: "What is this picture?" },
+          { word: "grin", parts: ["gr", "in"], image: "😁", clue: "What is this picture?" },
+          { word: "snack", parts: ["sn", "ack"], image: "🍎", clue: "What is this picture?" }
+        ]
+      },
+      {
+        name: "Level 3",
+        words: [
+          { word: "smell", parts: ["sm", "ell"], image: "👃", clue: "What is this picture?" },
+          { word: "slide", parts: ["sl", "ide"], image: "🛝", clue: "What is this picture?" },
+          { word: "spin", parts: ["sp", "in"], image: "🌀", clue: "What is this picture?" },
+          { word: "tree", parts: ["tr", "ee"], image: "🌳", clue: "What is this picture?" },
+          { word: "brush", parts: ["br", "ush"], image: "🪥", clue: "What is this picture?" },
+          { word: "crab", parts: ["cr", "ab"], image: "🦀", clue: "What is this picture?" },
+          { word: "skip", parts: ["sk", "ip"], image: "🦘", clue: "What is this picture?" },
+          { word: "star", parts: ["st", "ar"], image: "⭐", clue: "What is this picture?" }
+        ]
+      },
+      {
+        name: "Level 4",
+        words: [
+          { word: "scan", parts: ["sc", "an"], image: "📄", clue: "What is this picture?" },
+          { word: "swim", parts: ["sw", "im"], image: "🏊", clue: "What is this picture?" },
+          { word: "prize", parts: ["pr", "ize"], image: "🏆", clue: "What is this picture?" },
+          { word: "clock", parts: ["cl", "ock"], image: "🕒", clue: "What is this picture?" },
+          { word: "green", parts: ["gr", "een"], image: "🟢", clue: "What is this picture?" },
+          { word: "brick", parts: ["br", "ick"], image: "🧱", clue: "What is this picture?" },
+          { word: "spoon", parts: ["sp", "oon"], image: "🥄", clue: "What is this picture?" },
+          { word: "blue", parts: ["bl", "ue"], image: "🔵", clue: "What is this picture?" },
+          { word: "glove", parts: ["gl", "ove"], image: "🧤", clue: "What is this picture?" },
+          { word: "plane", parts: ["pl", "ane"], image: "✈️", clue: "What is this picture?" },
+          { word: "smoke", parts: ["sm", "oke"], image: "💨", clue: "What is this picture?" }
+        ]
+      }
+    ];
 
-let shuffled=[...word].sort(()=>0.5-Math.random());
+    const startBtn = document.getElementById("startBtn");
+    const playSoundBtn = document.getElementById("playSoundBtn");
+    const nextBtn = document.getElementById("nextBtn");
 
-shuffled.forEach(letter=>{
+    const levelList = document.getElementById("levelList");
+    const levelName = document.getElementById("levelName");
+    const roundText = document.getElementById("roundText");
+    const scoreText = document.getElementById("scoreText");
+    const streakText = document.getElementById("streakText");
 
-let tile=document.createElement("div");
-tile.className="letter";
-tile.innerText=letter;
+    const wordImage = document.getElementById("wordImage");
+    const pictureLabel = document.getElementById("pictureLabel");
+    const promptTitle = document.getElementById("promptTitle");
+    const promptText = document.getElementById("promptText");
+    const hintText = document.getElementById("hintText");
 
-tile.onclick=()=>{
+    const slot1 = document.getElementById("slot1");
+    const slot2 = document.getElementById("slot2");
+    const feedback = document.getElementById("feedback");
+    const tiles = document.getElementById("tiles");
 
-if(built.length>=word.length) return;
+    let currentLevelIndex = 0;
+    let currentWordIndex = 0;
+    let score = 0;
+    let streak = 0;
+    let bestStreak = 0;
+    let started = false;
+    let levelComplete = false;
+    let roundLocked = false;
 
-slots.children[built.length].innerText=letter;
+    let selectedParts = ["", ""];
+    let selectedTileButtons = [null, null];
+    let clapAudio = null;
 
-built+=letter;
+    function shuffle(array) {
+      const arr = [...array];
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
 
-checkWord();
+    function safeAudio(src) {
+      const audio = new Audio(src);
+      audio.preload = "auto";
+      return audio;
+    }
 
-};
+    function getCurrentLevel() {
+      return allLevels[currentLevelIndex];
+    }
 
-letters.appendChild(tile);
+    function getCurrentItem() {
+      return getCurrentLevel().words[currentWordIndex];
+    }
 
-});
+    function updateStats() {
+      const level = getCurrentLevel();
+      levelName.textContent = level.name;
+      roundText.textContent = `${currentWordIndex + 1} / ${level.words.length}`;
+      scoreText.textContent = score;
+      streakText.textContent = bestStreak;
+      updateLevelChips();
+    }
 
-function checkWord(){
+    function renderLevelChips() {
+      levelList.innerHTML = "";
+      allLevels.forEach((level, index) => {
+        const chip = document.createElement("button");
+        chip.className = "level-chip";
+        chip.type = "button";
+        chip.textContent = `${level.name} (${level.words.length})`;
+        chip.disabled = true;
+        levelList.appendChild(chip);
+      });
+      updateLevelChips();
+    }
 
-if(built===word){
+    function updateLevelChips() {
+      [...levelList.children].forEach((chip, index) => {
+        chip.classList.toggle("active", index === currentLevelIndex);
+      });
+    }
 
-document.querySelectorAll(".slot").forEach(s=>{
-s.classList.add("correct");
-});
+    function clearAnswer() {
+      selectedParts = ["", ""];
+      selectedTileButtons = [null, null];
+      slot1.textContent = "?";
+      slot2.textContent = "?";
+      feedback.textContent = "";
+      feedback.className = "feedback";
+    }
 
-let clap=new Audio("/fluent-/shared/assets/sounds/clap.mp3");
-clap.play();
+    function buildChoices(item, levelWords) {
+      const blendPool = [...new Set(levelWords.map(w => w.parts[0]))];
+      const endingPool = [...new Set(levelWords.map(w => w.parts[1]))];
 
-}
+      let blendChoices = shuffle(blendPool.filter(p => p !== item.parts[0])).slice(0, 3);
+      blendChoices.push(item.parts[0]);
 
-}
+      let endingChoices = shuffle(endingPool.filter(p => p !== item.parts[1])).slice(0, 3);
+      endingChoices.push(item.parts[1]);
 
-</script>
+      return shuffle([...blendChoices, ...endingChoices]);
+    }
 
+    function buildTile(text, onClick) {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "tile";
+      btn.textContent = text;
+      btn.addEventListener("click", onClick);
+      return btn;
+    }
+
+    function fillNextSlot(part, button) {
+      if (roundLocked || levelComplete) return;
+
+      if (!selectedParts[0]) {
+        selectedParts[0] = part;
+        selectedTileButtons[0] = button;
+        slot1.textContent = part;
+        button.classList.add("used");
+        return;
+      }
+
+      if (!selectedParts[1]) {
+        selectedParts[1] = part;
+        selectedTileButtons[1] = button;
+        slot2.textContent = part;
+        button.classList.add("used");
+        autoCheckAnswer();
+      }
+    }
+
+    function renderTiles() {
+      const item = getCurrentItem();
+      const level = getCurrentLevel();
+      const options = buildChoices(item, level.words);
+
+      tiles.innerHTML = "";
+      options.forEach(part => {
+        const tile = buildTile(part, () => {
+          fillNextSlot(part, tile);
+        });
+        tiles.appendChild(tile);
+      });
+    }
+
+    function renderRound() {
+      levelComplete = false;
+      roundLocked = false;
+
+      const item = getCurrentItem();
+      clearAnswer();
+      updateStats();
+
+      wordImage.textContent = item.image || "🧩";
+      pictureLabel.textContent = item.clue || "What is this picture?";
+      promptTitle.textContent = "Build the word";
+      promptText.textContent = "Look at the picture and play the blend sound.";
+      hintText.textContent = "Choose the correct beginning blend and ending.";
+
+      renderTiles();
+
+      playSoundBtn.disabled = false;
+      nextBtn.disabled = true;
+    }
+
+    async function playBlendSound() {
+      const item = getCurrentItem();
+      const blend = item.parts[0];
+      const audio = safeAudio(`${BLEND_PATH}${blend}.mp3`);
+
+      try {
+        audio.currentTime = 0;
+        await audio.play();
+      } catch (error) {
+        console.error("Blend sound failed:", error);
+      }
+    }
+
+    async function playClap() {
+      try {
+        if (!clapAudio) {
+          clapAudio = safeAudio(CLAP_PATH);
+        }
+        clapAudio.currentTime = 0;
+        await clapAudio.play();
+      } catch (error) {
+        console.error("Clap sound failed:", error);
+      }
+    }
+
+    function speakWord(word) {
+      try {
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(word);
+        utterance.rate = 0.8;
+        utterance.pitch = 1;
+        utterance.volume = 1;
+        window.speechSynthesis.speak(utterance);
+      } catch (error) {
+        console.error("Speech failed:", error);
+      }
+    }
+
+    function resetTiles() {
+      selectedParts = ["", ""];
+      selectedTileButtons = [null, null];
+      slot1.textContent = "?";
+      slot2.textContent = "?";
+      document.querySelectorAll(".tile").forEach(tile => tile.classList.remove("used"));
+    }
+
+    async function autoCheckAnswer() {
+      const item = getCurrentItem();
+      const answer = selectedParts.join("");
+
+      if (!selectedParts[0] || !selectedParts[1]) return;
+
+      if (answer === item.word) {
+        roundLocked = true;
+        feedback.textContent = "Excellent! That is correct.";
+        feedback.className = "feedback good";
+
+        score += 1;
+        streak += 1;
+        if (streak > bestStreak) bestStreak = streak;
+        updateStats();
+
+        speakWord(item.word);
+
+        setTimeout(() => {
+          goNextAfterCorrect();
+        }, 1200);
+      } else {
+        streak = 0;
+        updateStats();
+        feedback.textContent = `Try again or press Next.`;
+        feedback.className = "feedback bad";
+        nextBtn.disabled = false;
+
+        setTimeout(() => {
+          if (!roundLocked && !levelComplete) {
+            resetTiles();
+          }
+        }, 700);
+      }
+    }
+
+    async function finishLevel() {
+      levelComplete = true;
+      roundLocked = true;
+
+      await playClap();
+
+      feedback.textContent = `${getCurrentLevel().name} complete! Great job!`;
+      feedback.className = "feedback leveldone";
+
+      promptTitle.textContent = "Level complete!";
+      promptText.textContent = "Press Next to go to the next level.";
+      hintText.textContent = "You finished this level.";
+      playSoundBtn.disabled = true;
+      nextBtn.disabled = false;
+      tiles.innerHTML = "";
+      slot1.textContent = "✓";
+      slot2.textContent = "✓";
+    }
+
+    async function finishGame() {
+      roundLocked = true;
+      await playClap();
+
+      promptTitle.textContent = "You finished all levels!";
+      promptText.textContent = "Wonderful work building words.";
+      hintText.textContent = "Press Start to play again.";
+      wordImage.textContent = "🏅";
+      pictureLabel.textContent = "Champion reader";
+      tiles.innerHTML = "";
+      slot1.textContent = "✓";
+      slot2.textContent = "✓";
+      feedback.textContent = `Final score: ${score}`;
+      feedback.className = "feedback good";
+      playSoundBtn.disabled = true;
+      nextBtn.disabled = true;
+    }
+
+    function goToNextWord() {
+      const level = getCurrentLevel();
+
+      if (currentWordIndex < level.words.length - 1) {
+        currentWordIndex += 1;
+        renderRound();
+      } else if (currentLevelIndex < allLevels.length - 1) {
+        finishLevel();
+      } else {
+        finishGame();
+      }
+    }
+
+    function goNextAfterCorrect() {
+      goToNextWord();
+    }
+
+    function skipCurrentWord() {
+      streak = 0;
+      updateStats();
+      goToNextWord();
+    }
+
+    function moveToNextLevel() {
+      if (currentLevelIndex < allLevels.length - 1) {
+        currentLevelIndex += 1;
+        currentWordIndex = 0;
+        levelComplete = false;
+        roundLocked = false;
+        renderRound();
+      } else {
+        finishGame();
+      }
+    }
+
+    function startGame() {
+      started = true;
+      score = 0;
+      streak = 0;
+      bestStreak = 0;
+      currentLevelIndex = 0;
+      currentWordIndex = 0;
+      levelComplete = false;
+      roundLocked = false;
+      renderRound();
+    }
+
+    startBtn.addEventListener("click", () => {
+      startGame();
+    });
+
+    playSoundBtn.addEventListener("click", async () => {
+      if (!started || levelComplete) return;
+      await playBlendSound();
+    });
+
+    nextBtn.addEventListener("click", () => {
+      if (!started) return;
+
+      if (levelComplete) {
+        moveToNextLevel();
+        return;
+      }
+
+      if (!roundLocked) {
+        skipCurrentWord();
+      }
+    });
+
+    renderLevelChips();
+    updateStats();
+  </script>
 </body>
 </html>

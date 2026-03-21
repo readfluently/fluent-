@@ -3,155 +3,1148 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Fluent | Nouns and Adjectives Game</title>
-  <link rel="stylesheet" href="../../shared/css/nouns-adjectives-game.css" />
+  <title>Nouns and Adjectives</title>
+  <style>
+    :root {
+      --bg: #f3f3f6;
+      --panel: #ffffff;
+      --text: #222;
+      --muted: #666;
+      --purple: #d89ad8;
+      --blue: #67c4ee;
+      --yellow: #f4c61d;
+      --green: #9ad75d;
+      --brand: #5b6df6;
+      --danger: #ef6b6b;
+      --success: #20b26b;
+      --shadow: 0 10px 24px rgba(0,0,0,0.12);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .page {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 22px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+
+    .brand-icon {
+      width: 98px;
+      height: 98px;
+      border-radius: 22px;
+      background: #fff;
+      box-shadow: var(--shadow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      flex: 0 0 auto;
+    }
+
+    .brand-icon img {
+      width: 78%;
+      height: 78%;
+      object-fit: contain;
+      display: block;
+    }
+
+    .brand-copy h1 {
+      margin: 0;
+      font-size: clamp(2.2rem, 4.4vw, 4rem);
+      line-height: 1;
+      text-shadow: 3px 3px 0 #c58cc7;
+    }
+
+    .brand-copy p {
+      margin: 12px 0 0;
+      font-size: 1rem;
+      color: var(--muted);
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 1fr 390px;
+      gap: 22px;
+      align-items: start;
+    }
+
+    .board-wrap,
+    .panel {
+      background: var(--panel);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+    }
+
+    .board-wrap {
+      padding: 18px;
+      min-height: 860px;
+    }
+
+    .board {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 6px;
+      background: #d7d7d7;
+      padding: 6px;
+      border-radius: 22px;
+    }
+
+    .tile {
+      position: relative;
+      min-height: 98px;
+      padding: 12px 10px 34px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-weight: 800;
+      font-size: clamp(0.78rem, 1.02vw, 1rem);
+      line-height: 1.16;
+      overflow: hidden;
+    }
+
+    .c1 { background: var(--yellow); }
+    .c2 { background: var(--blue); }
+    .c3 { background: var(--purple); }
+    .c4 { background: var(--green); }
+
+    .tile-number {
+      position: absolute;
+      top: 7px;
+      left: 9px;
+      font-size: 0.72rem;
+      opacity: 0.75;
+      font-weight: 900;
+    }
+
+    .tile-visual {
+      position: absolute;
+      right: 8px;
+      bottom: 8px;
+      font-size: 1.1rem;
+      opacity: 0.24;
+      pointer-events: none;
+    }
+
+    .tokens {
+      position: absolute;
+      left: 8px;
+      bottom: 8px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      max-width: 72%;
+    }
+
+    .token {
+      width: 20px;
+      height: 20px;
+      border-radius: 999px;
+      border: 2px solid #fff;
+      color: #fff;
+      font-weight: 900;
+      font-size: 0.68rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    .p1 { background: #ff5a5f; }
+    .p2 { background: #3b82f6; }
+    .p3 { background: #10b981; }
+    .p4 { background: #f59e0b; }
+
+    .side {
+      display: grid;
+      gap: 18px;
+    }
+
+    .panel {
+      padding: 18px;
+    }
+
+    .panel h2,
+    .panel h3 {
+      margin: 0 0 10px;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .player-select {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 14px 0 10px;
+    }
+
+    .player-btn,
+    .action-btn,
+    .small-btn {
+      border: none;
+      border-radius: 16px;
+      font-family: inherit;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .player-btn {
+      padding: 14px 18px;
+      background: #d8dde7;
+      color: #1d2140;
+      font-size: 0.95rem;
+    }
+
+    .player-btn.active {
+      background: var(--brand);
+      color: #fff;
+    }
+
+    .action-btn {
+      width: 100%;
+      padding: 16px;
+      background: var(--brand);
+      color: #fff;
+      font-size: 1.05rem;
+    }
+
+    .action-btn.success {
+      background: var(--success);
+    }
+
+    .action-btn.danger {
+      background: var(--danger);
+    }
+
+    .action-btn:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+    }
+
+    .small-btn {
+      padding: 11px 14px;
+      background: #ececec;
+      color: #222;
+      font-size: 0.95rem;
+    }
+
+    .dice-area {
+      text-align: center;
+    }
+
+    .dice {
+      width: 112px;
+      height: 112px;
+      margin: 8px auto 16px;
+      border-radius: 24px;
+      background: #fff;
+      border: 5px solid #efc643;
+      box-shadow: inset 0 0 0 2px rgba(255,255,255,0.7);
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(3, 1fr);
+      padding: 14px;
+      gap: 6px;
+      transition: transform 0.12s ease;
+    }
+
+    .dice.rolling {
+      animation: shake 0.7s ease;
+    }
+
+    @keyframes shake {
+      0% { transform: rotate(0deg) scale(1); }
+      15% { transform: rotate(-10deg) scale(1.07); }
+      30% { transform: rotate(10deg) scale(0.96); }
+      45% { transform: rotate(-8deg) scale(1.08); }
+      60% { transform: rotate(8deg) scale(0.98); }
+      75% { transform: rotate(-6deg) scale(1.04); }
+      100% { transform: rotate(0deg) scale(1); }
+    }
+
+    .pip {
+      width: 16px;
+      height: 16px;
+      border-radius: 999px;
+      background: #222;
+      place-self: center;
+      opacity: 0;
+    }
+
+    .pip.show {
+      opacity: 1;
+    }
+
+    .turn-box {
+      padding: 14px;
+      border-radius: 18px;
+      background: #eff2f8;
+      margin-bottom: 12px;
+    }
+
+    .turn-box strong {
+      font-size: 1.05rem;
+    }
+
+    .players-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .player-card {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      border-radius: 16px;
+      background: #f7f7f7;
+    }
+
+    .player-card.active {
+      outline: 3px solid var(--brand);
+      background: #eef2ff;
+    }
+
+    .player-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .player-dot {
+      width: 18px;
+      height: 18px;
+      border-radius: 999px;
+    }
+
+    .dot1 { background: #ff5a5f; }
+    .dot2 { background: #3b82f6; }
+    .dot3 { background: #10b981; }
+    .dot4 { background: #f59e0b; }
+
+    .player-meta {
+      text-align: right;
+      font-size: 0.9rem;
+      line-height: 1.3;
+    }
+
+    .finish-banner {
+      display: none;
+      text-align: center;
+      padding: 12px;
+      border-radius: 16px;
+      background: #eef9e8;
+      color: #2f6d33;
+      font-weight: 800;
+    }
+
+    .finish-banner.show {
+      display: block;
+    }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.48);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      z-index: 40;
+    }
+
+    .modal-backdrop.show {
+      display: flex;
+    }
+
+    .modal {
+      width: min(760px, 100%);
+      border-radius: 26px;
+      overflow: hidden;
+      background: #fff;
+      box-shadow: 0 20px 45px rgba(0,0,0,0.24);
+    }
+
+    .modal-top {
+      background: linear-gradient(135deg, #f7d34f, #6bc6ee);
+      padding: 18px 20px;
+    }
+
+    .modal-top h2 {
+      margin: 0;
+      font-size: 1.5rem;
+    }
+
+    .modal-body {
+      padding: 20px;
+    }
+
+    .question-box {
+      min-height: 90px;
+      padding: 18px;
+      border-radius: 18px;
+      background: #f8f9ff;
+      font-size: 1.15rem;
+      line-height: 1.45;
+      font-weight: 800;
+    }
+
+    .examples-box {
+      margin-top: 14px;
+      padding: 16px;
+      border-radius: 18px;
+      background: #fff8df;
+      border: 2px dashed #f0cd57;
+    }
+
+    .examples-title {
+      font-weight: 900;
+      margin-bottom: 8px;
+    }
+
+    .examples-list {
+      margin: 0;
+      padding-left: 18px;
+      line-height: 1.45;
+    }
+
+    .timer-box {
+      margin-top: 14px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: #eef2ff;
+      font-weight: 800;
+    }
+
+    .modal-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+      align-items: center;
+    }
+
+    .modal-row .action-btn {
+      flex: 1 1 220px;
+      width: auto;
+    }
+
+    @media (max-width: 1080px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .board-wrap {
+        min-height: auto;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .page {
+        padding: 14px;
+      }
+
+      .tile {
+        min-height: 82px;
+        font-size: 0.72rem;
+        padding: 8px 6px 30px;
+      }
+
+      .brand-copy h1 {
+        text-shadow: 2px 2px 0 #c58cc7;
+      }
+    }
+  </style>
 </head>
 <body>
   <div class="page">
-    <header class="hero">
-      <p class="eyebrow">Grammar Game</p>
-      <h1>Nouns and Adjectives</h1>
-      <p>
-        Roll the dice, move across the board, listen to the question, and record your spoken answer.
-      </p>
-    </header>
+    <div class="header">
+      <div class="brand-icon">
+        <img src="../../shared/assets/images/brain-mascot.png" alt="Game mascot">
+      </div>
+      <div class="brand-copy">
+        <h1>Nouns and Adjectives</h1>
+        <p>Roll the dice, move your token, and answer the language question.</p>
+      </div>
+    </div>
 
-    <section class="layout">
-      <section class="card">
-        <h2>Quick lesson</h2>
-        <p>
-          A noun names a person, place, thing, idea, or feeling. An adjective describes a noun.
-          A pronoun replaces a noun so we do not repeat it too often.
-        </p>
+    <div class="layout">
+      <div class="board-wrap">
+        <div id="board" class="board"></div>
+      </div>
 
-        <div class="lesson-grid">
-          <div class="mini common">
-            <h3>Common nouns</h3>
-            <ul>
-              <li>boy</li>
-              <li>school</li>
-              <li>dog</li>
-              <li>book</li>
-              <li>city</li>
-            </ul>
+      <div class="side">
+        <div class="panel">
+          <h2>Game Setup</h2>
+          <div class="muted">Choose how many learners will play.</div>
+          <div class="player-select">
+            <button class="player-btn active" data-count="2">2 Players</button>
+            <button class="player-btn" data-count="3">3 Players</button>
+            <button class="player-btn" data-count="4">4 Players</button>
           </div>
-
-          <div class="mini proper">
-            <h3>Proper nouns</h3>
-            <ul>
-              <li>Sipho</li>
-              <li>Cape Town</li>
-              <li>Monday</li>
-              <li>Africa</li>
-              <li>Netflix</li>
-            </ul>
-          </div>
-
-          <div class="mini abstract">
-            <h3>Abstract nouns</h3>
-            <ul>
-              <li>happiness</li>
-              <li>fear</li>
-              <li>honesty</li>
-              <li>courage</li>
-              <li>love</li>
-            </ul>
-          </div>
-
-          <div class="mini collective">
-            <h3>Collective nouns</h3>
-            <ul>
-              <li>a team of players</li>
-              <li>a class of learners</li>
-              <li>a herd of cows</li>
-              <li>a bunch of keys</li>
-              <li>a pack of cards</li>
-            </ul>
-          </div>
+          <button id="newGameBtn" class="action-btn">Start New Game</button>
         </div>
 
-        <div class="board-wrap">
-          <h2>Game board</h2>
-          <div class="board" id="board"></div>
-        </div>
-      </section>
-
-      <aside class="sidebar-grid">
-        <section class="card">
-          <h2>How to play</h2>
-          <ul class="info-list">
-            <li>2 players can play.</li>
-            <li>Roll the dice and move forward.</li>
-            <li>The landed square is read aloud automatically.</li>
-            <li>The player records a spoken answer.</li>
-            <li>If the answer is wrong, move back one square.</li>
-            <li>The first player to reach the finish wins.</li>
-          </ul>
-        </section>
-
-        <section class="card">
-          <h2>Player controls</h2>
-
-          <div class="turn-box">
-            <strong>Current turn</strong>
-            <div id="turnText">Player 1</div>
-          </div>
-
-          <div class="control-row">
-            <button class="primary" id="rollBtn">🎲 Roll Dice</button>
-            <button class="secondary" id="readQuestionBtn">🔊 Read Block</button>
-            <button class="secondary" id="nextBtn">Next Player</button>
-            <button class="danger" id="resetBtn">Reset Game</button>
+        <div class="panel dice-area">
+          <h3>Dice</h3>
+          <div id="dice" class="dice" aria-label="dice">
+            <span class="pip"></span><span class="pip"></span><span class="pip"></span>
+            <span class="pip"></span><span class="pip"></span><span class="pip"></span>
+            <span class="pip"></span><span class="pip"></span><span class="pip"></span>
           </div>
 
           <div class="turn-box">
-            <strong>Dice result</strong>
-            <div class="dice" id="diceText">Roll to begin</div>
+            <div><strong id="currentPlayerLabel">Player 1</strong>'s turn</div>
+            <div class="muted" id="turnInstruction">Click roll to begin.</div>
+            <div class="muted" id="lastRollText">Last roll: —</div>
           </div>
 
-          <div class="question-box">
-            <strong>Square instruction</strong>
-            <div id="questionText">The question for the current square will appear here.</div>
-          </div>
+          <button id="rollBtn" class="action-btn">Roll Dice</button>
+        </div>
 
-          <div class="record-panel">
-            <h3>Player 1 Recording</h3>
-            <div class="recording-stack">
-              <button class="primary" id="recordBtnP1">🎙 Start Recording</button>
-              <button class="secondary" id="stopRecordBtnP1" disabled>⏹ Stop Recording</button>
-              <button class="secondary" id="playRecordingBtnP1" disabled>▶ Play Recording</button>
-              <button class="ghost" id="downloadRecordingBtnP1" disabled>⬇ Download</button>
-            </div>
-            <audio id="playerPlaybackP1" controls hidden></audio>
-          </div>
+        <div class="panel">
+          <h3>Players</h3>
+          <div id="playersList" class="players-list"></div>
+        </div>
 
-          <div class="record-panel">
-            <h3>Player 2 Recording</h3>
-            <div class="recording-stack">
-              <button class="primary" id="recordBtnP2">🎙 Start Recording</button>
-              <button class="secondary" id="stopRecordBtnP2" disabled>⏹ Stop Recording</button>
-              <button class="secondary" id="playRecordingBtnP2" disabled>▶ Play Recording</button>
-              <button class="ghost" id="downloadRecordingBtnP2" disabled>⬇ Download</button>
-            </div>
-            <audio id="playerPlaybackP2" controls hidden></audio>
-          </div>
-
-          <div class="answers">
-            <textarea placeholder="Learner can also write the answer here if needed..."></textarea>
-            <div class="control-row">
-              <button class="success" id="correctBtn">✅ Correct</button>
-              <button class="danger" id="wrongBtn">↩ Incorrect</button>
-            </div>
-          </div>
-
-          <div class="status" id="statusBox">
-            Ready to play.
-          </div>
-        </section>
-      </aside>
-    </section>
+        <div id="finishBanner" class="finish-banner">Game finished!</div>
+      </div>
+    </div>
   </div>
 
-  <script src="../../shared/js/nouns-adjectives-game.js"></script>
+  <div id="modalBackdrop" class="modal-backdrop">
+    <div class="modal">
+      <div class="modal-top">
+        <h2 id="modalTitle">Question</h2>
+      </div>
+      <div class="modal-body">
+        <div id="questionBox" class="question-box"></div>
+
+        <button id="toggleExamplesBtn" class="small-btn" style="margin-top:14px; display:none;">
+          💡 Show Possible Answers
+        </button>
+
+        <div id="examplesBox" class="examples-box" style="display:none;">
+          <div class="examples-title">Possible answers</div>
+          <ul id="examplesList" class="examples-list"></ul>
+        </div>
+
+        <div id="timerBox" class="timer-box">Time left: <span id="timerText">20</span>s</div>
+
+        <div class="modal-row">
+          <button id="correctBtn" class="action-btn success">✅ Correct – Next Turn</button>
+          <button id="wrongBtn" class="action-btn danger">❌ Wrong – Stay Here</button>
+          <button id="speakQuestionBtn" class="small-btn">🔊 Read Question</button>
+          <button id="toggleExamplesBtnBottom" class="small-btn" style="display:none;">💡 Show Possible Answers</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const questions = [
+      { text: "Start", visual: "🚀", color: "c1", type: "start", examples: ["This is the starting tile."] },
+      { text: "What is a noun?", visual: "📘", color: "c2", examples: ["A noun is a naming word.", "It names a person, place, animal, or thing."] },
+      { text: "Give two examples of common nouns.", visual: "🧠", color: "c3", examples: ["book, chair", "dog, school"] },
+      { text: "What is an adjective?", visual: "⭐", color: "c1", examples: ["An adjective describes a noun.", "It tells us more about a person, place, or thing."] },
+      { text: "Give examples of descriptive adjectives.", visual: "🎨", color: "c2", examples: ["big, small", "happy, beautiful", "red, soft"] },
+
+      { text: "What is a verb?", visual: "🏃", color: "c3", examples: ["A verb is an action word.", "Examples: run, jump, sing."] },
+      { text: "What is a common noun?", visual: "📚", color: "c1", examples: ["A common noun is a general name.", "Examples: girl, city, dog."] },
+      { text: "Roll again!", visual: "🎲", color: "c2", action: "roll-again", examples: ["This player gets another turn after answering."] },
+      { text: "Swap places with another player.", visual: "🔄", color: "c3", action: "swap", examples: ["Choose one player and exchange positions."] },
+      { text: "What is to describe?", visual: "💬", color: "c1", examples: ["To describe means to tell what something is like.", "Example: The bag is heavy and blue."] },
+
+      { text: "What is an abstract noun?", visual: "💭", color: "c2", examples: ["An abstract noun names an idea or feeling.", "Examples: love, happiness, fear."] },
+      { text: "Name one collective noun for people.", visual: "👥", color: "c3", examples: ["team", "crowd", "class"] },
+      { text: "Give two proper nouns.", visual: "🏙️", color: "c1", examples: ["Pretoria, Africa", "Lebo, Monday"] },
+      { text: "Give one noun for a place and one for a person.", visual: "📍", color: "c2", examples: ["school and teacher", "park and mother"] },
+      { text: "Is happiness an abstract noun? Why?", visual: "😊", color: "c3", examples: ["Yes, because it is a feeling.", "You cannot touch happiness."] },
+
+      { text: "Is team a collective noun?", visual: "⚽", color: "c1", examples: ["Yes, because it names a group of people."] },
+      { text: "Change this common noun into a proper noun: city.", visual: "🌆", color: "c2", examples: ["Pretoria", "Johannesburg", "Cape Town"] },
+      { text: "Miss your next turn.", visual: "⏸️", color: "c3", action: "lose-turn", examples: ["This player will skip one turn next round."] },
+      { text: "What does an adjective describe?", visual: "🔍", color: "c1", examples: ["A noun", "A person, place, animal, or thing"] },
+      { text: "Give two descriptive adjectives.", visual: "📝", color: "c2", examples: ["bright, clean", "small, happy"] },
+
+      { text: "Give one colour adjective.", visual: "🌈", color: "c3", examples: ["red", "blue", "green"] },
+      { text: "Give one size adjective.", visual: "📏", color: "c1", examples: ["big", "small", "tiny"] },
+      { text: "Give one number adjective.", visual: "🔢", color: "c2", examples: ["one", "two", "three"] },
+      { text: "Give one feeling adjective.", visual: "🙂", color: "c3", examples: ["happy", "sad", "angry"] },
+      { text: "Give one possessive adjective.", visual: "👜", color: "c1", examples: ["my", "your", "their"] },
+
+      { text: "Give one demonstrative adjective.", visual: "👉", color: "c2", examples: ["this", "that", "these", "those"] },
+      { text: "Give one comparative adjective.", visual: "⬆️", color: "c3", examples: ["bigger", "faster", "smaller"] },
+      { text: "Give one superlative adjective.", visual: "🏆", color: "c1", examples: ["biggest", "fastest", "smallest"] },
+      { text: "Describe a dog using two adjectives.", visual: "🐶", color: "c2", examples: ["friendly and brown", "small and playful"] },
+      { text: "Describe your school bag using two adjectives.", visual: "🎒", color: "c3", examples: ["heavy and blue", "big and neat"] },
+
+      { text: "Choose an adjective for a rainy day.", visual: "🌧️", color: "c1", examples: ["wet", "cold", "cloudy"] },
+      { text: "Change this adjective to comparative form: big.", visual: "⬆️", color: "c2", examples: ["bigger"] },
+      { text: "Change this adjective to superlative form: happy.", visual: "🥇", color: "c3", examples: ["happiest"] },
+      { text: "What is a pronoun?", visual: "🗣️", color: "c1", examples: ["A pronoun takes the place of a noun.", "Examples: he, she, it, they."] },
+      { text: "What is a proper noun?", visual: "🏷️", color: "c2", examples: ["A proper noun names a special person, place, or thing.", "It begins with a capital letter."] },
+
+      { text: "Give one pronoun for many people.", visual: "👨‍👩‍👧‍👦", color: "c3", examples: ["they", "we"] },
+      { text: "Give one possessive pronoun.", visual: "🔐", color: "c1", examples: ["mine", "yours", "theirs"] },
+      { text: "Replace the noun with a pronoun: The boy ran.", visual: "🏃‍♂️", color: "c2", examples: ["He ran."] },
+      { text: "Name two pronouns.", visual: "💡", color: "c3", examples: ["he and she", "they and we"] },
+      { text: "Finish", visual: "🏁", color: "c4", type: "finish", examples: ["You made it to the end."] }
+    ];
+
+    const boardEl = document.getElementById("board");
+    const diceEl = document.getElementById("dice");
+    const rollBtn = document.getElementById("rollBtn");
+    const newGameBtn = document.getElementById("newGameBtn");
+    const playersListEl = document.getElementById("playersList");
+    const currentPlayerLabel = document.getElementById("currentPlayerLabel");
+    const turnInstruction = document.getElementById("turnInstruction");
+    const lastRollText = document.getElementById("lastRollText");
+    const finishBanner = document.getElementById("finishBanner");
+
+    const modalBackdrop = document.getElementById("modalBackdrop");
+    const modalTitle = document.getElementById("modalTitle");
+    const questionBox = document.getElementById("questionBox");
+    const examplesBox = document.getElementById("examplesBox");
+    const examplesList = document.getElementById("examplesList");
+    const toggleExamplesBtn = document.getElementById("toggleExamplesBtn");
+    const toggleExamplesBtnBottom = document.getElementById("toggleExamplesBtnBottom");
+    const timerText = document.getElementById("timerText");
+    const correctBtn = document.getElementById("correctBtn");
+    const wrongBtn = document.getElementById("wrongBtn");
+    const speakQuestionBtn = document.getElementById("speakQuestionBtn");
+
+    const playerButtons = [...document.querySelectorAll(".player-btn")];
+    const allPips = [...document.querySelectorAll(".pip")];
+
+    let playerCount = 2;
+    let currentPlayerIndex = 0;
+    let waitingForPopup = false;
+    let gameFinished = false;
+    let rolling = false;
+    let players = [];
+    let currentSpeechText = "";
+    let questionTimer = null;
+    let timeLeft = 20;
+
+    function makeSnakeOrder(rows, cols) {
+      const order = [];
+      for (let r = 0; r < rows; r++) {
+        const row = [];
+        for (let c = 0; c < cols; c++) {
+          row.push(r * cols + c);
+        }
+        if (r % 2 === 1) row.reverse();
+        order.push(...row);
+      }
+      return order;
+    }
+
+    const snakeOrder = makeSnakeOrder(8, 5);
+
+    function getPreferredVoice() {
+      const voices = window.speechSynthesis.getVoices();
+      if (!voices.length) return null;
+
+      return (
+        voices.find(v => /en-za/i.test(v.lang)) ||
+        voices.find(v => /en-gb/i.test(v.lang)) ||
+        voices.find(v => /en-us/i.test(v.lang)) ||
+        voices.find(v => /^en/i.test(v.lang)) ||
+        voices[0]
+      );
+    }
+
+    function speakText(text) {
+      try {
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.rate = 0.86;
+        utterance.pitch = 1;
+        utterance.volume = 1;
+        const voice = getPreferredVoice();
+        if (voice) utterance.voice = voice;
+        window.speechSynthesis.speak(utterance);
+      } catch (error) {
+        console.error("Speech failed:", error);
+      }
+    }
+
+    function playCorrectSound() {
+      try {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        const now = ctx.currentTime;
+        [523, 659, 784].forEach((freq, i) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = "sine";
+          osc.frequency.value = freq;
+          gain.gain.setValueAtTime(0.0001, now + i * 0.08);
+          gain.gain.exponentialRampToValueAtTime(0.15, now + i * 0.08 + 0.01);
+          gain.gain.exponentialRampToValueAtTime(0.0001, now + i * 0.08 + 0.15);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(now + i * 0.08);
+          osc.stop(now + i * 0.08 + 0.16);
+        });
+      } catch (e) {
+        console.error("Correct sound failed:", e);
+      }
+    }
+
+    function playWrongSound() {
+      try {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        const now = ctx.currentTime;
+        [220, 180].forEach((freq, i) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = "triangle";
+          osc.frequency.value = freq;
+          gain.gain.setValueAtTime(0.0001, now + i * 0.12);
+          gain.gain.exponentialRampToValueAtTime(0.18, now + i * 0.12 + 0.01);
+          gain.gain.exponentialRampToValueAtTime(0.0001, now + i * 0.12 + 0.16);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(now + i * 0.12);
+          osc.stop(now + i * 0.12 + 0.17);
+        });
+      } catch (e) {
+        console.error("Wrong sound failed:", e);
+      }
+    }
+
+    function playDiceSound() {
+      try {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        const now = ctx.currentTime;
+
+        const hit = (time, freq, volume, duration) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          const filter = ctx.createBiquadFilter();
+
+          osc.type = "square";
+          osc.frequency.setValueAtTime(freq, time);
+          filter.type = "lowpass";
+          filter.frequency.value = 900;
+
+          gain.gain.setValueAtTime(0.0001, time);
+          gain.gain.exponentialRampToValueAtTime(volume, time + 0.01);
+          gain.gain.exponentialRampToValueAtTime(0.0001, time + duration);
+
+          osc.connect(filter);
+          filter.connect(gain);
+          gain.connect(ctx.destination);
+
+          osc.start(time);
+          osc.stop(time + duration + 0.02);
+        };
+
+        hit(now, 190, 0.32, 0.12);
+        hit(now + 0.08, 150, 0.28, 0.13);
+        hit(now + 0.16, 230, 0.25, 0.11);
+        hit(now + 0.24, 170, 0.22, 0.1);
+      } catch (e) {
+        console.error("Dice sound failed:", e);
+      }
+    }
+
+    function showDiceFace(value) {
+      const faceMap = {
+        1: [5],
+        2: [1, 9],
+        3: [1, 5, 9],
+        4: [1, 3, 7, 9],
+        5: [1, 3, 5, 7, 9],
+        6: [1, 3, 4, 6, 7, 9]
+      };
+
+      allPips.forEach((pip, idx) => {
+        const pos = idx + 1;
+        pip.classList.toggle("show", faceMap[value].includes(pos));
+      });
+    }
+
+    function buildBoard() {
+      boardEl.innerHTML = "";
+      const visualTiles = new Array(questions.length);
+
+      for (let i = 0; i < questions.length; i++) {
+        const visualIndex = snakeOrder[i];
+        visualTiles[visualIndex] = { ...questions[i], logicalIndex: i };
+      }
+
+      visualTiles.forEach((tileData) => {
+        const tile = document.createElement("div");
+        tile.className = `tile ${tileData.color}`;
+        tile.innerHTML = `
+          <div class="tile-number">${tileData.logicalIndex + 1}</div>
+          <div>${tileData.text}</div>
+          <div class="tile-visual">${tileData.visual || ""}</div>
+          <div class="tokens" id="tokens-${tileData.logicalIndex}"></div>
+        `;
+        boardEl.appendChild(tile);
+      });
+
+      renderTokens();
+    }
+
+    function makePlayers() {
+      players = [];
+      for (let i = 0; i < playerCount; i++) {
+        players.push({
+          id: i + 1,
+          name: `Player ${i + 1}`,
+          position: 0,
+          finished: false,
+          score: 0,
+          skipTurns: 0
+        });
+      }
+      currentPlayerIndex = 0;
+      waitingForPopup = false;
+      gameFinished = false;
+      rolling = false;
+      finishBanner.classList.remove("show");
+      lastRollText.textContent = "Last roll: —";
+    }
+
+    function renderPlayersList() {
+      playersListEl.innerHTML = "";
+      players.forEach((player, index) => {
+        const row = document.createElement("div");
+        row.className = `player-card ${index === currentPlayerIndex ? "active" : ""}`;
+        row.innerHTML = `
+          <div class="player-left">
+            <div class="player-dot dot${player.id}"></div>
+            <div>
+              <div><strong>${player.name}</strong></div>
+              <div class="muted">Tile ${player.position + 1}</div>
+            </div>
+          </div>
+          <div class="player-meta">
+            <div>⭐ ${player.score}</div>
+            <div>${player.skipTurns > 0 ? `Skip: ${player.skipTurns}` : player.finished ? "🏁" : ""}</div>
+          </div>
+        `;
+        playersListEl.appendChild(row);
+      });
+    }
+
+    function renderTokens() {
+      document.querySelectorAll(".tokens").forEach(el => {
+        el.innerHTML = "";
+      });
+
+      players.forEach(player => {
+        const tokenWrap = document.getElementById(`tokens-${player.position}`);
+        if (!tokenWrap) return;
+
+        const token = document.createElement("div");
+        token.className = `token p${player.id}`;
+        token.textContent = player.id;
+        tokenWrap.appendChild(token);
+      });
+
+      renderPlayersList();
+      updateTurnBox();
+    }
+
+    function updateTurnBox() {
+      const player = players[currentPlayerIndex];
+      currentPlayerLabel.textContent = player ? player.name : "Player";
+
+      if (gameFinished) {
+        turnInstruction.textContent = "The game is over.";
+      } else if (waitingForPopup) {
+        turnInstruction.textContent = "Answer the question, then choose correct or wrong.";
+      } else if (rolling) {
+        turnInstruction.textContent = "Rolling...";
+      } else if (player && player.skipTurns > 0) {
+        turnInstruction.textContent = "This player will skip a turn.";
+      } else {
+        turnInstruction.textContent = "Click roll to take your turn.";
+      }
+    }
+
+    function setPlayerCount(count) {
+      playerCount = count;
+      playerButtons.forEach(btn => {
+        btn.classList.toggle("active", Number(btn.dataset.count) === count);
+      });
+    }
+
+    function randomDice() {
+      return Math.floor(Math.random() * 6) + 1;
+    }
+
+    async function animateDiceRoll() {
+      rolling = true;
+      rollBtn.disabled = true;
+      updateTurnBox();
+      diceEl.classList.add("rolling");
+      playDiceSound();
+
+      let value = 1;
+      for (let i = 0; i < 12; i++) {
+        value = randomDice();
+        showDiceFace(value);
+        await new Promise(resolve => setTimeout(resolve, 60));
+      }
+
+      diceEl.classList.remove("rolling");
+      rolling = false;
+      return value;
+    }
+
+    async function movePlayerStepByStep(player, steps) {
+      for (let i = 0; i < steps; i++) {
+        if (player.position < questions.length - 1) {
+          player.position += 1;
+          renderTokens();
+          await new Promise(resolve => setTimeout(resolve, 240));
+        }
+      }
+
+      if (player.position >= questions.length - 1) {
+        player.position = questions.length - 1;
+        player.finished = true;
+      }
+
+      renderTokens();
+    }
+
+    function clearTimer() {
+      if (questionTimer) {
+        clearInterval(questionTimer);
+        questionTimer = null;
+      }
+    }
+
+    function startTimer() {
+      clearTimer();
+      timeLeft = 20;
+      timerText.textContent = timeLeft;
+
+      questionTimer = setInterval(() => {
+        timeLeft -= 1;
+        timerText.textContent = timeLeft;
+        if (timeLeft <= 0) {
+          clearTimer();
+          timerText.textContent = "0";
+          speakText("Time is up. Choose correct or wrong.");
+        }
+      }, 1000);
+    }
+
+    function syncExamplesButtonText() {
+      const label = examplesBox.style.display === "none"
+        ? "💡 Show Possible Answers"
+        : "🙈 Hide Possible Answers";
+      toggleExamplesBtn.textContent = label;
+      toggleExamplesBtnBottom.textContent = label;
+    }
+
+    function openQuestionModal(player, tile) {
+      let spokenText = tile.text;
+
+      if (tile.action === "roll-again") {
+        spokenText += " After answering correctly, roll again.";
+      }
+      if (tile.action === "swap") {
+        spokenText += " After answering, swap places with another player.";
+      }
+      if (tile.action === "lose-turn") {
+        spokenText += " This tile means miss your next turn.";
+      }
+
+      currentSpeechText = spokenText;
+      modalTitle.textContent = `${player.name} landed on tile ${player.position + 1}`;
+      questionBox.textContent = spokenText;
+
+      if (tile.examples && tile.examples.length) {
+        examplesList.innerHTML = "";
+        tile.examples.forEach(example => {
+          const li = document.createElement("li");
+          li.textContent = example;
+          examplesList.appendChild(li);
+        });
+        examplesBox.style.display = "none";
+        toggleExamplesBtn.style.display = "inline-block";
+        toggleExamplesBtnBottom.style.display = "inline-block";
+        syncExamplesButtonText();
+      } else {
+        examplesBox.style.display = "none";
+        toggleExamplesBtn.style.display = "none";
+        toggleExamplesBtnBottom.style.display = "none";
+      }
+
+      modalBackdrop.classList.add("show");
+      waitingForPopup = true;
+      updateTurnBox();
+      startTimer();
+      speakText(spokenText);
+    }
+
+    function closeQuestionModal() {
+      window.speechSynthesis.cancel();
+      clearTimer();
+      modalBackdrop.classList.remove("show");
+      examplesBox.style.display = "none";
+      syncExamplesButtonText();
+    }
+
+    function goToNextAvailablePlayer() {
+      if (gameFinished) return;
+
+      let tries = 0;
+      do {
+        currentPlayerIndex = (currentPlayerIndex + 1) % players.length;
+        tries++;
+      } while (players[currentPlayerIndex].finished && tries < players.length + 2);
+
+      const current = players[currentPlayerIndex];
+
+      if (current && current.skipTurns > 0 && !current.finished) {
+        current.skipTurns -= 1;
+        renderTokens();
+        goToNextAvailablePlayer();
+        return;
+      }
+
+      renderTokens();
+    }
+
+    function checkForWinner() {
+      const winner = players.find(p => p.position === questions.length - 1);
+      if (winner) {
+        gameFinished = true;
+        finishBanner.textContent = `${winner.name} reached the finish! 🎉`;
+        finishBanner.classList.add("show");
+        rollBtn.disabled = true;
+        updateTurnBox();
+      }
+    }
+
+    async function handleRoll() {
+      if (waitingForPopup || gameFinished || rolling) return;
+
+      const value = await animateDiceRoll();
+      showDiceFace(value);
+      lastRollText.textContent = `Last roll: ${value}`;
+
+      const player = players[currentPlayerIndex];
+      await movePlayerStepByStep(player, value);
+
+      checkForWinner();
+      if (gameFinished) return;
+
+      const tile = questions[player.position];
+      openQuestionModal(player, tile);
+    }
+
+    function continueTurnAfterDecision(isCorrect) {
+      const player = players[currentPlayerIndex];
+      const tile = questions[player.position];
+
+      closeQuestionModal();
+      waitingForPopup = false;
+
+      if (isCorrect) {
+        player.score += 1;
+        playCorrectSound();
+      } else {
+        playWrongSound();
+      }
+
+      if (tile.action === "lose-turn") {
+        player.skipTurns += 1;
+      }
+
+      if (tile.action === "swap") {
+        const nextPlayer = players.find(p => p.id !== player.id && !p.finished);
+        if (nextPlayer) {
+          const temp = player.position;
+          player.position = nextPlayer.position;
+          nextPlayer.position = temp;
+        }
+      }
+
+      renderTokens();
+      checkForWinner();
+      if (gameFinished) return;
+
+      if (tile.action === "roll-again" && isCorrect) {
+        rollBtn.disabled = false;
+        updateTurnBox();
+        return;
+      }
+
+      goToNextAvailablePlayer();
+      rollBtn.disabled = false;
+    }
+
+    function startNewGame() {
+      makePlayers();
+      buildBoard();
+      showDiceFace(1);
+      rollBtn.disabled = false;
+      renderTokens();
+    }
+
+    function toggleExamples() {
+      const isHidden = examplesBox.style.display === "none";
+      examplesBox.style.display = isHidden ? "block" : "none";
+      syncExamplesButtonText();
+    }
+
+    playerButtons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        setPlayerCount(Number(btn.dataset.count));
+      });
+    });
+
+    newGameBtn.addEventListener("click", startNewGame);
+    rollBtn.addEventListener("click", handleRoll);
+    correctBtn.addEventListener("click", () => continueTurnAfterDecision(true));
+    wrongBtn.addEventListener("click", () => continueTurnAfterDecision(false));
+    speakQuestionBtn.addEventListener("click", () => speakText(currentSpeechText || questionBox.textContent));
+    toggleExamplesBtn.addEventListener("click", toggleExamples);
+    toggleExamplesBtnBottom.addEventListener("click", toggleExamples);
+
+    modalBackdrop.addEventListener("click", (e) => {
+      if (e.target === modalBackdrop) {
+        // no action: teacher must choose Correct or Wrong
+      }
+    });
+
+    window.speechSynthesis.onvoiceschanged = () => {
+      window.speechSynthesis.getVoices();
+    };
+
+    setPlayerCount(2);
+    startNewGame();
+  </script>
 </body>
 </html>
