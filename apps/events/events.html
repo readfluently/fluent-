@@ -43,7 +43,7 @@
     }
 
     .topbar-inner {
-      max-width: 1200px;
+      max-width: 1180px;
       margin: 0 auto;
       padding: 12px 20px;
       display: flex;
@@ -55,6 +55,7 @@
     .brand {
       font-weight: 700;
       margin-right: 8px;
+      color: #1e3a8a;
     }
 
     .top-link {
@@ -72,9 +73,9 @@
     }
 
     .page {
-      max-width: 1200px;
+      max-width: 1180px;
       margin: 0 auto;
-      padding: 26px 20px 40px;
+      padding: 24px 20px 36px;
     }
 
     .hero {
@@ -82,13 +83,13 @@
       border: 1px solid var(--line);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
-      padding: 24px;
-      margin-bottom: 20px;
+      padding: 22px 24px;
+      margin-bottom: 18px;
     }
 
     .hero h1 {
       margin: 0 0 8px;
-      font-size: 2rem;
+      font-size: 1.9rem;
       color: #1e3a8a;
     }
 
@@ -96,13 +97,14 @@
       margin: 0;
       color: var(--muted);
       line-height: 1.5;
-      max-width: 820px;
+      max-width: 800px;
     }
 
     .layout {
       display: grid;
-      grid-template-columns: 1.3fr 0.9fr;
+      grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
       gap: 18px;
+      align-items: start;
     }
 
     .card {
@@ -110,7 +112,11 @@
       border: 1px solid var(--line);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
-      padding: 18px;
+      padding: 14px;
+    }
+
+    .calendar-card {
+      padding: 14px;
     }
 
     .calendar-header {
@@ -118,11 +124,11 @@
       justify-content: space-between;
       align-items: center;
       gap: 10px;
-      margin-bottom: 16px;
+      margin-bottom: 10px;
     }
 
     .calendar-title {
-      font-size: 1.2rem;
+      font-size: 1.08rem;
       font-weight: 700;
       color: #243b63;
     }
@@ -130,6 +136,7 @@
     .calendar-nav {
       display: flex;
       gap: 8px;
+      flex-wrap: wrap;
     }
 
     .nav-btn {
@@ -137,120 +144,123 @@
       background: var(--surface-soft);
       color: var(--text);
       border-radius: 10px;
-      padding: 8px 12px;
+      padding: 7px 11px;
       cursor: pointer;
       font-weight: 700;
+      font-size: 0.88rem;
     }
 
-    .nav-btn:hover {
+    .nav-btn:hover,
+    .nav-btn:focus-visible {
       box-shadow: var(--shadow);
+      outline: none;
     }
 
     .weekday-row,
     .calendar-grid {
       display: grid;
       grid-template-columns: repeat(7, minmax(0, 1fr));
-      gap: 8px;
+      gap: 6px;
     }
 
     .weekday {
       text-align: center;
-      font-size: 0.85rem;
+      font-size: 0.74rem;
       color: var(--muted);
       font-weight: 700;
-      padding: 6px 0;
+      padding: 4px 0;
+      letter-spacing: 0.02em;
     }
 
     .day {
-      min-height: 90px;
+      min-height: 60px;
       border: 1px solid var(--line);
-      border-radius: 14px;
+      border-radius: 12px;
       background: #fff;
-      padding: 8px;
+      padding: 6px;
       position: relative;
       cursor: pointer;
-      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: flex-start;
     }
 
-    .day:hover {
-      transform: translateY(-2px);
+    .day:hover,
+    .day:focus-visible {
+      transform: translateY(-1px);
       box-shadow: var(--shadow-hover);
+      outline: none;
     }
 
     .day.other-month {
-      opacity: 0.4;
+      opacity: 0.38;
       background: #fafbfe;
     }
 
     .day-number {
-      font-size: 0.88rem;
+      font-size: 0.8rem;
       font-weight: 700;
-      margin-bottom: 6px;
+      line-height: 1;
     }
 
-    .day-tags {
+    .day-indicators {
       display: flex;
-      flex-direction: column;
+      flex-wrap: wrap;
       gap: 4px;
+      margin-top: auto;
     }
 
-    .tag {
-      font-size: 0.72rem;
-      line-height: 1.2;
-      padding: 5px 7px;
+    .dot {
+      width: 8px;
+      height: 8px;
       border-radius: 999px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      border: 1px solid rgba(0, 0, 0, 0.06);
     }
 
-    .tag.festival {
-      background: var(--primary-soft);
-      color: #1d4ed8;
+    .dot.festival {
+      background: #93c5fd;
     }
 
-    .tag.competition {
-      background: #efe7ff;
-      color: #6d28d9;
+    .dot.competition {
+      background: #c4b5fd;
     }
 
-    .tag.workshop {
-      background: var(--success-soft);
-      color: #166534;
+    .dot.workshop {
+      background: #86efac;
     }
 
-    .tag.results {
-      background: var(--warning-soft);
-      color: #b45309;
+    .dot.results {
+      background: #fdba74;
     }
 
     .day.in-range {
-      background: linear-gradient(180deg, #f8fbff 0%, #eef5ff 100%);
-      border-color: #bfd4ff;
+      background: linear-gradient(180deg, #fbfdff 0%, #f4f8ff 100%);
+      border-color: #cfe0ff;
     }
 
     .day.start-range,
     .day.end-range {
       border-color: var(--primary);
-      box-shadow: inset 0 0 0 1px var(--primary);
     }
 
     .day.selected {
       outline: 2px solid var(--accent);
-      outline-offset: 2px;
+      outline-offset: 1px;
     }
 
     .side-panel {
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 14px;
     }
 
     .event-badge {
       display: inline-block;
       padding: 6px 10px;
       border-radius: 999px;
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       font-weight: 700;
       margin-bottom: 10px;
     }
@@ -277,7 +287,7 @@
 
     .event-title {
       margin: 0 0 10px;
-      font-size: 1.35rem;
+      font-size: 1.28rem;
       color: #243b63;
     }
 
@@ -285,13 +295,14 @@
       margin: 0 0 12px;
       color: var(--muted);
       line-height: 1.5;
-      font-size: 0.95rem;
+      font-size: 0.93rem;
     }
 
     .event-description {
       margin: 0;
       line-height: 1.6;
       color: var(--text);
+      font-size: 0.96rem;
     }
 
     .info-gallery h3,
@@ -315,10 +326,12 @@
 
     .info-card img {
       width: 100%;
-      height: 150px;
-      object-fit: cover;
+      height: 158px;
+      object-fit: contain;
+      object-position: center;
       display: block;
-      background: #eef2f7;
+      background: #f8fafc;
+      padding: 8px;
     }
 
     .info-card-body {
@@ -387,9 +400,17 @@
       }
     }
 
-    @media (max-width: 620px) {
+    @media (max-width: 640px) {
       .page {
-        padding: 18px 14px 30px;
+        padding: 18px 14px 28px;
+      }
+
+      .hero {
+        padding: 18px;
+      }
+
+      .hero h1 {
+        font-size: 1.6rem;
       }
 
       .calendar-header {
@@ -397,12 +418,20 @@
         align-items: flex-start;
       }
 
-      .day {
-        min-height: 78px;
+      .calendar-nav {
+        width: 100%;
       }
 
-      .tag {
-        font-size: 0.68rem;
+      .nav-btn {
+        flex: 1;
+      }
+
+      .day {
+        min-height: 54px;
+      }
+
+      .info-card img {
+        height: 140px;
       }
     }
   </style>
@@ -424,12 +453,12 @@
     <section class="hero">
       <h1>Events & Competitions</h1>
       <p>
-        Explore Fluent events across the year. Select a highlighted date on the calendar to view event details, category information, and infographic highlights.
+        Explore Fluent events across the year. Select a highlighted date to view details, planning visuals, and event highlights.
       </p>
     </section>
 
     <section class="layout">
-      <div class="card">
+      <div class="card calendar-card">
         <div class="calendar-header">
           <div class="calendar-title" id="calendarTitle">June 2026</div>
           <div class="calendar-nav">
@@ -495,17 +524,17 @@
         gallery: [
           {
             title: "Festival Overview",
-            image: "../../shared/assets/images/placeholder-event-1.jpg",
+            image: "../../shared/assets/images/festival-overview.png",
             text: "A visual summary of the literacy festival, including dates, learner participation, school activation, and community involvement."
           },
           {
-            title: "Reading Challenge",
-            image: "../../shared/assets/images/placeholder-event-2.jpg",
-            text: "Highlights the reading challenge format, category rules, judging process, and participation flow for schools."
+            title: "Fluent Voices",
+            image: "../../shared/assets/images/fluent-voices.png",
+            text: "Highlights learner voices, reading performances, and public celebration moments across the festival."
           },
           {
             title: "Venue & Setup",
-            image: "../../shared/assets/images/placeholder-event-3.jpg",
+            image: "../../shared/assets/images/venue-setup.png",
             text: "Shows how schools can host their own literacy festival events with Fluent branding, participant zones, and audience areas."
           }
         ]
@@ -522,14 +551,14 @@
           "The top learners compete in a final reading challenge event with judges, school representation, and awards recognition.",
         gallery: [
           {
-            title: "Final Round Format",
-            image: "../../shared/assets/images/placeholder-event-4.jpg",
-            text: "Explains how finalists move through the final competition stage and how performance is evaluated."
+            title: "Final Round Voices",
+            image: "../../shared/assets/images/fluent-voices.png",
+            text: "Represents the final performance stage where learners present their best reading with expression, confidence, and fluency."
           },
           {
-            title: "Scoring Breakdown",
-            image: "../../shared/assets/images/placeholder-event-5.jpg",
-            text: "Displays scoring criteria such as fluency, expression, pronunciation, and confidence."
+            title: "Festival Highlights",
+            image: "../../shared/assets/images/festival-overview.png",
+            text: "Provides a broad visual for the competition atmosphere, school participation, and celebration around the finals."
           }
         ]
       },
@@ -545,9 +574,14 @@
           "A focused workshop for teachers on using Fluent tools, planning reading events, and supporting learner progress.",
         gallery: [
           {
-            title: "Workshop Agenda",
-            image: "../../shared/assets/images/placeholder-event-6.jpg",
-            text: "A simple breakdown of workshop sessions, demonstrations, planning tasks, and support material."
+            title: "Sound & Spell Support",
+            image: "../../shared/assets/images/sound-spell.png",
+            text: "Shows workshop content focused on phonics support, sound blending, and practical classroom reading scaffolds."
+          },
+          {
+            title: "Venue Planning",
+            image: "../../shared/assets/images/venue-setup.png",
+            text: "Illustrates how workshop spaces and school events can be arranged for training, demonstrations, and learner participation."
           }
         ]
       },
@@ -563,9 +597,14 @@
           "A showcase period where schools and learners can view final results, recognitions, event highlights, and featured performances.",
         gallery: [
           {
-            title: "Top Highlights",
-            image: "../../shared/assets/images/placeholder-event-7.jpg",
+            title: "Festival Highlights",
+            image: "../../shared/assets/images/festival-overview.png",
             text: "Summarises standout performances, school highlights, and memorable moments from the event season."
+          },
+          {
+            title: "Celebrating Voices",
+            image: "../../shared/assets/images/fluent-voices.png",
+            text: "Supports the results section with a visual focus on learner achievement, reading confidence, and public recognition."
           }
         ]
       }
@@ -611,6 +650,11 @@
       });
     }
 
+    function getSelectedEventForDate(date) {
+      const matchingEvents = getEventsForDate(date);
+      return matchingEvents.find(event => event.id === selectedEventId) || matchingEvents[0] || null;
+    }
+
     function updateDetails(eventObj) {
       eventBadge.textContent = eventObj.categoryLabel;
       eventBadge.className = `event-badge ${eventObj.category}`;
@@ -648,12 +692,9 @@
 
       const firstDay = new Date(year, month, 1);
       const lastDay = new Date(year, month + 1, 0);
-
       const startWeekday = firstDay.getDay();
       const daysInMonth = lastDay.getDate();
-
       const prevMonthLastDay = new Date(year, month, 0).getDate();
-
       const totalCells = 42;
 
       for (let i = 0; i < totalCells; i++) {
@@ -678,12 +719,14 @@
           cellDate = new Date(year, month, dayNumber);
         }
 
+        const dateKey = formatDateKey(cellDate);
+        const matchingEvents = getEventsForDate(cellDate);
+
         if (isOtherMonth) {
           dayCell.classList.add("other-month");
         }
 
-        const dateKey = formatDateKey(cellDate);
-        const matchingEvents = getEventsForDate(cellDate);
+        let shouldMarkSelected = false;
 
         matchingEvents.forEach(event => {
           const start = parseDate(event.start);
@@ -702,23 +745,36 @@
           }
 
           if (event.id === selectedEventId) {
-            dayCell.classList.add("selected");
+            shouldMarkSelected = true;
           }
         });
 
-        const tagsHtml = matchingEvents.slice(0, 2).map(event =>
-          `<span class="tag ${event.category}">${event.title}</span>`
-        ).join("");
+        if (shouldMarkSelected) {
+          dayCell.classList.add("selected");
+        }
+
+        const indicators = matchingEvents
+          .slice(0, 4)
+          .map(event => `<span class="dot ${event.category}" title="${event.title}"></span>`)
+          .join("");
 
         dayCell.innerHTML = `
           <div class="day-number">${dayNumber}</div>
-          <div class="day-tags">${tagsHtml}</div>
+          <div class="day-indicators">${indicators}</div>
         `;
+
+        const activeEvent = getSelectedEventForDate(cellDate);
+        if (activeEvent) {
+          dayCell.setAttribute("aria-label", `${dayNumber} ${monthNames[cellDate.getMonth()]} ${cellDate.getFullYear()} - ${activeEvent.title}`);
+        } else {
+          dayCell.setAttribute("aria-label", `${dayNumber} ${monthNames[cellDate.getMonth()]} ${cellDate.getFullYear()}`);
+        }
 
         dayCell.addEventListener("click", () => {
           if (matchingEvents.length) {
-            selectedEventId = matchingEvents[0].id;
-            updateDetails(matchingEvents[0]);
+            const chosenEvent = matchingEvents.find(event => event.id === selectedEventId) || matchingEvents[0];
+            selectedEventId = chosenEvent.id;
+            updateDetails(chosenEvent);
             renderCalendar();
           }
         });
@@ -739,8 +795,9 @@
 
     document.getElementById("todayBtn").addEventListener("click", () => {
       currentDate = new Date(2026, 5, 1);
-      renderCalendar();
+      selectedEventId = events[0].id;
       updateDetails(events[0]);
+      renderCalendar();
     });
 
     updateDetails(events[0]);

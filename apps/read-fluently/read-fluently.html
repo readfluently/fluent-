@@ -8,9 +8,18 @@
 </head>
 <body>
   <div class="page-shell">
-    <header class="topbar">
-      <a class="pill-btn" href="./index.html">← Back to Language Blocks</a>
-      <div class="pill-btn static">Read Aloud Library</div>
+    <header class="topbar app-nav">
+      <div class="nav-left">
+        <a class="nav-brand" href="./index.html">Fluent</a>
+      </div>
+
+      <nav class="nav-links" aria-label="Main navigation">
+        <a class="nav-link" href="./index.html">Home</a>
+        <a class="nav-link active" href="./read-fluently.html">Read Fluently</a>
+        <a class="nav-link" href="./language-blocks.html">Language Blocks</a>
+        <a class="nav-link" href="./oral.html">Oral</a>
+        <a class="nav-link" href="./interactive-posters.html">Posters</a>
+      </nav>
     </header>
 
     <section class="hero">
@@ -20,7 +29,6 @@
       </div>
     </section>
 
-    <!-- LIBRARY VIEW -->
     <main id="libraryView" class="view active">
       <section class="section-head">
         <h1>Mini Reading Shelf</h1>
@@ -38,7 +46,6 @@
       <section id="booksGrid" class="books-grid"></section>
     </main>
 
-    <!-- READER VIEW -->
     <main id="readerView" class="view">
       <section class="reader-top">
         <button id="backToLibraryBtn" class="pill-btn">← Back to Library</button>
@@ -60,8 +67,8 @@
 
       <section class="tracker-card">
         <p class="tracker-instruction">
-          Click Start and read the sentence aloud. When you finish one sentence,
-          click Next Sentence to move on.
+          Read naturally. The app listens automatically, highlights the words you read,
+          and helps with the next word only after a pause.
         </p>
 
         <div class="sentence-meta">
@@ -76,11 +83,12 @@
           <button id="stopBtn" class="control-btn">Stop</button>
           <button id="restartBtn" class="control-btn">Restart Sentence</button>
           <button id="nextBtn" class="control-btn primary">Next Sentence</button>
+          <button id="nextBookBtn" class="control-btn primary">Next Book →</button>
         </div>
 
         <div class="status-wrap">
           <p id="progressText" class="progress-text">Sentence 1 of 5</p>
-          <p id="statusText" class="status-text">Press Start to begin.</p>
+          <p id="statusText" class="status-text">Open a book to begin.</p>
           <p class="support-note">Best used in Chrome or Edge.</p>
         </div>
       </section>

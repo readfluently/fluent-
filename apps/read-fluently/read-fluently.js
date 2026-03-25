@@ -1,190 +1,122 @@
 const books = [
   {
-    id: "red-hat",
-    title: "The Red Hat",
-    level: "Level 1",
-    theme: "Everyday Life",
-    icon: "🎩",
-    description: "A very short beginner reader with simple words and short sentences.",
-    sentences: [
-      "The hat is red.",
-      "Sam has the hat.",
-      "Sam puts it on.",
-      "The hat is big.",
-      "Sam can run."
-    ]
-  },
-  {
-    id: "sam-cat",
-    title: "Sam the Cat",
+    id: 1,
+    title: "Sam and the Cat",
     level: "Level 1",
     theme: "Animals",
-    icon: "🐱",
-    description: "A simple patterned reader for early confidence and clear speaking.",
+    cover: "🐱",
+    description: "A very short beginner reader with simple repeated words.",
     sentences: [
-      "Sam is a cat.",
-      "Sam is fat.",
-      "Sam sat on a mat.",
-      "Sam can nap.",
-      "Sam is happy."
+      "Sam has a cat.",
+      "The cat is big.",
+      "Sam pats the cat.",
+      "The cat sits on the mat.",
+      "Sam and the cat nap."
     ]
   },
   {
-    id: "big-dog",
-    title: "The Big Dog",
-    level: "Level 1",
-    theme: "Animals",
-    icon: "🐶",
-    description: "A short animal reader with easy repeated sentence patterns.",
-    sentences: [
-      "The dog is big.",
-      "The dog can run.",
-      "The dog has a red ball.",
-      "The dog can jump.",
-      "The dog is fun."
-    ]
-  },
-  {
-    id: "fun-run",
-    title: "The Fun Run",
+    id: 2,
+    title: "The Red Ball",
     level: "Level 1",
     theme: "Play",
-    icon: "🏃",
-    description: "A beginner reading text about movement and play.",
+    cover: "🔴",
+    description: "Short sentences for new readers to practise clear speech.",
     sentences: [
-      "Tim can run.",
-      "Pam can run too.",
-      "They run to the tree.",
-      "They clap and laugh.",
-      "The run is fun."
+      "I have a red ball.",
+      "I toss the ball up.",
+      "The ball drops down.",
+      "I catch the ball.",
+      "I smile and play."
     ]
   },
   {
-    id: "lost-ball",
-    title: "The Lost Ball",
+    id: 3,
+    title: "Fun at School",
     level: "Level 2",
-    theme: "Play",
-    icon: "⚽",
-    description: "A short connected story with simple events.",
+    theme: "School",
+    cover: "🏫",
+    description: "A simple school story with familiar actions and people.",
     sentences: [
-      "Tom has a red ball.",
-      "He plays in the yard.",
-      "The ball rolls away.",
-      "Tom runs to find it.",
-      "He finds the ball in the grass.",
-      "Tom is happy again."
+      "Lebo walks to school with her bag.",
+      "She greets her teacher at the door.",
+      "The class reads a short story together.",
+      "Lebo writes neatly in her book.",
+      "She feels proud of her work."
     ]
   },
   {
-    id: "park-day",
-    title: "A Day at the Park",
+    id: 4,
+    title: "A Rainy Day",
     level: "Level 2",
-    theme: "Community",
-    icon: "🌳",
-    description: "A simple reader about a happy trip to the park.",
-    sentences: [
-      "Lebo goes to the park.",
-      "She sees a dog and a ball.",
-      "The dog runs fast.",
-      "Lebo laughs and plays.",
-      "She sits under a tree.",
-      "It is a happy day."
-    ]
-  },
-  {
-    id: "red-car",
-    title: "The Red Car",
-    level: "Level 2",
-    theme: "Transport",
-    icon: "🚗",
-    description: "A simple transport story with short linked sentences.",
-    sentences: [
-      "Dad has a red car.",
-      "The car is clean and bright.",
-      "We drive to the shop.",
-      "I look out of the window.",
-      "I see buses and bikes.",
-      "Then we drive home."
-    ]
-  },
-  {
-    id: "tim-frog",
-    title: "Tim and the Frog",
-    level: "Level 2",
-    theme: "Animals",
-    icon: "🐸",
-    description: "A short reader that supports fluency through story sequence.",
-    sentences: [
-      "Tim walks near the pond.",
-      "He sees a little frog.",
-      "The frog jumps on a rock.",
-      "Tim stops and looks.",
-      "The frog jumps back in the water.",
-      "Tim smiles and waves."
-    ]
-  },
-  {
-    id: "brave-dog",
-    title: "The Brave Dog",
-    level: "Level 3",
-    theme: "Character",
-    icon: "🐕",
-    description: "A short paragraph-style story about courage and kindness.",
-    sentences: [
-      "Milo was a small dog with a loud bark.",
-      "One windy day, the gate blew open.",
-      "A tiny kitten stood outside in the cold.",
-      "Milo barked until Grandma came to help.",
-      "Grandma smiled and carried the kitten inside.",
-      "That day, Milo felt brave and proud."
-    ]
-  },
-  {
-    id: "rainy-day",
-    title: "The Rainy Day",
-    level: "Level 3",
     theme: "Weather",
-    icon: "🌧️",
-    description: "A short story with richer sentences and clear meaning.",
+    cover: "🌧️",
+    description: "A gentle weather reader with everyday vocabulary.",
     sentences: [
-      "The sky turned dark before lunch.",
-      "Soon, soft rain tapped on the roof.",
-      "The children moved their game inside the house.",
-      "They read books, built towers, and told funny stories.",
-      "By the afternoon, the rain had stopped.",
-      "A bright rainbow stretched across the sky."
+      "Dark clouds fill the sky.",
+      "Soon the rain begins to fall.",
+      "The children run inside the house.",
+      "They watch the drops on the window.",
+      "After a while the sun comes out."
     ]
   },
   {
-    id: "new-friend",
-    title: "The New Friend",
-    level: "Level 4",
-    theme: "Friendship",
-    icon: "🤝",
-    description: "A mini story with fuller ideas for stronger readers.",
+    id: 5,
+    title: "The Garden Surprise",
+    level: "Level 3",
+    theme: "Nature",
+    cover: "🌱",
+    description: "A slightly longer reader with richer vocabulary.",
     sentences: [
-      "On Monday, a new learner joined the class.",
-      "Her name was Amina, and she felt shy at first.",
-      "At break time, Neo invited her to play a skipping game.",
-      "Soon, Amina was smiling and talking with everyone.",
-      "By the end of the day, she did not feel alone anymore.",
-      "One kind invitation had turned into a new friendship."
+      "Musa watered the small garden every morning.",
+      "One week later he noticed a bright green shoot.",
+      "The plant grew taller each day in the warm sun.",
+      "Soon a yellow flower opened its soft petals.",
+      "Musa called his sister to see the surprise."
     ]
   },
   {
-    id: "busy-market",
-    title: "The Busy Market",
-    level: "Level 4",
-    theme: "Community",
-    icon: "🛒",
-    description: "A mini story with clear descriptive details and sequence.",
+    id: 6,
+    title: "The Lost Hat",
+    level: "Level 3",
+    theme: "Adventure",
+    cover: "🎩",
+    description: "A playful story with clear sentence flow and sequencing.",
     sentences: [
-      "On Saturday morning, the market was full of colour and sound.",
-      "People walked past fruit stalls, bread tables, and bright flowers.",
-      "A boy helped his mother choose tomatoes and fresh spinach.",
-      "Nearby, a woman called out the price of sweet oranges.",
-      "The smell of warm bread floated through the air.",
-      "When they left, their bags were full and their hearts were happy."
+      "Ava looked for her hat before the wind carried it away.",
+      "She searched near the gate and under the bench.",
+      "Then she saw it hanging on a low tree branch.",
+      "She laughed as she reached up to take it back.",
+      "At last Ava placed the hat firmly on her head."
+    ]
+  },
+  {
+    id: 7,
+    title: "The River Walk",
+    level: "Level 4",
+    theme: "Journey",
+    cover: "🌊",
+    description: "Longer sentences for learners building fluency and expression.",
+    sentences: [
+      "Early in the morning, the family followed the narrow path beside the river.",
+      "They listened carefully to the birds singing in the tall reeds.",
+      "When they reached a smooth flat rock, they sat down to rest and eat.",
+      "Grandfather told a story about the river from his childhood.",
+      "On the way home, everyone felt peaceful and full of wonder."
+    ]
+  },
+  {
+    id: 8,
+    title: "The Class Play",
+    level: "Level 4",
+    theme: "Performance",
+    cover: "🎭",
+    description: "A richer oral reading text for confidence and pacing.",
+    sentences: [
+      "The learners stood quietly behind the curtain as the hall became silent.",
+      "Each child remembered to speak loudly and clearly for the audience.",
+      "When it was Nandi's turn, she smiled and said her lines with confidence.",
+      "At the end of the play, the crowd clapped and cheered with joy.",
+      "Their teacher thanked them for working hard and believing in themselves."
     ]
   }
 ];
@@ -192,9 +124,7 @@ const books = [
 const libraryView = document.getElementById("libraryView");
 const readerView = document.getElementById("readerView");
 const booksGrid = document.getElementById("booksGrid");
-const filterChips = document.querySelectorAll(".filter-chip");
 
-const backToLibraryBtn = document.getElementById("backToLibraryBtn");
 const readerBookCover = document.getElementById("readerBookCover");
 const readerLevelTag = document.getElementById("readerLevelTag");
 const readerThemeTag = document.getElementById("readerThemeTag");
@@ -211,565 +141,389 @@ const startBtn = document.getElementById("startBtn");
 const stopBtn = document.getElementById("stopBtn");
 const restartBtn = document.getElementById("restartBtn");
 const nextBtn = document.getElementById("nextBtn");
+const nextBookBtn = document.getElementById("nextBookBtn");
+const backToLibraryBtn = document.getElementById("backToLibraryBtn");
 
-const SpeechRecognition =
-  window.SpeechRecognition || window.webkitSpeechRecognition;
+const filterButtons = document.querySelectorAll(".filter-chip");
 
-const CLAP_SOUND_PATH = "../../shared/assets/sounds/clap.mp3";
-const clapAudio = new Audio(CLAP_SOUND_PATH);
-
-let activeFilter = "all";
-let currentBook = null;
+let selectedFilter = "all";
+let currentBookIndex = 0;
 let currentSentenceIndex = 0;
 let currentWordIndex = 0;
-
+let currentSentenceWords = [];
 let recognition = null;
-let recognitionRunning = false;
-let manualStop = false;
-let isListeningMode = false;
-let promptInProgress = false;
+let isListening = false;
+let shouldRestartRecognition = false;
 
-let silenceInterval = null;
-let lastSpeechTime = 0;
-let lastPromptTime = 0;
-let autoAdvanceTimeout = null;
-
-let assistanceCountThisSentence = 0;
-let retryModeForSentence = false;
+let encourageTimer = null;
+let promptAfterPauseTimer = null;
+let fullRetryTimer = null;
 
 function normalizeWord(word) {
   return word
     .toLowerCase()
-    .replace(/[.,!?;:()"']/g, "")
+    .replace(/[.,!?;:"“”'‘’()\-]/g, "")
+    .replace(/\s+/g, "")
     .trim();
 }
 
-function getCurrentSentence() {
-  if (!currentBook) return "";
-  return currentBook.sentences[currentSentenceIndex] || "";
-}
+function wordsEquivalent(spoken, expected) {
+  const a = normalizeWord(spoken);
+  const b = normalizeWord(expected);
 
-function getCurrentSentenceWords() {
-  return getCurrentSentence()
-    .split(/\s+/)
-    .map(word => word.trim())
-    .filter(Boolean);
-}
+  if (!a || !b) return false;
+  if (a === b) return true;
 
-function getExpectedWord() {
-  const words = getCurrentSentenceWords();
-  return words[currentWordIndex] || "";
-}
+  const equivalents = {
+    its: ["it's"],
+    itss: ["it's"],
+    a: ["uh"],
+    the: ["thee", "duh"],
+    to: ["too", "two"],
+    too: ["to", "two"],
+    two: ["to", "too"]
+  };
 
-function getPreferredVoice() {
-  const voices = window.speechSynthesis.getVoices();
-  if (!voices.length) return null;
+  if (equivalents[a] && equivalents[a].includes(b)) return true;
+  if (equivalents[b] && equivalents[b].includes(a)) return true;
 
-  return (
-    voices.find(v => /en-za/i.test(v.lang)) ||
-    voices.find(v => /en-gb/i.test(v.lang)) ||
-    voices.find(v => /en-us/i.test(v.lang)) ||
-    voices.find(v => /^en/i.test(v.lang)) ||
-    voices[0]
-  );
-}
-
-function speakText(text, onEnd = null) {
-  try {
-    window.speechSynthesis.cancel();
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.rate = 0.9;
-    utterance.pitch = 1;
-    utterance.volume = 1;
-
-    const preferredVoice = getPreferredVoice();
-    if (preferredVoice) {
-      utterance.voice = preferredVoice;
+  if (Math.abs(a.length - b.length) <= 1) {
+    let mismatches = 0;
+    const minLen = Math.min(a.length, b.length);
+    for (let i = 0; i < minLen; i++) {
+      if (a[i] !== b[i]) mismatches++;
     }
-
-    if (onEnd) {
-      utterance.onend = onEnd;
-    }
-
-    window.speechSynthesis.speak(utterance);
-  } catch (error) {
-    console.error("Speech synthesis failed:", error);
-    if (onEnd) onEnd();
+    mismatches += Math.abs(a.length - b.length);
+    if (mismatches <= 1) return true;
   }
+
+  return false;
 }
 
-function playClapSound() {
-  try {
-    clapAudio.currentTime = 0;
-    clapAudio.play().catch(error => {
-      console.error("Clap sound failed:", error);
-    });
-  } catch (error) {
-    console.error("Clap sound failed:", error);
-  }
+function speakText(text, rate = 0.9) {
+  window.speechSynthesis.cancel();
+  const utterance = new SpeechSynthesisUtterance(text);
+  utterance.rate = rate;
+  utterance.pitch = 1;
+  utterance.lang = "en-ZA";
+  window.speechSynthesis.speak(utterance);
 }
 
-function renderBooks() {
+function clearTimers() {
+  clearTimeout(encourageTimer);
+  clearTimeout(promptAfterPauseTimer);
+  clearTimeout(fullRetryTimer);
+}
+
+function setPauseSupportTimers() {
+  clearTimers();
+
+  encourageTimer = setTimeout(() => {
+    if (!isListening) return;
+    const currentWord = currentSentenceWords[currentWordIndex];
+    if (!currentWord) return;
+
+    statusText.textContent = `Try saying ${currentWord}`;
+    speakText(`Try saying ${currentWord}`, 0.82);
+    highlightWords();
+  }, 4000);
+
+  promptAfterPauseTimer = setTimeout(() => {
+    if (!isListening) return;
+    const currentWord = currentSentenceWords[currentWordIndex];
+    if (!currentWord) return;
+
+    statusText.textContent = `Continue with ${currentWord}`;
+    highlightWords();
+  }, 7000);
+
+  fullRetryTimer = setTimeout(() => {
+    if (!isListening) return;
+    statusText.textContent = "Try the whole sentence again.";
+    speakText("Try the whole sentence again.", 0.88);
+  }, 11000);
+}
+
+function buildBooksGrid() {
   booksGrid.innerHTML = "";
 
   const filteredBooks =
-    activeFilter === "all"
+    selectedFilter === "all"
       ? books
-      : books.filter(book => book.level === activeFilter);
+      : books.filter((book) => book.level === selectedFilter);
 
-  filteredBooks.forEach(book => {
+  filteredBooks.forEach((book) => {
+    const actualIndex = books.findIndex((item) => item.id === book.id);
+
     const card = document.createElement("article");
     card.className = "book-card";
 
     card.innerHTML = `
-      <div class="book-cover-wrap">
-        <div class="book-cover">${book.icon}</div>
+      <div class="book-cover">${book.cover}</div>
+      <div class="book-meta">
+        <span class="book-pill">${book.level}</span>
+        <span class="book-pill">${book.theme}</span>
       </div>
-      <div class="book-body">
-        <div class="tags">
-          <span class="tag">${book.level}</span>
-          <span class="tag">${book.theme}</span>
-        </div>
-        <h3 class="book-title">${book.title}</h3>
-        <p class="book-desc">${book.description}</p>
-        <p class="book-meta">${book.sentences.length} sentences</p>
-        <button class="book-open-btn" data-book-id="${book.id}">
-          Open Reader
-        </button>
-      </div>
+      <h3>${book.title}</h3>
+      <p>${book.description}</p>
+      <button class="open-book-btn" data-index="${actualIndex}">Open Book</button>
     `;
 
     booksGrid.appendChild(card);
   });
 
-  document.querySelectorAll(".book-open-btn").forEach(button => {
-    button.addEventListener("click", () => {
-      const bookId = button.getAttribute("data-book-id");
-      const selectedBook = books.find(book => book.id === bookId);
-      if (selectedBook) {
-        openBook(selectedBook);
-      }
+  document.querySelectorAll(".open-book-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      openBook(Number(btn.dataset.index));
     });
   });
 }
 
-function setActiveFilter(filterValue) {
-  activeFilter = filterValue;
-
-  filterChips.forEach(chip => {
-    chip.classList.toggle("active", chip.dataset.filter === filterValue);
-  });
-
-  renderBooks();
-}
-
-function showLibraryView() {
-  stopListening();
-  libraryView.classList.add("active");
-  readerView.classList.remove("active");
-}
-
-function showReaderView() {
-  libraryView.classList.remove("active");
-  readerView.classList.add("active");
-}
-
-function openBook(book) {
-  currentBook = book;
+function openBook(bookIndex) {
+  currentBookIndex = bookIndex;
   currentSentenceIndex = 0;
   currentWordIndex = 0;
-  assistanceCountThisSentence = 0;
-  retryModeForSentence = false;
 
-  readerBookCover.textContent = book.icon;
+  const book = books[currentBookIndex];
+
+  readerBookCover.textContent = book.cover;
   readerLevelTag.textContent = book.level;
   readerThemeTag.textContent = book.theme;
   readerBookTitle.textContent = book.title;
   readerBookDescription.textContent = book.description;
 
-  const bookNumber = books.findIndex(item => item.id === book.id) + 1;
-  bookProgressLabel.textContent = `Book ${bookNumber} of ${books.length}`;
+  libraryView.classList.remove("active");
+  readerView.classList.add("active");
 
   renderSentence();
-  statusText.textContent = "Press Start to begin listening.";
-  showReaderView();
+  statusText.textContent = "Press Start Reading when you are ready.";
 }
 
 function renderSentence() {
-  if (!currentBook) return;
+  stopListening();
 
-  const sentence = currentBook.sentences[currentSentenceIndex];
-  const words = sentence.split(/\s+/).filter(Boolean);
+  const book = books[currentBookIndex];
+  const sentence = book.sentences[currentSentenceIndex];
 
-  sentenceDisplay.innerHTML = "";
-
-  words.forEach((word, index) => {
-    const span = document.createElement("span");
-    span.className = "word pending";
-    span.textContent = word;
-    if (index === 0) {
-      span.classList.remove("pending");
-      span.classList.add("active");
-    }
-    sentenceDisplay.appendChild(span);
-  });
+  currentSentenceWords = sentence.split(/\s+/);
+  currentWordIndex = 0;
 
   sentenceLabel.textContent = `Sentence ${currentSentenceIndex + 1}`;
-  progressText.textContent = `Sentence ${currentSentenceIndex + 1} of ${currentBook.sentences.length}`;
-  currentWordIndex = 0;
+  bookProgressLabel.textContent = `Book ${currentBookIndex + 1} of ${books.length}`;
+  progressText.textContent = `Sentence ${currentSentenceIndex + 1} of ${book.sentences.length}`;
+
+  sentenceDisplay.innerHTML = currentSentenceWords
+    .map((word, index) => {
+      const currentClass = index === 0 ? "current" : "";
+      return `<span class="word ${currentClass}" data-index="${index}">${word}</span>`;
+    })
+    .join(" ");
 }
 
-function updateWordHighlights() {
-  const wordElements = sentenceDisplay.querySelectorAll(".word");
+function highlightWords() {
+  const spans = sentenceDisplay.querySelectorAll(".word");
 
-  wordElements.forEach((wordEl, index) => {
-    wordEl.classList.remove("active", "correct", "pending");
+  spans.forEach((span, index) => {
+    span.classList.remove("read", "current");
 
     if (index < currentWordIndex) {
-      wordEl.classList.add("correct");
+      span.classList.add("read");
     } else if (index === currentWordIndex) {
-      wordEl.classList.add("active");
-    } else {
-      wordEl.classList.add("pending");
+      span.classList.add("current");
     }
   });
 }
 
-function clearSilenceTimer() {
-  if (silenceInterval) {
-    clearInterval(silenceInterval);
-    silenceInterval = null;
+function processTranscript(transcript) {
+  if (!currentSentenceWords.length || !transcript) return;
+
+  const spokenWords = transcript
+    .split(/\s+/)
+    .map((word) => word.trim())
+    .filter(Boolean);
+
+  if (!spokenWords.length) return;
+
+  let scanIndex = currentWordIndex;
+  let matchedAny = false;
+
+  for (let i = 0; i < spokenWords.length && scanIndex < currentSentenceWords.length; i++) {
+    const spoken = spokenWords[i];
+    const expected = currentSentenceWords[scanIndex];
+
+    if (wordsEquivalent(spoken, expected)) {
+      scanIndex++;
+      matchedAny = true;
+    }
+  }
+
+  if (matchedAny && scanIndex > currentWordIndex) {
+    currentWordIndex = scanIndex;
+    highlightWords();
+    setPauseSupportTimers();
+
+    if (currentWordIndex >= currentSentenceWords.length) {
+      statusText.textContent = "Well done! You finished the sentence.";
+      speakText("Well done.", 0.9);
+      stopListening();
+      return;
+    }
+
+    statusText.textContent = `Good. Next word: ${currentSentenceWords[currentWordIndex]}`;
   }
 }
 
-function clearAutoAdvance() {
-  if (autoAdvanceTimeout) {
-    clearTimeout(autoAdvanceTimeout);
-    autoAdvanceTimeout = null;
+function setupRecognition() {
+  const SpeechRecognition =
+    window.SpeechRecognition || window.webkitSpeechRecognition;
+
+  if (!SpeechRecognition) {
+    statusText.textContent =
+      "Speech recognition is not supported in this browser. Please use Chrome or Edge.";
+    return null;
+  }
+
+  const recog = new SpeechRecognition();
+  recog.lang = "en-ZA";
+  recog.continuous = true;
+  recog.interimResults = true;
+  recog.maxAlternatives = 1;
+
+  recog.onstart = () => {
+    isListening = true;
+    statusText.textContent = "Listening... read the sentence aloud.";
+    setPauseSupportTimers();
+  };
+
+  recog.onresult = (event) => {
+    let fullTranscript = "";
+
+    for (let i = 0; i < event.results.length; i++) {
+      fullTranscript += event.results[i][0].transcript + " ";
+    }
+
+    processTranscript(fullTranscript);
+  };
+
+  recog.onerror = (event) => {
+    if (event.error === "no-speech") {
+      statusText.textContent = "I did not hear anything yet. Try reading the sentence.";
+      return;
+    }
+
+    if (event.error === "aborted") return;
+
+    statusText.textContent = `Listening error: ${event.error}`;
+  };
+
+  recog.onend = () => {
+    isListening = false;
+
+    if (shouldRestartRecognition) {
+      try {
+        recog.start();
+      } catch (error) {
+        console.log("Recognition restart blocked:", error);
+      }
+    }
+  };
+
+  return recog;
+}
+
+function startListening() {
+  if (!currentSentenceWords.length) {
+    statusText.textContent = "Open a book first.";
+    return;
+  }
+
+  if (!recognition) {
+    recognition = setupRecognition();
+  }
+
+  if (!recognition) return;
+
+  window.speechSynthesis.cancel();
+  shouldRestartRecognition = true;
+
+  try {
+    recognition.start();
+    statusText.textContent = "Listening... read the sentence aloud.";
+  } catch (error) {
+    statusText.textContent = "Listening is already active. Please start reading.";
   }
 }
 
-function stopRecognitionOnly() {
-  manualStop = true;
+function stopListening() {
+  clearTimers();
+  shouldRestartRecognition = false;
+  isListening = false;
 
   if (recognition) {
     try {
       recognition.stop();
     } catch (error) {
-      console.error("Recognition stop failed:", error);
+      console.log("Recognition stop issue:", error);
     }
   }
-
-  recognitionRunning = false;
-}
-
-function startRecognitionOnly() {
-  if (!recognition) return;
-
-  manualStop = false;
-
-  try {
-    recognition.start();
-  } catch (error) {
-    console.error("Recognition start failed:", error);
-  }
-}
-
-function promptNextWord() {
-  const expectedWord = getExpectedWord();
-  if (!expectedWord) return;
-
-  assistanceCountThisSentence += 1;
-  lastPromptTime = Date.now();
-  promptInProgress = true;
-
-  stopRecognitionOnly();
-  statusText.textContent = `Try saying: "${expectedWord}"`;
-
-  speakText(`Try saying ${expectedWord}`, () => {
-    promptInProgress = false;
-    if (isListeningMode) {
-      startRecognitionOnly();
-      lastSpeechTime = Date.now();
-    }
-  });
-}
-
-function startSilenceTimer() {
-  clearSilenceTimer();
-  lastSpeechTime = Date.now();
-  lastPromptTime = 0;
-
-  silenceInterval = setInterval(() => {
-    if (!isListeningMode || !recognitionRunning || promptInProgress) return;
-    if (!currentBook) return;
-    if (currentWordIndex >= getCurrentSentenceWords().length) return;
-
-    const now = Date.now();
-    const silenceFor = now - lastSpeechTime;
-    const sinceLastPrompt = now - lastPromptTime;
-
-    if (silenceFor >= 4000 && sinceLastPrompt >= 4000) {
-      promptNextWord();
-    }
-  }, 400);
-}
-
-function getTranscriptWordsFromEvent(event) {
-  let transcript = "";
-
-  for (let i = 0; i < event.results.length; i++) {
-    transcript += ` ${event.results[i][0].transcript}`;
-  }
-
-  return transcript
-    .trim()
-    .split(/\s+/)
-    .map(normalizeWord)
-    .filter(Boolean);
-}
-
-function getMatchedPrefixCount(spokenWords, targetWords) {
-  let matchCount = 0;
-
-  for (let i = 0; i < Math.min(spokenWords.length, targetWords.length); i++) {
-    if (spokenWords[i] === normalizeWord(targetWords[i])) {
-      matchCount += 1;
-    } else {
-      break;
-    }
-  }
-
-  return matchCount;
-}
-
-function maybeForceRetrySentence() {
-  if (!retryModeForSentence) return false;
-
-  stopRecognitionOnly();
-  clearSilenceTimer();
-  clearAutoAdvance();
-
-  statusText.textContent = "Try again. Read the whole sentence.";
-
-  speakText("Try again. Read the whole sentence.", () => {
-    currentWordIndex = 0;
-    assistanceCountThisSentence = 0;
-    retryModeForSentence = false;
-    renderSentence();
-    updateWordHighlights();
-
-    if (isListeningMode) {
-      startRecognitionOnly();
-      lastSpeechTime = Date.now();
-      statusText.textContent = "Now read the whole sentence again.";
-    }
-  });
-
-  return true;
-}
-
-function finishSentenceReading() {
-  stopRecognitionOnly();
-  updateWordHighlights();
-  clearSilenceTimer();
-  clearAutoAdvance();
-
-  if (!currentBook) return;
-
-  if (assistanceCountThisSentence >= 2 && !retryModeForSentence) {
-    retryModeForSentence = true;
-    maybeForceRetrySentence();
-    return;
-  }
-
-  if (currentSentenceIndex === currentBook.sentences.length - 1) {
-    statusText.textContent = "Excellent reading. You finished the book!";
-    playClapSound();
-    speakText(`Well done. You finished ${currentBook.title}`);
-  } else {
-    statusText.textContent = "Excellent reading. Moving to the next sentence...";
-    autoAdvanceTimeout = setTimeout(() => {
-      moveToNextSentenceAuto();
-    }, 1200);
-  }
-}
-
-function moveToNextSentenceAuto() {
-  clearAutoAdvance();
-
-  if (!currentBook) return;
-
-  if (currentSentenceIndex < currentBook.sentences.length - 1) {
-    currentSentenceIndex += 1;
-    currentWordIndex = 0;
-    assistanceCountThisSentence = 0;
-    retryModeForSentence = false;
-    renderSentence();
-    updateWordHighlights();
-    statusText.textContent = "Next sentence ready. Start reading.";
-    startListening();
-  } else {
-    statusText.textContent = "Excellent reading. You finished the book!";
-    playClapSound();
-    speakText(`Well done. You finished ${currentBook.title}`);
-  }
-}
-
-function handleRecognitionResult(event) {
-  lastSpeechTime = Date.now();
-
-  const targetWords = getCurrentSentenceWords();
-  const spokenWords = getTranscriptWordsFromEvent(event);
-  const matchedPrefix = getMatchedPrefixCount(spokenWords, targetWords);
-
-  if (matchedPrefix > currentWordIndex) {
-    currentWordIndex = matchedPrefix;
-    updateWordHighlights();
-    statusText.textContent = "Good reading. Keep going.";
-  }
-
-  if (currentWordIndex >= targetWords.length) {
-    finishSentenceReading();
-  }
-}
-
-function setupRecognition() {
-  if (!SpeechRecognition) {
-    statusText.textContent = "Speech recognition is not supported here. Use Chrome or Edge.";
-    return false;
-  }
-
-  recognition = new SpeechRecognition();
-  recognition.lang = "en-US";
-  recognition.continuous = true;
-  recognition.interimResults = true;
-
-  recognition.onstart = () => {
-    recognitionRunning = true;
-    statusText.textContent = "Listening...";
-  };
-
-  recognition.onresult = event => {
-    if (!promptInProgress) {
-      handleRecognitionResult(event);
-    }
-  };
-
-  recognition.onerror = event => {
-    console.error("Speech recognition error:", event.error);
-
-    if (event.error === "not-allowed") {
-      statusText.textContent = "Microphone permission was blocked.";
-    } else if (event.error === "no-speech") {
-      statusText.textContent = "I did not hear anything yet.";
-    } else {
-      statusText.textContent = "Listening issue. Please try again.";
-    }
-  };
-
-  recognition.onend = () => {
-    recognitionRunning = false;
-
-    if (isListeningMode && !manualStop && !promptInProgress && currentBook) {
-      try {
-        recognition.start();
-      } catch (error) {
-        console.error("Recognition restart failed:", error);
-      }
-    }
-  };
-
-  return true;
-}
-
-function startListening() {
-  if (!currentBook) return;
-
-  clearAutoAdvance();
-
-  if (!recognition && !setupRecognition()) {
-    return;
-  }
-
-  stopRecognitionOnly();
-  clearSilenceTimer();
-
-  isListeningMode = true;
-  promptInProgress = false;
-  lastSpeechTime = Date.now();
-  lastPromptTime = 0;
-
-  updateWordHighlights();
-
-  try {
-    manualStop = false;
-    recognition.start();
-    startSilenceTimer();
-    statusText.textContent = "Listening... Read the yellow word and continue.";
-  } catch (error) {
-    console.error("Recognition start failed:", error);
-    statusText.textContent = "Could not start listening. Try again.";
-  }
-}
-
-function stopListening() {
-  isListeningMode = false;
-  promptInProgress = false;
-  clearAutoAdvance();
-  stopRecognitionOnly();
-  clearSilenceTimer();
-  statusText.textContent = "Reading stopped.";
 }
 
 function restartSentence() {
-  stopListening();
+  const book = books[currentBookIndex];
+  if (!book) return;
+
   currentWordIndex = 0;
-  assistanceCountThisSentence = 0;
-  retryModeForSentence = false;
   renderSentence();
-  updateWordHighlights();
-  statusText.textContent = "Sentence restarted. Press Start to begin again.";
+  statusText.textContent = "Sentence restarted. Press Start Reading.";
 }
 
 function nextSentence() {
-  if (!currentBook) return;
+  const book = books[currentBookIndex];
+  if (!book) return;
 
-  stopListening();
-
-  if (currentSentenceIndex < currentBook.sentences.length - 1) {
+  if (currentSentenceIndex < book.sentences.length - 1) {
     currentSentenceIndex += 1;
-    currentWordIndex = 0;
-    assistanceCountThisSentence = 0;
-    retryModeForSentence = false;
     renderSentence();
-    updateWordHighlights();
-    statusText.textContent = "Moved to the next sentence.";
+    statusText.textContent = "Next sentence ready. Press Start Reading.";
   } else {
-    statusText.textContent = "You finished this book. Choose another one or go back to the library.";
-    playClapSound();
+    statusText.textContent = "You reached the last sentence in this book.";
+    speakText("You finished this book. Great reading.", 0.88);
   }
 }
+
+function nextBook() {
+  if (currentBookIndex < books.length - 1) {
+    openBook(currentBookIndex + 1);
+  } else {
+    statusText.textContent = "You have reached the last book in the library.";
+  }
+}
+
+function goBackToLibrary() {
+  stopListening();
+  readerView.classList.remove("active");
+  libraryView.classList.add("active");
+}
+
+filterButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    filterButtons.forEach((btn) => btn.classList.remove("active"));
+    button.classList.add("active");
+    selectedFilter = button.dataset.filter;
+    buildBooksGrid();
+  });
+});
 
 startBtn.addEventListener("click", startListening);
 
 stopBtn.addEventListener("click", () => {
   stopListening();
+  statusText.textContent = "Listening stopped.";
 });
 
 restartBtn.addEventListener("click", restartSentence);
 nextBtn.addEventListener("click", nextSentence);
-backToLibraryBtn.addEventListener("click", showLibraryView);
+nextBookBtn.addEventListener("click", nextBook);
+backToLibraryBtn.addEventListener("click", goBackToLibrary);
 
-filterChips.forEach(chip => {
-  chip.addEventListener("click", () => {
-    setActiveFilter(chip.dataset.filter);
-  });
-});
-
-window.speechSynthesis.onvoiceschanged = () => {
-  window.speechSynthesis.getVoices();
-};
-
-renderBooks();
-showLibraryView();
+buildBooksGrid();
