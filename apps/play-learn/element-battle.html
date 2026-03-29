@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fluent | Element Battle</title>
+  <style>
+    :root{
+      --bg1:#f4f8ff;
+      --bg2:#eefaf7;
+      --card:#ffffff;
+      --ink:#17324d;
+      --muted:#5d748a;
+      --line:#dbe7f2;
+      --blue:#4b8cff;
+      --blue-dark:#2f6fe6;
+      --green:#1fb980;
+      --green-soft:#e9fbf3;
+      --amber:#ffb648;
+      --amber-soft:#fff5df;
+      --red:#ef6b6b;
+      --red-soft:#fff0f0;
+      --purple:#7a68f2;
+      --shadow:0 18px 40px rgba(32, 67, 110, 0.12);
+      --radius:24px;
+    }
+
+    *{ box-sizing:border-box; }
+
+    body{
+      margin:0;
+      font-family:Arial, Helvetica, sans-serif;
+      color:var(--ink);
+      background:
+        radial-gradient(circle at top left, #dff1ff 0%, transparent 30%),
+        radial-gradient(circle at bottom right, #dcfff2 0%, transparent 28%),
+        linear-gradient(135deg, var(--bg1), var(--bg2));
+      min-height:100vh;
+    }
+
+    .page-shell{
+      width:min(1000px, calc(100% - 28px));
+      margin:22px auto 40px;
+    }
+
+    .topbar{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:16px;
+      flex-wrap:wrap;
+      margin-bottom:18px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+
+    .brand-badge{
+      width:54px;
+      height:54px;
+      border-radius:18px;
+      display:grid;
+      place-items:center;
+      background:linear-gradient(135deg, #5d92ff, #7cddbc);
+      color:#fff;
+      font-size:26px;
+      box-shadow:var(--shadow);
+    }
+
+    .brand-text h1{
+      margin:0;
+      font-size:1.5rem;
+      line-height:1.1;
+    }
+
+    .brand-text p{
+      margin:4px 0 0;
+      color:var(--muted);
+      font-size:0.95rem;
+    }
+
+    .pill-row{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    .pill{
+      border:none;
+      border-radius:999px;
+      padding:12px 16px;
+      background:#fff;
+      color:var(--ink);
+      font-weight:700;
+      box-shadow:0 10px 24px rgba(38, 76, 122, 0.08);
+      cursor:pointer;
+    }
+
+    .pill:hover{
+      transform:translateY(-1px);
+    }
+
+    .hero{
+      background:rgba(255,255,255,0.78);
+      border:1px solid rgba(255,255,255,0.8);
+      backdrop-filter:blur(8px);
+      border-radius:32px;
+      box-shadow:var(--shadow);
+      padding:28px;
+      display:grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      gap:20px;
+      align-items:center;
+      margin-bottom:20px;
+    }
+
+    .hero h2{
+      margin:0 0 10px;
+      font-size:2rem;
+      line-height:1.1;
+    }
+
+    .hero p{
+      margin:0;
+      color:var(--muted);
+      line-height:1.6;
+      font-size:1rem;
+      max-width:60ch;
+    }
+
+    .hero-art{
+      min-height:180px;
+      border-radius:24px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.75), rgba(255,255,255,0.9)),
+        linear-gradient(135deg, #9dc1ff, #b6f0da);
+      position:relative;
+      overflow:hidden;
+      border:1px solid #e6eff8;
+    }
+
+    .atom{
+      position:absolute;
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      font-weight:800;
+      color:#fff;
+      box-shadow:0 8px 18px rgba(38, 76, 122, 0.15);
+    }
+
+    .a1{ width:72px;height:72px;left:22px;top:28px;background:#4b8cff; }
+    .a2{ width:82px;height:82px;right:28px;top:22px;background:#1fb980; }
+    .a3{ width:64px;height:64px;left:110px;bottom:28px;background:#ffb648; }
+    .a4{ width:66px;height:66px;right:95px;bottom:18px;background:#7a68f2; }
+
+    .board{
+      display:grid;
+      grid-template-columns: 280px 1fr;
+      gap:20px;
+    }
+
+    .panel,
+    .game-card{
+      background:var(--card);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      border:1px solid #edf3f8;
+    }
+
+    .panel{
+      padding:18px;
+    }
+
+    .panel h3{
+      margin:0 0 12px;
+      font-size:1.05rem;
+    }
+
+    .stats{
+      display:grid;
+      gap:12px;
+    }
+
+    .stat-box{
+      border-radius:18px;
+      padding:14px 16px;
+      background:#f8fbff;
+      border:1px solid var(--line);
+    }
+
+    .stat-label{
+      font-size:0.85rem;
+      color:var(--muted);
+      margin-bottom:6px;
+    }
+
+    .stat-value{
+      font-size:1.35rem;
+      font-weight:800;
+    }
+
+    .mini-note{
+      margin-top:16px;
+      border-radius:18px;
+      padding:14px;
+      background:var(--amber-soft);
+      border:1px solid #ffe1a8;
+      color:#7a5b19;
+      line-height:1.5;
+      font-size:0.95rem;
+    }
+
+    .game-card{
+      padding:24px;
+    }
+
+    .question-top{
+      display:flex;
+      justify-content:space-between;
+      gap:14px;
+      align-items:flex-start;
+      flex-wrap:wrap;
+      margin-bottom:16px;
+    }
+
+    .level-chip{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 14px;
+      border-radius:999px;
+      background:#eef4ff;
+      border:1px solid #d8e5ff;
+      color:#2f6fe6;
+      font-weight:800;
+    }
+
+    .question-count{
+      color:var(--muted);
+      font-weight:700;
+      padding-top:10px;
+    }
+
+    .question-box{
+      background:linear-gradient(180deg, #f9fcff, #f4fbf8);
+      border:1px solid var(--line);
+      border-radius:24px;
+      padding:22px;
+      margin-bottom:18px;
+    }
+
+    .question-label{
+      color:var(--muted);
+      font-size:0.92rem;
+      margin-bottom:8px;
+      font-weight:700;
+      letter-spacing:0.2px;
+    }
+
+    .question-text{
+      font-size:1.45rem;
+      font-weight:800;
+      line-height:1.35;
+      margin:0;
+    }
+
+    .controls{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-bottom:18px;
+    }
+
+    .btn{
+      border:none;
+      border-radius:16px;
+      padding:13px 16px;
+      font-size:0.98rem;
+      font-weight:800;
+      cursor:pointer;
+      transition:transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+    }
+
+    .btn:hover{ transform:translateY(-1px); }
+    .btn:disabled{
+      opacity:0.55;
+      cursor:not-allowed;
+      transform:none;
+    }
+
+    .btn-primary{
+      background:linear-gradient(135deg, var(--blue), var(--blue-dark));
+      color:#fff;
+      box-shadow:0 12px 24px rgba(75, 140, 255, 0.25);
+    }
+
+    .btn-secondary{
+      background:#fff;
+      color:var(--ink);
+      border:1px solid var(--line);
+    }
+
+    .btn-success{
+      background:linear-gradient(135deg, var(--green), #17a873);
+      color:#fff;
+      box-shadow:0 12px 24px rgba(31, 185, 128, 0.23);
+    }
+
+    .answers{
+      display:grid;
+      gap:12px;
+    }
+
+    .answer-btn{
+      width:100%;
+      text-align:left;
+      padding:16px 18px;
+      border-radius:18px;
+      border:2px solid #e5eef7;
+      background:#fff;
+      color:var(--ink);
+      font-size:1rem;
+      font-weight:700;
+      cursor:pointer;
+      transition:transform 0.15s ease, border-color 0.2s ease, background 0.2s ease;
+    }
+
+    .answer-btn:hover{
+      transform:translateY(-1px);
+      border-color:#bcd4ff;
+      background:#f8fbff;
+    }
+
+    .answer-btn.correct{
+      background:var(--green-soft);
+      border-color:#8adbbd;
+      color:#116a4b;
+    }
+
+    .answer-btn.wrong{
+      background:var(--red-soft);
+      border-color:#f2a1a1;
+      color:#a63d3d;
+    }
+
+    .answer-btn.reveal{
+      background:#eef8f3;
+      border-color:#91d8b9;
+      color:#116a4b;
+    }
+
+    .feedback{
+      margin-top:18px;
+      min-height:72px;
+      border-radius:20px;
+      padding:16px 18px;
+      border:1px dashed #d8e5f1;
+      background:#fbfdff;
+      line-height:1.55;
+    }
+
+    .feedback strong{
+      display:block;
+      margin-bottom:6px;
+      font-size:1rem;
+    }
+
+    .feedback.good{
+      background:var(--green-soft);
+      border-color:#a8e5cb;
+      color:#145940;
+    }
+
+    .feedback.try{
+      background:var(--amber-soft);
+      border-color:#ffd68b;
+      color:#7c5a12;
+    }
+
+    .feedback.done{
+      background:#eef4ff;
+      border-color:#c8dafc;
+      color:#264f9f;
+    }
+
+    .footer-actions{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-top:18px;
+    }
+
+    .tiny{
+      color:var(--muted);
+      font-size:0.9rem;
+      line-height:1.5;
+    }
+
+    @media (max-width: 860px){
+      .hero,
+      .board{
+        grid-template-columns:1fr;
+      }
+
+      .hero-art{
+        min-height:150px;
+      }
+    }
+
+    @media (max-width: 560px){
+      .hero h2{
+        font-size:1.55rem;
+      }
+
+      .question-text{
+        font-size:1.18rem;
+      }
+
+      .game-card,
+      .panel,
+      .hero{
+        padding:18px;
+      }
+
+      .brand-text h1{
+        font-size:1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-badge">⚛️</div>
+        <div class="brand-text">
+          <h1>Fluent Science</h1>
+          <p>Element Battle — learn the periodic table through play</p>
+        </div>
+      </div>
+
+      <div class="pill-row">
+        <button class="pill" id="toggleSoundBtn">🔊 Sound: On</button>
+        <button class="pill" id="restartTopBtn">↺ Restart</button>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div>
+        <h2>Element Battle</h2>
+        <p>
+          Read the clue, choose the best answer, and build your chemistry confidence.
+          This game gives gentle support, reads questions aloud, and helps learners
+          understand element names, symbols, groups, and properties.
+        </p>
+      </div>
+
+      <div class="hero-art" aria-hidden="true">
+        <div class="atom a1">H</div>
+        <div class="atom a2">O</div>
+        <div class="atom a3">Fe</div>
+        <div class="atom a4">Ne</div>
+      </div>
+    </section>
+
+    <section class="board">
+      <aside class="panel">
+        <h3>Battle Progress</h3>
+
+        <div class="stats">
+          <div class="stat-box">
+            <div class="stat-label">Score</div>
+            <div class="stat-value" id="scoreValue">0</div>
+          </div>
+
+          <div class="stat-box">
+            <div class="stat-label">Correct Answers</div>
+            <div class="stat-value" id="correctValue">0</div>
+          </div>
+
+          <div class="stat-box">
+            <div class="stat-label">Question</div>
+            <div class="stat-value"><span id="currentValue">1</span>/<span id="totalValue">10</span></div>
+          </div>
+        </div>
+
+        <div class="mini-note">
+          <strong>Fluent tip:</strong><br />
+          Tap <b>Read Question</b> to hear the clue aloud. Learners can listen first,
+          then answer with confidence.
+        </div>
+      </aside>
+
+      <main class="game-card">
+        <div class="question-top">
+          <div class="level-chip">🧪 Element Battle Round</div>
+          <div class="question-count" id="questionCountText">Question 1 of 10</div>
+        </div>
+
+        <div class="question-box">
+          <div class="question-label">Read and choose the best answer</div>
+          <p class="question-text" id="questionText">Loading question...</p>
+        </div>
+
+        <div class="controls">
+          <button class="btn btn-secondary" id="readBtn">🔊 Read Question</button>
+          <button class="btn btn-secondary" id="hintBtn">💡 Show Hint</button>
+          <button class="btn btn-success" id="nextBtn" disabled>➡ Next Question</button>
+        </div>
+
+        <div class="answers" id="answersWrap"></div>
+
+        <div class="feedback" id="feedbackBox">
+          <strong>Ready?</strong>
+          Choose an answer to begin the battle.
+        </div>
+
+        <div class="footer-actions">
+          <div class="tiny">
+            Gentle marking: learners can try, listen, and continue without harsh feedback.
+          </div>
+          <button class="btn btn-primary" id="restartBottomBtn">Start Again</button>
+        </div>
+      </main>
+    </section>
+  </div>
+
+  <script>
+    const QUESTIONS = [
+      {
+        question: "Which element has the symbol H?",
+        options: ["Helium", "Hydrogen", "Hafnium", "Mercury"],
+        answer: "Hydrogen",
+        hint: "It is the lightest element and is number 1 on the periodic table.",
+        explain: "Hydrogen has the symbol H. It is the first element on the periodic table."
+      },
+      {
+        question: "Which of these elements is a noble gas?",
+        options: ["Oxygen", "Sodium", "Neon", "Iron"],
+        answer: "Neon",
+        hint: "Noble gases are found on the far right side of the periodic table.",
+        explain: "Neon is a noble gas. It is often used in bright signs."
+      },
+      {
+        question: "Which element is a metal?",
+        options: ["Carbon", "Sulfur", "Iron", "Chlorine"],
+        answer: "Iron",
+        hint: "This element is strong and is used to make steel.",
+        explain: "Iron is a metal. Metals are usually shiny, strong, and good conductors."
+      },
+      {
+        question: "Which element do humans need to breathe?",
+        options: ["Oxygen", "Gold", "Helium", "Calcium"],
+        answer: "Oxygen",
+        hint: "This gas is in the air and is important for life.",
+        explain: "Oxygen is the element humans need for breathing."
+      },
+      {
+        question: "What is the symbol for sodium?",
+        options: ["So", "S", "Na", "Sd"],
+        answer: "Na",
+        hint: "Its symbol comes from the Latin word natrium.",
+        explain: "Sodium has the symbol Na."
+      },
+      {
+        question: "Which element is a non-metal?",
+        options: ["Copper", "Magnesium", "Carbon", "Aluminium"],
+        answer: "Carbon",
+        hint: "This element is found in living things and in pencil 'lead'.",
+        explain: "Carbon is a non-metal and is very important in life processes."
+      },
+      {
+        question: "Which element is a liquid metal at room temperature?",
+        options: ["Mercury", "Silver", "Calcium", "Zinc"],
+        answer: "Mercury",
+        hint: "This shiny element was once used in thermometers.",
+        explain: "Mercury is a metal that is liquid at room temperature."
+      },
+      {
+        question: "Which element has the symbol Au?",
+        options: ["Silver", "Argon", "Gold", "Aluminium"],
+        answer: "Gold",
+        hint: "This precious metal is often used in jewellery.",
+        explain: "Gold has the symbol Au."
+      },
+      {
+        question: "Which element is found in table salt together with sodium?",
+        options: ["Nitrogen", "Chlorine", "Helium", "Iron"],
+        answer: "Chlorine",
+        hint: "Table salt is sodium chloride.",
+        explain: "Table salt is made of sodium and chlorine."
+      },
+      {
+        question: "Which element is needed for strong bones and teeth?",
+        options: ["Calcium", "Neon", "Hydrogen", "Copper"],
+        answer: "Calcium",
+        hint: "Milk is a common source of this element.",
+        explain: "Calcium is important for healthy bones and teeth."
+      }
+    ];
+
+    let soundOn = true;
+    let currentIndex = 0;
+    let score = 0;
+    let correctCount = 0;
+    let answered = false;
+
+    const scoreValue = document.getElementById("scoreValue");
+    const correctValue = document.getElementById("correctValue");
+    const currentValue = document.getElementById("currentValue");
+    const totalValue = document.getElementById("totalValue");
+    const questionCountText = document.getElementById("questionCountText");
+    const questionText = document.getElementById("questionText");
+    const answersWrap = document.getElementById("answersWrap");
+    const feedbackBox = document.getElementById("feedbackBox");
+    const nextBtn = document.getElementById("nextBtn");
+    const readBtn = document.getElementById("readBtn");
+    const hintBtn = document.getElementById("hintBtn");
+    const toggleSoundBtn = document.getElementById("toggleSoundBtn");
+    const restartTopBtn = document.getElementById("restartTopBtn");
+    const restartBottomBtn = document.getElementById("restartBottomBtn");
+
+    totalValue.textContent = QUESTIONS.length;
+
+    function speakText(text) {
+      if (!soundOn || !("speechSynthesis" in window)) return;
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.rate = 0.95;
+      utterance.pitch = 1;
+      utterance.volume = 1;
+      window.speechSynthesis.speak(utterance);
+    }
+
+    function shuffleArray(arr) {
+      const copy = [...arr];
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+
+    function updateStats() {
+      scoreValue.textContent = score;
+      correctValue.textContent = correctCount;
+      currentValue.textContent = Math.min(currentIndex + 1, QUESTIONS.length);
+      questionCountText.textContent = currentIndex < QUESTIONS.length
+        ? `Question ${currentIndex + 1} of ${QUESTIONS.length}`
+        : `Completed ${QUESTIONS.length} of ${QUESTIONS.length}`;
+    }
+
+    function setFeedback(type, title, text) {
+      feedbackBox.className = "feedback";
+      if (type) feedbackBox.classList.add(type);
+      feedbackBox.innerHTML = `<strong>${title}</strong>${text}`;
+    }
+
+    function renderQuestion() {
+      if (currentIndex >= QUESTIONS.length) {
+        showFinalScreen();
+        return;
+      }
+
+      answered = false;
+      nextBtn.disabled = true;
+      hintBtn.disabled = false;
+
+      const item = QUESTIONS[currentIndex];
+      questionText.textContent = item.question;
+      answersWrap.innerHTML = "";
+
+      const shuffledOptions = shuffleArray(item.options);
+      shuffledOptions.forEach(option => {
+        const btn = document.createElement("button");
+        btn.className = "answer-btn";
+        btn.textContent = option;
+        btn.addEventListener("click", () => handleAnswer(option, btn));
+        answersWrap.appendChild(btn);
+      });
+
+      setFeedback("", "Ready?", "Choose the best answer.");
+      updateStats();
+    }
+
+    function handleAnswer(selected, clickedBtn) {
+      if (answered) return;
+
+      answered = true;
+      nextBtn.disabled = false;
+      hintBtn.disabled = true;
+
+      const item = QUESTIONS[currentIndex];
+      const allButtons = [...document.querySelectorAll(".answer-btn")];
+
+      allButtons.forEach(btn => {
+        btn.disabled = true;
+        if (btn.textContent === item.answer) {
+          btn.classList.add("reveal");
+        }
+      });
+
+      if (selected === item.answer) {
+        clickedBtn.classList.remove("reveal");
+        clickedBtn.classList.add("correct");
+        score += 10;
+        correctCount += 1;
+        setFeedback("good", "Correct! 🎉", item.explain);
+        speakText(`Correct. ${item.explain}`);
+      } else {
+        clickedBtn.classList.add("wrong");
+        score += 2;
+        setFeedback("try", "Good try 🌟", `The correct answer is <b>${item.answer}</b>. ${item.explain}`);
+        speakText(`Good try. The correct answer is ${item.answer}. ${item.explain}`);
+      }
+
+      updateStats();
+    }
+
+    function showHint() {
+      if (currentIndex >= QUESTIONS.length) return;
+      const item = QUESTIONS[currentIndex];
+      setFeedback("try", "Hint 💡", item.hint);
+      speakText(`Hint. ${item.hint}`);
+    }
+
+    function nextQuestion() {
+      currentIndex += 1;
+      renderQuestion();
+    }
+
+    function showFinalScreen() {
+      questionText.textContent = "Battle complete!";
+      answersWrap.innerHTML = "";
+      nextBtn.disabled = true;
+      hintBtn.disabled = true;
+
+      let message = "";
+      if (correctCount === QUESTIONS.length) {
+        message = "Amazing work! You got every question correct.";
+      } else if (correctCount >= 7) {
+        message = "Great job! You know many element facts already.";
+      } else if (correctCount >= 4) {
+        message = "Well done. Keep practising and your chemistry skills will grow.";
+      } else {
+        message = "Good effort. Listen, read, and play again to grow stronger.";
+      }
+
+      setFeedback(
+        "done",
+        "Finished ⚛️",
+        `${message}<br><br><b>Final score:</b> ${score}<br><b>Correct answers:</b> ${correctCount} out of ${QUESTIONS.length}`
+      );
+
+      updateStats();
+      speakText(`Battle complete. Your score is ${score}. You answered ${correctCount} out of ${QUESTIONS.length} correctly. ${message}`);
+    }
+
+    function restartGame() {
+      window.speechSynthesis.cancel();
+      currentIndex = 0;
+      score = 0;
+      correctCount = 0;
+      answered = false;
+      renderQuestion();
+    }
+
+    readBtn.addEventListener("click", () => {
+      if (currentIndex < QUESTIONS.length) {
+        speakText(QUESTIONS[currentIndex].question);
+      }
+    });
+
+    hintBtn.addEventListener("click", showHint);
+    nextBtn.addEventListener("click", nextQuestion);
+
+    toggleSoundBtn.addEventListener("click", () => {
+      soundOn = !soundOn;
+      toggleSoundBtn.textContent = soundOn ? "🔊 Sound: On" : "🔇 Sound: Off";
+      if (!soundOn && "speechSynthesis" in window) {
+        window.speechSynthesis.cancel();
+      }
+    });
+
+    restartTopBtn.addEventListener("click", restartGame);
+    restartBottomBtn.addEventListener("click", restartGame);
+
+    renderQuestion();
+  </script>
+</body>
+</html>

@@ -1,0 +1,1355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fluent | Debugging More Than Code</title>
+  <style>
+    :root{
+      --bg: #f4f1eb;
+      --panel: #f8f8f8;
+      --panel-strong: #ffffff;
+      --text: #1a1a1a;
+      --muted: #5f6368;
+      --line: #dddddd;
+      --purple: #6d4aff;
+      --purple-soft: #e9e2ff;
+      --green: #166534;
+      --green-soft: #dcfce7;
+      --gold: #b45309;
+      --gold-soft: #fef3c7;
+      --blue: #3358d4;
+      --blue-soft: #dfe7ff;
+      --shadow: 0 10px 28px rgba(0,0,0,0.05);
+      --radius-xl: 30px;
+      --radius-lg: 24px;
+      --radius-md: 18px;
+      --radius-sm: 14px;
+      --max: 1220px;
+    }
+
+    *{ box-sizing:border-box; }
+    html{ scroll-behavior:smooth; }
+
+    body{
+      margin:0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+    }
+
+    .topbar{
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(244,241,235,0.96);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid #e5e0d8;
+    }
+
+    .topbar-inner{
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 14px 18px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      position: relative;
+    }
+
+    .nav-btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      text-decoration:none;
+      border:1px solid #d7d7d7;
+      background:#f7f7f5;
+      color:#111;
+      border-radius:16px;
+      padding:12px 16px;
+      font-size:0.98rem;
+      font-weight:500;
+      transition:all 0.18s ease;
+      cursor:pointer;
+    }
+
+    .nav-btn:hover:not(:disabled){
+      background:#fff;
+      transform:translateY(-1px);
+    }
+
+    .nav-btn:disabled{
+      opacity:0.5;
+      cursor:not-allowed;
+    }
+
+    .nav-status{
+      font-size:0.98rem;
+      color:#5b5b5b;
+      font-weight:500;
+    }
+
+    .chapters-wrap{
+      position: relative;
+      display: inline-block;
+    }
+
+    .chapters-dropdown{
+      position:absolute;
+      top:calc(100% + 10px);
+      left:0;
+      min-width:220px;
+      background:#fff;
+      border:1px solid #dddddd;
+      border-radius:18px;
+      box-shadow:0 18px 40px rgba(0,0,0,0.10);
+      padding:10px;
+      display:none;
+      z-index:80;
+    }
+
+    .chapters-dropdown.show{
+      display:block;
+    }
+
+    .chapter-option{
+      width:100%;
+      text-align:left;
+      border:none;
+      background:#fff;
+      padding:12px 14px;
+      border-radius:12px;
+      font-size:0.98rem;
+      cursor:pointer;
+      color:#1a1a1a;
+    }
+
+    .chapter-option:hover{
+      background:#f5f3ff;
+      color:var(--purple);
+    }
+
+    .chapter-option.active{
+      background:#eee9ff;
+      color:var(--purple);
+      font-weight:700;
+    }
+
+    .page{
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 20px 18px 60px;
+    }
+
+    .hero{
+      background: #f8f8f8;
+      border: 1px solid #e6e6e6;
+      border-radius: 32px;
+      padding: 34px 26px 20px;
+      box-shadow: var(--shadow);
+      margin-bottom: 22px;
+    }
+
+    .hero h1{
+      margin: 0 0 10px;
+      font-size: clamp(2.2rem, 5vw, 4rem);
+      line-height: 1.05;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+    }
+
+    .hero-subtitle{
+      margin: 0 0 6px;
+      color: #41506a;
+      font-size: 1.05rem;
+    }
+
+    .hero-meta{
+      margin: 0 0 10px;
+      color: #41506a;
+      font-size: 1rem;
+    }
+
+    .progress-track{
+      width:100%;
+      height:14px;
+      border-radius:999px;
+      background:#e2e2e2;
+      overflow:hidden;
+      margin-top:8px;
+    }
+
+    .progress-fill{
+      width:25%;
+      height:100%;
+      background: linear-gradient(90deg, #7c3aed 0%, #6d28d9 100%);
+      border-radius:999px;
+      transition: width 0.25s ease;
+    }
+
+    .controls{
+      background:#f8f8f8;
+      border:1px solid #e6e6e6;
+      border-radius:24px;
+      padding:18px 22px 22px;
+      box-shadow: var(--shadow);
+      margin-bottom:24px;
+    }
+
+    .reader-controls{
+      display:flex;
+      flex-wrap:wrap;
+      gap:14px;
+      align-items:center;
+    }
+
+    .reader-btn{
+      border:1px solid #d6dbe4;
+      background:#f7f7f5;
+      color:#2b2b2b;
+      border-radius:16px;
+      padding:12px 20px;
+      font-size:0.98rem;
+      font-weight:500;
+      cursor:pointer;
+      transition:all 0.18s ease;
+    }
+
+    .reader-btn:hover:not(:disabled){
+      background:#ffffff;
+      transform:translateY(-1px);
+    }
+
+    .reader-btn:disabled{
+      opacity:0.45;
+      cursor:not-allowed;
+    }
+
+    .reader-btn.primary{
+      background:#ffffff;
+      color:#000;
+    }
+
+    .divider{
+      height:1px;
+      background:#e4e4e4;
+      margin-top:20px;
+    }
+
+    .chapter-panel{
+      background: #f8f8f8;
+      border: 1px solid #e6e6e6;
+      border-radius: 30px;
+      padding: 28px 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .chapter-card{ display:none; }
+    .chapter-card.active{ display:block; }
+
+    .chapter-badge{
+      display:inline-block;
+      margin-bottom:14px;
+      padding:10px 16px;
+      border-radius:999px;
+      background: var(--blue-soft);
+      color: var(--blue);
+      font-size:0.9rem;
+      font-weight:800;
+      letter-spacing:0.2px;
+    }
+
+    .chapter-title{
+      margin:0 0 14px;
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      line-height:1.15;
+      font-weight:800;
+    }
+
+    .chapter-intro{
+      font-size:1.05rem;
+      color:#222;
+      margin-bottom:18px;
+    }
+
+    .reading-block{
+      margin-bottom:24px;
+    }
+
+    .reading-block p{
+      margin:0 0 18px;
+      font-size:1.05rem;
+    }
+
+    .quote-line{
+      margin: 14px 0 20px;
+      padding: 16px 18px;
+      border-left: 4px solid var(--purple);
+      background: #f7f3ff;
+      border-radius: 0 12px 12px 0;
+      font-weight: 700;
+      color: #4b2bb6;
+    }
+
+    .question-box,
+    .vocab-box,
+    .summary-box{
+      margin-top: 18px;
+      padding: 20px;
+      border-radius: 20px;
+      border: 1px solid #e6e6e6;
+      background: #fcfcfc;
+    }
+
+    .question-box{
+      background: linear-gradient(180deg, #fcfcfc 0%, #fafafa 100%);
+    }
+
+    .vocab-box{
+      background: linear-gradient(180deg, #faf8ff 0%, #f7f3ff 100%);
+    }
+
+    .summary-box{
+      background: linear-gradient(180deg, #f8fff9 0%, #fbfffc 100%);
+    }
+
+    .box-title{
+      margin:0 0 10px;
+      font-size:1.08rem;
+      font-weight:800;
+    }
+
+    .question-label{
+      font-weight:800;
+      color:#14532d;
+      margin-top:16px;
+      margin-bottom:8px;
+      font-size:1rem;
+    }
+
+    .answer-space{
+      width:100%;
+      margin-top:6px;
+      margin-bottom:18px;
+      padding:14px;
+      border-radius:14px;
+      background:#ffffff;
+      border:1px dashed #cfd7e3;
+      min-height:95px;
+      resize:vertical;
+      font:inherit;
+      color:var(--text);
+    }
+
+    .answer-space.large{
+      min-height:145px;
+    }
+
+    .answer-space:focus{
+      outline:none;
+      border-color:var(--purple);
+      box-shadow:0 0 0 3px rgba(109,74,255,0.10);
+    }
+
+    .chapter-nav{
+      display:flex;
+      justify-content:space-between;
+      gap:14px;
+      margin-top:26px;
+      flex-wrap:wrap;
+    }
+
+    .chapter-nav .nav-btn{
+      min-width:170px;
+    }
+
+    .vocab-inline{
+      color: var(--purple);
+      font-weight: 800;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .vocab-inline:hover{
+      text-decoration: underline;
+    }
+
+    .vocab-list{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap:12px;
+      margin-top:12px;
+    }
+
+    .vocab-item{
+      background:#fff;
+      border:1px solid #e3e3e3;
+      border-radius:14px;
+      padding:14px;
+    }
+
+    .vocab-item strong{
+      display:block;
+      margin-bottom:6px;
+      color:var(--purple);
+      font-size:1rem;
+    }
+
+    .vocab-item .pronounce{
+      color:#666;
+      margin-bottom:6px;
+      font-size:0.95rem;
+    }
+
+    .footer-note{
+      margin-top:22px;
+      text-align:center;
+      color:#6b7280;
+      font-size:0.95rem;
+    }
+
+    .toast{
+      position:fixed;
+      right:18px;
+      bottom:18px;
+      background:#111827;
+      color:#fff;
+      padding:12px 16px;
+      border-radius:12px;
+      font-size:0.92rem;
+      font-weight:700;
+      box-shadow:0 14px 32px rgba(15,23,42,0.25);
+      opacity:0;
+      transform:translateY(12px);
+      pointer-events:none;
+      transition:0.25s ease;
+      z-index:120;
+    }
+
+    .toast.show{
+      opacity:1;
+      transform:translateY(0);
+    }
+
+    .dictionary-modal{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,0.18);
+      display:none;
+      align-items:flex-start;
+      justify-content:center;
+      padding:90px 18px 18px;
+      z-index:100;
+    }
+
+    .dictionary-modal.show{
+      display:flex;
+    }
+
+    .dictionary-card{
+      width:min(760px, 100%);
+      background:#fff;
+      border:1px solid #dcdcdc;
+      border-radius:20px;
+      box-shadow:0 20px 50px rgba(0,0,0,0.12);
+      padding:20px 20px 16px;
+    }
+
+    .dictionary-top{
+      display:flex;
+      justify-content:space-between;
+      gap:18px;
+      align-items:flex-start;
+      margin-bottom:6px;
+    }
+
+    .dictionary-word{
+      margin:0;
+      font-size:2rem;
+      line-height:1.05;
+      font-weight:800;
+    }
+
+    .dictionary-close{
+      border:1px solid #d4d4d4;
+      background:#f7f7f5;
+      color:#111;
+      border-radius:14px;
+      padding:10px 14px;
+      cursor:pointer;
+      font-size:0.95rem;
+    }
+
+    .dictionary-close:hover{
+      background:#fff;
+    }
+
+    .dictionary-body p{
+      margin:0 0 10px;
+      font-size:1rem;
+      color:#555;
+    }
+
+    .dictionary-body strong{
+      color:#555;
+    }
+
+    @media (max-width: 760px){
+      .topbar-inner{ gap:10px; }
+      .nav-btn{
+        padding:10px 14px;
+        font-size:0.92rem;
+      }
+      .hero{ padding:24px 16px 18px; }
+      .controls, .chapter-panel{ padding:18px 14px; }
+      .reader-btn{
+        width:100%;
+        text-align:left;
+      }
+      .chapter-nav{
+        flex-direction:column;
+      }
+      .chapter-nav .nav-btn{
+        width:100%;
+      }
+      .dictionary-modal{
+        padding-top:70px;
+      }
+      .dictionary-word{
+        font-size:1.6rem;
+      }
+      .chapters-dropdown{
+        min-width:200px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="nav-btn" href="./library.html">← Back</a>
+      <button class="nav-btn" id="howItWorksBtn" type="button">How This Works</button>
+
+      <div class="chapters-wrap">
+        <button class="nav-btn" id="chaptersBtn" type="button">Chapters</button>
+        <div class="chapters-dropdown" id="chaptersDropdown">
+          <button class="chapter-option active" data-gochapter="1" type="button">Chapter 1 — The Problem Begins</button>
+          <button class="chapter-option" data-gochapter="2" type="button">Chapter 2 — Thinking Like a Debugger</button>
+          <button class="chapter-option" data-gochapter="3" type="button">Chapter 3 — Finding the Real Cause</button>
+          <button class="chapter-option" data-gochapter="4" type="button">Chapter 4 — Debugging as a Life Skill</button>
+        </div>
+      </div>
+
+      <button class="nav-btn" id="dictionaryBtn" type="button">Dictionary</button>
+      <button class="nav-btn" id="topNextChapterBtn" type="button">Next Chapter →</button>
+      <span class="nav-status" id="readyStatus">Ready</span>
+    </div>
+  </header>
+
+  <main class="page">
+    <section class="hero">
+      <h1 id="heroTitle">Debugging More Than Code</h1>
+      <p class="hero-subtitle" id="heroSubtitle">Digital Literacy Reader • Senior Phase / FET</p>
+      <p class="hero-meta" id="heroMeta">Chapter 1 of 4</p>
+      <div class="progress-track" aria-label="Reading progress">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+    </section>
+
+    <section class="controls" aria-label="Reading controls">
+      <div class="reader-controls">
+        <button class="reader-btn primary" id="recordBtn" type="button">● Record</button>
+        <button class="reader-btn" id="stopRecordBtn" type="button" disabled>■ Stop</button>
+        <button class="reader-btn" id="playRecordingBtn" type="button" disabled>▶ Play</button>
+        <button class="reader-btn" id="clearRecordingBtn" type="button" disabled>⌫ Clear</button>
+        <button class="reader-btn" id="downloadRecordingBtn" type="button" disabled>⬇ Download</button>
+      </div>
+      <div class="divider"></div>
+    </section>
+
+    <section class="chapter-panel">
+      <article class="chapter-card active" data-chapter="1">
+        <span class="chapter-badge">Chapter 1</span>
+        <h2 class="chapter-title">The Problem Begins</h2>
+        <p class="chapter-intro">
+          This chapter introduces the challenge. A developer is working productively,
+          then suddenly notices that the laptop is slowing down.
+        </p>
+
+        <div class="reading-block">
+          <p>
+            Most people think building a software <span class="vocab-inline" data-word="application">application</span> is about writing code.
+            They imagine <span class="vocab-inline" data-word="developer">developers</span> typing quickly, solving problems with ease.
+            What they do not always see are the difficult moments when things stop
+            working and the real challenge becomes the person behind the screen.
+          </p>
+
+          <p>
+            This is a story about one of those moments. It started as a normal
+            working session. A <span class="vocab-inline" data-word="developer">developer</span> was building an educational application
+            called <strong>Fluent</strong>, a platform designed to help learners improve
+            their reading skills using modern AI tools.
+          </p>
+
+          <p>
+            Several tools were open at the same time: a code editor, a browser,
+            AI assistants, and a word processor for planning content. At first,
+            everything felt <span class="vocab-inline" data-word="productive">productive</span>. Then the laptop started to slow down.
+          </p>
+
+          <p>
+            The signs were small at first. Typed letters appeared slowly. Clicks
+            took longer to respond. Then the desktop background suddenly turned black,
+            although the icons were still there. The system looked like it was still
+            working, but it was struggling.
+          </p>
+
+          <div class="quote-line">
+            “My first thought was simple: What did I break?”
+          </div>
+        </div>
+
+        <div class="question-box">
+          <p class="box-title">📖 Chapter Questions</p>
+
+          <div class="question-label">
+            Question 1: What problem did the developer experience while working?
+          </div>
+          <textarea class="answer-space" data-answer="c1q1" placeholder="Type your answer here..."></textarea>
+
+          <div class="question-label">
+            Question 2: What application was the developer building?
+          </div>
+          <textarea class="answer-space" data-answer="c1q2" placeholder="Type your answer here..."></textarea>
+
+          <div class="question-label">
+            Question 3: What was the first reaction when the laptop started struggling?
+          </div>
+          <textarea class="answer-space" data-answer="c1q3" placeholder="Type your answer here..."></textarea>
+        </div>
+
+        <div class="vocab-box">
+          <p class="box-title">📚 Chapter Vocabulary</p>
+          <div class="vocab-list">
+            <div class="vocab-item">
+              <strong class="vocab-inline" data-word="application">application</strong>
+              <div class="pronounce">Pronunciation: ap-pli-KAY-shun</div>
+              A computer program designed to help a user do a task.
+            </div>
+            <div class="vocab-item">
+              <strong class="vocab-inline" data-word="productive">productive</strong>
+              <div class="pronounce">Pronunciation: pruh-DUK-tiv</div>
+              Working effectively and getting useful things done.
+            </div>
+            <div class="vocab-item">
+              <strong class="vocab-inline" data-word="developer">developer</strong>
+              <div class="pronounce">Pronunciation: dih-VEL-uh-per</div>
+              A person who creates or builds software.
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="chapter-card" data-chapter="2">
+        <span class="chapter-badge">Chapter 2</span>
+        <h2 class="chapter-title">Thinking Like a Debugger</h2>
+        <p class="chapter-intro">
+          This chapter shows how the developer begins to investigate the problem
+          carefully instead of panicking.
+        </p>
+
+        <div class="reading-block">
+          <p>
+            When working with technology, people often assume the problem must be
+            something they have just done. The developer remembered there were many
+            pending commits in the project and wondered whether that had caused the
+            issue.
+          </p>
+
+          <p>
+            But instead of panicking, the developer started thinking like a
+            <span class="vocab-inline" data-word="debugging">debugger</span>.
+            Real <span class="vocab-inline" data-word="debugging">debugging</span> is more than fixing code errors.
+            It involves asking: What changed? What stayed the same? What
+            <span class="vocab-inline" data-word="assumption">assumptions</span> am I making?
+            What evidence do I actually have?
+          </p>
+
+          <p>
+            The system memory was checked. The laptop had 8GB of
+            <span class="vocab-inline" data-word="ram">RAM</span>, and about 85% of it
+            was in use. That was high. Yet something still did not make sense.
+            By the time this was checked, several programs had already been closed.
+            Why was the memory still so full?
+          </p>
+
+          <p>
+            This led to an important lesson: sometimes the problem you see is not
+            exactly the problem that exists. Systems can take time to recover.
+            The cause may be gone, but the effects can remain for a while.
+          </p>
+        </div>
+
+        <div class="question-box">
+          <p class="box-title">🧠 Chapter Questions</p>
+
+          <div class="question-label">
+            Question 4: Why did the developer initially think the problem might be related to commits?
+          </div>
+          <textarea class="answer-space" data-answer="c2q1" placeholder="Type your answer here..."></textarea>
+
+          <div class="question-label">
+            Question 5: What questions did the developer ask while debugging?
+          </div>
+          <textarea class="answer-space" data-answer="c2q2" placeholder="Type your answer here..."></textarea>
+
+          <div class="question-label">
+            Question 6: What does RAM do in a computer?
+          </div>
+          <textarea class="answer-space" data-answer="c2q3" placeholder="Type your answer here..."></textarea>
+
+          <div class="question-label">
+            Question 7: Why is it important not to rely only on first assumptions?
+          </div>
+          <textarea class="answer-space large" data-answer="c2q4" placeholder="Type your answer here..."></textarea>
+        </div>
+
+        <div class="vocab-box">
+          <p class="box-title">📚 Chapter Vocabulary</p>
+          <div class="vocab-list">
+            <div class="vocab-item">
+              <strong class="vocab-inline" data-word="debugging">debugging</strong>
+              <div class="pronounce">Pronunciation: dee-BUH-ging</div>
+              The process of identifying and fixing problems.
+            </div>
+            <div class="vocab-item">
+              <strong class="vocab-inline" data-word="assumption">assumption</strong>
+              <div class="pronounce">Pronunciation: uh-SUMP-shun</div>
+              Something believed without proof.
+            </div>
+            <div class="vocab-item">
+              <strong class="vocab-inline" data-word="ram">RAM</strong>
+              <div class="pronounce">Pronunciation: ram</div>
+              Computer memory used for active tasks.
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="chapter-card" data-chapter="3">
+        <span class="chapter-badge">Chapter 3</span>
+        <h2 class="chapter-title">Finding the Real Cause</h2>
+        <p class="chapter-intro">
+          This chapter explains how the developer narrows down the problem and
+          discovers that the laptop is overwhelmed, not broken.
+        </p>
+
+        <div class="reading-block">
+          <p>
+            The developer began eliminating possible causes one by one. The Git commits
+            were not the issue. Commits are simply records of changes and do not usually
+            consume large amounts of system resources. The <span class="vocab-inline" data-word="processor">processor</span> was not the issue
+            either, because CPU usage was only around 30%.
+          </p>
+
+          <p>
+            That meant the computer was not struggling to <strong>think</strong> — it was
+            struggling to <strong>remember</strong>.
+          </p>
+
+          <p>
+            Eventually the answer became clear. It was not one large mistake. It was
+            many small demands happening at the same time. The browser, development
+            tools, AI assistants, and background processes were all competing for
+            limited memory.
+          </p>
+
+          <p>
+            The laptop was not broken. It was <span class="vocab-inline" data-word="overwhelmed">overwhelmed</span>.
+          </p>
+
+          <p>
+            This created another important understanding: building software is not only
+            about making programs work. It is also about learning how to manage limited
+            <span class="vocab-inline" data-word="resource">resources</span> — time, attention,
+            memory, and energy.
+          </p>
+        </div>
+
+        <div class="summary-box">
+          <p class="box-title">💻 Developer Insight</p>
+          <p>
+            Many technical problems are not caused by dramatic failures. Sometimes
+            they happen because several ordinary tasks are all demanding attention
+            at once. Good debugging often begins by testing simple explanations first.
+          </p>
+        </div>
+
+        <div class="question-box">
+          <p class="box-title">📘 Chapter Questions</p>
+
+          <div class="question-label">
+            Question 8: What was the actual cause of the laptop lag?
+          </div>
+          <textarea class="answer-space" data-answer="c3q1" placeholder="Type your answer here..."></textarea>
+
+          <div class="question-label">
+            Question 9: What does the sentence “the computer was not struggling to think — it was struggling to remember” mean?
+          </div>
+          <textarea class="answer-space large" data-answer="c3q2" placeholder="Type your answer here..."></textarea>
+
+          <div class="question-label">
+            Question 10: Why is eliminating possibilities an important problem-solving skill?
+          </div>
+          <textarea class="answer-space large" data-answer="c3q3" placeholder="Type your answer here..."></textarea>
+        </div>
+
+        <div class="vocab-box">
+          <p class="box-title">📚 Chapter Vocabulary</p>
+          <div class="vocab-list">
+            <div class="vocab-item">
+              <strong class="vocab-inline" data-word="resource">resource</strong>
+              <div class="pronounce">Pronunciation: ree-SORS</div>
+              Something limited that must be managed carefully.
+            </div>
+            <div class="vocab-item">
+              <strong class="vocab-inline" data-word="processor">processor</strong>
+              <div class="pronounce">Pronunciation: PRAH-sess-er</div>
+              The part of a computer that carries out instructions.
+            </div>
+            <div class="vocab-item">
+              <strong class="vocab-inline" data-word="overwhelmed">overwhelmed</strong>
+              <div class="pronounce">Pronunciation: oh-ver-WELMD</div>
+              Under too much pressure or demand at one time.
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="chapter-card" data-chapter="4">
+        <span class="chapter-badge">Chapter 4</span>
+        <h2 class="chapter-title">Debugging as a Life Skill</h2>
+        <p class="chapter-intro">
+          This final chapter connects the laptop problem to growth mindset,
+          persistence, learning, and everyday problem solving.
+        </p>
+
+        <div class="reading-block">
+          <p>
+            Good developers are not the ones who never encounter problems. They are
+            the ones who learn how to respond when problems appear. They investigate
+            instead of panicking. They test ideas instead of guessing wildly. They
+            understand that confusion is often part of learning.
+          </p>
+
+          <p>
+            This is called a <span class="vocab-inline" data-word="mindset">mindset</span> of growth. A growth mindset means
+            understanding that difficulty is not a sign that you cannot do something.
+            It may simply mean you are doing something challenging enough to help you
+            grow.
+          </p>
+
+          <p>
+            In that moment, the developer could have become frustrated and assumed
+            a lack of skill or experience. Instead, the problem became a learning
+            opportunity. There was a lesson about managing tools, restarting when
+            necessary, and recognising resource limits instead of treating every
+            problem as a personal failure.
+          </p>
+
+          <p>
+            The story then expands beyond technology. In school, when something goes
+            wrong, a learner may think, “Maybe I am not good at this.” But debugging
+            thinking asks different questions:
+          </p>
+
+          <div class="quote-line">
+            “Did I prepare properly? Am I using the right strategy? Am I trying to do too many things at once? What small change can I test?”
+          </div>
+
+          <p>
+            Later, after restarting the laptop and organising the
+            <span class="vocab-inline" data-word="workflow">workflow</span>,
+            everything ran smoothly again. But the most important improvement was not
+            in the computer. It was in the developer’s thinking.
+          </p>
+
+          <p>
+            Struggling does not always mean failing. Often, struggling means you are
+            building something difficult — and difficult things are worth building.
+            That is why <span class="vocab-inline" data-word="persistence">persistence</span> matters.
+          </p>
+        </div>
+
+        <div class="question-box">
+          <p class="box-title">🚀 Chapter Questions</p>
+
+          <div class="question-label">
+            Question 11: Why does the author say debugging is a life skill and not only a technical skill?
+          </div>
+          <textarea class="answer-space large" data-answer="c4q1" placeholder="Type your answer here..."></textarea>
+
+          <div class="question-label">
+            Question 12: What does the story suggest about how professionals deal with problems?
+          </div>
+          <textarea class="answer-space large" data-answer="c4q2" placeholder="Type your answer here..."></textarea>
+
+          <div class="question-label">
+            Question 13: How can debugging thinking help learners with academic work?
+          </div>
+          <textarea class="answer-space large" data-answer="c4q3" placeholder="Type your answer here..."></textarea>
+
+          <div class="question-label">
+            Question 14: Do you think frustration helps or harms problem solving? Explain your answer.
+          </div>
+          <textarea class="answer-space large" data-answer="c4q4" placeholder="Type your answer here..."></textarea>
+        </div>
+
+        <div class="vocab-box">
+          <p class="box-title">📚 Chapter Vocabulary</p>
+          <div class="vocab-list">
+            <div class="vocab-item">
+              <strong class="vocab-inline" data-word="workflow">workflow</strong>
+              <div class="pronounce">Pronunciation: WERK-flow</div>
+              The way work is arranged and carried out.
+            </div>
+            <div class="vocab-item">
+              <strong class="vocab-inline" data-word="persistence">persistence</strong>
+              <div class="pronounce">Pronunciation: per-SIS-tens</div>
+              The quality of continuing even when something is difficult.
+            </div>
+            <div class="vocab-item">
+              <strong class="vocab-inline" data-word="mindset">mindset</strong>
+              <div class="pronounce">Pronunciation: MIND-set</div>
+              A way of thinking about yourself and challenges.
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <div class="chapter-nav">
+        <button class="nav-btn" id="prevChapterBtn" type="button">← Previous Chapter</button>
+        <button class="nav-btn" id="nextChapterBtn" type="button">Next Chapter →</button>
+      </div>
+    </section>
+
+    <p class="footer-note">
+      Fluent Reading Text | Debugging More Than Code
+    </p>
+  </main>
+
+  <div class="toast" id="toast">Saved.</div>
+
+  <div class="dictionary-modal" id="dictionaryModal">
+    <div class="dictionary-card">
+      <div class="dictionary-top">
+        <div>
+          <h3 class="dictionary-word" id="dictionaryWord">Word</h3>
+        </div>
+        <button class="dictionary-close" id="dictionaryCloseBtn" type="button">Close</button>
+      </div>
+      <div class="dictionary-body">
+        <p><strong>Pronunciation:</strong> <span id="dictionaryPronunciation"></span></p>
+        <p><strong>Meaning:</strong> <span id="dictionaryMeaning"></span></p>
+        <p><strong>Simple meaning:</strong> <span id="dictionarySimple"></span></p>
+        <p><strong>Example:</strong> <span id="dictionaryExample"></span></p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const STORAGE_KEY = "fluent-debugging-more-than-code-answers-v3";
+    const CHAPTER_KEY = "fluent-debugging-more-than-code-current-chapter-v3";
+    const answerFields = document.querySelectorAll("[data-answer]");
+    const chapterCards = document.querySelectorAll(".chapter-card");
+    const progressFill = document.getElementById("progressFill");
+    const heroMeta = document.getElementById("heroMeta");
+    const toast = document.getElementById("toast");
+    const readyStatus = document.getElementById("readyStatus");
+
+    const prevChapterBtn = document.getElementById("prevChapterBtn");
+    const nextChapterBtn = document.getElementById("nextChapterBtn");
+    const topNextChapterBtn = document.getElementById("topNextChapterBtn");
+    const chaptersBtn = document.getElementById("chaptersBtn");
+    const chaptersDropdown = document.getElementById("chaptersDropdown");
+    const dictionaryBtn = document.getElementById("dictionaryBtn");
+    const howItWorksBtn = document.getElementById("howItWorksBtn");
+
+    const recordBtn = document.getElementById("recordBtn");
+    const stopRecordBtn = document.getElementById("stopRecordBtn");
+    const playRecordingBtn = document.getElementById("playRecordingBtn");
+    const clearRecordingBtn = document.getElementById("clearRecordingBtn");
+    const downloadRecordingBtn = document.getElementById("downloadRecordingBtn");
+
+    const dictionaryModal = document.getElementById("dictionaryModal");
+    const dictionaryWord = document.getElementById("dictionaryWord");
+    const dictionaryPronunciation = document.getElementById("dictionaryPronunciation");
+    const dictionaryMeaning = document.getElementById("dictionaryMeaning");
+    const dictionarySimple = document.getElementById("dictionarySimple");
+    const dictionaryExample = document.getElementById("dictionaryExample");
+    const dictionaryCloseBtn = document.getElementById("dictionaryCloseBtn");
+
+    let currentChapter = 1;
+    let mediaRecorder = null;
+    let audioChunks = [];
+    let audioBlob = null;
+    let audioUrl = "";
+    let audioPlayer = null;
+    let activeStream = null;
+
+    const dictionaryData = {
+      application: {
+        word: "Application",
+        pronunciation: "ap-pli-KAY-shun",
+        meaning: "A computer program designed to help a user do a task.",
+        simple: "A program on a computer or device.",
+        example: "Fluent is an educational application for reading."
+      },
+      productive: {
+        word: "Productive",
+        pronunciation: "pruh-DUK-tiv",
+        meaning: "Working effectively and getting useful things done.",
+        simple: "Doing useful work well.",
+        example: "The developer felt productive before the laptop slowed down."
+      },
+      developer: {
+        word: "Developer",
+        pronunciation: "dih-VEL-uh-per",
+        meaning: "A person who creates or builds software.",
+        simple: "A person who makes apps or computer programs.",
+        example: "The developer was building Fluent."
+      },
+      debugging: {
+        word: "Debugging",
+        pronunciation: "dee-BUH-ging",
+        meaning: "The process of identifying and fixing problems.",
+        simple: "Finding and solving a problem.",
+        example: "Debugging helped the developer understand the real problem."
+      },
+      assumption: {
+        word: "Assumption",
+        pronunciation: "uh-SUMP-shun",
+        meaning: "Something believed without proof.",
+        simple: "An idea you think is true before checking.",
+        example: "The first assumption was that the commits caused the problem."
+      },
+      ram: {
+        word: "RAM",
+        pronunciation: "ram",
+        meaning: "Computer memory used for active tasks.",
+        simple: "Short-term computer memory.",
+        example: "The laptop had 8GB of RAM."
+      },
+      resource: {
+        word: "Resource",
+        pronunciation: "ree-SORS",
+        meaning: "Something limited that must be managed carefully.",
+        simple: "Something useful that can run out.",
+        example: "Time and memory are both resources."
+      },
+      processor: {
+        word: "Processor",
+        pronunciation: "PRAH-sess-er",
+        meaning: "The part of a computer that carries out instructions.",
+        simple: "The part of a computer that does the work.",
+        example: "The processor was not the cause of the slowdown."
+      },
+      overwhelmed: {
+        word: "Overwhelmed",
+        pronunciation: "oh-ver-WELMD",
+        meaning: "Under too much pressure or demand at one time.",
+        simple: "Having too much to handle.",
+        example: "The laptop was not broken. It was overwhelmed."
+      },
+      workflow: {
+        word: "Workflow",
+        pronunciation: "WERK-flow",
+        meaning: "The way work is arranged and carried out.",
+        simple: "The order in which work is done.",
+        example: "Organising the workflow helped things run smoothly again."
+      },
+      persistence: {
+        word: "Persistence",
+        pronunciation: "per-SIS-tens",
+        meaning: "The quality of continuing even when something is difficult.",
+        simple: "Not giving up.",
+        example: "Persistence helps learners keep solving difficult problems."
+      },
+      mindset: {
+        word: "Mindset",
+        pronunciation: "MIND-set",
+        meaning: "A way of thinking about yourself and challenges.",
+        simple: "Your usual way of thinking.",
+        example: "A growth mindset helps people learn from difficulty."
+      }
+    };
+
+    function showToast(message){
+      toast.textContent = message;
+      toast.classList.add("show");
+      clearTimeout(showToast._timer);
+      showToast._timer = setTimeout(() => {
+        toast.classList.remove("show");
+      }, 1700);
+    }
+
+    function saveAnswers(){
+      const data = {};
+      answerFields.forEach(field => {
+        data[field.dataset.answer] = field.value;
+      });
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      readyStatus.textContent = "Saved";
+      clearTimeout(saveAnswers._timer);
+      saveAnswers._timer = setTimeout(() => {
+        readyStatus.textContent = "Ready";
+      }, 1200);
+    }
+
+    function loadAnswers(){
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if(!raw) return;
+
+      try{
+        const data = JSON.parse(raw);
+        answerFields.forEach(field => {
+          field.value = data[field.dataset.answer] || "";
+        });
+      }catch(err){
+        console.warn("Could not load answers.", err);
+      }
+    }
+
+    answerFields.forEach(field => {
+      field.addEventListener("input", saveAnswers);
+    });
+
+    function updateChapterDropdown(){
+      document.querySelectorAll(".chapter-option").forEach(btn => {
+        const chapterNum = Number(btn.dataset.gochapter);
+        btn.classList.toggle("active", chapterNum === currentChapter);
+      });
+    }
+
+    function updateChapterView(){
+      chapterCards.forEach(card => {
+        const cardNumber = Number(card.dataset.chapter);
+        card.classList.toggle("active", cardNumber === currentChapter);
+      });
+
+      heroMeta.textContent = `Chapter ${currentChapter} of 4`;
+      progressFill.style.width = `${(currentChapter / 4) * 100}%`;
+
+      prevChapterBtn.disabled = currentChapter === 1;
+      nextChapterBtn.disabled = currentChapter === 4;
+      topNextChapterBtn.disabled = currentChapter === 4;
+
+      updateChapterDropdown();
+
+      localStorage.setItem(CHAPTER_KEY, String(currentChapter));
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function goToChapter(chapter){
+      if(chapter < 1 || chapter > 4) return;
+      currentChapter = chapter;
+      updateChapterView();
+      chaptersDropdown.classList.remove("show");
+    }
+
+    function loadChapter(){
+      const storedChapter = Number(localStorage.getItem(CHAPTER_KEY));
+      if(storedChapter >= 1 && storedChapter <= 4){
+        currentChapter = storedChapter;
+      }
+      updateChapterView();
+    }
+
+    prevChapterBtn.addEventListener("click", () => {
+      goToChapter(currentChapter - 1);
+    });
+
+    nextChapterBtn.addEventListener("click", () => {
+      goToChapter(currentChapter + 1);
+    });
+
+    topNextChapterBtn.addEventListener("click", () => {
+      goToChapter(currentChapter + 1);
+    });
+
+    chaptersBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      chaptersDropdown.classList.toggle("show");
+    });
+
+    document.querySelectorAll(".chapter-option").forEach(btn => {
+      btn.addEventListener("click", () => {
+        goToChapter(Number(btn.dataset.gochapter));
+      });
+    });
+
+    document.addEventListener("click", (e) => {
+      if (!chaptersDropdown.contains(e.target) && e.target !== chaptersBtn) {
+        chaptersDropdown.classList.remove("show");
+      }
+    });
+
+    howItWorksBtn.addEventListener("click", () => {
+      goToChapter(1);
+      document.querySelector(".chapter-panel").scrollIntoView({ behavior: "smooth" });
+    });
+
+    dictionaryBtn.addEventListener("click", () => {
+      openDictionary("debugging");
+    });
+
+    function openDictionary(key){
+      const item = dictionaryData[key];
+      if(!item) return;
+
+      dictionaryWord.textContent = item.word;
+      dictionaryPronunciation.textContent = item.pronunciation;
+      dictionaryMeaning.textContent = item.meaning;
+      dictionarySimple.textContent = item.simple;
+      dictionaryExample.textContent = item.example;
+      dictionaryModal.classList.add("show");
+    }
+
+    document.querySelectorAll(".vocab-inline").forEach(word => {
+      word.addEventListener("click", () => {
+        const key = word.dataset.word;
+        openDictionary(key);
+      });
+    });
+
+    dictionaryCloseBtn.addEventListener("click", () => {
+      dictionaryModal.classList.remove("show");
+    });
+
+    dictionaryModal.addEventListener("click", (e) => {
+      if(e.target === dictionaryModal){
+        dictionaryModal.classList.remove("show");
+      }
+    });
+
+    function updateRecordingButtons({
+      isRecording = false,
+      hasRecording = false
+    } = {}){
+      recordBtn.disabled = isRecording;
+      stopRecordBtn.disabled = !isRecording;
+      playRecordingBtn.disabled = !hasRecording;
+      clearRecordingBtn.disabled = !hasRecording;
+      downloadRecordingBtn.disabled = !hasRecording;
+    }
+
+    async function startRecording() {
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        showToast("Recording is not supported on this device.");
+        return;
+      }
+
+      try {
+        activeStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        mediaRecorder = new MediaRecorder(activeStream);
+        audioChunks = [];
+
+        mediaRecorder.ondataavailable = (event) => {
+          if (event.data.size > 0) {
+            audioChunks.push(event.data);
+          }
+        };
+
+        mediaRecorder.onstart = () => {
+          updateRecordingButtons({ isRecording: true, hasRecording: false });
+          showToast("Recording started.");
+        };
+
+        mediaRecorder.onstop = () => {
+          audioBlob = new Blob(audioChunks, { type: "audio/webm" });
+
+          if (audioUrl) {
+            URL.revokeObjectURL(audioUrl);
+          }
+
+          audioUrl = URL.createObjectURL(audioBlob);
+
+          if (!audioPlayer) {
+            audioPlayer = new Audio();
+          }
+
+          audioPlayer.src = audioUrl;
+          updateRecordingButtons({ isRecording: false, hasRecording: true });
+          showToast("Recording ready.");
+
+          if (activeStream) {
+            activeStream.getTracks().forEach(track => track.stop());
+            activeStream = null;
+          }
+        };
+
+        mediaRecorder.start();
+      } catch (error) {
+        console.error(error);
+        showToast("Microphone access was denied.");
+        updateRecordingButtons({ isRecording: false, hasRecording: !!audioBlob });
+      }
+    }
+
+    function stopRecording() {
+      if (mediaRecorder && mediaRecorder.state !== "inactive") {
+        mediaRecorder.stop();
+      }
+    }
+
+    function playRecording() {
+      if (audioPlayer && audioUrl) {
+        audioPlayer.currentTime = 0;
+        audioPlayer.play().catch(() => {
+          showToast("Could not play recording.");
+        });
+      }
+    }
+
+    function clearRecording() {
+      if (audioPlayer) {
+        audioPlayer.pause();
+        audioPlayer.currentTime = 0;
+      }
+
+      if (audioUrl) {
+        URL.revokeObjectURL(audioUrl);
+      }
+
+      audioBlob = null;
+      audioUrl = "";
+      audioChunks = [];
+      updateRecordingButtons({ isRecording: false, hasRecording: false });
+      showToast("Recording cleared.");
+    }
+
+    function downloadRecording() {
+      if (!audioBlob || !audioUrl) return;
+
+      const link = document.createElement("a");
+      link.href = audioUrl;
+      link.download = `debugging-more-than-code-chapter-${currentChapter}-recording.webm`;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    }
+
+    recordBtn.addEventListener("click", startRecording);
+    stopRecordBtn.addEventListener("click", stopRecording);
+    playRecordingBtn.addEventListener("click", playRecording);
+    clearRecordingBtn.addEventListener("click", clearRecording);
+    downloadRecordingBtn.addEventListener("click", downloadRecording);
+
+    loadAnswers();
+    loadChapter();
+    updateRecordingButtons({ isRecording: false, hasRecording: false });
+  </script>
+</body>
+</html>

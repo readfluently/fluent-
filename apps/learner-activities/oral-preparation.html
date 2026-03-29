@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Fluent | Oral Preparation</title>
   <link rel="stylesheet" href="../../shared/css/oral-preparation.css" />
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.6.82/pdf.min.js"></script>
+  <script src="https://unpkg.com/mammoth/mammoth.browser.min.js"></script>
 </head>
 <body>
   <div class="page-shell">
@@ -13,9 +16,8 @@
         <p class="eyebrow">Learner Activities</p>
         <h1>🗣️ Oral Preparation</h1>
         <p class="hero-copy">
-          Practise your prepared speech by typing, pasting, or uploading text.
-          Then let Fluent read it aloud so you can listen to pronunciation,
-          pacing, and flow.
+          Practise your speech by typing, pasting, or uploading a PDF or Word document.
+          Then listen, record yourself, and improve your pronunciation, pacing, and confidence.
         </p>
       </div>
     </header>
@@ -24,27 +26,53 @@
       <section class="panel panel-main">
         <div class="panel-header">
           <h2>Your speech text</h2>
-          <p>Type, paste, or upload a plain text file.</p>
+          <p>Type, paste, or upload a readable document.</p>
         </div>
 
-        <div class="input-actions">
-          <label class="upload-btn" for="textFile">
-            Upload .txt file
-          </label>
-          <input type="file" id="textFile" accept=".txt" />
-          <button id="clearTextBtn" class="ghost-btn" type="button">Clear text</button>
+        <div class="upload-card">
+          <div class="upload-card-top">
+            <div>
+              <p class="upload-title">Upload speech file</p>
+              <p class="upload-subtitle">Supported: PDF and .docx</p>
+            </div>
+            <div class="file-badges">
+              <span class="file-badge">PDF</span>
+              <span class="file-badge">DOCX</span>
+            </div>
+          </div>
+
+          <div class="input-actions">
+            <label class="upload-btn" for="textFile">Choose file</label>
+            <input
+              type="file"
+              id="textFile"
+              accept=".pdf,.docx,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+            />
+            <button id="clearTextBtn" class="ghost-btn" type="button">Clear text</button>
+          </div>
+
+          <div id="fileMeta" class="file-meta empty">No file selected yet.</div>
         </div>
 
-         <div class="recording-stack">
-       <button id="recordBtn" class="primary-btn" type="button">🎙 Start Recording</button>
-       <button id="stopRecordBtn" class="secondary-btn" type="button" disabled>⏹ Stop Recording</button>
-       <button id="playRecordingBtn" class="secondary-btn" type="button" disabled>▶ Play My Recording</button>
-       <button id="downloadRecordingBtn" class="ghost-btn" type="button" disabled>⬇ Download My Recording</button>
-    </div>
+        <div class="recording-card">
+          <div class="panel-subheader">
+            <h3>My practice recording</h3>
+            <p>Record yourself reading the speech aloud.</p>
+          </div>
+
+          <div class="recording-stack">
+            <button id="recordBtn" class="primary-btn" type="button">🎙 Start Recording</button>
+            <button id="stopRecordBtn" class="secondary-btn" type="button" disabled>⏹ Stop Recording</button>
+            <button id="playRecordingBtn" class="secondary-btn" type="button" disabled>▶ Play My Recording</button>
+            <button id="downloadRecordingBtn" class="ghost-btn" type="button" disabled>⬇ Download My Recording</button>
+          </div>
+
+          <audio id="learnerPlayback" controls hidden></audio>
+        </div>
 
         <textarea
           id="speechText"
-          placeholder="Type or paste your speech here..."
+          placeholder="Type, paste, or upload your speech here..."
           aria-label="Speech text"
         ></textarea>
 
@@ -52,6 +80,22 @@
           <span id="wordCount">0 words</span>
           <span id="charCount">0 characters</span>
         </div>
+
+        <section class="paragraphs-section">
+          <div class="panel-subheader paragraphs-header">
+            <div>
+              <h3>Paragraph practice cards</h3>
+              <p>Practise one paragraph at a time.</p>
+            </div>
+            <button id="buildCardsBtn" class="secondary-btn" type="button">Create Paragraph Cards</button>
+          </div>
+
+          <div id="paragraphCards" class="paragraph-cards empty-state">
+            <div class="empty-card">
+              Upload or paste a speech, then create paragraph cards.
+            </div>
+          </div>
+        </section>
       </section>
 
       <aside class="panel panel-side">
@@ -84,8 +128,6 @@
           <button id="stopBtn" class="danger-btn" type="button">⏹ Stop</button>
         </div>
 
-<audio id="learnerPlayback" controls hidden></audio>
-
         <div class="status-box" id="statusBox" aria-live="polite">
           Ready to read.
         </div>
@@ -95,15 +137,15 @@
     <section class="tips-section">
       <div class="tip-card">
         <h3>Practice tip</h3>
-        <p>Listen to your speech one paragraph at a time if the whole speech feels too long.</p>
+        <p>Listen to one paragraph at a time if the whole speech feels too long.</p>
       </div>
       <div class="tip-card">
         <h3>Pronunciation tip</h3>
-        <p>Replay difficult words or names and say them aloud after Fluent reads them.</p>
+        <p>Highlight difficult words and use “Pronounce Selection” to practise them.</p>
       </div>
       <div class="tip-card">
         <h3>Presentation tip</h3>
-        <p>Use a slower speed first, then switch to normal speed once you feel confident.</p>
+        <p>Start slowly, then move to normal speed when your confidence grows.</p>
       </div>
     </section>
   </div>

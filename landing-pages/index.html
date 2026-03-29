@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fluent | Home</title>
+  <style>
+    :root {
+      --bg: #f4f7fc;
+      --surface: #ffffff;
+      --text: #1f2937;
+      --muted: #667085;
+      --line: #d7dfeb;
+      --shadow: 0 10px 26px rgba(15, 23, 42, 0.08);
+      --shadow-hover: 0 14px 30px rgba(15, 23, 42, 0.14);
+
+      /* FluentBuddy brain colours */
+      --brain-red: #ef4444;
+      --brain-orange: #f97316;
+      --brain-yellow: #facc15;
+      --brain-green: #22c55e;
+      --brain-blue: #2563eb;
+      --brain-purple: #8b5cf6;
+
+      --welcome-bg: linear-gradient(135deg, #eef6ff 0%, #ffffff 100%);
+      --r3-bg: linear-gradient(135deg, #f4a261 0%, #f6b37a 100%);
+      --g46-bg: linear-gradient(135deg, #2563eb 0%, #60a5fa 100%);
+      --g79-bg: linear-gradient(135deg, #22c55e 0%, #4ade80 100%);
+      --g1012-bg: linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%);
+      --teachers-bg: linear-gradient(135deg, #ef4444 0%, #f87171 100%);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      color: var(--text);
+      background: linear-gradient(180deg, #f9fbff 0%, #eef3fb 100%);
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .topbar-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #1e3a8a;
+      text-decoration: none;
+      margin-right: 6px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .top-link {
+      text-decoration: none;
+      color: var(--text);
+      padding: 8px 12px;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      transition: background 0.2s ease;
+    }
+
+    .top-link:hover,
+    .top-link:focus-visible {
+      background: #f1f5fb;
+      outline: none;
+    }
+
+    .search-wrap {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex: 1 1 320px;
+      justify-content: flex-end;
+    }
+
+    .search-box {
+      width: min(100%, 340px);
+      padding: 11px 14px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fff;
+      font-size: 0.95rem;
+      color: var(--text);
+    }
+
+    .search-box:focus {
+      outline: none;
+      border-color: #9fb8ea;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.08);
+    }
+
+    .search-btn {
+      border: 0;
+      border-radius: 12px;
+      background: #1d4ed8;
+      color: #fff;
+      padding: 11px 14px;
+      font-size: 0.95rem;
+      cursor: pointer;
+    }
+
+    .search-btn:hover {
+      background: #1b46c5;
+    }
+
+    .page {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 24px 18px 50px;
+    }
+
+    .main-container {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+      padding: 18px;
+    }
+
+    .hero-card {
+      background: var(--welcome-bg);
+      border: 1px solid #d8e5fb;
+      border-radius: 20px;
+      padding: 18px;
+      overflow: hidden;
+      margin-bottom: 18px;
+    }
+
+    .hero-image {
+      width: 100%;
+      display: block;
+      border-radius: 16px;
+      height: auto;
+      margin-bottom: 14px;
+    }
+
+    .hero-copy {
+      text-align: center;
+      padding: 4px 8px 10px;
+    }
+
+    .hero-copy h1 {
+      margin: 0 0 8px;
+      font-size: 2rem;
+      color: #1e3a8a;
+    }
+
+    .hero-copy p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+
+    .stack {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .phase-card {
+      display: block;
+      text-decoration: none;
+      color: #ffffff;
+      border-radius: 20px;
+      padding: 24px 24px;
+      box-shadow: var(--shadow);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .phase-card:hover,
+    .phase-card:focus-visible {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-hover);
+      outline: none;
+    }
+
+    .phase-card h2 {
+      margin: 0 0 10px;
+      font-size: 1.35rem;
+      color: #ffffff;
+    }
+
+    .phase-card p {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.95);
+      font-size: 1rem;
+      line-height: 1.55;
+    }
+
+    .card-r3 {
+      background: var(--r3-bg);
+    }
+
+    .card-46 {
+      background: var(--g46-bg);
+    }
+
+    .card-79 {
+      background: var(--g79-bg);
+    }
+
+    .card-1012 {
+      background: var(--g1012-bg);
+    }
+
+    .card-teachers {
+      background: var(--teachers-bg);
+    }
+
+    .hint {
+      margin-top: 14px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    @media (max-width: 760px) {
+      .topbar-inner {
+        align-items: stretch;
+      }
+
+      .search-wrap {
+        margin-left: 0;
+        justify-content: stretch;
+        width: 100%;
+      }
+
+      .search-box {
+        width: 100%;
+      }
+
+      .hero-copy h1 {
+        font-size: 1.6rem;
+      }
+
+      .phase-card h2 {
+        font-size: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="topbar" aria-label="Main navigation">
+    <div class="topbar-inner">
+      <a class="brand" href="index.html">Fluent</a>
+
+      <div class="nav-links">
+        <a class="top-link" href="index.html">Home</a>
+        <a class="top-link" href="grade-r-3.html">Grade R–3</a>
+        <a class="top-link" href="grade-4-6.html">Grade 4–6</a>
+        <a class="top-link" href="grade-7-9.html">Grade 7–9</a>
+        <a class="top-link" href="grade-10-12.html">Grade 10–12</a>
+        <a class="top-link" href="teachers.html">Teachers</a>
+      </div>
+
+      <form class="search-wrap" id="searchForm" role="search">
+        <input
+          id="siteSearch"
+          class="search-box"
+          type="search"
+          placeholder="library"
+          aria-label="Search Fluent pages"
+        />
+        <button class="search-btn" type="submit">Search</button>
+      </form>
+    </div>
+  </nav>
+
+  <main class="page">
+    <section class="main-container">
+      <section class="hero-card" aria-label="Welcome to Fluent">
+        <img
+          src="shared/assets/images/welcome.png"
+          alt="Welcome to Fluent"
+          class="hero-image"
+        />
+        <div class="hero-copy">
+          <h1>Welcome to Fluent</h1>
+          <p>Select the right Fluent journey below, or search for a page or file from the bar above.</p>
+        </div>
+      </section>
+
+      <section class="stack" aria-label="Fluent phase and teacher journeys">
+        <a href="grade-r-3.html" class="phase-card card-r3">
+          <h2>🌱 Grade R–3</h2>
+          <p>Foundation Phase reading, phonics, guided support, and early learner activities.</p>
+        </a>
+
+        <a href="grade-4-6.html" class="phase-card card-46">
+          <h2>📘 Grade 4–6</h2>
+          <p>Intermediate Phase reading to learn, comprehension, visualisation of concepts and principles, and growth mindset.</p>
+        </a>
+
+        <a href="grade-7-9.html" class="phase-card card-79">
+          <h2>📗 Grade 7–9</h2>
+          <p>Senior Phase literacy, subject language, independent reading, and deeper understanding.</p>
+        </a>
+
+        <a href="grade-10-12.html" class="phase-card card-1012">
+          <h2>🎓 Grade 10–12</h2>
+          <p>FET reading, analysis, oral preparation, writing support, and exam-aligned practice.</p>
+        </a>
+
+        <a href="teachers.html" class="phase-card card-teachers">
+          <h2>👩‍🏫 Teachers</h2>
+          <p>Lesson planning, reading resources, classroom support, and learner development tools.</p>
+        </a>
+      </section>
+    </section>
+
+    <p class="hint">Example search: library</p>
+  </main>
+
+  <script>
+    const searchIndex = [
+      { keywords: ["home", "welcome", "main", "landing", "index"], url: "index.html" },
+      { keywords: ["grade r-3", "grade r 3", "r-3", "foundation", "foundation phase"], url: "grade-r-3.html" },
+      { keywords: ["grade 4-6", "grade 4 6", "4-6", "intermediate", "intermediate phase"], url: "grade-4-6.html" },
+      { keywords: ["grade 7-9", "grade 7 9", "7-9", "senior", "senior phase"], url: "grade-7-9.html" },
+      { keywords: ["grade 10-12", "grade 10 12", "10-12", "fet", "f.e.t"], url: "grade-10-12.html" },
+      { keywords: ["teachers", "teacher", "lesson planning", "resources"], url: "teachers.html" },
+
+      { keywords: ["library", "books", "reader", "readers"], url: "apps/library/library.html" },
+      { keywords: ["dictionary", "word", "meanings", "definitions"], url: "apps/dictionary/dictionary.html" },
+      { keywords: ["videos", "video"], url: "apps/videos/videos.html" },
+      { keywords: ["exemplars", "exemplar"], url: "apps/exemplars/exemplars.html" },
+      { keywords: ["read fluently", "fluency", "guided reading"], url: "apps/read-fluently/read-fluently.html" },
+      { keywords: ["language blocks", "phonics", "phonics path", "sounds", "grammar"], url: "apps/phonics-path/phonics-path.html" },
+      { keywords: ["oral", "oral preparation", "speech"], url: "apps/learner-activities/oral-preparation.html" },
+      { keywords: ["listen", "listen and learn", "audio books", "audio"], url: "apps/listen-learn/listen-learn.html" },
+      { keywords: ["writing", "write"], url: "apps/writing/writing.html" },
+      { keywords: ["homework", "homework help"], url: "apps/homework-help/homework-help.html" },
+      { keywords: ["events", "event"], url: "apps/events/events.html" },
+      { keywords: ["competitions", "competition"], url: "apps/events/competitions.html" },
+      { keywords: ["results", "highlights"], url: "apps/events/results.html" },
+      { keywords: ["posters", "interactive posters"], url: "apps/interactive-posters/interactive-posters.html" },
+      { keywords: ["oral", "speech"], url: "apps/oral/oral.html" }
+    ];
+
+    const form = document.getElementById("searchForm");
+    const input = document.getElementById("siteSearch");
+
+    function normalise(text) {
+      return text.toLowerCase().replace(/[–—]/g, "-").trim();
+    }
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const query = normalise(input.value);
+      if (!query) return;
+
+      let match = searchIndex.find(entry =>
+        entry.keywords.some(keyword => query.includes(normalise(keyword)))
+      );
+
+      if (!match) {
+        match = searchIndex.find(entry =>
+          entry.keywords.some(keyword => normalise(keyword).includes(query))
+        );
+      }
+
+      if (match) {
+        window.location.href = match.url;
+      } else {
+        alert("No matching page was found yet. Add this page or file path to the search index in index.html.");
+      }
+    });
+  </script>
+</body>
+</html>

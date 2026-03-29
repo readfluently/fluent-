@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fluent | Grade 4–6</title>
+
+  <style>
+    :root {
+      --surface: #ffffff;
+      --text: #1f2937;
+      --muted: #667085;
+      --line: #d7dfeb;
+      --shadow: 0 10px 26px rgba(15, 23, 42, 0.08);
+      --shadow-hover: 0 14px 30px rgba(15, 23, 42, 0.14);
+
+      --blue: linear-gradient(135deg, #2563eb 0%, #60a5fa 100%);
+      --green: linear-gradient(135deg, #22c55e 0%, #4ade80 100%);
+      --purple: linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%);
+      --orange-soft: linear-gradient(135deg, #f4a261 0%, #f6b37a 100%);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(180deg, #f9fbff 0%, #eef3fb 100%);
+      color: var(--text);
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      background: #ffffff;
+      border-bottom: 1px solid var(--line);
+      z-index: 10;
+    }
+
+    .topbar-inner {
+      max-width: 1100px;
+      margin: auto;
+      padding: 12px 18px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .brand {
+      font-weight: bold;
+      color: #1e3a8a;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .top-link {
+      text-decoration: none;
+      padding: 6px 10px;
+      border-radius: 8px;
+      color: var(--text);
+    }
+
+    .top-link:hover,
+    .top-link.active {
+      background: #f2f5fb;
+    }
+
+    .search-wrap {
+      margin-left: auto;
+      display: flex;
+      gap: 6px;
+    }
+
+    .search-box {
+      padding: 8px 10px;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+    }
+
+    .search-btn {
+      padding: 8px 12px;
+      border: none;
+      border-radius: 10px;
+      background: #1d4ed8;
+      color: white;
+      cursor: pointer;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    .container {
+      background: var(--surface);
+      border-radius: 20px;
+      padding: 16px;
+      box-shadow: var(--shadow);
+    }
+
+    .stack {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .hero img {
+      width: 100%;
+      border-radius: 16px;
+      display: block;
+    }
+
+    .hero h1 {
+      text-align: center;
+      margin: 12px 0 6px;
+      color: #1e3a8a;
+    }
+
+    .hero p {
+      text-align: center;
+      color: var(--muted);
+      margin: 0;
+      line-height: 1.6;
+    }
+
+    .section {
+      border-radius: 18px;
+      padding: 20px;
+      color: white;
+      box-shadow: var(--shadow);
+    }
+
+    .section h2 {
+      margin-top: 0;
+      margin-bottom: 8px;
+    }
+
+    .section p {
+      margin-top: 0;
+      margin-bottom: 12px;
+      line-height: 1.5;
+    }
+
+    .mini {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .mini a {
+      background: rgba(255,255,255,0.2);
+      padding: 12px;
+      border-radius: 12px;
+      text-decoration: none;
+      color: white;
+      transition: transform 0.18s ease, background 0.18s ease;
+    }
+
+    .mini a:hover {
+      transform: translateY(-1px);
+      background: rgba(255,255,255,0.28);
+    }
+
+    .reading { background: var(--blue); }
+    .activities { background: var(--green); }
+    .events { background: var(--purple); }
+
+    @media (max-width: 700px) {
+      .topbar-inner {
+        padding: 12px 14px;
+      }
+
+      .search-wrap {
+        margin-left: 0;
+        width: 100%;
+      }
+
+      .search-box {
+        flex: 1;
+      }
+
+      .page {
+        padding: 16px 12px 30px;
+      }
+
+      .container {
+        padding: 14px;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .search-wrap {
+        flex-direction: column;
+      }
+
+      .search-btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="./index.html">Fluent</a>
+
+      <div class="nav-links">
+        <a class="top-link" href="./index.html">Home</a>
+        <a class="top-link" href="./grade-r-3.html">Grade R–3</a>
+        <a class="top-link active" href="./grade-4-6.html">Grade 4–6</a>
+        <a class="top-link" href="./grade-7-9.html">Grade 7–9</a>
+        <a class="top-link" href="./grade-10-12.html">Grade 10–12</a>
+        <a class="top-link" href="./teachers.html">Teachers</a>
+      </div>
+
+      <form class="search-wrap" onsubmit="event.preventDefault(); searchPages();">
+        <input id="searchInput" class="search-box" placeholder="library" />
+        <button class="search-btn" type="submit">Search</button>
+      </form>
+    </div>
+  </nav>
+
+  <main class="page">
+    <div class="container">
+
+      <div class="stack">
+
+        <!-- HERO -->
+        <section class="hero">
+          <img src="../shared/assets/images/grade-4-6-welcome.png" alt="Welcome to Fluent Grade 4 to 6" />
+          <h1>Grade 4–6</h1>
+          <p>
+            Learn to read for meaning, build comprehension, and understand concepts across subjects.
+          </p>
+        </section>
+
+        <!-- READING -->
+        <section class="section reading">
+          <h2>📚 Reading</h2>
+          <p>Develop reading to learn, comprehension, and vocabulary.</p>
+
+          <div class="mini">
+            <a href="../apps/library/library.html?phase=grade-4-6">Library</a>
+            <a href="../apps/read-fluently/read-fluently.html">Read Fluently</a>
+            <a href="../apps/listen-learn/listen-learn.html">Listen &amp; Learn</a>
+          </div>
+        </section>
+
+        <!-- ACTIVITIES -->
+        <section class="section activities">
+          <h2>🧠 Learner Activities</h2>
+          <p>Explore language, thinking, and concept-building activities.</p>
+
+          <div class="mini">
+            <a href="../apps/phonics-path/phonics-path.html">Language Blocks</a>
+            <a href="../apps/play-learn/index.html">Play-Learn</a>
+            <a href="../apps/interactive-posters/interactive-posters.html">Interactive Posters</a>
+          </div>
+        </section>
+
+        <!-- EVENTS -->
+        <section class="section events">
+          <h2>🏆 Events &amp; Competitions</h2>
+          <p>Apply your learning through challenges and competitions.</p>
+
+          <div class="mini">
+            <a href="../apps/events/events.html">Events</a>
+            <a href="../apps/events/competitions.html">Competitions</a>
+            <a href="../apps/events/results.html">Results</a>
+          </div>
+        </section>
+
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    const searchMap = {
+      "home": "./index.html",
+      "grade r-3": "./grade-r-3.html",
+      "grade 4-6": "./grade-4-6.html",
+      "grade 7-9": "./grade-7-9.html",
+      "grade 10-12": "./grade-10-12.html",
+      "teachers": "./teachers.html",
+      "library": "../apps/library/library.html?phase=grade-4-6",
+      "read fluently": "../apps/read-fluently/read-fluently.html",
+      "listen": "../apps/listen-learn/listen-learn.html",
+      "listen & learn": "../apps/listen-learn/listen-learn.html",
+      "language blocks": "../apps/phonics-path/phonics-path.html",
+      "play-learn": "../apps/play-learn/index.html",
+      "interactive posters": "../apps/interactive-posters/interactive-posters.html",
+      "events": "../apps/events/events.html",
+      "competitions": "../apps/events/competitions.html",
+      "results": "../apps/events/results.html"
+    };
+
+    function searchPages() {
+      const input = document.getElementById("searchInput");
+      const query = input.value.trim().toLowerCase();
+
+      if (!query) return;
+
+      if (searchMap[query]) {
+        window.location.href = searchMap[query];
+        return;
+      }
+
+      const partial = Object.keys(searchMap).find(key => key.includes(query));
+      if (partial) {
+        window.location.href = searchMap[partial];
+        return;
+      }
+
+      alert("No matching page found yet.");
+    }
+
+    document.getElementById("searchInput").addEventListener("keydown", function(event) {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        searchPages();
+      }
+    });
+  </script>
+
+</body>
+</html>

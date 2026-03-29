@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fluent | Grade 7–9</title>
+  <style>
+    :root{
+      --bg:#f3f4f8;
+      --surface:#ffffff;
+      --text:#23364d;
+      --muted:#667085;
+      --line:#dbe3ee;
+      --blue-card:#eef3ff;
+      --green-card:#edf8f1;
+      --purple-card:#f3efff;
+      --gold-card:#fff6df;
+      --shadow:0 10px 24px rgba(15,23,42,0.06);
+      --radius-xl:28px;
+      --radius-lg:22px;
+      --radius-md:18px;
+      --max:1180px;
+    }
+
+    *{
+      box-sizing:border-box;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      margin:0;
+      font-family:Arial, Helvetica, sans-serif;
+      background:var(--bg);
+      color:var(--text);
+    }
+
+    a{
+      color:inherit;
+      text-decoration:none;
+    }
+
+    .topbar{
+      background:#fff;
+      border-bottom:1px solid var(--line);
+      position:sticky;
+      top:0;
+      z-index:100;
+    }
+
+    .topbar-inner{
+      width:min(100%, 1360px);
+      margin:0 auto;
+      padding:14px 18px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      flex-wrap:wrap;
+    }
+
+    .brand-nav{
+      display:flex;
+      align-items:center;
+      gap:18px;
+      flex-wrap:wrap;
+    }
+
+    .brand{
+      font-size:1rem;
+      font-weight:800;
+      color:#1e40af;
+      padding:4px 0;
+    }
+
+    .nav-links{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    .nav-links a{
+      padding:8px 12px;
+      border-radius:10px;
+      font-size:0.98rem;
+      color:#2b3442;
+      transition:background .18s ease, color .18s ease;
+      white-space:nowrap;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active{
+      background:#f3f6fb;
+      color:#1e40af;
+    }
+
+    .search-wrap{
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+
+    .search-input{
+      width:370px;
+      max-width:42vw;
+      padding:13px 16px;
+      border:1px solid #cfd8e6;
+      border-radius:16px;
+      font-size:1rem;
+      outline:none;
+    }
+
+    .search-btn{
+      border:none;
+      background:#2d5be3;
+      color:#fff;
+      font-weight:700;
+      font-size:1rem;
+      padding:13px 18px;
+      border-radius:16px;
+      cursor:pointer;
+    }
+
+    .page{
+      width:min(100%, var(--max));
+      margin:0 auto;
+      padding:22px 16px 48px;
+    }
+
+    .hero{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:30px;
+      padding:24px;
+      box-shadow:var(--shadow);
+      margin-bottom:22px;
+    }
+
+    .hero h1{
+      margin:0 0 10px;
+      font-size:clamp(1.8rem, 3vw, 2.5rem);
+      line-height:1.1;
+    }
+
+    .hero p{
+      margin:0;
+      color:var(--muted);
+      font-size:1rem;
+      line-height:1.6;
+      max-width:780px;
+    }
+
+    .section-card{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:30px;
+      padding:22px;
+      box-shadow:var(--shadow);
+      margin-bottom:22px;
+    }
+
+    .section-title{
+      margin:0 0 20px;
+      font-size:1.1rem;
+      font-weight:800;
+      letter-spacing:0.08em;
+      text-transform:uppercase;
+      color:#2f4158;
+    }
+
+    .feature-list{
+      display:grid;
+      gap:18px;
+    }
+
+    .feature-item{
+      display:block;
+      border:1px solid var(--line);
+      border-radius:22px;
+      padding:22px;
+      transition:transform .18s ease, box-shadow .18s ease;
+      box-shadow:0 6px 18px rgba(15,23,42,0.04);
+    }
+
+    .feature-item:hover{
+      transform:translateY(-3px);
+      box-shadow:0 14px 28px rgba(15,23,42,0.1);
+    }
+
+    .feature-item:active{
+      transform:scale(0.99);
+    }
+
+    .blue-card{
+      background:var(--blue-card);
+    }
+
+    .green-card{
+      background:var(--green-card);
+    }
+
+    .purple-card{
+      background:var(--purple-card);
+    }
+
+    .gold-card{
+      background:var(--gold-card);
+    }
+
+    .feature-title{
+      margin:0 0 10px;
+      font-size:1rem;
+      font-weight:800;
+      color:#243b63;
+      line-height:1.3;
+    }
+
+    .feature-desc{
+      margin:0;
+      color:#5d6b7d;
+      font-size:0.98rem;
+      line-height:1.55;
+      max-width:760px;
+    }
+
+    .note{
+      margin-top:16px;
+      padding:16px 18px;
+      border-radius:18px;
+      background:#f8f7ff;
+      border:1px solid #e6e0ff;
+      color:#534d7a;
+      font-size:0.95rem;
+      line-height:1.6;
+    }
+
+    .subject-grid{
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0, 1fr));
+      gap:14px;
+      margin-top:18px;
+    }
+
+    .subject-box{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:16px;
+    }
+
+    .subject-box h3{
+      margin:0 0 8px;
+      font-size:0.98rem;
+    }
+
+    .subject-box p{
+      margin:0;
+      color:var(--muted);
+      font-size:0.92rem;
+      line-height:1.5;
+    }
+
+    .footer-note{
+      text-align:center;
+      color:var(--muted);
+      font-size:0.94rem;
+      margin-top:6px;
+    }
+
+    @media (max-width: 980px){
+      .topbar-inner{
+        align-items:flex-start;
+      }
+
+      .search-wrap{
+        width:100%;
+      }
+
+      .search-input{
+        width:100%;
+        max-width:none;
+        flex:1;
+      }
+
+      .subject-grid{
+        grid-template-columns:1fr 1fr;
+      }
+    }
+
+    @media (max-width: 700px){
+      .topbar-inner{
+        padding:12px 14px;
+      }
+
+      .brand-nav{
+        gap:12px;
+      }
+
+      .nav-links{
+        gap:6px;
+      }
+
+      .nav-links a{
+        padding:6px 8px;
+        font-size:0.95rem;
+      }
+
+      .page{
+        padding:16px 12px 34px;
+      }
+
+      .hero,
+      .section-card{
+        padding:18px;
+        border-radius:24px;
+      }
+
+      .section-title{
+        font-size:1rem;
+      }
+
+      .feature-item{
+        padding:18px;
+      }
+
+      .subject-grid{
+        grid-template-columns:1fr;
+      }
+    }
+
+    @media (max-width: 560px){
+      .nav-links{
+        width:100%;
+      }
+
+      .search-wrap{
+        flex-direction:column;
+        align-items:stretch;
+      }
+
+      .search-btn{
+        width:100%;
+      }
+    }
+  </style>
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand-nav">
+      <a href="./index.html" class="brand">Fluent</a>
+
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="./index.html">Home</a>
+        <a href="./grade-r-3.html">Grade R–3</a>
+        <a href="./grade-4-6.html">Grade 4–6</a>
+        <a href="./grade-7-9.html">Grade 7–9</a>
+        <a href="./grade-10-12.html" class="active">Grade 10–12</a>
+        <a href="./teachers.html">Teachers</a>
+      </nav>
+    </div>
+
+    <div class="search-wrap">
+      <input
+        id="searchInput"
+        class="search-input"
+        type="text"
+        placeholder="library"
+        aria-label="Search pages"
+      />
+      <button id="searchBtn" class="search-btn" type="button">Search</button>
+    </div>
+  </div>
+</header>
+
+  <main class="page">
+    <section class="hero">
+      <h1>Grade 7–9</h1>
+      <p>
+        Senior Phase Fluent focuses on reading with understanding, stronger oral confidence,
+        subject-linked activities, and meaningful participation in events and competitions.
+      </p>
+    </section>
+
+    <section class="section-card">
+      <h2 class="section-title">Reading</h2>
+
+      <div class="feature-list">
+        <a class="feature-item blue-card" href="../apps/library/library.html?phase=grade-7-9">
+  <h3 class="feature-title">📚 Library</h3>
+  <p class="feature-desc">
+    Browse and open books for Senior Phase reading, including fiction, curriculum-linked texts,
+    digital literacy books, and reference books.
+  </p>
+</a>
+
+        <a class="feature-item green-card" href="../library/read-fluently-senior.html">
+          <h3 class="feature-title">🗣️ Read Fluently</h3>
+          <p class="feature-desc">
+            Guided reading practice and fluency support for older learners, with paragraph reading,
+            flow reading, stop-and-think moments, and meaning-focused reading support.
+          </p>
+        </a>
+
+        <a class="feature-item blue-card" href="./grade-7-9-library.html#reference-books">
+          <h3 class="feature-title">📖 Reference Books</h3>
+          <p class="feature-desc">
+            Open the reference shelf for support books such as the dictionary and future study or writing guides.
+          </p>
+        </a>
+      </div>
+
+      <div class="note">
+        Language Blocks and Sound Maps do not appear in Senior Phase. Those tools belong in Foundation
+        and Intermediate phases, while Senior Phase focuses on understanding, interpretation, oral growth,
+        and subject-linked literacy.
+      </div>
+    </section>
+
+    <section class="section-card">
+      <h2 class="section-title">Learner Activities</h2>
+
+      <div class="feature-list">
+        <a class="feature-item green-card" href="../interactive-posters/index.html">
+          <h3 class="feature-title">🧩 Interactive Posters</h3>
+          <p class="feature-desc">
+            Explore grade- and subject-appropriate posters for Geography, Natural Sciences, History,
+            and other Senior Phase topics.
+          </p>
+        </a>
+
+        <a class="feature-item purple-card" href="../play-learn/index.html">
+          <h3 class="feature-title">🎯 Thinking Activities</h3>
+          <p class="feature-desc">
+            Develop reasoning, interpretation, comparison, and academic confidence through mature learner activities.
+          </p>
+        </a>
+
+        <a class="feature-item green-card" href="../oral/oral-preparation.html">
+          <h3 class="feature-title">🎤 Oral Preparation</h3>
+          <p class="feature-desc">
+            Prepare speeches, oral presentations, and classroom speaking tasks with tools that support
+            organisation, practice, and confidence.
+          </p>
+        </a>
+      </div>
+
+      <div class="subject-grid">
+        <div class="subject-box">
+          <h3>Grade 7</h3>
+          <p>Map skills, ecosystems, Social Sciences, Natural Sciences, and introductory Senior Phase visuals.</p>
+        </div>
+
+        <div class="subject-box">
+          <h3>Grade 8</h3>
+          <p>Deeper scientific systems, historical themes, processes, and more structured visual learning.</p>
+        </div>
+
+        <div class="subject-box">
+          <h3>Grade 9</h3>
+          <p>Transition support toward FET, stronger interpretation, subject thinking, and academic maturity.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-card">
+      <h2 class="section-title">Events and Competitions</h2>
+
+      <div class="feature-list">
+        <a class="feature-item gold-card" href="../events/index.html#reading">
+          <h3 class="feature-title">🏆 Reading Challenges</h3>
+          <p class="feature-desc">
+            Join reading challenges, themed competitions, and participation-based events that keep reading active.
+          </p>
+        </a>
+
+        <a class="feature-item purple-card" href="../events/index.html#oral">
+          <h3 class="feature-title">🗣️ Oral Presentations</h3>
+          <p class="feature-desc">
+            Take part in speeches, prepared talks, debates, and other oral events that build communication skills.
+          </p>
+        </a>
+
+        <a class="feature-item green-card" href="../events/index.html#subject">
+          <h3 class="feature-title">🌍 Subject Competitions</h3>
+          <p class="feature-desc">
+            Explore quizzes, poster showcases, map skills events, and other academic competitions linked to subjects.
+          </p>
+        </a>
+      </div>
+    </section>
+
+    <p class="footer-note">Fluent Senior Phase | Grade 7–9</p>
+  </main>
+
+  <script>
+    const searchMap = {
+      "home": "../index.html",
+      "library": "./grade-7-9-library.html",
+      "grade r-3": "./grade-r-3.html",
+      "grade 4-6": "./grade-4-6.html",
+      "grade 7-9": "./grade-7-9.html",
+      "grade 10-12": "./grade-10-12.html",
+      "teachers": "./teachers.html",
+      "oral": "../oral/oral-preparation.html",
+      "dictionary": "./grade-7-9-library.html#reference-books",
+      "reference books": "./grade-7-9-library.html#reference-books",
+      "read fluently": "../library/read-fluently-senior.html",
+      "interactive posters": "../interactive-posters/index.html",
+      "activities": "../play-learn/index.html",
+      "events": "../events/index.html"
+    };
+
+    const searchInput = document.getElementById("searchInput");
+    const searchBtn = document.getElementById("searchBtn");
+
+    function runSearch() {
+      const query = searchInput.value.trim().toLowerCase();
+      if (!query) return;
+
+      if (searchMap[query]) {
+        window.location.href = searchMap[query];
+        return;
+      }
+
+      const partial = Object.keys(searchMap).find(key => key.includes(query));
+      if (partial) {
+        window.location.href = searchMap[partial];
+        return;
+      }
+
+      alert("No matching page found yet.");
+    }
+
+    searchBtn.addEventListener("click", runSearch);
+    searchInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") runSearch();
+    });
+  </script>
+</body>
+</html>

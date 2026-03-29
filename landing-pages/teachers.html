@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fluent | Teachers</title>
+
+  <style>
+    :root {
+      --surface: #ffffff;
+      --text: #1f2937;
+      --muted: #667085;
+      --line: #d7dfeb;
+      --shadow: 0 10px 26px rgba(15, 23, 42, 0.08);
+
+      --blue: linear-gradient(135deg, #2563eb 0%, #60a5fa 100%);
+      --green: linear-gradient(135deg, #22c55e 0%, #4ade80 100%);
+      --purple: linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(180deg, #f9fbff 0%, #eef3fb 100%);
+      color: var(--text);
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      z-index: 10;
+    }
+
+    .topbar-inner {
+      max-width: 1100px;
+      margin: auto;
+      padding: 12px 18px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .brand {
+      font-weight: bold;
+      color: #1e3a8a;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .top-link {
+      padding: 6px 10px;
+      border-radius: 8px;
+    }
+
+    .top-link:hover,
+    .top-link.active {
+      background: #f2f5fb;
+    }
+
+    .search-wrap {
+      margin-left: auto;
+      display: flex;
+      gap: 6px;
+    }
+
+    .search-box {
+      padding: 8px 10px;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+    }
+
+    .search-btn {
+      padding: 8px 12px;
+      border: none;
+      border-radius: 10px;
+      background: #1d4ed8;
+      color: white;
+      cursor: pointer;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    .container {
+      background: var(--surface);
+      border-radius: 20px;
+      padding: 16px;
+      box-shadow: var(--shadow);
+    }
+
+    .stack {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .hero img {
+      width: 100%;
+      border-radius: 16px;
+      display: block;
+    }
+
+    .hero h1 {
+      text-align: center;
+      margin: 12px 0 6px;
+      color: #1e3a8a;
+    }
+
+    .hero p {
+      text-align: center;
+      color: var(--muted);
+      margin: 0;
+      line-height: 1.6;
+    }
+
+    .section {
+      border-radius: 18px;
+      padding: 20px;
+      color: white;
+      box-shadow: var(--shadow);
+    }
+
+    .section h2 {
+      margin-top: 0;
+      margin-bottom: 8px;
+    }
+
+    .section p {
+      margin-top: 0;
+      margin-bottom: 12px;
+      line-height: 1.5;
+    }
+
+    .mini {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .mini a {
+      background: rgba(255,255,255,0.2);
+      padding: 12px;
+      border-radius: 12px;
+      transition: 0.2s;
+      color: white;
+    }
+
+    .mini a:hover {
+      transform: translateY(-2px);
+      background: rgba(255,255,255,0.3);
+    }
+
+    .reading { background: var(--blue); }
+    .resources { background: var(--green); }
+    .support { background: var(--purple); }
+
+    @media (max-width: 700px) {
+      .topbar-inner {
+        padding: 12px 14px;
+      }
+
+      .search-wrap {
+        margin-left: 0;
+        width: 100%;
+      }
+
+      .search-box {
+        flex: 1;
+      }
+
+      .page {
+        padding: 16px 12px 30px;
+      }
+
+      .container {
+        padding: 14px;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .search-wrap {
+        flex-direction: column;
+      }
+
+      .search-btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav class="topbar">
+    <div class="topbar-inner">
+
+      <a class="brand" href="./index.html">Fluent</a>
+
+      <div class="nav-links">
+        <a class="top-link" href="./index.html">Home</a>
+        <a class="top-link" href="./grade-r-3.html">Grade R–3</a>
+        <a class="top-link" href="./grade-4-6.html">Grade 4–6</a>
+        <a class="top-link" href="./grade-7-9.html">Grade 7–9</a>
+        <a class="top-link" href="./grade-10-12.html">Grade 10–12</a>
+        <a class="top-link active" href="./teachers.html">Teachers</a>
+      </div>
+
+      <form class="search-wrap" onsubmit="event.preventDefault(); searchPages();">
+        <input id="searchInput" class="search-box" placeholder="library" />
+        <button class="search-btn" type="submit">Search</button>
+      </form>
+
+    </div>
+  </nav>
+
+  <main class="page">
+    <div class="container">
+
+      <div class="stack">
+
+        <section class="hero">
+          <img src="../shared/assets/images/teachers-welcome.png" alt="Welcome to Fluent Teachers" />
+          <h1>Teachers</h1>
+          <p>
+            Plan lessons, support learners, and manage classroom reading effectively.
+          </p>
+        </section>
+
+        <section class="section reading">
+          <h2>📚 Reading</h2>
+          <p>Access teaching books, references, and classroom reading tools.</p>
+
+          <div class="mini">
+            <a href="../apps/library/library.html?phase=teachers">Library</a>
+            <a href="../apps/read-fluently/read-fluently.html">Read Fluently</a>
+            <a href="../apps/listen-learn/listen-learn.html">Audio Textbooks</a>
+          </div>
+        </section>
+
+        <section class="section resources">
+          <h2>📝 Lesson Planning & Resources</h2>
+          <p>Plan lessons and access classroom-ready teaching resources.</p>
+
+          <div class="mini">
+            <a href="../apps/teaching/teachers.html">Teacher Tools</a>
+            <a href="../apps/teaching/lesson-plan.html">Lesson Plan</a>
+            <a href="../apps/teaching/resources.html">Resources</a>
+          </div>
+        </section>
+
+        <section class="section support">
+          <h2>👩‍🏫 Learner Support</h2>
+          <p>Support learners through structured plans and intervention tools.</p>
+
+          <div class="mini">
+            <a href="../apps/support/sna1.html">SNA 1</a>
+            <a href="../apps/support/support-plan.html">Support Plan</a>
+            <a href="../apps/oral/oral-preparation.html">Oral Preparation</a>
+          </div>
+        </section>
+
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    const searchMap = {
+      "home": "./index.html",
+      "grade r-3": "./grade-r-3.html",
+      "grade 4-6": "./grade-4-6.html",
+      "grade 7-9": "./grade-7-9.html",
+      "grade 10-12": "./grade-10-12.html",
+      "teachers": "./teachers.html",
+      "library": "../apps/library/library.html?phase=teachers",
+      "read fluently": "../apps/read-fluently/read-fluently.html",
+      "audio": "../apps/listen-learn/listen-learn.html",
+      "audio textbooks": "../apps/listen-learn/listen-learn.html",
+      "teacher tools": "../apps/teaching/teachers.html",
+      "lesson plan": "../apps/teaching/lesson-plan.html",
+      "resources": "../apps/teaching/resources.html",
+      "sna 1": "../apps/support/sna1.html",
+      "support plan": "../apps/support/support-plan.html",
+      "oral": "../apps/oral/oral-preparation.html"
+    };
+
+    function searchPages() {
+      const input = document.getElementById("searchInput");
+      const query = input.value.trim().toLowerCase();
+
+      if (!query) return;
+
+      if (searchMap[query]) {
+        window.location.href = searchMap[query];
+        return;
+      }
+
+      const partial = Object.keys(searchMap).find(key => key.includes(query));
+      if (partial) {
+        window.location.href = searchMap[partial];
+        return;
+      }
+
+      alert("No matching page found yet.");
+    }
+
+    document.getElementById("searchInput").addEventListener("keydown", function(event) {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        searchPages();
+      }
+    });
+  </script>
+
+</body>
+</html>

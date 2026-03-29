@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tim and the Big Hat | Fluent</title>
+  <style>
+    :root{
+      --bg:#0b1020;
+      --surface:#10182b;
+      --line:#263042;
+      --text:#ffffff;
+      --muted:#cbd5e1;
+      --purple:#7c3aed;
+      --lime:#c9ff6a;
+      --lime-text:#132000;
+      --btn-blue:#2563eb;
+      --btn-red:#b12a2a;
+      --btn-green:#19b14b;
+      --btn-grey:#d9d9de;
+      --shadow:0 14px 30px rgba(0,0,0,0.28);
+      --radius:24px;
+    }
+
+    *{
+      box-sizing:border-box;
+    }
+
+    body{
+      margin:0;
+      font-family:Arial, sans-serif;
+      background:
+        radial-gradient(circle at top right, rgba(124,58,237,0.15), transparent 22%),
+        radial-gradient(circle at bottom left, rgba(201,255,106,0.08), transparent 18%),
+        var(--bg);
+      color:var(--text);
+    }
+
+    .page{
+      max-width:980px;
+      margin:0 auto;
+      padding:22px 16px 48px;
+    }
+
+    .topbar{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-bottom:18px;
+    }
+
+    .crumb{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 14px;
+      border-radius:999px;
+      background:rgba(255,255,255,0.08);
+      border:1px solid rgba(255,255,255,0.12);
+      color:#e5e7eb;
+      text-decoration:none;
+      font-weight:700;
+    }
+
+    .hero,
+    .reader-panel{
+      background:linear-gradient(135deg, rgba(20,29,55,0.95), rgba(24,34,64,0.95));
+      border:1px solid rgba(255,255,255,0.10);
+      border-radius:28px;
+      padding:18px;
+      box-shadow:var(--shadow);
+      margin-bottom:20px;
+    }
+
+    .hero h1{
+      margin:0 0 8px;
+      font-size:clamp(1.8rem, 4vw, 2.4rem);
+    }
+
+    .hero p{
+      margin:0;
+      color:var(--muted);
+      line-height:1.6;
+      max-width:760px;
+    }
+
+    .controls,
+    .reader-controls{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      align-items:center;
+    }
+
+    .controls{
+      margin:16px 0 8px;
+    }
+
+    .reader-controls{
+      margin:0 0 14px;
+    }
+
+    button{
+      border:none;
+      border-radius:14px;
+      padding:12px 16px;
+      font-size:0.98rem;
+      font-weight:700;
+      cursor:pointer;
+    }
+
+    .btn-blue{
+      background:var(--btn-blue);
+      color:#fff;
+    }
+
+    .btn-red{
+      background:var(--btn-red);
+      color:#fff;
+    }
+
+    .btn-green{
+      background:var(--btn-green);
+      color:#fff;
+    }
+
+    .btn-purple{
+      background:var(--purple);
+      color:#fff;
+    }
+
+    .btn-grey{
+      background:var(--btn-grey);
+      color:#111827;
+    }
+
+    button:disabled{
+      opacity:0.55;
+      cursor:not-allowed;
+    }
+
+    .status,
+    .helper{
+      margin:8px 0 0;
+      color:var(--muted);
+      line-height:1.5;
+      font-size:0.94rem;
+      min-height:20px;
+    }
+
+    #studentPlayback{
+      display:none;
+      margin-top:12px;
+      width:100%;
+    }
+
+    #storyAudio{
+      display:none;
+    }
+
+    .reader-panel h2{
+      margin:0 0 12px;
+      font-size:1.08rem;
+    }
+
+    .card-stage{
+      display:flex;
+      justify-content:center;
+      margin-top:10px;
+    }
+
+    .reader-card{
+      width:100%;
+      max-width:760px;
+      background:#000;
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:22px 20px;
+      box-shadow:var(--shadow);
+    }
+
+    .card-top{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      margin-bottom:18px;
+      flex-wrap:wrap;
+    }
+
+    .card-label{
+      display:inline-flex;
+      padding:8px 12px;
+      border-radius:999px;
+      background:rgba(124,58,237,0.14);
+      border:1px solid rgba(124,58,237,0.28);
+      color:#ede9fe;
+      font-size:0.85rem;
+      font-weight:700;
+    }
+
+    .sentence{
+      line-height:1.65;
+      font-size:0;
+      margin:0 0 16px;
+    }
+
+    .sentence.double-gap{
+      margin-top:32px;
+    }
+
+    .word{
+      display:inline-block;
+      margin-right:8px;
+      margin-bottom:6px;
+      padding:3px 6px;
+      border-radius:10px;
+      font-size:2rem;
+      font-weight:800;
+      user-select:none;
+      transition:background 0.18s ease, color 0.18s ease;
+    }
+
+    .word.alt{
+      color:var(--purple);
+    }
+
+    .word.base{
+      color:#ffffff;
+    }
+
+    .word.active{
+      background:var(--lime);
+      color:var(--lime-text);
+    }
+
+    @media (max-width:700px){
+      .word{
+        font-size:1.45rem;
+        margin-right:6px;
+      }
+
+      .reader-card{
+        padding:18px 14px;
+      }
+
+      button{
+        padding:11px 14px;
+        font-size:0.92rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <div class="topbar">
+      <a class="crumb" href="listen-learn.html">← Back to Listen &amp; Learn</a>
+      <div class="crumb">Level R</div>
+    </div>
+
+    <section class="hero">
+      <h1>Tim and the Big Hat</h1>
+
+      <div class="controls">
+        <button class="btn-blue" id="storyPlayBtn" type="button">🔊 Play</button>
+        <button class="btn-grey" id="storyPauseBtn" type="button">⏸ Pause</button>
+        <button class="btn-green" id="recordBtn" type="button">⏺ Record</button>
+        <button class="btn-red" id="stopBtn" type="button" disabled>■ Stop</button>
+        <button class="btn-blue" id="playBtn" type="button" disabled>▶ Play Recording</button>
+        <button class="btn-grey" id="downloadBtn" type="button" disabled>⬇ Download</button>
+      </div>
+
+      <p class="status" id="recordStatus">Ready to learn.</p>
+
+      <audio id="storyAudio">
+        <source src="../../shared/assets/audio/tim-is-a-little-boy.mp3" type="audio/mpeg" />
+        Your browser does not support the audio element.
+      </audio>
+
+      <audio id="studentPlayback" controls></audio>
+
+      <p style="margin-top:12px;">
+        Listen to the story, follow one card at a time, then read and record your own voice.
+      </p>
+    </section>
+
+    <section class="reader-panel">
+      <h2>Reading card</h2>
+
+      <div class="reader-controls">
+        <button class="btn-purple" id="startHighlightBtn" type="button">✨ Highlight</button>
+        <button class="btn-grey" id="stopHighlightBtn" type="button">⏹ Stop Highlight</button>
+        <button class="btn-grey" id="prevCardBtn" type="button">← Previous</button>
+        <button class="btn-blue" id="nextCardBtn" type="button">Next →</button>
+      </div>
+
+      <div class="card-stage">
+        <article class="reader-card">
+          <div class="card-top">
+            <div class="card-label" id="cardLabel">Card 1 of 5</div>
+          </div>
+
+          <div id="cardContent"></div>
+
+          <p class="helper">
+            The lime-green highlight moves automatically to show the next word to read.
+          </p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const cards = [
+      [
+        ["Tim", "is", "a", "little", "boy."],
+        ["Tim", "has", "a", "big", "hat."],
+        ["The", "hat", "is", "red."],
+        ["The", "hat", "can", "tip."]
+      ],
+      [
+        ["Tim", "can", "tip", "the", "hat."],
+        ['"Look', "at", "my", 'hat!"', "said", "Tim."],
+        ["A", "big", "wind", "came."],
+        ["The", "hat", "went", "up."]
+      ],
+      [
+        ["The", "hat", "went", "far."],
+        ['"Oh', 'no!"', "said", "Tim."],
+        ["Tim", "ran", "fast."],
+        ["He", "ran", "to", "the", "hill."]
+      ],
+      [
+        ["He", "ran", "to", "the", "gate."],
+        ["He", "ran", "to", "the", "tree."],
+        ["At", "last", "Tim", "got", "his", "hat."],
+        ["Tim", "put", "it", "back", "on", "his", "head."]
+      ],
+      [
+        ['"I', "like", "my", "big", 'hat,"', "said", "Tim."],
+        ["Tim", "went", "home", "happy."],
+        [],
+        []
+      ]
+    ];
+
+    let currentCardIndex = 0;
+    let activeWordIndex = -1;
+    let highlightInterval = null;
+
+    const cardContent = document.getElementById("cardContent");
+    const cardLabel = document.getElementById("cardLabel");
+
+    const prevCardBtn = document.getElementById("prevCardBtn");
+    const nextCardBtn = document.getElementById("nextCardBtn");
+    const startHighlightBtn = document.getElementById("startHighlightBtn");
+    const stopHighlightBtn = document.getElementById("stopHighlightBtn");
+
+    const storyAudio = document.getElementById("storyAudio");
+    const storyPlayBtn = document.getElementById("storyPlayBtn");
+    const storyPauseBtn = document.getElementById("storyPauseBtn");
+
+    const recordBtn = document.getElementById("recordBtn");
+    const stopBtn = document.getElementById("stopBtn");
+    const playBtn = document.getElementById("playBtn");
+    const downloadBtn = document.getElementById("downloadBtn");
+    const recordStatus = document.getElementById("recordStatus");
+    const studentPlayback = document.getElementById("studentPlayback");
+
+    let mediaRecorder = null;
+    let audioChunks = [];
+    let audioBlob = null;
+    let audioUrl = null;
+    let stream = null;
+
+    function makeWordSpan(word, indexInSentence) {
+      const span = document.createElement("span");
+      span.className = `word ${indexInSentence % 2 === 0 ? "alt" : "base"}`;
+      span.textContent = word;
+      return span;
+    }
+
+    function renderCard() {
+      stopHighlight();
+
+      const card = cards[currentCardIndex];
+      cardContent.innerHTML = "";
+      cardLabel.textContent = `Card ${currentCardIndex + 1} of ${cards.length}`;
+
+      card.forEach((sentenceWords, sentenceIndex) => {
+        if (!sentenceWords.length) return;
+
+        const p = document.createElement("p");
+        p.className = "sentence";
+        if (sentenceIndex === 2) p.classList.add("double-gap");
+
+        sentenceWords.forEach((word, wordIndex) => {
+          p.appendChild(makeWordSpan(word, wordIndex));
+        });
+
+        cardContent.appendChild(p);
+      });
+
+      activeWordIndex = -1;
+      updateNavButtons();
+    }
+
+    function getCurrentCardWords() {
+      return Array.from(cardContent.querySelectorAll(".word"));
+    }
+
+    function clearActiveWords() {
+      getCurrentCardWords().forEach(word => word.classList.remove("active"));
+    }
+
+    function highlightNextWord() {
+      const words = getCurrentCardWords();
+      if (!words.length) return;
+
+      clearActiveWords();
+      activeWordIndex++;
+
+      if (activeWordIndex >= words.length) {
+        activeWordIndex = 0;
+      }
+
+      const target = words[activeWordIndex];
+      target.classList.add("active");
+      target.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
+    }
+
+    function startHighlight() {
+      stopHighlight();
+      highlightNextWord();
+      highlightInterval = setInterval(highlightNextWord, 900);
+      recordStatus.textContent = "Highlight started.";
+    }
+
+    function stopHighlight() {
+      if (highlightInterval) {
+        clearInterval(highlightInterval);
+        highlightInterval = null;
+      }
+    }
+
+    function updateNavButtons() {
+      prevCardBtn.disabled = currentCardIndex === 0;
+      nextCardBtn.disabled = currentCardIndex === cards.length - 1;
+    }
+
+    prevCardBtn.addEventListener("click", () => {
+      if (currentCardIndex > 0) {
+        currentCardIndex--;
+        renderCard();
+        recordStatus.textContent = `Showing card ${currentCardIndex + 1}.`;
+      }
+    });
+
+    nextCardBtn.addEventListener("click", () => {
+      if (currentCardIndex < cards.length - 1) {
+        currentCardIndex++;
+        renderCard();
+        recordStatus.textContent = `Showing card ${currentCardIndex + 1}.`;
+      }
+    });
+
+    startHighlightBtn.addEventListener("click", startHighlight);
+
+    stopHighlightBtn.addEventListener("click", () => {
+      stopHighlight();
+      clearActiveWords();
+      activeWordIndex = -1;
+      recordStatus.textContent = "Highlight stopped.";
+    });
+
+    storyPlayBtn.addEventListener("click", () => {
+      storyAudio.play();
+      recordStatus.textContent = "Playing audiobook.";
+    });
+
+    storyPauseBtn.addEventListener("click", () => {
+      storyAudio.pause();
+      recordStatus.textContent = "Audiobook paused.";
+    });
+
+    storyAudio.addEventListener("ended", () => {
+      recordStatus.textContent = "Audiobook finished.";
+    });
+
+    async function startRecording() {
+      try {
+        stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        mediaRecorder = new MediaRecorder(stream);
+        audioChunks = [];
+
+        mediaRecorder.ondataavailable = (event) => {
+          if (event.data.size > 0) audioChunks.push(event.data);
+        };
+
+        mediaRecorder.onstop = () => {
+          audioBlob = new Blob(audioChunks, { type: "audio/webm" });
+
+          if (audioUrl) URL.revokeObjectURL(audioUrl);
+          audioUrl = URL.createObjectURL(audioBlob);
+
+          studentPlayback.src = audioUrl;
+          studentPlayback.style.display = "block";
+
+          playBtn.disabled = false;
+          downloadBtn.disabled = false;
+          recordStatus.textContent = "Recording saved. You can play or download it.";
+
+          if (stream) {
+            stream.getTracks().forEach(track => track.stop());
+          }
+        };
+
+        mediaRecorder.start();
+        recordBtn.disabled = true;
+        stopBtn.disabled = false;
+        playBtn.disabled = true;
+        downloadBtn.disabled = true;
+        recordStatus.textContent = "Recording...";
+      } catch (error) {
+        recordStatus.textContent = "Microphone access was blocked or unavailable.";
+      }
+    }
+
+    function stopRecording() {
+      if (mediaRecorder && mediaRecorder.state !== "inactive") {
+        mediaRecorder.stop();
+      }
+      recordBtn.disabled = false;
+      stopBtn.disabled = true;
+    }
+
+    function playRecording() {
+      if (audioUrl) {
+        studentPlayback.play();
+        recordStatus.textContent = "Playing recording.";
+      }
+    }
+
+    function downloadRecording() {
+      if (!audioBlob || !audioUrl) return;
+
+      const link = document.createElement("a");
+      link.href = audioUrl;
+      link.download = "tim-and-the-big-hat-reading.webm";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    recordBtn.addEventListener("click", startRecording);
+    stopBtn.addEventListener("click", stopRecording);
+    playBtn.addEventListener("click", playRecording);
+    downloadBtn.addEventListener("click", downloadRecording);
+
+    renderCard();
+  </script>
+</body>
+</html>

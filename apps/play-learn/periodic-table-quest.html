@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fluent | Periodic Table Quest</title>
+  <style>
+    :root{
+      --bg:#f4f8ff;
+      --card:#ffffff;
+      --ink:#17324d;
+      --muted:#667b90;
+      --blue:#2d16c8;
+      --blue-soft:rgba(45, 22, 200, 0.24);
+      --green:#08ad5a;
+      --green-soft:rgba(8, 173, 90, 0.24);
+      --line:#d8e5f2;
+      --shadow:0 16px 40px rgba(34, 71, 114, 0.12);
+      --radius:22px;
+    }
+
+    *{ box-sizing:border-box; }
+
+    body{
+      margin:0;
+      font-family:Arial, Helvetica, sans-serif;
+      background:linear-gradient(180deg, #eef5ff, #f8fcff);
+      color:var(--ink);
+    }
+
+    .page{
+      width:min(1320px, calc(100% - 24px));
+      margin:18px auto 30px;
+    }
+
+    .topbar{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:14px;
+      flex-wrap:wrap;
+      margin-bottom:18px;
+    }
+
+    .brand h1{
+      margin:0;
+      font-size:1.7rem;
+    }
+
+    .brand p{
+      margin:6px 0 0;
+      color:var(--muted);
+      max-width:70ch;
+    }
+
+    .top-actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    button{
+      font:inherit;
+    }
+
+    .pill-btn{
+      border:none;
+      border-radius:999px;
+      padding:12px 16px;
+      background:#fff;
+      box-shadow:0 10px 22px rgba(41, 76, 116, 0.08);
+      cursor:pointer;
+      font-weight:700;
+      color:var(--ink);
+    }
+
+    .layout{
+      display:grid;
+      grid-template-columns:300px 1fr;
+      gap:18px;
+    }
+
+    .panel,
+    .board-card{
+      background:var(--card);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      border:1px solid #e9f0f7;
+    }
+
+    .panel{
+      padding:18px;
+    }
+
+    .panel h2{
+      margin:0 0 12px;
+      font-size:1.15rem;
+    }
+
+    .stat-grid{
+      display:grid;
+      gap:12px;
+      margin-bottom:16px;
+    }
+
+    .stat{
+      padding:14px 16px;
+      border-radius:18px;
+      border:1px solid var(--line);
+      background:#f8fbff;
+    }
+
+    .stat-label{
+      font-size:0.88rem;
+      color:var(--muted);
+      margin-bottom:6px;
+    }
+
+    .stat-value{
+      font-size:1.35rem;
+      font-weight:800;
+    }
+
+    .instructions{
+      background:#eef7ff;
+      border:1px solid #d7e9fb;
+      border-radius:18px;
+      padding:16px;
+      line-height:1.6;
+      color:#32506d;
+      font-size:1rem;
+    }
+
+    .board-card{
+      padding:14px;
+    }
+
+    .board-wrap{
+      position:relative;
+      width:100%;
+      aspect-ratio:1423 / 886;
+      border-radius:18px;
+      overflow:hidden;
+      background:#fff;
+      border:1px solid #e5edf6;
+    }
+
+    .board-wrap img{
+      width:100%;
+      height:100%;
+      object-fit:contain;
+      display:block;
+      user-select:none;
+      pointer-events:none;
+    }
+
+    .hotspot{
+      position:absolute;
+      border:1px solid rgba(255,255,255,0.92);
+      border-radius:8px;
+      background:transparent;
+      box-shadow:none;
+      cursor:pointer;
+      transition:transform 0.12s ease, background 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
+    }
+
+    .hotspot:hover{
+      transform:scale(1.01);
+    }
+
+    .hotspot.active{
+      background:var(--blue-soft);
+      box-shadow:
+        inset 0 0 0 1px rgba(45,22,200,0.35),
+        0 4px 10px rgba(35,72,120,0.10);
+    }
+
+    .hotspot.done{
+      background:var(--green-soft);
+      box-shadow:inset 0 0 0 1px rgba(8,173,90,0.34);
+    }
+
+    .hotspot.locked{
+      background:transparent;
+      box-shadow:none;
+      opacity:0.06;
+      cursor:not-allowed;
+    }
+
+    .modal-backdrop{
+      position:fixed;
+      inset:0;
+      background:rgba(17, 30, 46, 0.46);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:16px;
+      z-index:1000;
+    }
+
+    .modal-backdrop.show{
+      display:flex;
+    }
+
+    .modal{
+      width:min(760px, 100%);
+      max-height:90vh;
+      background:#fff;
+      border-radius:28px;
+      box-shadow:0 24px 60px rgba(0,0,0,0.22);
+      overflow:hidden;
+      display:flex;
+      flex-direction:column;
+    }
+
+    .modal-head{
+      padding:16px 18px 10px;
+      border-bottom:1px solid #edf2f7;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      flex:0 0 auto;
+    }
+
+    .modal-head h3{
+      margin:0;
+      font-size:1.2rem;
+    }
+
+    .close-btn{
+      border:none;
+      background:#f4f8fd;
+      width:40px;
+      height:40px;
+      border-radius:50%;
+      cursor:pointer;
+      font-size:1.05rem;
+      font-weight:800;
+      flex:0 0 auto;
+    }
+
+    .modal-body{
+      padding:16px 18px 18px;
+      overflow:auto;
+      min-height:0;
+    }
+
+    .element-card{
+      background:linear-gradient(180deg, #f8fbff, #f2fbf7);
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:12px 14px;
+      margin-bottom:12px;
+    }
+
+    .element-card .eyebrow{
+      color:var(--muted);
+      font-size:0.82rem;
+      font-weight:700;
+      margin-bottom:4px;
+    }
+
+    .element-card .headline{
+      font-size:1rem;
+      line-height:1.3;
+      font-weight:800;
+      margin:0;
+    }
+
+    .meta-grid{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0, 1fr));
+      gap:10px;
+      margin-bottom:12px;
+    }
+
+    .meta-box{
+      padding:12px 14px;
+      border-radius:16px;
+      border:1px solid #e3edf7;
+      background:#fff;
+    }
+
+    .meta-label{
+      font-size:0.82rem;
+      color:var(--muted);
+      margin-bottom:4px;
+    }
+
+    .meta-value{
+      font-size:0.98rem;
+      font-weight:800;
+    }
+
+    .question-card{
+      background:#fff;
+      border:1px solid #e3edf7;
+      border-radius:18px;
+      padding:14px;
+      margin-bottom:12px;
+    }
+
+    .question-label{
+      color:var(--muted);
+      font-size:0.84rem;
+      font-weight:700;
+      margin-bottom:6px;
+    }
+
+    .question-text{
+      margin:0;
+      font-size:0.98rem;
+      line-height:1.5;
+      font-weight:800;
+    }
+
+    .choices{
+      display:grid;
+      gap:10px;
+      margin-bottom:12px;
+    }
+
+    .choice-btn{
+      width:100%;
+      text-align:left;
+      border:2px solid #e3edf7;
+      background:#fff;
+      border-radius:16px;
+      padding:12px 14px;
+      cursor:pointer;
+      font-weight:700;
+      color:var(--ink);
+      transition:0.15s ease;
+    }
+
+    .choice-btn:hover{
+      border-color:#b7d2ff;
+      background:#f8fbff;
+    }
+
+    .choice-btn.correct{
+      background:#e9fbf3;
+      border-color:#92ddb9;
+      color:#125f43;
+    }
+
+    .choice-btn.wrong{
+      background:#fff0f0;
+      border-color:#f1a6a6;
+      color:#9b3838;
+    }
+
+    .feedback{
+      min-height:60px;
+      border-radius:16px;
+      padding:12px 14px;
+      border:1px dashed #d7e4ef;
+      background:#fbfdff;
+      line-height:1.5;
+      margin-bottom:12px;
+    }
+
+    .feedback.good{
+      background:#e9fbf3;
+      border-color:#a9e5c9;
+      color:#145940;
+    }
+
+    .feedback.try{
+      background:#fff5df;
+      border-color:#ffd88b;
+      color:#7a5913;
+    }
+
+    .feedback.info{
+      background:#eef4ff;
+      border-color:#cadbfd;
+      color:#294f9a;
+    }
+
+    .modal-actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      position:sticky;
+      bottom:0;
+      background:#fff;
+      padding-top:4px;
+    }
+
+    .action-btn{
+      border:none;
+      border-radius:16px;
+      padding:12px 14px;
+      font-weight:800;
+      cursor:pointer;
+    }
+
+    .secondary{
+      background:#fff;
+      border:1px solid var(--line);
+      color:var(--ink);
+    }
+
+    .success{
+      background:linear-gradient(135deg, var(--green), #18a774);
+      color:#fff;
+    }
+
+    @media (max-width: 980px){
+      .layout{
+        grid-template-columns:1fr;
+      }
+    }
+
+    @media (max-width: 640px){
+      .page{
+        width:min(100%, calc(100% - 12px));
+        margin:10px auto 20px;
+      }
+
+      .brand h1{
+        font-size:1.28rem;
+      }
+
+      .modal{
+        border-radius:20px;
+        max-height:94vh;
+      }
+
+      .modal-head,
+      .modal-body{
+        padding-left:14px;
+        padding-right:14px;
+      }
+
+      .meta-grid{
+        grid-template-columns:1fr;
+      }
+
+      .question-text{
+        font-size:0.95rem;
+      }
+
+      .choice-btn{
+        padding:11px 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="topbar">
+      <div class="brand">
+        <h1>⚛️ Fluent Periodic Table Quest</h1>
+        <p>Tap the highlighted element, answer the clue, and unlock the next challenge.</p>
+      </div>
+
+      <div class="top-actions">
+        <button class="pill-btn" id="soundBtn">🔊 Sound: On</button>
+        <button class="pill-btn" id="resetBtn">↺ Reset Progress</button>
+      </div>
+    </div>
+
+    <div class="layout">
+      <aside class="panel">
+        <h2>Quest Progress</h2>
+
+        <div class="stat-grid">
+          <div class="stat">
+            <div class="stat-label">Score</div>
+            <div class="stat-value" id="scoreValue">0</div>
+          </div>
+
+          <div class="stat">
+            <div class="stat-label">Solved</div>
+            <div class="stat-value"><span id="solvedValue">0</span>/<span id="totalValue">10</span></div>
+          </div>
+
+          <div class="stat">
+            <div class="stat-label">Current element</div>
+            <div class="stat-value" id="unlockValue">H</div>
+          </div>
+        </div>
+
+        <div class="instructions">
+          Tap the blue element on the table. Read the clue, choose your answer, and then move to the next element.
+        </div>
+      </aside>
+
+      <section class="board-card">
+        <div class="board-wrap" id="boardWrap">
+          <img src="periodic-table.png" alt="Periodic Table of the Elements" />
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="modalBackdrop">
+    <div class="modal">
+      <div class="modal-head">
+        <h3 id="modalTitle">H</h3>
+        <button class="close-btn" id="closeModalBtn">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="element-card">
+          <div class="eyebrow">Element card</div>
+          <p class="headline" id="elementHeadline">H</p>
+        </div>
+
+        <div class="meta-grid">
+          <div class="meta-box">
+            <div class="meta-label">Atomic number</div>
+            <div class="meta-value" id="atomicNumberValue">1</div>
+          </div>
+          <div class="meta-box">
+            <div class="meta-label">Category</div>
+            <div class="meta-value" id="categoryValue">Nonmetal</div>
+          </div>
+          <div class="meta-box">
+            <div class="meta-label">Period</div>
+            <div class="meta-value" id="periodValue">1</div>
+          </div>
+          <div class="meta-box">
+            <div class="meta-label">Group</div>
+            <div class="meta-value" id="groupValue">1</div>
+          </div>
+        </div>
+
+        <div class="question-card">
+          <div class="question-label">Clue question</div>
+          <p class="question-text" id="questionText">Question appears here.</p>
+        </div>
+
+        <div class="choices" id="choicesWrap"></div>
+
+        <div class="feedback info" id="feedbackBox">
+          Select the best answer.
+        </div>
+
+        <div class="modal-actions">
+          <button class="action-btn secondary" id="readBtn">🔊 Read Clue</button>
+          <button class="action-btn success" id="nextBtn" disabled>Next Element</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const POS = {
+      mainStartLeft: 1.80,
+      mainColStep: 5.39,
+      mainWidth: 4.56,
+      mainHeight: 7.65,
+      row1Top: 8.75,
+      rowStep: 8.30,
+      row3Offset: 0.25,
+
+      fStartLeft: 17.20,
+      fColStep: 5.08,
+      fWidth: 4.62,
+      fHeight: 6.95,
+      lanthTop: 68.85,
+      actTop: 80.55
+    };
+
+    const E = (z, s, n, g, p, category) => ({ z, symbol: s, name: n, group: g, period: p, category, zone: "main" });
+    const F = (z, s, n, row, index, category) => ({ z, symbol: s, name: n, row, index, category, zone: "f" });
+
+    const ELEMENTS = [
+      E(1,"H","Hydrogen",1,1,"Nonmetal"),
+      E(2,"He","Helium",18,1,"Noble gas"),
+
+      E(3,"Li","Lithium",1,2,"Alkali metal"),
+      E(4,"Be","Beryllium",2,2,"Alkaline earth metal"),
+      E(5,"B","Boron",13,2,"Metalloid"),
+      E(6,"C","Carbon",14,2,"Nonmetal"),
+      E(7,"N","Nitrogen",15,2,"Nonmetal"),
+      E(8,"O","Oxygen",16,2,"Nonmetal"),
+      E(9,"F","Fluorine",17,2,"Halogen"),
+      E(10,"Ne","Neon",18,2,"Noble gas"),
+
+      E(11,"Na","Sodium",1,3,"Alkali metal"),
+      E(12,"Mg","Magnesium",2,3,"Alkaline earth metal"),
+      E(13,"Al","Aluminium",13,3,"Post-transition metal"),
+      E(14,"Si","Silicon",14,3,"Metalloid"),
+      E(15,"P","Phosphorus",15,3,"Nonmetal"),
+      E(16,"S","Sulfur",16,3,"Nonmetal"),
+      E(17,"Cl","Chlorine",17,3,"Halogen"),
+      E(18,"Ar","Argon",18,3,"Noble gas"),
+
+      E(19,"K","Potassium",1,4,"Alkali metal"),
+      E(20,"Ca","Calcium",2,4,"Alkaline earth metal"),
+      E(21,"Sc","Scandium",3,4,"Transition metal"),
+      E(22,"Ti","Titanium",4,4,"Transition metal"),
+      E(23,"V","Vanadium",5,4,"Transition metal"),
+      E(24,"Cr","Chromium",6,4,"Transition metal"),
+      E(25,"Mn","Manganese",7,4,"Transition metal"),
+      E(26,"Fe","Iron",8,4,"Transition metal"),
+      E(27,"Co","Cobalt",9,4,"Transition metal"),
+      E(28,"Ni","Nickel",10,4,"Transition metal"),
+      E(29,"Cu","Copper",11,4,"Transition metal"),
+      E(30,"Zn","Zinc",12,4,"Transition metal"),
+      E(31,"Ga","Gallium",13,4,"Post-transition metal"),
+      E(32,"Ge","Germanium",14,4,"Metalloid"),
+      E(33,"As","Arsenic",15,4,"Metalloid"),
+      E(34,"Se","Selenium",16,4,"Nonmetal"),
+      E(35,"Br","Bromine",17,4,"Halogen"),
+      E(36,"Kr","Krypton",18,4,"Noble gas"),
+
+      E(37,"Rb","Rubidium",1,5,"Alkali metal"),
+      E(38,"Sr","Strontium",2,5,"Alkaline earth metal"),
+      E(39,"Y","Yttrium",3,5,"Transition metal"),
+      E(40,"Zr","Zirconium",4,5,"Transition metal"),
+      E(41,"Nb","Niobium",5,5,"Transition metal"),
+      E(42,"Mo","Molybdenum",6,5,"Transition metal"),
+      E(43,"Tc","Technetium",7,5,"Transition metal"),
+      E(44,"Ru","Ruthenium",8,5,"Transition metal"),
+      E(45,"Rh","Rhodium",9,5,"Transition metal"),
+      E(46,"Pd","Palladium",10,5,"Transition metal"),
+      E(47,"Ag","Silver",11,5,"Transition metal"),
+      E(48,"Cd","Cadmium",12,5,"Transition metal"),
+      E(49,"In","Indium",13,5,"Post-transition metal"),
+      E(50,"Sn","Tin",14,5,"Post-transition metal"),
+      E(51,"Sb","Antimony",15,5,"Metalloid"),
+      E(52,"Te","Tellurium",16,5,"Metalloid"),
+      E(53,"I","Iodine",17,5,"Halogen"),
+      E(54,"Xe","Xenon",18,5,"Noble gas"),
+
+      E(55,"Cs","Cesium",1,6,"Alkali metal"),
+      E(56,"Ba","Barium",2,6,"Alkaline earth metal"),
+      E(72,"Hf","Hafnium",4,6,"Transition metal"),
+      E(73,"Ta","Tantalum",5,6,"Transition metal"),
+      E(74,"W","Tungsten",6,6,"Transition metal"),
+      E(75,"Re","Rhenium",7,6,"Transition metal"),
+      E(76,"Os","Osmium",8,6,"Transition metal"),
+      E(77,"Ir","Iridium",9,6,"Transition metal"),
+      E(78,"Pt","Platinum",10,6,"Transition metal"),
+      E(79,"Au","Gold",11,6,"Transition metal"),
+      E(80,"Hg","Mercury",12,6,"Transition metal"),
+      E(81,"Tl","Thallium",13,6,"Post-transition metal"),
+      E(82,"Pb","Lead",14,6,"Post-transition metal"),
+      E(83,"Bi","Bismuth",15,6,"Post-transition metal"),
+      E(84,"Po","Polonium",16,6,"Metalloid"),
+      E(85,"At","Astatine",17,6,"Halogen"),
+      E(86,"Rn","Radon",18,6,"Noble gas"),
+
+      E(87,"Fr","Francium",1,7,"Alkali metal"),
+      E(88,"Ra","Radium",2,7,"Alkaline earth metal"),
+      E(104,"Rf","Rutherfordium",4,7,"Transition metal"),
+      E(105,"Db","Dubnium",5,7,"Transition metal"),
+      E(106,"Sg","Seaborgium",6,7,"Transition metal"),
+      E(107,"Bh","Bohrium",7,7,"Transition metal"),
+      E(108,"Hs","Hassium",8,7,"Transition metal"),
+      E(109,"Mt","Meitnerium",9,7,"Transition metal"),
+      E(110,"Ds","Darmstadtium",10,7,"Transition metal"),
+      E(111,"Rg","Roentgenium",11,7,"Transition metal"),
+      E(112,"Cn","Copernicium",12,7,"Transition metal"),
+      E(113,"Nh","Nihonium",13,7,"Post-transition metal"),
+      E(114,"Fl","Flerovium",14,7,"Post-transition metal"),
+      E(115,"Mc","Moscovium",15,7,"Post-transition metal"),
+      E(116,"Lv","Livermorium",16,7,"Post-transition metal"),
+      E(117,"Ts","Tennessine",17,7,"Halogen"),
+      E(118,"Og","Oganesson",18,7,"Noble gas"),
+
+      F(57,"La","Lanthanum","lanth",1,"Lanthanide"),
+      F(58,"Ce","Cerium","lanth",2,"Lanthanide"),
+      F(59,"Pr","Praseodymium","lanth",3,"Lanthanide"),
+      F(60,"Nd","Neodymium","lanth",4,"Lanthanide"),
+      F(61,"Pm","Promethium","lanth",5,"Lanthanide"),
+      F(62,"Sm","Samarium","lanth",6,"Lanthanide"),
+      F(63,"Eu","Europium","lanth",7,"Lanthanide"),
+      F(64,"Gd","Gadolinium","lanth",8,"Lanthanide"),
+      F(65,"Tb","Terbium","lanth",9,"Lanthanide"),
+      F(66,"Dy","Dysprosium","lanth",10,"Lanthanide"),
+      F(67,"Ho","Holmium","lanth",11,"Lanthanide"),
+      F(68,"Er","Erbium","lanth",12,"Lanthanide"),
+      F(69,"Tm","Thulium","lanth",13,"Lanthanide"),
+      F(70,"Yb","Ytterbium","lanth",14,"Lanthanide"),
+      F(71,"Lu","Lutetium","lanth",15,"Lanthanide"),
+
+      F(89,"Ac","Actinium","act",1,"Actinide"),
+      F(90,"Th","Thorium","act",2,"Actinide"),
+      F(91,"Pa","Protactinium","act",3,"Actinide"),
+      F(92,"U","Uranium","act",4,"Actinide"),
+      F(93,"Np","Neptunium","act",5,"Actinide"),
+      F(94,"Pu","Plutonium","act",6,"Actinide"),
+      F(95,"Am","Americium","act",7,"Actinide"),
+      F(96,"Cm","Curium","act",8,"Actinide"),
+      F(97,"Bk","Berkelium","act",9,"Actinide"),
+      F(98,"Cf","Californium","act",10,"Actinide"),
+      F(99,"Es","Einsteinium","act",11,"Actinide"),
+      F(100,"Fm","Fermium","act",12,"Actinide"),
+      F(101,"Md","Mendelevium","act",13,"Actinide"),
+      F(102,"No","Nobelium","act",14,"Actinide"),
+      F(103,"Lr","Lawrencium","act",15,"Actinide")
+    ];
+
+    const QUESTS = [
+      {
+        symbol: "H",
+        question: "I am the lightest element and I am number 1 on the periodic table. Who am I?",
+        choices: ["Hydrogen", "Helium", "Oxygen", "Carbon"],
+        answer: "Hydrogen",
+        success: "Hydrogen is the first and lightest element."
+      },
+      {
+        symbol: "He",
+        question: "I am a noble gas used in balloons. Which element am I?",
+        choices: ["Helium", "Hydrogen", "Neon", "Nitrogen"],
+        answer: "Helium",
+        success: "Helium is a noble gas and is lighter than air."
+      },
+      {
+        symbol: "Li",
+        question: "I am a soft metal often used in batteries. Which element am I?",
+        choices: ["Lithium", "Boron", "Magnesium", "Chlorine"],
+        answer: "Lithium",
+        success: "Lithium is widely used in batteries."
+      },
+      {
+        symbol: "C",
+        question: "I am found in living things and in pencil lead. Who am I?",
+        choices: ["Calcium", "Carbon", "Copper", "Chlorine"],
+        answer: "Carbon",
+        success: "Carbon is a very important nonmetal."
+      },
+      {
+        symbol: "O",
+        question: "Humans need me to breathe. Which element am I?",
+        choices: ["Oxygen", "Gold", "Hydrogen", "Argon"],
+        answer: "Oxygen",
+        success: "Oxygen is essential for breathing."
+      },
+      {
+        symbol: "Na",
+        question: "My symbol is Na, and I am found in table salt. Which element am I?",
+        choices: ["Nitrogen", "Neon", "Sodium", "Sulfur"],
+        answer: "Sodium",
+        success: "Sodium is one of the elements in table salt."
+      },
+      {
+        symbol: "Mg",
+        question: "I am a metal and my symbol is Mg. Who am I?",
+        choices: ["Mercury", "Magnesium", "Manganese", "Molybdenum"],
+        answer: "Magnesium",
+        success: "Magnesium is a metal in Group 2."
+      },
+      {
+        symbol: "Cl",
+        question: "Together with sodium, I help make table salt. Which element am I?",
+        choices: ["Calcium", "Carbon", "Chlorine", "Copper"],
+        answer: "Chlorine",
+        success: "Table salt is sodium chloride."
+      },
+      {
+        symbol: "Fe",
+        question: "I am a strong metal used to make steel. My symbol is Fe. Who am I?",
+        choices: ["Fluorine", "Iron", "Iodine", "Gold"],
+        answer: "Iron",
+        success: "Iron is a strong transition metal."
+      },
+      {
+        symbol: "Au",
+        question: "I am a precious metal used in jewellery. My symbol is Au. Which element am I?",
+        choices: ["Silver", "Aluminium", "Gold", "Copper"],
+        answer: "Gold",
+        success: "Gold completes this mini quest."
+      }
+    ];
+
+    const POSITIVE_FEEDBACK = ["Well done.", "Nice work.", "Good job."];
+    let positiveFeedbackIndex = 0;
+
+    function getPositiveFeedback() {
+      const phrase = POSITIVE_FEEDBACK[positiveFeedbackIndex % POSITIVE_FEEDBACK.length];
+      positiveFeedbackIndex += 1;
+      return phrase;
+    }
+
+    const QUEST_SYMBOLS = QUESTS.map(q => q.symbol);
+
+    const boardWrap = document.getElementById("boardWrap");
+    const modalBackdrop = document.getElementById("modalBackdrop");
+    const modalTitle = document.getElementById("modalTitle");
+    const elementHeadline = document.getElementById("elementHeadline");
+    const atomicNumberValue = document.getElementById("atomicNumberValue");
+    const categoryValue = document.getElementById("categoryValue");
+    const periodValue = document.getElementById("periodValue");
+    const groupValue = document.getElementById("groupValue");
+    const questionText = document.getElementById("questionText");
+    const choicesWrap = document.getElementById("choicesWrap");
+    const feedbackBox = document.getElementById("feedbackBox");
+    const readBtn = document.getElementById("readBtn");
+    const nextBtn = document.getElementById("nextBtn");
+    const closeModalBtn = document.getElementById("closeModalBtn");
+    const scoreValue = document.getElementById("scoreValue");
+    const solvedValue = document.getElementById("solvedValue");
+    const totalValue = document.getElementById("totalValue");
+    const unlockValue = document.getElementById("unlockValue");
+    const soundBtn = document.getElementById("soundBtn");
+    const resetBtn = document.getElementById("resetBtn");
+
+    totalValue.textContent = QUESTS.length;
+
+    let soundOn = true;
+    let score = 0;
+    let solved = new Set();
+    let unlockedSymbol = QUEST_SYMBOLS[0];
+    let currentElement = null;
+    let currentQuest = null;
+    let currentAnswered = false;
+    let hotspotMap = new Map();
+
+    function speak(text) {
+      if (!soundOn || !("speechSynthesis" in window)) return;
+      window.speechSynthesis.cancel();
+      const utter = new SpeechSynthesisUtterance(text);
+      utter.rate = 0.95;
+      utter.pitch = 1;
+      utter.volume = 1;
+      window.speechSynthesis.speak(utter);
+    }
+
+    function leftForGroup(group) {
+      return POS.mainStartLeft + (group - 1) * POS.mainColStep;
+    }
+
+    function topForPeriod(period) {
+      let top = POS.row1Top + (period - 1) * POS.rowStep;
+      if (period >= 3) top += POS.row3Offset;
+      return top;
+    }
+
+    function leftForFIndex(index) {
+      return POS.fStartLeft + (index - 1) * POS.fColStep;
+    }
+
+    function topForFRow(row) {
+      return row === "lanth" ? POS.lanthTop : POS.actTop;
+    }
+
+    function getElementPosition(element) {
+      if (element.zone === "main") {
+        return {
+          left: leftForGroup(element.group),
+          top: topForPeriod(element.period),
+          width: POS.mainWidth,
+          height: POS.mainHeight
+        };
+      }
+
+      return {
+        left: leftForFIndex(element.index),
+        top: topForFRow(element.row),
+        width: POS.fWidth,
+        height: POS.fHeight
+      };
+    }
+
+    function getElementBySymbol(symbol) {
+      return ELEMENTS.find(e => e.symbol === symbol);
+    }
+
+    function getQuestBySymbol(symbol) {
+      return QUESTS.find(q => q.symbol === symbol);
+    }
+
+    function getQuestIndex(symbol) {
+      return QUEST_SYMBOLS.indexOf(symbol);
+    }
+
+    function buildHotspots() {
+      boardWrap.querySelectorAll(".hotspot").forEach(node => node.remove());
+      hotspotMap.clear();
+
+      QUEST_SYMBOLS.forEach(symbol => {
+        const element = getElementBySymbol(symbol);
+        if (!element) return;
+
+        const pos = getElementPosition(element);
+        const btn = document.createElement("button");
+        btn.className = "hotspot";
+        btn.dataset.symbol = element.symbol;
+        btn.style.left = `${pos.left}%`;
+        btn.style.top = `${pos.top}%`;
+        btn.style.width = `${pos.width}%`;
+        btn.style.height = `${pos.height}%`;
+        btn.title = `${element.symbol} — ${element.name}`;
+
+        btn.addEventListener("click", () => {
+          if (btn.classList.contains("locked")) return;
+          openModal(element);
+        });
+
+        boardWrap.appendChild(btn);
+        hotspotMap.set(element.symbol, btn);
+      });
+
+      updateHotspots();
+    }
+
+    function updateStats() {
+      scoreValue.textContent = score;
+      solvedValue.textContent = solved.size;
+      unlockValue.textContent = unlockedSymbol || "Complete";
+    }
+
+    function updateHotspots() {
+      QUEST_SYMBOLS.forEach(symbol => {
+        const btn = hotspotMap.get(symbol);
+        if (!btn) return;
+
+        btn.classList.remove("active", "done", "locked");
+
+        if (solved.has(symbol)) {
+          btn.classList.add("done");
+          btn.disabled = false;
+        } else if (symbol === unlockedSymbol) {
+          btn.classList.add("active");
+          btn.disabled = false;
+        } else {
+          btn.classList.add("locked");
+          btn.disabled = true;
+        }
+      });
+    }
+
+    function openModal(element) {
+      currentElement = element;
+      currentQuest = getQuestBySymbol(element.symbol);
+      currentAnswered = false;
+
+      modalTitle.textContent = element.symbol;
+      elementHeadline.textContent = element.symbol;
+      atomicNumberValue.textContent = element.z;
+      categoryValue.textContent = element.category;
+      periodValue.textContent = element.zone === "main" ? element.period : (element.row === "lanth" ? "Lanthanide series" : "Actinide series");
+      groupValue.textContent = element.zone === "main" ? element.group : "f-block";
+
+      questionText.textContent = currentQuest.question;
+      choicesWrap.innerHTML = "";
+      feedbackBox.className = "feedback info";
+      feedbackBox.innerHTML = "Select the best answer.";
+      nextBtn.disabled = true;
+
+      currentQuest.choices.forEach(choice => {
+        const btn = document.createElement("button");
+        btn.className = "choice-btn";
+        btn.textContent = choice;
+        btn.addEventListener("click", () => handleChoice(choice, btn));
+        choicesWrap.appendChild(btn);
+      });
+
+      modalBackdrop.classList.add("show");
+    }
+
+    function closeModal() {
+      modalBackdrop.classList.remove("show");
+      if ("speechSynthesis" in window) {
+        window.speechSynthesis.cancel();
+      }
+    }
+
+    function handleChoice(choice, clickedBtn) {
+      if (!currentQuest || currentAnswered) return;
+
+      const buttons = [...document.querySelectorAll(".choice-btn")];
+      buttons.forEach(btn => btn.disabled = true);
+
+      currentAnswered = true;
+
+      if (choice === currentQuest.answer) {
+        const praise = getPositiveFeedback();
+        clickedBtn.classList.add("correct");
+        feedbackBox.className = "feedback good";
+        feedbackBox.innerHTML = `<strong>${praise}</strong>${currentQuest.success}`;
+        speak(`${praise} ${currentQuest.success}`);
+        if (!solved.has(currentQuest.symbol)) {
+          solved.add(currentQuest.symbol);
+          score += 10;
+        }
+      } else {
+        clickedBtn.classList.add("wrong");
+        buttons.forEach(btn => {
+          if (btn.textContent === currentQuest.answer) {
+            btn.classList.add("correct");
+          }
+        });
+        feedbackBox.className = "feedback try";
+        feedbackBox.innerHTML = `<strong>Let's learn 🌟</strong>The correct answer is <b>${currentQuest.answer}</b>.`;
+        speak(`Let's learn. The correct answer is ${currentQuest.answer}.`);
+        if (!solved.has(currentQuest.symbol)) {
+          solved.add(currentQuest.symbol);
+          score += 2;
+        }
+      }
+
+      nextBtn.disabled = false;
+      updateStats();
+      updateHotspots();
+    }
+
+    function unlockNextQuest() {
+      if (!currentQuest) return;
+
+      const currentIndex = getQuestIndex(currentQuest.symbol);
+
+      if (currentIndex !== -1 && QUEST_SYMBOLS[currentIndex + 1]) {
+        unlockedSymbol = QUEST_SYMBOLS[currentIndex + 1];
+        updateStats();
+        updateHotspots();
+        closeModal();
+      } else {
+        unlockedSymbol = null;
+        updateStats();
+        updateHotspots();
+        closeModal();
+        alert("Excellent! You completed the periodic table mini quest.");
+      }
+    }
+
+    readBtn.addEventListener("click", () => {
+      if (!currentQuest || !currentElement) return;
+      speak(`${currentElement.symbol}. ${currentQuest.question}`);
+    });
+
+    nextBtn.addEventListener("click", unlockNextQuest);
+    closeModalBtn.addEventListener("click", closeModal);
+
+    modalBackdrop.addEventListener("click", (e) => {
+      if (e.target === modalBackdrop) closeModal();
+    });
+
+    soundBtn.addEventListener("click", () => {
+      soundOn = !soundOn;
+      soundBtn.textContent = soundOn ? "🔊 Sound: On" : "🔇 Sound: Off";
+      if (!soundOn && "speechSynthesis" in window) {
+        window.speechSynthesis.cancel();
+      }
+    });
+
+    resetBtn.addEventListener("click", () => {
+      score = 0;
+      solved = new Set();
+      unlockedSymbol = QUEST_SYMBOLS[0];
+      currentElement = null;
+      currentQuest = null;
+      currentAnswered = false;
+      positiveFeedbackIndex = 0;
+      updateStats();
+      updateHotspots();
+      closeModal();
+    });
+
+    buildHotspots();
+    updateStats();
+  </script>
+</body>
+</html>

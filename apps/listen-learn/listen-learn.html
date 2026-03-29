@@ -1,274 +1,449 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Fluent | Listen & Learn</title>
   <style>
-    :root {
-      --bg: #f7f8fc;
-      --surface: #ffffff;
-      --surface-soft: #f3f5fb;
-      --text: #1f2937;
-      --muted: #5f6b7a;
-      --line: #d8deea;
-      --primary: #2563eb;
-      --primary-soft: #dbeafe;
-      --accent-soft: #ede9fe;
-      --shadow: 0 10px 26px rgba(15, 23, 42, 0.08);
-      --shadow-hover: 0 14px 30px rgba(15, 23, 42, 0.14);
-      --radius: 20px;
+    :root{
+      --bg:#f5f7fb;
+      --surface:#ffffff;
+      --surface-soft:#eef4ff;
+      --text:#1f2937;
+      --muted:#667085;
+      --line:#d9e2f0;
+      --primary:#2563eb;
+      --secondary:#7c3aed;
+      --shadow:0 12px 28px rgba(15,23,42,0.08);
+      --shadow-hover:0 16px 34px rgba(15,23,42,0.12);
+      --max-width:1280px;
     }
 
-    * {
-      box-sizing: border-box;
+    *{
+      box-sizing:border-box;
     }
 
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      color: var(--text);
-      background: linear-gradient(180deg, #f9fbff 0%, #f2f5fc 100%);
+    html{
+      scroll-behavior:smooth;
     }
 
-    .page {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 24px 16px 48px;
+    body{
+      margin:0;
+      font-family:Arial, sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at top right, rgba(37,99,235,0.10), transparent 28%),
+        radial-gradient(circle at bottom left, rgba(124,58,237,0.10), transparent 24%),
+        var(--bg);
     }
 
-    .hero {
-      background: linear-gradient(135deg, #ede9fe, #eef4ff);
-      border: 1px solid var(--line);
-      border-radius: 24px;
-      box-shadow: var(--shadow);
-      padding: 24px;
-      margin-bottom: 22px;
+    a{
+      color:inherit;
+      text-decoration:none;
     }
 
-    .hero h1 {
-      margin: 0 0 8px;
-      font-size: clamp(28px, 4vw, 42px);
-      color: #243b63;
+    .page{
+      width:min(100%, var(--max-width));
+      margin:0 auto;
+      padding:24px 18px 56px;
     }
 
-    .hero p {
-      margin: 0;
-      max-width: 760px;
-      line-height: 1.6;
-      color: var(--muted);
+    .topbar{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:16px;
+      flex-wrap:wrap;
+      margin-bottom:20px;
     }
 
-    .library-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 18px;
+    .crumb{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 14px;
+      background:rgba(255,255,255,0.9);
+      border:1px solid rgba(217,226,240,0.95);
+      border-radius:999px;
+      color:var(--muted);
+      box-shadow:var(--shadow);
+      font-size:0.95rem;
     }
 
-    .book-card {
-      display: grid;
-      grid-template-columns: 220px 1fr;
-      gap: 18px;
-      align-items: start;
-      background: var(--surface);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 18px;
+    .library-banner{
+      display:flex;
+      align-items:center;
+      gap:18px;
+      margin-bottom:26px;
+      padding:18px 20px;
+      border-radius:34px;
+      background:linear-gradient(135deg, #1d4ed8, #2563eb 52%, #7c3aed 100%);
+      box-shadow:0 16px 34px rgba(37,99,235,0.20);
+      color:#fff;
+      overflow:hidden;
     }
 
-    .book-cover {
-      width: 100%;
-      max-width: 220px;
-      border-radius: 16px;
-      display: block;
-      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.12);
+    .library-banner-pill{
+      flex:0 0 auto;
+      display:inline-flex;
+      align-items:center;
+      padding:14px 20px;
+      border-radius:999px;
+      background:rgba(255,255,255,0.14);
+      border:1px solid rgba(255,255,255,0.20);
+      font-size:1rem;
+      font-weight:700;
+      white-space:nowrap;
     }
 
-    .book-content h2 {
-      margin: 0 0 8px;
-      font-size: 1.4rem;
-      color: #243b63;
+    .library-banner-text{
+      font-size:1rem;
+      font-weight:500;
+      line-height:1.4;
+      color:rgba(255,255,255,0.96);
     }
 
-    .book-content p {
-      margin: 0 0 12px;
-      color: var(--muted);
-      line-height: 1.55;
+    .shelf-section{
+      margin-bottom:30px;
     }
 
-    .book-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 14px;
+    .shelf-header{
+      display:flex;
+      justify-content:space-between;
+      align-items:end;
+      gap:16px;
+      margin-bottom:14px;
+      flex-wrap:wrap;
     }
 
-    .book-link,
-    .record-btn,
-    .stop-btn,
-    .play-btn {
-      border: none;
-      border-radius: 14px;
-      padding: 12px 16px;
-      font-size: 14px;
-      font-weight: 700;
-      cursor: pointer;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 46px;
+    .shelf-title-wrap h2{
+      margin:0 0 4px;
+      font-size:1.45rem;
     }
 
-    .book-link {
-      background: var(--primary);
-      color: white;
+    .shelf-title-wrap p{
+      margin:0;
+      color:var(--muted);
+      line-height:1.5;
+      font-size:0.95rem;
     }
 
-    .record-btn {
-      background: #dcfce7;
-      color: #166534;
+    .book-row{
+      display:grid;
+      grid-auto-flow:column;
+      grid-auto-columns:minmax(190px, 220px);
+      gap:16px;
+      overflow-x:auto;
+      padding:6px 4px 14px;
+      scroll-snap-type:x proximity;
+      scrollbar-width:thin;
+      scrollbar-color:rgba(37,99,235,0.35) transparent;
     }
 
-    .stop-btn {
-      background: #fee2e2;
-      color: #991b1b;
+    .book-row::-webkit-scrollbar{
+      height:10px;
     }
 
-    .play-btn {
-      background: var(--primary-soft);
-      color: #1d4ed8;
+    .book-row::-webkit-scrollbar-thumb{
+      background:rgba(37,99,235,0.35);
+      border-radius:999px;
     }
 
-    .record-panel {
-      background: var(--surface-soft);
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      padding: 14px;
+    .book-card{
+      background:var(--surface);
+      border:1px solid var(--line);
+      border-radius:24px;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      scroll-snap-align:start;
+      transition:transform .2s ease, box-shadow .2s ease;
+      min-height:100%;
+      display:block;
     }
 
-    .record-panel h3 {
-      margin: 0 0 10px;
-      font-size: 1rem;
-      color: #334155;
+    .book-card:hover{
+      transform:translateY(-4px);
+      box-shadow:var(--shadow-hover);
     }
 
-    .record-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 10px;
+    .book-cover-wrap{
+      padding:16px 16px 10px;
+      background:linear-gradient(180deg, #ffffff, #f8fbff);
     }
 
-    .record-status {
-      font-size: 14px;
-      color: var(--muted);
-      min-height: 20px;
+    .book-cover{
+      width:100%;
+      aspect-ratio:3 / 4;
+      object-fit:cover;
+      border-radius:16px;
+      display:block;
+      border:1px solid #eef2f7;
+      background:#fff;
     }
 
-    @media (max-width: 780px) {
-      .book-card {
-        grid-template-columns: 1fr;
+    .book-body{
+      padding:0 16px 16px;
+      display:grid;
+      gap:12px;
+    }
+
+    .book-meta{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      padding:7px 10px;
+      border-radius:999px;
+      background:#f8fbff;
+      border:1px solid var(--line);
+      color:var(--muted);
+      font-size:0.82rem;
+      font-weight:700;
+    }
+
+    .title{
+      font-weight:800;
+      margin:0;
+      font-size:1.05rem;
+      line-height:1.25;
+    }
+
+    .desc{
+      margin:0;
+      color:var(--muted);
+      font-size:0.93rem;
+      line-height:1.5;
+      min-height:56px;
+    }
+
+    .book-actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:10px 14px;
+      border-radius:14px;
+      font-size:0.92rem;
+      font-weight:700;
+      transition:transform 0.18s ease, opacity 0.18s ease;
+    }
+
+    .btn:hover{
+      transform:translateY(-1px);
+      opacity:0.96;
+    }
+
+    .btn-primary{
+      background:linear-gradient(135deg, var(--primary), var(--secondary));
+      color:#fff;
+    }
+
+    .btn-muted{
+      background:#eef4ff;
+      color:#35518f;
+      border:1px solid #d7e3fb;
+    }
+
+    @media (max-width:640px){
+      .page{
+        padding:18px 14px 42px;
       }
 
-      .book-cover {
-        max-width: 180px;
+      .library-banner{
+        flex-direction:column;
+        align-items:flex-start;
+        border-radius:26px;
+        padding:18px;
+      }
+
+      .library-banner-pill{
+        padding:12px 18px;
+      }
+
+      .library-banner-text{
+        font-size:0.98rem;
+      }
+
+      .book-row{
+        grid-auto-columns:minmax(180px, 190px);
+      }
+
+      .shelf-title-wrap h2{
+        font-size:1.25rem;
       }
     }
   </style>
 </head>
 <body>
-  <main class="page">
-    <section class="hero">
-      <h1>Listen &amp; Learn</h1>
-      <p>
-        Listen to a story, enjoy the audio, and then practise speaking by recording and
-        playing back your own voice.
-      </p>
-    </section>
+  <div class="page">
+    <div class="topbar">
+      <a class="crumb" href="../../index.html">← Back to Fluent</a>
+      <div class="crumb">Listen &amp; Learn</div>
+    </div>
 
-    <section class="library-grid">
-      <article class="book-card">
-        <img
-  class="book-cover"
-  src="../../shared/assets/images/the-school-that-learned-to-listen-cover.png"
-  alt="The School That Learned to Listen book cover"
-/>
+    <div class="library-banner">
+      <div class="library-banner-pill">🎧 Listen &amp; Learn</div>
+      <div class="library-banner-text">
+        Listen to stories, think about the message, and record your own answer with confidence.
+      </div>
+    </div>
 
-        <div class="book-content">
-          <h2>The School That Learned to Listen</h2>
-          <p>
-            Open the story page to listen, answer the comprehension activity, and record your own response.
-          </p>
-
-          <div class="book-actions">
-            <a class="book-link" href="the-school-that-learned-to-listen.html">Open Book</a>
-          </div>
-
-          <div class="record-panel">
-            <h3>Record and Play</h3>
-            <div class="record-row">
-              <button class="record-btn" type="button" onclick="startRecording('library')">🎙️ Start Recording</button>
-              <button class="stop-btn" type="button" onclick="stopRecording('library')">⏹️ Stop</button>
-              <button class="play-btn" type="button" onclick="playRecording('library')">▶️ Play Recording</button>
-            </div>
-            <div class="record-status" id="status-library">Ready to record.</div>
-            <audio id="audio-library" controls style="width: 100%; margin-top: 10px; display: none;"></audio>
-          </div>
+    <section class="shelf-section">
+      <div class="shelf-header">
+        <div class="shelf-title-wrap">
+          <h2>Audio Story Shelf</h2>
+          <p>Short audio stories that build listening, speaking, and thinking skills.</p>
         </div>
-      </article>
+      </div>
+
+      <div class="book-row">
+        <a class="book-card" href="the-school-that-learned-to-listen.html">
+          <div class="book-cover-wrap">
+            <img
+              class="book-cover"
+              src="../../shared/assets/images/the-school-that-learned-to-listen-cover.png"
+              alt="The School That Learned to Listen cover"
+            >
+          </div>
+          <div class="book-body">
+            <div class="book-meta">
+              <span class="chip">Audio Story</span>
+              <span class="chip">Listening</span>
+            </div>
+            <h3 class="title">The School That Learned to Listen</h3>
+            <p class="desc">
+              A thoughtful story that helps learners understand the value of listening carefully.
+            </p>
+            <div class="book-actions">
+              <span class="btn btn-primary">Open book</span>
+            </div>
+          </div>
+        </a>
+
+        <a class="book-card" href="the-library-that-whispered-secrets.html">
+          <div class="book-cover-wrap">
+            <img
+              class="book-cover"
+              src="../../shared/assets/images/the-library-that-whispered-secrets-cover.png"
+              alt="The Library That Whispered Secrets cover"
+            >
+          </div>
+          <div class="book-body">
+            <div class="book-meta">
+              <span class="chip">Audio Story</span>
+              <span class="chip">Curiosity</span>
+            </div>
+            <h3 class="title">The Library That Whispered Secrets</h3>
+            <p class="desc">
+              A magical story about curiosity, responsibility, and using knowledge wisely.
+            </p>
+            <div class="book-actions">
+              <span class="btn btn-primary">Open book</span>
+            </div>
+          </div>
+        </a>
+      </div>
     </section>
-  </main>
 
-  <script>
-    const recorderStore = {};
+    <section class="shelf-section">
+      <div class="shelf-header">
+        <div class="shelf-title-wrap">
+          <h2>Entry-Level eBooks</h2>
+          <p>Simple listen-and-read books for beginner learners.</p>
+        </div>
+      </div>
 
-    async function startRecording(key) {
-      try {
-        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-        const mediaRecorder = new MediaRecorder(stream);
-        const chunks = [];
+      <div class="book-row">
+        <a class="book-card" href="entry-level-1.html">
+          <div class="book-cover-wrap">
+            <img
+              class="book-cover"
+              src="../../shared/assets/images/entry-level-placeholder-1.png"
+              alt="Entry-Level eBook cover"
+            >
+          </div>
+          <div class="book-body">
+            <div class="book-meta">
+              <span class="chip">Beginner</span>
+              <span class="chip">Entry-Level</span>
+            </div>
+            <h3 class="title">My First eBook</h3>
+            <p class="desc">
+              A simple beginner story for early listening and reading practice.
+            </p>
+            <div class="book-actions">
+              <span class="btn btn-primary">Open book</span>
+            </div>
+          </div>
+        </a>
 
-        mediaRecorder.addEventListener("dataavailable", (event) => {
-          if (event.data.size > 0) chunks.push(event.data);
-        });
+        <a class="book-card" href="entry-level-2.html">
+          <div class="book-cover-wrap">
+            <img
+              class="book-cover"
+              src="../../shared/assets/images/entry-level-placeholder-2.png"
+              alt="Another beginner eBook cover"
+            >
+          </div>
+          <div class="book-body">
+            <div class="book-meta">
+              <span class="chip">Beginner</span>
+              <span class="chip">Entry-Level</span>
+            </div>
+            <h3 class="title">Another Beginner Book</h3>
+            <p class="desc">
+              Short audio-supported reading for learners building confidence.
+            </p>
+            <div class="book-actions">
+              <span class="btn btn-primary">Open book</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </section>
 
-        mediaRecorder.addEventListener("stop", () => {
-          const blob = new Blob(chunks, { type: "audio/webm" });
-          const audioUrl = URL.createObjectURL(blob);
-          const audio = document.getElementById(`audio-${key}`);
-          audio.src = audioUrl;
-          audio.style.display = "block";
-          document.getElementById(`status-${key}`).textContent = "Recording saved. You can now play it.";
-          recorderStore[key].stream.getTracks().forEach(track => track.stop());
-        });
+    <section class="shelf-section">
+      <div class="shelf-header">
+        <div class="shelf-title-wrap">
+          <h2>Curriculum-Aligned Audiobooks</h2>
+          <p>CAPS-aligned listening books and audio learning content.</p>
+        </div>
+      </div>
 
-        recorderStore[key] = { mediaRecorder, chunks, stream };
-        mediaRecorder.start();
-        document.getElementById(`status-${key}`).textContent = "Recording...";
-      } catch (error) {
-        document.getElementById(`status-${key}`).textContent = "Microphone access was blocked or unavailable.";
-      }
-    }
-
-    function stopRecording(key) {
-      const record = recorderStore[key];
-      if (record && record.mediaRecorder && record.mediaRecorder.state !== "inactive") {
-        record.mediaRecorder.stop();
-        document.getElementById(`status-${key}`).textContent = "Stopping recording...";
-      }
-    }
-
-    function playRecording(key) {
-      const audio = document.getElementById(`audio-${key}`);
-      if (audio && audio.src) {
-        audio.play();
-        document.getElementById(`status-${key}`).textContent = "Playing recording.";
-      } else {
-        document.getElementById(`status-${key}`).textContent = "Record something first.";
-      }
-    }
-  </script>
+      <div class="book-row">
+        <a class="book-card" href="#">
+          <div class="book-cover-wrap">
+            <img
+              class="book-cover"
+              src="../../shared/assets/images/curriculum-audio-placeholder.png"
+              alt="Curriculum-Aligned Audiobooks placeholder"
+            >
+          </div>
+          <div class="book-body">
+            <div class="book-meta">
+              <span class="chip">Coming Soon</span>
+              <span class="chip">Curriculum</span>
+            </div>
+            <h3 class="title">Curriculum-Aligned Audiobooks</h3>
+            <p class="desc">
+              A growing collection of subject-based audio books for classroom learning.
+            </p>
+            <div class="book-actions">
+              <span class="btn btn-muted">Coming soon</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </section>
+  </div>
 </body>
 </html>
