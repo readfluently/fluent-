@@ -11,15 +11,19 @@
       --text:#23364d;
       --muted:#667085;
       --line:#dbe3ee;
+      --shadow:0 10px 24px rgba(15,23,42,0.06);
+      --shadow-hover:0 14px 28px rgba(15,23,42,0.10);
+      --max:1180px;
+
+      --phase-tint:linear-gradient(180deg,#f5f3ff 0%, #ffffff 100%);
+      --phase-active-bg:#ede9fe;
+      --phase-active-text:#7c3aed;
+      --phase-focus:rgba(124,58,237,0.12);
+
       --blue-card:#eef3ff;
       --green-card:#edf8f1;
       --purple-card:#f3efff;
       --gold-card:#fff6df;
-      --shadow:0 10px 24px rgba(15,23,42,0.06);
-      --radius-xl:28px;
-      --radius-lg:22px;
-      --radius-md:18px;
-      --max:1180px;
     }
 
     *{
@@ -37,97 +41,187 @@
       color:var(--text);
     }
 
-    a{
+    a,
+    a:visited,
+    a:hover,
+    a:active,
+    a:focus{
       color:inherit;
-      text-decoration:none;
+      text-decoration:none !important;
     }
 
-    .topbar{
-      background:#fff;
-      border-bottom:1px solid var(--line);
+    .site-header{
       position:sticky;
       top:0;
-      z-index:100;
+      z-index:1000;
+      background:var(--phase-tint);
+      backdrop-filter:blur(10px);
+      border-bottom:1px solid rgba(219,227,238,0.95);
+      box-shadow:0 8px 22px rgba(15,23,42,0.06);
     }
 
-    .topbar-inner{
+    .nav-shell{
       width:min(100%, 1360px);
       margin:0 auto;
-      padding:14px 18px;
+      padding:12px 18px;
       display:flex;
       align-items:center;
       justify-content:space-between;
-      gap:16px;
-      flex-wrap:wrap;
-    }
-
-    .brand-nav{
-      display:flex;
-      align-items:center;
       gap:18px;
       flex-wrap:wrap;
     }
 
     .brand{
-      font-size:1rem;
-      font-weight:800;
-      color:#1e40af;
-      padding:4px 0;
-    }
-
-    .nav-links{
       display:flex;
       align-items:center;
-      gap:10px;
+      justify-content:center;
+      min-width:max-content;
+    }
+
+    .brand-logo{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      width:76px;
+      height:76px;
+      border-radius:18px;
+      overflow:hidden;
+      background:rgba(255,255,255,0.82);
+      border:1px solid #e6defd;
+      box-shadow:0 10px 24px rgba(15,23,42,0.08);
+      flex:0 0 auto;
+      transition:transform .18s ease, box-shadow .18s ease;
+    }
+
+    .brand:hover .brand-logo{
+      transform:translateY(-1px);
+      box-shadow:0 14px 28px rgba(15,23,42,0.12);
+    }
+
+    .brand-logo img{
+      width:100%;
+      height:100%;
+      object-fit:contain;
+      display:block;
+      padding:4px;
+    }
+
+    .nav-main{
+      display:flex;
+      align-items:center;
+      gap:8px;
       flex-wrap:wrap;
+      justify-content:center;
+      flex:1;
     }
 
-    .nav-links a{
-      padding:8px 12px;
-      border-radius:10px;
+    .nav-link{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:12px 18px;
+      border-radius:14px;
       font-size:0.98rem;
-      color:#2b3442;
-      transition:background .18s ease, color .18s ease;
-      white-space:nowrap;
+      font-weight:700;
+      color:#1f2937;
+      transition:background .18s ease, color .18s ease, transform .18s ease;
+      text-decoration:none;
     }
 
-    .nav-links a:hover,
-    .nav-links a.active{
-      background:#f3f6fb;
-      color:#1e40af;
+    .nav-link:hover{
+      background:#ffffff;
+      color:var(--phase-active-text);
+      transform:translateY(-1px);
     }
 
-    .search-wrap{
+    .nav-link.active{
+      background:var(--phase-active-bg);
+      color:var(--phase-active-text);
+      box-shadow:inset 0 0 0 1px #ddd6fe;
+    }
+
+    .nav-search{
       display:flex;
       align-items:center;
       gap:10px;
+      min-width:min(100%, 290px);
     }
 
-    .search-input{
-      width:370px;
-      max-width:42vw;
-      padding:13px 16px;
-      border:1px solid #cfd8e6;
-      border-radius:16px;
-      font-size:1rem;
+    .nav-search input{
+      width:230px;
+      max-width:100%;
+      height:46px;
+      border:1px solid #d9cffc;
+      border-radius:14px;
+      padding:0 16px;
+      font-size:0.98rem;
       outline:none;
+      background:#fff;
+      color:var(--text);
     }
 
-    .search-btn{
+    .nav-search input:focus{
+      border-color:#a78bfa;
+      box-shadow:0 0 0 4px var(--phase-focus);
+    }
+
+    .nav-search button{
+      height:46px;
+      padding:0 22px;
       border:none;
-      background:#2d5be3;
+      border-radius:14px;
+      background:#7c3aed;
       color:#fff;
+      font-size:0.98rem;
       font-weight:700;
-      font-size:1rem;
-      padding:13px 18px;
-      border-radius:16px;
       cursor:pointer;
+      transition:transform .18s ease, opacity .18s ease;
+    }
+
+    .nav-search button:hover{
+      transform:translateY(-1px);
+      opacity:0.96;
     }
 
     .page{
       width:min(100%, var(--max));
       margin:0 auto;
       padding:22px 16px 48px;
+    }
+
+    .page-tools{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-bottom:18px;
+    }
+
+    .back-btn,
+    .page-chip{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 14px;
+      border-radius:999px;
+      background:rgba(255,255,255,0.94);
+      border:1px solid rgba(219,227,238,0.95);
+      color:var(--muted);
+      box-shadow:var(--shadow);
+      font-size:0.95rem;
+    }
+
+    .back-btn{
+      cursor:pointer;
+      font-weight:700;
+      transition:transform .18s ease, box-shadow .18s ease, color .18s ease;
+    }
+
+    .back-btn:hover{
+      transform:translateY(-1px);
+      color:var(--phase-active-text);
+      box-shadow:var(--shadow-hover);
     }
 
     .hero{
@@ -143,6 +237,7 @@
       margin:0 0 10px;
       font-size:clamp(1.8rem, 3vw, 2.5rem);
       line-height:1.1;
+      color:#2f4158;
     }
 
     .hero p{
@@ -183,6 +278,7 @@
       padding:22px;
       transition:transform .18s ease, box-shadow .18s ease;
       box-shadow:0 6px 18px rgba(15,23,42,0.04);
+      text-decoration:none;
     }
 
     .feature-item:hover{
@@ -270,44 +366,33 @@
       margin-top:6px;
     }
 
-    @media (max-width: 980px){
-      .topbar-inner{
-        align-items:flex-start;
+    @media (max-width:1100px){
+      .nav-shell{
+        justify-content:center;
       }
 
-      .search-wrap{
+      .nav-main{
         width:100%;
+        justify-content:center;
       }
 
-      .search-input{
+      .nav-search{
         width:100%;
-        max-width:none;
-        flex:1;
+        justify-content:center;
       }
 
+      .nav-search input{
+        width:min(100%, 360px);
+      }
+    }
+
+    @media (max-width:980px){
       .subject-grid{
         grid-template-columns:1fr 1fr;
       }
     }
 
-    @media (max-width: 700px){
-      .topbar-inner{
-        padding:12px 14px;
-      }
-
-      .brand-nav{
-        gap:12px;
-      }
-
-      .nav-links{
-        gap:6px;
-      }
-
-      .nav-links a{
-        padding:6px 8px;
-        font-size:0.95rem;
-      }
-
+    @media (max-width:700px){
       .page{
         padding:16px 12px 34px;
       }
@@ -331,52 +416,78 @@
       }
     }
 
-    @media (max-width: 560px){
-      .nav-links{
-        width:100%;
+    @media (max-width:640px){
+      .brand-logo{
+        width:62px;
+        height:62px;
       }
 
-      .search-wrap{
+      .nav-link{
+        padding:10px 14px;
+        font-size:0.92rem;
+      }
+    }
+
+    @media (max-width:560px){
+      .nav-search{
         flex-direction:column;
         align-items:stretch;
       }
 
-      .search-btn{
+      .nav-search button,
+      .nav-search input{
         width:100%;
+      }
+
+      .page-tools{
+        flex-direction:column;
+        align-items:stretch;
+      }
+
+      .back-btn,
+      .page-chip{
+        justify-content:center;
       }
     }
   </style>
 </head>
 <body>
-<header class="topbar">
-  <div class="topbar-inner">
-    <div class="brand-nav">
-      <a href="./index.html" class="brand">Fluent</a>
 
-      <nav class="nav-links" aria-label="Main navigation">
-        <a href="./index.html">Home</a>
-        <a href="./grade-r-3.html">Grade R–3</a>
-        <a href="./grade-4-6.html">Grade 4–6</a>
-        <a href="./grade-7-9.html">Grade 7–9</a>
-        <a href="./grade-10-12.html" class="active">Grade 10–12</a>
-        <a href="./teachers.html">Teachers</a>
+  <header class="site-header">
+    <div class="nav-shell">
+      <a class="brand" href="../index.html" aria-label="Fluent home">
+        <div class="brand-logo">
+          <img src="../shared/logos/fluent-logo.png" alt="Fluent logo">
+        </div>
+      </a>
+
+      <nav class="nav-main">
+        <a class="nav-link" href="../index.html">Home</a>
+        <a class="nav-link" href="./grade-r-3.html">Grade R–3</a>
+        <a class="nav-link" href="./grade-4-6.html">Grade 4–6</a>
+        <a class="nav-link active" href="./grade-7-9.html">Grade 7–9</a>
+        <a class="nav-link" href="./grade-10-12.html">Grade 10–12</a>
+        <a class="nav-link" href="./teachers.html">Teachers</a>
       </nav>
-    </div>
 
-    <div class="search-wrap">
-      <input
-        id="searchInput"
-        class="search-input"
-        type="text"
-        placeholder="library"
-        aria-label="Search pages"
-      />
-      <button id="searchBtn" class="search-btn" type="button">Search</button>
+      <form class="nav-search" id="navSearchForm">
+        <input
+          id="navSearchInput"
+          type="text"
+          placeholder="library"
+          aria-label="Search Fluent"
+        />
+        <button type="submit">Search</button>
+      </form>
     </div>
-  </div>
-</header>
+  </header>
 
   <main class="page">
+    <div class="page-tools">
+      <button class="back-btn" type="button" onclick="goBack()">← Back</button>
+      <div class="page-chip">Fluent | Grade 7–9</div>
+    </div>
+
     <section class="hero">
       <h1>Grade 7–9</h1>
       <p>
@@ -390,12 +501,12 @@
 
       <div class="feature-list">
         <a class="feature-item blue-card" href="../apps/library/library.html?phase=grade-7-9">
-  <h3 class="feature-title">📚 Library</h3>
-  <p class="feature-desc">
-    Browse and open books for Senior Phase reading, including fiction, curriculum-linked texts,
-    digital literacy books, and reference books.
-  </p>
-</a>
+          <h3 class="feature-title">📚 Library</h3>
+          <p class="feature-desc">
+            Browse and open books for Senior Phase reading, including fiction, curriculum-linked texts,
+            digital literacy books, and reference books.
+          </p>
+        </a>
 
         <a class="feature-item green-card" href="../library/read-fluently-senior.html">
           <h3 class="feature-title">🗣️ Read Fluently</h3>
@@ -499,45 +610,101 @@
   <script>
     const searchMap = {
       "home": "../index.html",
-      "library": "./grade-7-9-library.html",
+      "fluent": "../index.html",
+
       "grade r-3": "./grade-r-3.html",
+      "grade r 3": "./grade-r-3.html",
+      "grade r3": "./grade-r-3.html",
+
       "grade 4-6": "./grade-4-6.html",
+      "grade 4 6": "./grade-4-6.html",
+
       "grade 7-9": "./grade-7-9.html",
+      "grade 7 9": "./grade-7-9.html",
+
       "grade 10-12": "./grade-10-12.html",
+      "grade 10 12": "./grade-10-12.html",
+
       "teachers": "./teachers.html",
-      "oral": "../oral/oral-preparation.html",
-      "dictionary": "./grade-7-9-library.html#reference-books",
+      "teacher": "./teachers.html",
+
+      "library": "../apps/library/library.html?phase=grade-7-9",
+      "books": "../apps/library/library.html?phase=grade-7-9",
+
       "reference books": "./grade-7-9-library.html#reference-books",
+      "dictionary": "./grade-7-9-library.html#reference-books",
+
       "read fluently": "../library/read-fluently-senior.html",
+      "reading": "../library/read-fluently-senior.html",
+
       "interactive posters": "../interactive-posters/index.html",
+      "poster": "../interactive-posters/index.html",
+      "posters": "../interactive-posters/index.html",
+
       "activities": "../play-learn/index.html",
-      "events": "../events/index.html"
+      "thinking activities": "../play-learn/index.html",
+
+      "oral": "../oral/oral-preparation.html",
+      "oral preparation": "../oral/oral-preparation.html",
+
+      "events": "../events/index.html",
+      "competitions": "../events/index.html"
     };
 
-    const searchInput = document.getElementById("searchInput");
-    const searchBtn = document.getElementById("searchBtn");
+    const form = document.getElementById("navSearchForm");
+    const input = document.getElementById("navSearchInput");
 
-    function runSearch() {
-      const query = searchInput.value.trim().toLowerCase();
-      if (!query) return;
+    form.addEventListener("submit", function(e){
+      e.preventDefault();
 
-      if (searchMap[query]) {
+      const query = input.value.trim().toLowerCase();
+
+      if(!query){
+        alert("Please type a page or tool name to search.");
+        return;
+      }
+
+      if(searchMap[query]){
         window.location.href = searchMap[query];
         return;
       }
 
-      const partial = Object.keys(searchMap).find(key => key.includes(query));
-      if (partial) {
-        window.location.href = searchMap[partial];
+      const partialMatch = Object.keys(searchMap).find(
+        key => key.includes(query) || query.includes(key)
+      );
+
+      if(partialMatch){
+        window.location.href = searchMap[partialMatch];
         return;
       }
 
       alert("No matching page found yet.");
+    });
+
+    function goBack() {
+      if (window.history.length > 1) {
+        window.history.back();
+      } else {
+        window.location.href = "../index.html";
+      }
     }
 
-    searchBtn.addEventListener("click", runSearch);
-    searchInput.addEventListener("keydown", (e) => {
-      if (e.key === "Enter") runSearch();
+    document.addEventListener("keydown", function(event) {
+      const tag = document.activeElement ? document.activeElement.tagName : "";
+      const isTyping =
+        tag === "INPUT" ||
+        tag === "TEXTAREA" ||
+        (document.activeElement && document.activeElement.isContentEditable);
+
+      if (event.altKey && event.key === "ArrowLeft") {
+        event.preventDefault();
+        goBack();
+      }
+
+      if (event.key === "Backspace" && !isTyping) {
+        event.preventDefault();
+        goBack();
+      }
     });
   </script>
 </body>

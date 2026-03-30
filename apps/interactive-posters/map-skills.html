@@ -1,0 +1,1560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fluent | Map Skills</title>
+  <style>
+    :root {
+      --bg: #f8f5ee;
+      --surface: #ffffff;
+      --surface-soft: #f7f1e4;
+      --text: #2f2418;
+      --muted: #6e5f4f;
+      --line: #e4d8c6;
+      --primary: #8b5e34;
+      --primary-dark: #6f4825;
+      --accent: #d9b24c;
+      --accent-dark: #b88f2d;
+      --danger: #c94b4b;
+      --danger-dark: #a63535;
+      --info: #f8f1e5;
+      --info-line: #e6d2ae;
+      --info-text: #6a4b18;
+      --success-soft: #eef8f1;
+      --success-line: #b8dcc2;
+      --warning-soft: #fff8e7;
+      --warning-line: #f2dc96;
+      --warning-text: #7c5a00;
+      --shadow: 0 18px 50px rgba(56, 38, 19, 0.14);
+      --radius-xl: 24px;
+      --radius-lg: 18px;
+      --radius-md: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: radial-gradient(circle at top, #fffdf8 0%, #f7f1e6 48%, #f1e8db 100%);
+      color: var(--text);
+    }
+
+    .page-shell {
+      max-width: 1220px;
+      margin: 0 auto;
+      padding: 28px 18px 46px;
+    }
+
+    .poster-page {
+      display: grid;
+      gap: 22px;
+    }
+
+    .poster-card,
+    .concepts-card,
+    .exercise-card,
+    .progress-card,
+    .score-card {
+      background: rgba(255, 255, 255, 0.96);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .poster-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+      padding: 22px 24px 18px;
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(180deg, #fffdf9 0%, #f7f1e6 100%);
+    }
+
+    .title-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .eyebrow {
+      margin: 0;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--primary);
+    }
+
+    .page-title {
+      margin: 0;
+      font-size: clamp(1.9rem, 3vw, 2.8rem);
+      line-height: 1.05;
+      font-weight: 800;
+    }
+
+    .page-subtitle {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.55;
+      max-width: 800px;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .action-btn,
+    .danger-btn {
+      border: none;
+      font-size: 1rem;
+      font-weight: 700;
+      padding: 14px 18px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: transform 0.18s ease, background 0.18s ease, opacity 0.18s ease;
+    }
+
+    .action-btn {
+      background: var(--primary);
+      color: #fff;
+      box-shadow: 0 8px 20px rgba(139, 94, 52, 0.22);
+    }
+
+    .action-btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+
+    .danger-btn {
+      background: var(--danger);
+      color: #fff;
+      box-shadow: 0 8px 20px rgba(201, 75, 75, 0.2);
+    }
+
+    .danger-btn:hover {
+      background: var(--danger-dark);
+      transform: translateY(-1px);
+    }
+
+    .poster-stage {
+      padding: 20px;
+    }
+
+    .image-frame {
+      width: 100%;
+      border-radius: 22px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: #efe5d3;
+      position: relative;
+    }
+
+    .image-frame img {
+      display: block;
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    .hotspot-wrap {
+      position: absolute;
+      transform: translate(-50%, -50%);
+    }
+
+    .hotspot {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 3px solid rgba(255, 255, 255, 0.96);
+      background: rgba(139, 94, 52, 0.96);
+      color: #fff;
+      font-size: 0.96rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.18);
+      transition: transform 0.16s ease, background 0.16s ease;
+      position: relative;
+    }
+
+    .hotspot:hover {
+      transform: scale(1.08);
+      background: var(--primary-dark);
+    }
+
+    .hotspot::after {
+      content: "";
+      position: absolute;
+      inset: -7px;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 255, 255, 0.35);
+      animation: pulse 2s infinite;
+    }
+
+    .hotspot:focus-visible {
+      outline: 3px solid #d7b58f;
+      outline-offset: 3px;
+    }
+
+    .hotspot-label {
+      position: absolute;
+      left: 50%;
+      bottom: calc(100% + 9px);
+      transform: translateX(-50%);
+      background: rgba(47, 36, 24, 0.94);
+      color: #fff;
+      padding: 6px 10px;
+      border-radius: 10px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.16s ease;
+    }
+
+    .hotspot-wrap:hover .hotspot-label,
+    .hotspot-wrap:focus-within .hotspot-label {
+      opacity: 1;
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(0.95);
+        opacity: 0.85;
+      }
+      70% {
+        transform: scale(1.18);
+        opacity: 0.12;
+      }
+      100% {
+        transform: scale(1.24);
+        opacity: 0;
+      }
+    }
+
+    .poster-note {
+      padding: 14px 4px 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .progress-card,
+    .concepts-card,
+    .exercise-card,
+    .score-card {
+      padding: 22px;
+    }
+
+    .section-title {
+      margin: 0 0 8px;
+      font-size: 1.5rem;
+      color: var(--primary-dark);
+    }
+
+    .section-copy {
+      margin: 0 0 18px;
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--muted);
+      max-width: 860px;
+    }
+
+    .progress-top,
+    .score-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .progress-text,
+    .score-text {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+    }
+
+    .progress-bar,
+    .score-bar {
+      width: 100%;
+      height: 16px;
+      background: #f2eadc;
+      border-radius: 999px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+    }
+
+    .progress-fill,
+    .score-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #8b5e34 0%, #c28b4e 100%);
+      transition: width 0.25s ease;
+    }
+
+    .concept-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .concept-box {
+      background: var(--surface-soft);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 16px;
+    }
+
+    .concept-box h3 {
+      margin: 0 0 8px;
+      font-size: 1rem;
+      color: var(--primary-dark);
+    }
+
+    .concept-box p {
+      margin: 0;
+      font-size: 0.95rem;
+      line-height: 1.65;
+      color: var(--muted);
+    }
+
+    .question-block {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 18px;
+      background: #fffdfa;
+      margin-bottom: 16px;
+    }
+
+    .question-block.completed {
+      border-color: #d9c3a8;
+      background: #fffcf8;
+    }
+
+    .question-block h3 {
+      margin: 0 0 10px;
+      font-size: 1rem;
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .answer-input {
+      width: 100%;
+      min-height: 110px;
+      border: 2px solid #e4d8c6;
+      border-radius: 14px;
+      background: #fff;
+      padding: 14px;
+      color: var(--text);
+      line-height: 1.7;
+      font-size: 1rem;
+      font-family: Arial, Helvetica, sans-serif;
+      resize: vertical;
+      outline: none;
+    }
+
+    .answer-input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(139, 94, 52, 0.12);
+    }
+
+    .answer-input.locked {
+      background: #f6f3ee;
+      color: #5f5143;
+    }
+
+    .question-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+
+    .submit-btn,
+    .model-btn,
+    .edit-btn {
+      border: none;
+      padding: 12px 16px;
+      border-radius: 999px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.18s ease, opacity 0.18s ease, background 0.18s ease;
+    }
+
+    .submit-btn {
+      background: var(--primary);
+      color: #fff;
+      box-shadow: 0 8px 18px rgba(139, 94, 52, 0.18);
+    }
+
+    .submit-btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+
+    .model-btn {
+      background: var(--accent);
+      color: #3d3107;
+      display: none;
+    }
+
+    .model-btn:hover {
+      background: var(--accent-dark);
+      transform: translateY(-1px);
+    }
+
+    .edit-btn {
+      background: #f4ead9;
+      color: #6f4825;
+      display: none;
+    }
+
+    .edit-btn:hover {
+      background: #ecdcc3;
+      transform: translateY(-1px);
+    }
+
+    .question-status {
+      margin-top: 10px;
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+      display: none;
+    }
+
+    .mark-feedback {
+      display: none;
+      margin-top: 14px;
+      padding: 14px 16px;
+      border-radius: 16px;
+      border: 1px solid var(--info-line);
+      background: var(--info);
+    }
+
+    .mark-feedback.good {
+      background: var(--success-soft);
+      border-color: var(--success-line);
+    }
+
+    .mark-feedback.medium,
+    .mark-feedback.low {
+      background: var(--warning-soft);
+      border-color: var(--warning-line);
+    }
+
+    .mark-feedback h4 {
+      margin: 0 0 6px;
+      font-size: 1rem;
+      color: var(--info-text);
+    }
+
+    .mark-feedback.good h4 {
+      color: #245637;
+    }
+
+    .mark-feedback.medium h4,
+    .mark-feedback.low h4 {
+      color: var(--warning-text);
+    }
+
+    .mark-feedback p {
+      margin: 0;
+      font-size: 0.96rem;
+      line-height: 1.7;
+      color: #4a3c2f;
+    }
+
+    .model-answer {
+      display: none;
+      margin-top: 14px;
+      padding: 16px;
+      border-radius: 16px;
+      background: #fff8df;
+      border: 1px solid #f0dc94;
+    }
+
+    .model-answer h4 {
+      margin: 0 0 8px;
+      font-size: 1rem;
+      color: #7b5d00;
+    }
+
+    .model-answer p {
+      margin: 0;
+      font-size: 0.96rem;
+      line-height: 1.7;
+      color: #5c4a10;
+    }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(32, 24, 16, 0.56);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      z-index: 1000;
+    }
+
+    .modal-backdrop.show {
+      display: flex;
+    }
+
+    .modal-card {
+      width: min(860px, 100%);
+      background: #fff;
+      border-radius: 24px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.22);
+      border: 1px solid #eadfcf;
+      overflow: hidden;
+      animation: popIn 0.22s ease;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    @keyframes popIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px) scale(0.98);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .modal-top {
+      padding: 22px 24px 14px;
+      background: linear-gradient(180deg, #fffdfa 0%, #f7f1e6 100%);
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .modal-title {
+      margin: 0;
+      font-size: 1.45rem;
+      line-height: 1.2;
+      font-weight: 800;
+    }
+
+    .modal-close {
+      border: none;
+      background: #efe4d3;
+      color: var(--text);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      font-size: 1.15rem;
+      font-weight: 800;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .modal-body {
+      padding: 22px 24px 24px;
+    }
+
+    .modal-body p {
+      margin: 0 0 14px;
+      font-size: 1rem;
+      line-height: 1.72;
+      color: #4a3c2f;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .info-box {
+      background: #fcfaf6;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 14px;
+    }
+
+    .info-box h3 {
+      margin: 0 0 8px;
+      font-size: 1rem;
+      color: var(--primary-dark);
+    }
+
+    .info-box p {
+      margin: 0;
+      font-size: 0.95rem;
+      line-height: 1.65;
+      color: var(--muted);
+    }
+
+    .modal-actions {
+      margin-top: 20px;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .close-btn {
+      border: none;
+      background: var(--primary);
+      color: white;
+      font-weight: 700;
+      font-size: 0.98rem;
+      padding: 12px 18px;
+      border-radius: 999px;
+      cursor: pointer;
+    }
+
+    @media (max-width: 900px) {
+      .concept-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 760px) {
+      .poster-header {
+        align-items: flex-start;
+      }
+
+      .header-actions,
+      .action-btn,
+      .danger-btn {
+        width: 100%;
+      }
+
+      .info-grid,
+      .concept-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .modal-top,
+      .modal-body {
+        padding-left: 18px;
+        padding-right: 18px;
+      }
+
+      .poster-stage {
+        padding: 14px;
+      }
+
+      .hotspot {
+        width: 34px;
+        height: 34px;
+      }
+
+      .hotspot-label {
+        display: none;
+      }
+
+      .question-actions {
+        flex-direction: column;
+      }
+
+      .submit-btn,
+      .model-btn,
+      .edit-btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page-shell">
+    <section class="poster-page">
+      <section class="poster-card">
+        <header class="poster-header">
+          <div class="title-wrap">
+            <p class="eyebrow">Interactive Poster</p>
+            <h1 class="page-title">Map Skills</h1>
+            <p class="page-subtitle">
+              Click the numbered points to learn how to read important features on a map, including direction, scale, settlements, relief, rivers, vegetation, land use, and the coast.
+            </p>
+          </div>
+
+          <div class="header-actions">
+            <button class="action-btn" id="openMapSkillsCard" type="button">What are map skills?</button>
+          </div>
+        </header>
+
+        <div class="poster-stage">
+          <div class="image-frame">
+            <img src="base/map-skills-grade7-9.png" alt="Map skills base image" />
+
+            <div class="hotspot-wrap" style="left: 15%; top: 15%;">
+              <button class="hotspot" type="button" data-part="compass" aria-label="Open Compass Rose card">1</button>
+              <div class="hotspot-label">Compass rose</div>
+            </div>
+
+            <div class="hotspot-wrap" style="left: 82%; top: 91%;">
+              <button class="hotspot" type="button" data-part="scale" aria-label="Open Scale card">2</button>
+              <div class="hotspot-label">Scale</div>
+            </div>
+
+            <div class="hotspot-wrap" style="left: 46%; top: 54%;">
+              <button class="hotspot" type="button" data-part="settlement" aria-label="Open Settlement card">3</button>
+              <div class="hotspot-label">Settlement</div>
+            </div>
+
+            <div class="hotspot-wrap" style="left: 52%; top: 18%;">
+              <button class="hotspot" type="button" data-part="relief" aria-label="Open Relief card">4</button>
+              <div class="hotspot-label">Relief</div>
+            </div>
+
+            <div class="hotspot-wrap" style="left: 35%; top: 38%;">
+              <button class="hotspot" type="button" data-part="river" aria-label="Open River card">5</button>
+              <div class="hotspot-label">River</div>
+            </div>
+
+            <div class="hotspot-wrap" style="left: 83%; top: 46%;">
+              <button class="hotspot" type="button" data-part="forest" aria-label="Open Forest card">6</button>
+              <div class="hotspot-label">Forest</div>
+            </div>
+
+            <div class="hotspot-wrap" style="left: 63%; top: 70%;">
+              <button class="hotspot" type="button" data-part="farmland" aria-label="Open Farmland card">7</button>
+              <div class="hotspot-label">Farmland</div>
+            </div>
+
+            <div class="hotspot-wrap" style="left: 21%; top: 76%;">
+              <button class="hotspot" type="button" data-part="coast" aria-label="Open Coastline card">8</button>
+              <div class="hotspot-label">Coastline</div>
+            </div>
+          </div>
+
+          <div class="poster-note">
+            Click each point to learn how map features help us understand location, distance, direction, landforms, and human activity.
+          </div>
+        </div>
+      </section>
+
+      <section class="progress-card">
+        <div class="progress-top">
+          <div>
+            <h2 class="section-title">My Progress</h2>
+            <p class="section-copy" style="margin-bottom: 0;">
+              Your answers are saved automatically on this device.
+            </p>
+          </div>
+
+          <div class="progress-text" id="progressText">0 of 5 questions completed</div>
+        </div>
+
+        <div class="progress-bar" aria-label="Progress bar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <div style="margin-top: 16px;">
+          <button class="danger-btn" id="clearAllAnswers" type="button">Clear All Answers</button>
+        </div>
+      </section>
+
+      <section class="score-card">
+        <div class="score-top">
+          <div>
+            <h2 class="section-title">My Score</h2>
+            <p class="section-copy" style="margin-bottom: 0;">
+              This is a basic support marker. It checks for key ideas.
+            </p>
+          </div>
+
+          <div class="score-text" id="scoreText">0 / 5 marks</div>
+        </div>
+
+        <div class="score-bar" aria-label="Score bar">
+          <div class="score-fill" id="scoreFill"></div>
+        </div>
+      </section>
+
+      <section class="concepts-card">
+        <h2 class="section-title">Map Skills Concepts</h2>
+        <p class="section-copy">
+          Map skills help us read, understand, and use maps correctly. They help us identify places, direction, distance, symbols, landforms, and human activities shown on a map.
+        </p>
+
+        <div class="concept-grid">
+          <div class="concept-box">
+            <h3>Direction</h3>
+            <p>
+              Direction helps us know where places are in relation to one another. Maps often use north, south, east, and west.
+            </p>
+          </div>
+
+          <div class="concept-box">
+            <h3>Scale</h3>
+            <p>
+              Scale shows the relationship between distance on the map and real distance on the ground.
+            </p>
+          </div>
+
+          <div class="concept-box">
+            <h3>Relief</h3>
+            <p>
+              Relief shows the shape and height of the land, such as mountains, valleys, and hills.
+            </p>
+          </div>
+
+          <div class="concept-box">
+            <h3>Natural and human features</h3>
+            <p>
+              Natural features include rivers, forests, and mountains. Human features include roads, farms, and settlements.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="exercise-card">
+        <h2 class="section-title">Comprehension Exercise</h2>
+        <p class="section-copy">
+          Study the map and type your answers below. After you submit each answer, you can open a model answer to compare your work.
+        </p>
+
+        <div class="question-block" data-question="1">
+          <h3>1. What is the purpose of a compass rose on a map?</h3>
+          <textarea class="answer-input" placeholder="Type your answer here..."></textarea>
+
+          <div class="question-actions">
+            <button class="submit-btn" type="button">Submit Answer</button>
+            <button class="model-btn" type="button">Show Model Answer</button>
+            <button class="edit-btn" type="button">Edit Answer</button>
+          </div>
+
+          <div class="question-status">Answer submitted.</div>
+
+          <div class="mark-feedback">
+            <h4>Feedback</h4>
+            <p></p>
+          </div>
+
+          <div class="model-answer">
+            <h4>Model Answer</h4>
+            <p>
+              A compass rose helps the map reader understand direction. It shows north, south, east, and west so that places on the map can be located correctly.
+            </p>
+          </div>
+        </div>
+
+        <div class="question-block" data-question="2">
+          <h3>2. Why is scale important when using a map?</h3>
+          <textarea class="answer-input" placeholder="Type your answer here..."></textarea>
+
+          <div class="question-actions">
+            <button class="submit-btn" type="button">Submit Answer</button>
+            <button class="model-btn" type="button">Show Model Answer</button>
+            <button class="edit-btn" type="button">Edit Answer</button>
+          </div>
+
+          <div class="question-status">Answer submitted.</div>
+
+          <div class="mark-feedback">
+            <h4>Feedback</h4>
+            <p></p>
+          </div>
+
+          <div class="model-answer">
+            <h4>Model Answer</h4>
+            <p>
+              Scale is important because it shows the relationship between map distance and real distance. It helps people estimate or calculate how far places are from one another.
+            </p>
+          </div>
+        </div>
+
+        <div class="question-block" data-question="3">
+          <h3>3. Give two examples of natural features shown on this map.</h3>
+          <textarea class="answer-input" placeholder="Type your answer here..."></textarea>
+
+          <div class="question-actions">
+            <button class="submit-btn" type="button">Submit Answer</button>
+            <button class="model-btn" type="button">Show Model Answer</button>
+            <button class="edit-btn" type="button">Edit Answer</button>
+          </div>
+
+          <div class="question-status">Answer submitted.</div>
+
+          <div class="mark-feedback">
+            <h4>Feedback</h4>
+            <p></p>
+          </div>
+
+          <div class="model-answer">
+            <h4>Model Answer</h4>
+            <p>
+              Two natural features shown on the map are mountains and rivers. Other correct examples include forests and the coastline.
+            </p>
+          </div>
+        </div>
+
+        <div class="question-block" data-question="4">
+          <h3>4. What is the difference between a natural feature and a human feature?</h3>
+          <textarea class="answer-input" placeholder="Type your answer here..."></textarea>
+
+          <div class="question-actions">
+            <button class="submit-btn" type="button">Submit Answer</button>
+            <button class="model-btn" type="button">Show Model Answer</button>
+            <button class="edit-btn" type="button">Edit Answer</button>
+          </div>
+
+          <div class="question-status">Answer submitted.</div>
+
+          <div class="mark-feedback">
+            <h4>Feedback</h4>
+            <p></p>
+          </div>
+
+          <div class="model-answer">
+            <h4>Model Answer</h4>
+            <p>
+              A natural feature occurs in nature, such as a river, mountain, or forest. A human feature is made or changed by people, such as roads, settlements, farms, and bridges.
+            </p>
+          </div>
+        </div>
+
+        <div class="question-block" data-question="5">
+          <h3>5. How does relief help a person understand a map better?</h3>
+          <textarea class="answer-input" placeholder="Type your answer here..."></textarea>
+
+          <div class="question-actions">
+            <button class="submit-btn" type="button">Submit Answer</button>
+            <button class="model-btn" type="button">Show Model Answer</button>
+            <button class="edit-btn" type="button">Edit Answer</button>
+          </div>
+
+          <div class="question-status">Answer submitted.</div>
+
+          <div class="mark-feedback">
+            <h4>Feedback</h4>
+            <p></p>
+          </div>
+
+          <div class="model-answer">
+            <h4>Model Answer</h4>
+            <p>
+              Relief helps a person understand the height and shape of the land. It shows whether an area is flat, hilly, mountainous, or steep.
+            </p>
+          </div>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <div class="modal-backdrop" id="mapSkillsModal" aria-hidden="true">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="mapSkillsTitle">
+      <div class="modal-top">
+        <h2 class="modal-title" id="mapSkillsTitle">What are map skills?</h2>
+        <button class="modal-close close-map-skills" type="button" aria-label="Close">×</button>
+      </div>
+
+      <div class="modal-body">
+        <p>
+          Map skills are the skills we use to read, understand, and interpret maps correctly. They help us know where places are, how far apart they are, and what different symbols and features on the map mean.
+        </p>
+
+        <p>
+          Good map skills include understanding direction, scale, symbols, relief, and the difference between natural and human features. These skills are important in Geography because they help us use maps to study real places and landscapes.
+        </p>
+
+        <div class="info-grid">
+          <div class="info-box">
+            <h3>Direction</h3>
+            <p>Helps us know location using north, south, east, and west.</p>
+          </div>
+
+          <div class="info-box">
+            <h3>Distance</h3>
+            <p>Scale helps us work out how far places are from one another.</p>
+          </div>
+
+          <div class="info-box">
+            <h3>Features</h3>
+            <p>Maps show both natural features and human features.</p>
+          </div>
+
+          <div class="info-box">
+            <h3>Relief</h3>
+            <p>Relief helps us understand the shape and height of the land.</p>
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button class="close-btn close-map-skills" type="button">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="partModal" aria-hidden="true">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="partTitle">
+      <div class="modal-top">
+        <h2 class="modal-title" id="partTitle">Map feature</h2>
+        <button class="modal-close" id="closePartTop" type="button" aria-label="Close">×</button>
+      </div>
+
+      <div class="modal-body">
+        <p id="partIntro"></p>
+
+        <div class="info-grid">
+          <div class="info-box">
+            <h3>Role</h3>
+            <p id="partRole"></p>
+          </div>
+
+          <div class="info-box">
+            <h3>Why it matters</h3>
+            <p id="partWhy"></p>
+          </div>
+
+          <div class="info-box">
+            <h3>How to read it</h3>
+            <p id="partLink"></p>
+          </div>
+
+          <div class="info-box">
+            <h3>Simple idea</h3>
+            <p id="partSimple"></p>
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button class="close-btn" id="closePartBottom" type="button">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const STORAGE_KEY = "fluent_map_skills_answers_v1";
+
+    const mapSkillsModal = document.getElementById("mapSkillsModal");
+    const partModal = document.getElementById("partModal");
+    const openMapSkillsCard = document.getElementById("openMapSkillsCard");
+    const mapSkillsCloseButtons = document.querySelectorAll(".close-map-skills");
+
+    const partTitle = document.getElementById("partTitle");
+    const partIntro = document.getElementById("partIntro");
+    const partRole = document.getElementById("partRole");
+    const partWhy = document.getElementById("partWhy");
+    const partLink = document.getElementById("partLink");
+    const partSimple = document.getElementById("partSimple");
+
+    const closePartTop = document.getElementById("closePartTop");
+    const closePartBottom = document.getElementById("closePartBottom");
+
+    const progressText = document.getElementById("progressText");
+    const progressFill = document.getElementById("progressFill");
+    const scoreText = document.getElementById("scoreText");
+    const scoreFill = document.getElementById("scoreFill");
+    const clearAllAnswersBtn = document.getElementById("clearAllAnswers");
+
+    const partData = {
+      compass: {
+        title: "Compass rose",
+        intro: "A compass rose shows direction on a map.",
+        role: "It helps the reader know where north, south, east, and west are.",
+        why: "Without direction, it is difficult to describe location accurately.",
+        link: "Always check where north is first before describing position.",
+        simple: "The compass rose tells you direction."
+      },
+      scale: {
+        title: "Scale",
+        intro: "Scale shows the relationship between map distance and real distance.",
+        role: "It helps the reader estimate or calculate distance.",
+        why: "It allows a small map to represent a much larger real area.",
+        link: "You measure on the map and compare that with the scale.",
+        simple: "Scale helps you work out real distance."
+      },
+      settlement: {
+        title: "Settlement",
+        intro: "A settlement is a place where people live, such as a village, town, or city.",
+        role: "It shows human occupation and land use.",
+        why: "Settlements help us understand where people live and how they use the land.",
+        link: "Look for groups of buildings, roads, and other human-made features.",
+        simple: "A settlement is where people live."
+      },
+      relief: {
+        title: "Relief",
+        intro: "Relief refers to the height and shape of the land.",
+        role: "It shows whether land is flat, hilly, steep, or mountainous.",
+        why: "Relief affects travel, farming, building, and settlement.",
+        link: "Mountains, valleys, slopes, and height differences all show relief.",
+        simple: "Relief shows the shape of the land."
+      },
+      river: {
+        title: "River",
+        intro: "A river is a natural water feature shown on a map.",
+        role: "It helps the reader understand drainage and water movement.",
+        why: "Rivers affect settlement, farming, transport, and landforms.",
+        link: "Rivers often flow from higher land to lower land and may join the sea.",
+        simple: "A river is flowing water on the land."
+      },
+      forest: {
+        title: "Forest",
+        intro: "A forest is a natural vegetation feature.",
+        role: "It shows areas covered by many trees.",
+        why: "Vegetation affects climate, land use, conservation, and settlement.",
+        link: "Forests are natural features and differ from built-up human areas.",
+        simple: "A forest is a large area with many trees."
+      },
+      farmland: {
+        title: "Farmland",
+        intro: "Farmland is land used by people for agriculture.",
+        role: "It shows human economic activity on the land.",
+        why: "It helps us identify areas where crops or animals are produced.",
+        link: "Regular field patterns often suggest farming land use.",
+        simple: "Farmland is land used for farming."
+      },
+      coast: {
+        title: "Coastline",
+        intro: "A coastline is where the land meets the sea.",
+        role: "It shows the boundary between land and ocean.",
+        why: "It helps us understand coastal features, harbours, beaches, and settlement patterns.",
+        link: "Look for the edge where land and sea touch.",
+        simple: "The coastline is the meeting place of land and sea."
+      }
+    };
+
+    const markingRules = {
+      1: {
+        requiredAnyGroups: [
+          ["compass", "compass rose"],
+          ["direction", "directions"],
+          ["north"],
+          ["south", "east", "west", "location", "position"]
+        ]
+      },
+      2: {
+        requiredAnyGroups: [
+          ["scale"],
+          ["distance", "far"],
+          ["map"],
+          ["real", "ground", "actual"]
+        ]
+      },
+      3: {
+        acceptedNaturalFeatures: ["mountain", "mountains", "river", "rivers", "forest", "forests", "coast", "coastline", "sea", "waterfall", "lake"]
+      },
+      4: {
+        requiredAnyGroups: [
+          ["natural"],
+          ["human"],
+          ["nature", "occurs in nature", "found in nature"],
+          ["made by people", "built by people", "changed by people", "people make"]
+        ]
+      },
+      5: {
+        requiredAnyGroups: [
+          ["relief"],
+          ["height", "high", "low"],
+          ["shape", "slope", "steep", "flat"],
+          ["land", "mountains", "hills", "valleys"]
+        ]
+      }
+    };
+
+    function normalizeText(text) {
+      return text
+        .toLowerCase()
+        .replace(/[^\w\s]/g, " ")
+        .replace(/\s+/g, " ")
+        .trim();
+    }
+
+    function getSavedData() {
+      try {
+        return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+      } catch (error) {
+        return {};
+      }
+    }
+
+    function saveData(data) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    }
+
+    function updateProgress() {
+      const blocks = document.querySelectorAll(".question-block");
+      let completed = 0;
+
+      blocks.forEach(block => {
+        const textarea = block.querySelector(".answer-input");
+        const isReadonly = textarea.hasAttribute("readonly");
+        if (isReadonly && textarea.value.trim() !== "") {
+          completed += 1;
+          block.classList.add("completed");
+        } else {
+          block.classList.remove("completed");
+        }
+      });
+
+      const total = blocks.length;
+      const percentage = total === 0 ? 0 : (completed / total) * 100;
+
+      progressText.textContent = `${completed} of ${total} questions completed`;
+      progressFill.style.width = `${percentage}%`;
+    }
+
+    function updateTotalScore() {
+      const savedData = getSavedData();
+      let totalMarks = 0;
+      const totalPossible = 5;
+
+      Object.keys(savedData).forEach(key => {
+        const item = savedData[key];
+        if (item && typeof item.mark === "number") {
+          totalMarks += item.mark;
+        }
+      });
+
+      const percentage = (totalMarks / totalPossible) * 100;
+      scoreText.textContent = `${totalMarks} / ${totalPossible} marks`;
+      scoreFill.style.width = `${percentage}%`;
+    }
+
+    function setQuestionSubmitted(block, submitted) {
+      const textarea = block.querySelector(".answer-input");
+      const submitBtn = block.querySelector(".submit-btn");
+      const modelBtn = block.querySelector(".model-btn");
+      const editBtn = block.querySelector(".edit-btn");
+      const status = block.querySelector(".question-status");
+
+      if (submitted) {
+        textarea.classList.add("locked");
+        textarea.setAttribute("readonly", true);
+        status.style.display = "block";
+        modelBtn.style.display = "inline-block";
+        editBtn.style.display = "inline-block";
+        submitBtn.disabled = true;
+        submitBtn.style.opacity = "0.7";
+        submitBtn.style.cursor = "not-allowed";
+        block.classList.add("completed");
+      } else {
+        textarea.classList.remove("locked");
+        textarea.removeAttribute("readonly");
+        status.style.display = "none";
+        modelBtn.style.display = "none";
+        editBtn.style.display = "none";
+        submitBtn.disabled = false;
+        submitBtn.style.opacity = "1";
+        submitBtn.style.cursor = "pointer";
+        block.classList.remove("completed");
+      }
+    }
+
+    function containsAny(text, options) {
+      return options.some(option => text.includes(option));
+    }
+
+    function markQuestion(questionId, answer) {
+      const text = normalizeText(answer);
+      const rule = markingRules[questionId];
+
+      if (!rule || !text) {
+        return {
+          mark: 0,
+          title: "No mark yet",
+          message: "Please write an answer first.",
+          level: "low"
+        };
+      }
+
+      if (questionId === "3") {
+        let found = 0;
+        const matched = [];
+
+        rule.acceptedNaturalFeatures.forEach(word => {
+          if (text.includes(word)) {
+            found += 1;
+            matched.push(word);
+          }
+        });
+
+        const uniqueMatched = [...new Set(matched.map(item => item.endsWith("s") ? item.slice(0, -1) : item))];
+
+        if (uniqueMatched.length >= 2) {
+          return {
+            mark: 1,
+            title: "Well done",
+            message: `You gave two correct natural features: ${uniqueMatched.slice(0, 2).join(" and ")}.`,
+            level: "good"
+          };
+        }
+
+        if (uniqueMatched.length === 1) {
+          return {
+            mark: 0.5,
+            title: "Good start",
+            message: "You gave one correct natural feature. Add one more example from the map.",
+            level: "medium"
+          };
+        }
+
+        return {
+          mark: 0,
+          title: "Try again",
+          message: "Name two natural features such as mountains, rivers, forests, or the coastline.",
+          level: "low"
+        };
+      }
+
+      let matches = 0;
+      rule.requiredAnyGroups.forEach(group => {
+        if (containsAny(text, group)) {
+          matches += 1;
+        }
+      });
+
+      if (matches >= 4) {
+        return {
+          mark: 1,
+          title: "Well done",
+          message: "Your answer includes the main ideas needed for this question.",
+          level: "good"
+        };
+      }
+
+      if (matches >= 2) {
+        return {
+          mark: 0.5,
+          title: "Good start",
+          message: "You have some correct ideas. Add one or two more key points to strengthen your answer.",
+          level: "medium"
+        };
+      }
+
+      return {
+        mark: 0,
+        title: "Keep improving",
+        message: "Your answer needs more key ideas. Read the poster again and include the important geography words.",
+        level: "low"
+      };
+    }
+
+    function showFeedback(block, result) {
+      const feedbackBox = block.querySelector(".mark-feedback");
+      const feedbackTitle = feedbackBox.querySelector("h4");
+      const feedbackText = feedbackBox.querySelector("p");
+
+      feedbackBox.classList.remove("good", "medium", "low");
+      feedbackBox.classList.add(result.level);
+
+      feedbackTitle.textContent = `${result.title} — ${result.mark} / 1`;
+      feedbackText.textContent = result.message;
+      feedbackBox.style.display = "block";
+    }
+
+    function hideFeedback(block) {
+      const feedbackBox = block.querySelector(".mark-feedback");
+      feedbackBox.style.display = "none";
+      feedbackBox.classList.remove("good", "medium", "low");
+    }
+
+    function persistQuestionState(block, extra = {}) {
+      const questionId = block.dataset.question;
+      const textarea = block.querySelector(".answer-input");
+      const modelAnswer = block.querySelector(".model-answer");
+      const savedData = getSavedData();
+      const current = savedData[questionId] || {};
+
+      savedData[questionId] = {
+        answer: textarea.value,
+        submitted: textarea.hasAttribute("readonly"),
+        modelVisible: modelAnswer.style.display === "block",
+        mark: typeof extra.mark === "number" ? extra.mark : (current.mark || 0),
+        feedbackTitle: extra.feedbackTitle !== undefined ? extra.feedbackTitle : (current.feedbackTitle || ""),
+        feedbackMessage: extra.feedbackMessage !== undefined ? extra.feedbackMessage : (current.feedbackMessage || ""),
+        feedbackLevel: extra.feedbackLevel !== undefined ? extra.feedbackLevel : (current.feedbackLevel || "")
+      };
+
+      saveData(savedData);
+      updateProgress();
+      updateTotalScore();
+    }
+
+    function loadSavedAnswers() {
+      const savedData = getSavedData();
+
+      document.querySelectorAll(".question-block").forEach(block => {
+        const questionId = block.dataset.question;
+        const textarea = block.querySelector(".answer-input");
+        const modelAnswer = block.querySelector(".model-answer");
+        const savedQuestion = savedData[questionId];
+
+        if (!savedQuestion) return;
+
+        textarea.value = savedQuestion.answer || "";
+
+        if (savedQuestion.submitted) {
+          setQuestionSubmitted(block, true);
+        }
+
+        if (savedQuestion.modelVisible) {
+          modelAnswer.style.display = "block";
+        }
+
+        if (savedQuestion.feedbackTitle || savedQuestion.feedbackMessage) {
+          showFeedback(block, {
+            title: savedQuestion.feedbackTitle || "Feedback",
+            message: savedQuestion.feedbackMessage || "",
+            mark: typeof savedQuestion.mark === "number" ? savedQuestion.mark : 0,
+            level: savedQuestion.feedbackLevel || "medium"
+          });
+        }
+      });
+
+      updateProgress();
+      updateTotalScore();
+    }
+
+    openMapSkillsCard.addEventListener("click", () => {
+      mapSkillsModal.classList.add("show");
+      mapSkillsModal.setAttribute("aria-hidden", "false");
+    });
+
+    mapSkillsCloseButtons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        mapSkillsModal.classList.remove("show");
+        mapSkillsModal.setAttribute("aria-hidden", "true");
+      });
+    });
+
+    document.querySelectorAll(".hotspot").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const key = btn.dataset.part;
+        const data = partData[key];
+        if (!data) return;
+
+        partTitle.textContent = data.title;
+        partIntro.textContent = data.intro;
+        partRole.textContent = data.role;
+        partWhy.textContent = data.why;
+        partLink.textContent = data.link;
+        partSimple.textContent = data.simple;
+
+        partModal.classList.add("show");
+        partModal.setAttribute("aria-hidden", "false");
+      });
+    });
+
+    function closePartModal() {
+      partModal.classList.remove("show");
+      partModal.setAttribute("aria-hidden", "true");
+    }
+
+    closePartTop.addEventListener("click", closePartModal);
+    closePartBottom.addEventListener("click", closePartModal);
+
+    window.addEventListener("click", (e) => {
+      if (e.target === mapSkillsModal) {
+        mapSkillsModal.classList.remove("show");
+        mapSkillsModal.setAttribute("aria-hidden", "true");
+      }
+
+      if (e.target === partModal) {
+        closePartModal();
+      }
+    });
+
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        mapSkillsModal.classList.remove("show");
+        mapSkillsModal.setAttribute("aria-hidden", "true");
+        closePartModal();
+      }
+    });
+
+    document.querySelectorAll(".question-block").forEach(block => {
+      const textarea = block.querySelector(".answer-input");
+      const submitBtn = block.querySelector(".submit-btn");
+      const modelBtn = block.querySelector(".model-btn");
+      const editBtn = block.querySelector(".edit-btn");
+      const modelAnswer = block.querySelector(".model-answer");
+
+      textarea.addEventListener("input", () => {
+        persistQuestionState(block);
+      });
+
+      submitBtn.addEventListener("click", () => {
+        if (textarea.value.trim() === "") {
+          alert("Please type your answer first.");
+          textarea.focus();
+          return;
+        }
+
+        const result = markQuestion(block.dataset.question, textarea.value);
+
+        setQuestionSubmitted(block, true);
+        showFeedback(block, result);
+
+        persistQuestionState(block, {
+          mark: result.mark,
+          feedbackTitle: result.title,
+          feedbackMessage: result.message,
+          feedbackLevel: result.level
+        });
+      });
+
+      modelBtn.addEventListener("click", () => {
+        modelAnswer.style.display = "block";
+        persistQuestionState(block);
+      });
+
+      editBtn.addEventListener("click", () => {
+        setQuestionSubmitted(block, false);
+        hideFeedback(block);
+
+        persistQuestionState(block, {
+          mark: 0,
+          feedbackTitle: "",
+          feedbackMessage: "",
+          feedbackLevel: ""
+        });
+
+        textarea.focus();
+      });
+    });
+
+    clearAllAnswersBtn.addEventListener("click", () => {
+      const confirmed = confirm("Are you sure you want to clear all saved answers?");
+      if (!confirmed) return;
+
+      localStorage.removeItem(STORAGE_KEY);
+
+      document.querySelectorAll(".question-block").forEach(block => {
+        const textarea = block.querySelector(".answer-input");
+        const modelAnswer = block.querySelector(".model-answer");
+
+        textarea.value = "";
+        setQuestionSubmitted(block, false);
+        modelAnswer.style.display = "none";
+        hideFeedback(block);
+      });
+
+      updateProgress();
+      updateTotalScore();
+    });
+
+    loadSavedAnswers();
+  </script>
+</body>
+</html>

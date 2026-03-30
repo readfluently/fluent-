@@ -1,0 +1,1560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fluent | Water Cycle</title>
+  <style>
+    :root {
+      --bg: #f4f8fb;
+      --surface: #ffffff;
+      --surface-soft: #eef6fb;
+      --text: #17324a;
+      --muted: #5b7285;
+      --line: #d4e2ed;
+      --primary: #247bbd;
+      --primary-dark: #195f93;
+      --accent: #f4c542;
+      --accent-dark: #d8aa1d;
+      --danger: #c94b4b;
+      --danger-dark: #a83636;
+      --info: #eef7ff;
+      --info-line: #bfdcf6;
+      --info-text: #1b5f96;
+      --success-soft: #eefaf4;
+      --success-line: #b7e3c7;
+      --warning-soft: #fff8e7;
+      --warning-line: #f0db97;
+      --warning-text: #7c5a00;
+      --shadow: 0 18px 50px rgba(14, 46, 78, 0.14);
+      --radius-xl: 24px;
+      --radius-lg: 18px;
+      --radius-md: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: radial-gradient(circle at top, #f9fdff 0%, #eef6fb 48%, #e7f0f8 100%);
+      color: var(--text);
+    }
+
+    .page-shell {
+      max-width: 1220px;
+      margin: 0 auto;
+      padding: 28px 18px 46px;
+    }
+
+    .poster-page {
+      display: grid;
+      gap: 22px;
+    }
+
+    .poster-card,
+    .concepts-card,
+    .exercise-card,
+    .progress-card,
+    .score-card {
+      background: rgba(255, 255, 255, 0.96);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .poster-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+      padding: 22px 24px 18px;
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(180deg, #fbfeff 0%, #eef6fb 100%);
+    }
+
+    .title-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .eyebrow {
+      margin: 0;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--primary);
+    }
+
+    .page-title {
+      margin: 0;
+      font-size: clamp(1.9rem, 3vw, 2.8rem);
+      line-height: 1.05;
+      font-weight: 800;
+    }
+
+    .page-subtitle {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.55;
+      max-width: 790px;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .action-btn,
+    .danger-btn {
+      border: none;
+      font-size: 1rem;
+      font-weight: 700;
+      padding: 14px 18px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: transform 0.18s ease, background 0.18s ease, opacity 0.18s ease;
+    }
+
+    .action-btn {
+      background: var(--primary);
+      color: #fff;
+      box-shadow: 0 8px 20px rgba(36, 123, 189, 0.22);
+    }
+
+    .action-btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+
+    .danger-btn {
+      background: var(--danger);
+      color: #fff;
+      box-shadow: 0 8px 20px rgba(201, 75, 75, 0.2);
+    }
+
+    .danger-btn:hover {
+      background: var(--danger-dark);
+      transform: translateY(-1px);
+    }
+
+    .poster-stage {
+      padding: 20px;
+    }
+
+    .image-frame {
+      width: 100%;
+      border-radius: 22px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: #dbeaf6;
+      position: relative;
+    }
+
+    .image-frame img {
+      display: block;
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    .hotspot-wrap {
+      position: absolute;
+      transform: translate(-50%, -50%);
+    }
+
+    .hotspot {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 3px solid rgba(255, 255, 255, 0.96);
+      background: rgba(36, 123, 189, 0.96);
+      color: #fff;
+      font-size: 0.96rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.18);
+      transition: transform 0.16s ease, background 0.16s ease;
+      position: relative;
+    }
+
+    .hotspot:hover {
+      transform: scale(1.08);
+      background: var(--primary-dark);
+    }
+
+    .hotspot::after {
+      content: "";
+      position: absolute;
+      inset: -7px;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 255, 255, 0.35);
+      animation: pulse 2s infinite;
+    }
+
+    .hotspot:focus-visible {
+      outline: 3px solid #9dd0f4;
+      outline-offset: 3px;
+    }
+
+    .hotspot-label {
+      position: absolute;
+      left: 50%;
+      bottom: calc(100% + 9px);
+      transform: translateX(-50%);
+      background: rgba(16, 44, 67, 0.94);
+      color: #fff;
+      padding: 6px 10px;
+      border-radius: 10px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.16s ease;
+    }
+
+    .hotspot-wrap:hover .hotspot-label,
+    .hotspot-wrap:focus-within .hotspot-label {
+      opacity: 1;
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(0.95);
+        opacity: 0.85;
+      }
+      70% {
+        transform: scale(1.18);
+        opacity: 0.12;
+      }
+      100% {
+        transform: scale(1.24);
+        opacity: 0;
+      }
+    }
+
+    .poster-note {
+      padding: 14px 4px 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .progress-card,
+    .concepts-card,
+    .exercise-card,
+    .score-card {
+      padding: 22px;
+    }
+
+    .section-title {
+      margin: 0 0 8px;
+      font-size: 1.5rem;
+      color: var(--primary-dark);
+    }
+
+    .section-copy {
+      margin: 0 0 18px;
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--muted);
+      max-width: 860px;
+    }
+
+    .progress-top,
+    .score-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .progress-text,
+    .score-text {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+    }
+
+    .progress-bar,
+    .score-bar {
+      width: 100%;
+      height: 16px;
+      background: #e7f1f8;
+      border-radius: 999px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+    }
+
+    .progress-fill,
+    .score-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #247bbd 0%, #53a9e7 100%);
+      transition: width 0.25s ease;
+    }
+
+    .concept-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .concept-box {
+      background: var(--surface-soft);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 16px;
+    }
+
+    .concept-box h3 {
+      margin: 0 0 8px;
+      font-size: 1rem;
+      color: var(--primary-dark);
+    }
+
+    .concept-box p {
+      margin: 0;
+      font-size: 0.95rem;
+      line-height: 1.65;
+      color: var(--muted);
+    }
+
+    .question-block {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 18px;
+      background: #fbfdff;
+      margin-bottom: 16px;
+    }
+
+    .question-block.completed {
+      border-color: #9fcae8;
+      background: #f7fbff;
+    }
+
+    .question-block h3 {
+      margin: 0 0 10px;
+      font-size: 1rem;
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .answer-input {
+      width: 100%;
+      min-height: 110px;
+      border: 2px solid #d4e2ed;
+      border-radius: 14px;
+      background: #fff;
+      padding: 14px;
+      color: var(--text);
+      line-height: 1.7;
+      font-size: 1rem;
+      font-family: Arial, Helvetica, sans-serif;
+      resize: vertical;
+      outline: none;
+    }
+
+    .answer-input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(36, 123, 189, 0.12);
+    }
+
+    .answer-input.locked {
+      background: #f3f7fa;
+      color: #486171;
+    }
+
+    .question-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+
+    .submit-btn,
+    .model-btn,
+    .edit-btn {
+      border: none;
+      padding: 12px 16px;
+      border-radius: 999px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.18s ease, opacity 0.18s ease, background 0.18s ease;
+    }
+
+    .submit-btn {
+      background: var(--primary);
+      color: #fff;
+      box-shadow: 0 8px 18px rgba(36, 123, 189, 0.18);
+    }
+
+    .submit-btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+
+    .model-btn {
+      background: var(--accent);
+      color: #3d3107;
+      display: none;
+    }
+
+    .model-btn:hover {
+      background: var(--accent-dark);
+      transform: translateY(-1px);
+    }
+
+    .edit-btn {
+      background: #e8f3fb;
+      color: #1f5d89;
+      display: none;
+    }
+
+    .edit-btn:hover {
+      background: #d8ebf8;
+      transform: translateY(-1px);
+    }
+
+    .question-status {
+      margin-top: 10px;
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+      display: none;
+    }
+
+    .mark-feedback {
+      display: none;
+      margin-top: 14px;
+      padding: 14px 16px;
+      border-radius: 16px;
+      border: 1px solid var(--info-line);
+      background: var(--info);
+    }
+
+    .mark-feedback.good {
+      background: var(--success-soft);
+      border-color: var(--success-line);
+    }
+
+    .mark-feedback.medium,
+    .mark-feedback.low {
+      background: var(--warning-soft);
+      border-color: var(--warning-line);
+    }
+
+    .mark-feedback h4 {
+      margin: 0 0 6px;
+      font-size: 1rem;
+      color: var(--info-text);
+    }
+
+    .mark-feedback.good h4 {
+      color: #1f6b44;
+    }
+
+    .mark-feedback.medium h4,
+    .mark-feedback.low h4 {
+      color: var(--warning-text);
+    }
+
+    .mark-feedback p {
+      margin: 0;
+      font-size: 0.96rem;
+      line-height: 1.7;
+      color: #29485a;
+    }
+
+    .model-answer {
+      display: none;
+      margin-top: 14px;
+      padding: 16px;
+      border-radius: 16px;
+      background: #fff8df;
+      border: 1px solid #f0dc94;
+    }
+
+    .model-answer h4 {
+      margin: 0 0 8px;
+      font-size: 1rem;
+      color: #7b5d00;
+    }
+
+    .model-answer p {
+      margin: 0;
+      font-size: 0.96rem;
+      line-height: 1.7;
+      color: #5c4a10;
+    }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 33, 49, 0.58);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      z-index: 1000;
+    }
+
+    .modal-backdrop.show {
+      display: flex;
+    }
+
+    .modal-card {
+      width: min(860px, 100%);
+      background: #fff;
+      border-radius: 24px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.22);
+      border: 1px solid #dbe7f0;
+      overflow: hidden;
+      animation: popIn 0.22s ease;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    @keyframes popIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px) scale(0.98);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .modal-top {
+      padding: 22px 24px 14px;
+      background: linear-gradient(180deg, #f7fcff 0%, #edf6fb 100%);
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .modal-title {
+      margin: 0;
+      font-size: 1.45rem;
+      line-height: 1.2;
+      font-weight: 800;
+    }
+
+    .modal-close {
+      border: none;
+      background: #e4eff7;
+      color: var(--text);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      font-size: 1.15rem;
+      font-weight: 800;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .modal-body {
+      padding: 22px 24px 24px;
+    }
+
+    .modal-body p {
+      margin: 0 0 14px;
+      font-size: 1rem;
+      line-height: 1.72;
+      color: #29485a;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .info-box {
+      background: #f7fbfe;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 14px;
+    }
+
+    .info-box h3 {
+      margin: 0 0 8px;
+      font-size: 1rem;
+      color: var(--primary-dark);
+    }
+
+    .info-box p {
+      margin: 0;
+      font-size: 0.95rem;
+      line-height: 1.65;
+      color: var(--muted);
+    }
+
+    .modal-actions {
+      margin-top: 20px;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .close-btn {
+      border: none;
+      background: var(--primary);
+      color: white;
+      font-weight: 700;
+      font-size: 0.98rem;
+      padding: 12px 18px;
+      border-radius: 999px;
+      cursor: pointer;
+    }
+
+    @media (max-width: 900px) {
+      .concept-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 760px) {
+      .poster-header {
+        align-items: flex-start;
+      }
+
+      .header-actions,
+      .action-btn,
+      .danger-btn {
+        width: 100%;
+      }
+
+      .info-grid,
+      .concept-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .modal-top,
+      .modal-body {
+        padding-left: 18px;
+        padding-right: 18px;
+      }
+
+      .poster-stage {
+        padding: 14px;
+      }
+
+      .hotspot {
+        width: 34px;
+        height: 34px;
+      }
+
+      .hotspot-label {
+        display: none;
+      }
+
+      .question-actions {
+        flex-direction: column;
+      }
+
+      .submit-btn,
+      .model-btn,
+      .edit-btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page-shell">
+    <section class="poster-page">
+      <section class="poster-card">
+        <header class="poster-header">
+          <div class="title-wrap">
+            <p class="eyebrow">Interactive Poster</p>
+            <h1 class="page-title">Water Cycle</h1>
+            <p class="page-subtitle">
+              Click the numbered points to learn how water moves through nature in a continuous cycle.
+            </p>
+          </div>
+
+          <div class="header-actions">
+            <button class="action-btn" id="openWaterCycleCard" type="button">What is the water cycle?</button>
+          </div>
+        </header>
+
+        <div class="poster-stage">
+          <div class="image-frame">
+            <img src="base/water-cycle-base.png" alt="Water cycle base image" />
+
+            <div class="hotspot-wrap" style="left: 16%; top: 14%;">
+              <button class="hotspot" type="button" data-part="sunlight" aria-label="Open Sunlight card">1</button>
+              <div class="hotspot-label">Sunlight</div>
+            </div>
+
+            <div class="hotspot-wrap" style="left: 41%; top: 68%;">
+              <button class="hotspot" type="button" data-part="evaporation" aria-label="Open Evaporation card">2</button>
+              <div class="hotspot-label">Evaporation</div>
+            </div>
+
+            <div class="hotspot-wrap" style="left: 68%; top: 24%;">
+              <button class="hotspot" type="button" data-part="condensation" aria-label="Open Condensation card">3</button>
+              <div class="hotspot-label">Condensation</div>
+            </div>
+
+            <div class="hotspot-wrap" style="left: 77%; top: 33%;">
+              <button class="hotspot" type="button" data-part="precipitation" aria-label="Open Precipitation card">4</button>
+              <div class="hotspot-label">Precipitation</div>
+            </div>
+
+            <div class="hotspot-wrap" style="left: 61%; top: 75%;">
+              <button class="hotspot" type="button" data-part="collection" aria-label="Open Collection card">5</button>
+              <div class="hotspot-label">Collection</div>
+            </div>
+
+            <div class="hotspot-wrap" style="left: 83%; top: 78%;">
+              <button class="hotspot" type="button" data-part="runoff" aria-label="Open Runoff card">6</button>
+              <div class="hotspot-label">Runoff</div>
+            </div>
+
+            <div class="hotspot-wrap" style="left: 9%; top: 61%;">
+              <button class="hotspot" type="button" data-part="transpiration" aria-label="Open Transpiration card">7</button>
+              <div class="hotspot-label">Transpiration</div>
+            </div>
+
+            <div class="hotspot-wrap" style="left: 86%; top: 87%;">
+              <button class="hotspot" type="button" data-part="infiltration" aria-label="Open Infiltration card">8</button>
+              <div class="hotspot-label">Infiltration</div>
+            </div>
+          </div>
+
+          <div class="poster-note">
+            Click each point to learn how heat, clouds, rain, rivers, plants, and the ground all work together in the water cycle.
+          </div>
+        </div>
+      </section>
+
+      <section class="progress-card">
+        <div class="progress-top">
+          <div>
+            <h2 class="section-title">My Progress</h2>
+            <p class="section-copy" style="margin-bottom: 0;">
+              Your answers are saved automatically on this device.
+            </p>
+          </div>
+
+          <div class="progress-text" id="progressText">0 of 5 questions completed</div>
+        </div>
+
+        <div class="progress-bar" aria-label="Progress bar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <div style="margin-top: 16px;">
+          <button class="danger-btn" id="clearAllAnswers" type="button">Clear All Answers</button>
+        </div>
+      </section>
+
+      <section class="score-card">
+        <div class="score-top">
+          <div>
+            <h2 class="section-title">My Score</h2>
+            <p class="section-copy" style="margin-bottom: 0;">
+              This is a basic support marker. It checks for key ideas.
+            </p>
+          </div>
+
+          <div class="score-text" id="scoreText">0 / 5 marks</div>
+        </div>
+
+        <div class="score-bar" aria-label="Score bar">
+          <div class="score-fill" id="scoreFill"></div>
+        </div>
+      </section>
+
+      <section class="concepts-card">
+        <h2 class="section-title">Water Cycle Concepts</h2>
+        <p class="section-copy">
+          The water cycle is the continuous movement of water between the earth’s surface and the atmosphere. Water changes form and moves from one place to another again and again.
+        </p>
+
+        <div class="concept-grid">
+          <div class="concept-box">
+            <h3>Evaporation</h3>
+            <p>
+              Liquid water is heated by the sun and changes into water vapour that rises into the air.
+            </p>
+          </div>
+
+          <div class="concept-box">
+            <h3>Condensation</h3>
+            <p>
+              Water vapour cools high in the atmosphere and changes into tiny droplets that form clouds.
+            </p>
+          </div>
+
+          <div class="concept-box">
+            <h3>Precipitation</h3>
+            <p>
+              When droplets in clouds become heavy, water falls back to earth as rain, snow, or hail.
+            </p>
+          </div>
+
+          <div class="concept-box">
+            <h3>Collection and movement</h3>
+            <p>
+              Water gathers in rivers, lakes, dams, and oceans, and some moves through soil, plants, and streams.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="exercise-card">
+        <h2 class="section-title">Comprehension Exercise</h2>
+        <p class="section-copy">
+          Study the poster and type your answers below. After you submit each answer, you can open a model answer to compare your work.
+        </p>
+
+        <div class="question-block" data-question="1">
+          <h3>1. What is the water cycle?</h3>
+          <textarea class="answer-input" placeholder="Type your answer here..."></textarea>
+
+          <div class="question-actions">
+            <button class="submit-btn" type="button">Submit Answer</button>
+            <button class="model-btn" type="button">Show Model Answer</button>
+            <button class="edit-btn" type="button">Edit Answer</button>
+          </div>
+
+          <div class="question-status">Answer submitted.</div>
+
+          <div class="mark-feedback">
+            <h4>Feedback</h4>
+            <p></p>
+          </div>
+
+          <div class="model-answer">
+            <h4>Model Answer</h4>
+            <p>
+              The water cycle is the continuous movement of water between the earth’s surface and the atmosphere. Water evaporates, condenses into clouds, falls as precipitation, and collects again in rivers, lakes, and oceans.
+            </p>
+          </div>
+        </div>
+
+        <div class="question-block" data-question="2">
+          <h3>2. Explain what happens during evaporation.</h3>
+          <textarea class="answer-input" placeholder="Type your answer here..."></textarea>
+
+          <div class="question-actions">
+            <button class="submit-btn" type="button">Submit Answer</button>
+            <button class="model-btn" type="button">Show Model Answer</button>
+            <button class="edit-btn" type="button">Edit Answer</button>
+          </div>
+
+          <div class="question-status">Answer submitted.</div>
+
+          <div class="mark-feedback">
+            <h4>Feedback</h4>
+            <p></p>
+          </div>
+
+          <div class="model-answer">
+            <h4>Model Answer</h4>
+            <p>
+              During evaporation, the sun heats liquid water in rivers, lakes, dams, or oceans. The water changes into water vapour and rises into the air.
+            </p>
+          </div>
+        </div>
+
+        <div class="question-block" data-question="3">
+          <h3>3. What is condensation and why is it important?</h3>
+          <textarea class="answer-input" placeholder="Type your answer here..."></textarea>
+
+          <div class="question-actions">
+            <button class="submit-btn" type="button">Submit Answer</button>
+            <button class="model-btn" type="button">Show Model Answer</button>
+            <button class="edit-btn" type="button">Edit Answer</button>
+          </div>
+
+          <div class="question-status">Answer submitted.</div>
+
+          <div class="mark-feedback">
+            <h4>Feedback</h4>
+            <p></p>
+          </div>
+
+          <div class="model-answer">
+            <h4>Model Answer</h4>
+            <p>
+              Condensation happens when water vapour cools and changes back into tiny droplets of liquid water. It is important because it forms clouds, which can later produce precipitation.
+            </p>
+          </div>
+        </div>
+
+        <div class="question-block" data-question="4">
+          <h3>4. Name two ways water returns to the earth’s surface from the atmosphere.</h3>
+          <textarea class="answer-input" placeholder="Type your answer here..."></textarea>
+
+          <div class="question-actions">
+            <button class="submit-btn" type="button">Submit Answer</button>
+            <button class="model-btn" type="button">Show Model Answer</button>
+            <button class="edit-btn" type="button">Edit Answer</button>
+          </div>
+
+          <div class="question-status">Answer submitted.</div>
+
+          <div class="mark-feedback">
+            <h4>Feedback</h4>
+            <p></p>
+          </div>
+
+          <div class="model-answer">
+            <h4>Model Answer</h4>
+            <p>
+              Water returns to the earth’s surface as rain, snow, or hail. Any two of these are correct examples of precipitation.
+            </p>
+          </div>
+        </div>
+
+        <div class="question-block" data-question="5">
+          <h3>5. Why is the sun important in the water cycle?</h3>
+          <textarea class="answer-input" placeholder="Type your answer here..."></textarea>
+
+          <div class="question-actions">
+            <button class="submit-btn" type="button">Submit Answer</button>
+            <button class="model-btn" type="button">Show Model Answer</button>
+            <button class="edit-btn" type="button">Edit Answer</button>
+          </div>
+
+          <div class="question-status">Answer submitted.</div>
+
+          <div class="mark-feedback">
+            <h4>Feedback</h4>
+            <p></p>
+          </div>
+
+          <div class="model-answer">
+            <h4>Model Answer</h4>
+            <p>
+              The sun provides the heat energy that starts evaporation. Without the sun, much less water would evaporate and the water cycle would not continue in the same way.
+            </p>
+          </div>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <div class="modal-backdrop" id="waterCycleModal" aria-hidden="true">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="waterCycleTitle">
+      <div class="modal-top">
+        <h2 class="modal-title" id="waterCycleTitle">What is the water cycle?</h2>
+        <button class="modal-close close-water-cycle" type="button" aria-label="Close">×</button>
+      </div>
+
+      <div class="modal-body">
+        <p>
+          The water cycle is the continuous movement of water between the earth’s surface and the atmosphere. Water does not stay in one place. It moves through air, land, rivers, lakes, oceans, plants, and clouds.
+        </p>
+
+        <p>
+          The cycle is driven mainly by the sun’s heat. Water evaporates into the air, condenses to form clouds, falls as precipitation, and then collects again on land and in water bodies. Some water also moves through soil and plants.
+        </p>
+
+        <div class="info-grid">
+          <div class="info-box">
+            <h3>Energy source</h3>
+            <p>The sun provides the heat energy that starts evaporation.</p>
+          </div>
+
+          <div class="info-box">
+            <h3>In the atmosphere</h3>
+            <p>Water vapour cools and forms clouds by condensation.</p>
+          </div>
+
+          <div class="info-box">
+            <h3>Back to earth</h3>
+            <p>Water returns through precipitation such as rain, snow, or hail.</p>
+          </div>
+
+          <div class="info-box">
+            <h3>Continuous process</h3>
+            <p>Water keeps moving, so the cycle repeats again and again.</p>
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button class="close-btn close-water-cycle" type="button">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="partModal" aria-hidden="true">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="partTitle">
+      <div class="modal-top">
+        <h2 class="modal-title" id="partTitle">Part</h2>
+        <button class="modal-close" id="closePartTop" type="button" aria-label="Close">×</button>
+      </div>
+
+      <div class="modal-body">
+        <p id="partIntro"></p>
+
+        <div class="info-grid">
+          <div class="info-box">
+            <h3>Role</h3>
+            <p id="partRole"></p>
+          </div>
+
+          <div class="info-box">
+            <h3>Why it matters</h3>
+            <p id="partWhy"></p>
+          </div>
+
+          <div class="info-box">
+            <h3>Connected process</h3>
+            <p id="partLink"></p>
+          </div>
+
+          <div class="info-box">
+            <h3>Simple idea</h3>
+            <p id="partSimple"></p>
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button class="close-btn" id="closePartBottom" type="button">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const STORAGE_KEY = "fluent_water_cycle_answers_v1";
+
+    const waterCycleModal = document.getElementById("waterCycleModal");
+    const partModal = document.getElementById("partModal");
+    const openWaterCycleCard = document.getElementById("openWaterCycleCard");
+    const waterCycleCloseButtons = document.querySelectorAll(".close-water-cycle");
+
+    const partTitle = document.getElementById("partTitle");
+    const partIntro = document.getElementById("partIntro");
+    const partRole = document.getElementById("partRole");
+    const partWhy = document.getElementById("partWhy");
+    const partLink = document.getElementById("partLink");
+    const partSimple = document.getElementById("partSimple");
+
+    const closePartTop = document.getElementById("closePartTop");
+    const closePartBottom = document.getElementById("closePartBottom");
+
+    const progressText = document.getElementById("progressText");
+    const progressFill = document.getElementById("progressFill");
+    const scoreText = document.getElementById("scoreText");
+    const scoreFill = document.getElementById("scoreFill");
+    const clearAllAnswersBtn = document.getElementById("clearAllAnswers");
+
+    const partData = {
+      sunlight: {
+        title: "Sunlight",
+        intro: "The sun provides the heat energy that drives the water cycle.",
+        role: "It warms water on the earth’s surface.",
+        why: "Without heat energy, evaporation would be much slower.",
+        link: "Sunlight starts evaporation from lakes, rivers, dams, soil, and oceans.",
+        simple: "The sun is the main energy source of the water cycle."
+      },
+      evaporation: {
+        title: "Evaporation",
+        intro: "Evaporation happens when liquid water changes into water vapour.",
+        role: "It moves water from the surface into the atmosphere.",
+        why: "It helps begin the upward movement of water in the cycle.",
+        link: "The sun heats water and causes it to rise into the air as vapour.",
+        simple: "Water heats up and turns into gas."
+      },
+      condensation: {
+        title: "Condensation",
+        intro: "Condensation happens when water vapour cools and changes into tiny water droplets.",
+        role: "It forms clouds in the sky.",
+        why: "Without condensation, clouds would not form.",
+        link: "Cooling water vapour gathers into droplets high in the atmosphere.",
+        simple: "Water vapour cools and becomes tiny drops again."
+      },
+      precipitation: {
+        title: "Precipitation",
+        intro: "Precipitation happens when water falls from clouds to the earth.",
+        role: "It returns water from the atmosphere to the surface.",
+        why: "It helps refill rivers, lakes, soil, and groundwater.",
+        link: "Rain, snow, and hail are all forms of precipitation.",
+        simple: "Water falls back to earth from clouds."
+      },
+      collection: {
+        title: "Collection",
+        intro: "Collection happens when water gathers in lakes, rivers, dams, and oceans.",
+        role: "It stores water on the earth’s surface.",
+        why: "Collected water becomes a source for later evaporation.",
+        link: "After rain falls, water often flows into larger water bodies.",
+        simple: "Water gathers together in places on earth."
+      },
+      runoff: {
+        title: "Runoff",
+        intro: "Runoff is water that flows over the land surface into rivers, streams, and lakes.",
+        role: "It moves water across the ground.",
+        why: "It helps carry rainwater from higher land to lower areas.",
+        link: "Rainwater often flows downhill until it reaches a river or lake.",
+        simple: "Water moves over the ground after rain."
+      },
+      transpiration: {
+        title: "Transpiration",
+        intro: "Transpiration is the release of water vapour from plants into the air.",
+        role: "It adds water vapour to the atmosphere.",
+        why: "Plants are also part of the water cycle.",
+        link: "Water taken up by roots is released from leaves as vapour.",
+        simple: "Plants release water into the air."
+      },
+      infiltration: {
+        title: "Infiltration",
+        intro: "Infiltration happens when water soaks into the soil.",
+        role: "It moves water below the surface of the ground.",
+        why: "It helps refill groundwater and keeps soil moist.",
+        link: "Some rainwater flows as runoff, while some sinks into the ground.",
+        simple: "Water soaks down into the soil."
+      }
+    };
+
+    const markingRules = {
+      1: {
+        requiredAnyGroups: [
+          ["continuous", "cycle", "repeats", "again and again"],
+          ["water"],
+          ["atmosphere", "air", "sky"],
+          ["earth", "surface", "land", "rivers", "lakes", "oceans"]
+        ]
+      },
+      2: {
+        requiredAnyGroups: [
+          ["evaporation", "evaporate", "evaporates"],
+          ["sun", "heat", "energy"],
+          ["liquid water", "water"],
+          ["water vapour", "vapor", "gas", "air", "rises"]
+        ]
+      },
+      3: {
+        requiredAnyGroups: [
+          ["condensation", "condense", "condenses"],
+          ["water vapour", "vapor"],
+          ["cool", "cools", "cools down"],
+          ["cloud", "clouds", "droplets"]
+        ]
+      },
+      4: {
+        acceptedReturnWays: ["rain", "snow", "hail", "precipitation"]
+      },
+      5: {
+        requiredAnyGroups: [
+          ["sun"],
+          ["heat", "energy"],
+          ["evaporation", "evaporate", "evaporates"],
+          ["cycle", "continue", "start", "begins"]
+        ]
+      }
+    };
+
+    function normalizeText(text) {
+      return text
+        .toLowerCase()
+        .replace(/[^\w\s]/g, " ")
+        .replace(/\s+/g, " ")
+        .trim();
+    }
+
+    function getSavedData() {
+      try {
+        return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+      } catch (error) {
+        return {};
+      }
+    }
+
+    function saveData(data) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    }
+
+    function updateProgress() {
+      const blocks = document.querySelectorAll(".question-block");
+      let completed = 0;
+
+      blocks.forEach(block => {
+        const textarea = block.querySelector(".answer-input");
+        const isReadonly = textarea.hasAttribute("readonly");
+        if (isReadonly && textarea.value.trim() !== "") {
+          completed += 1;
+          block.classList.add("completed");
+        } else {
+          block.classList.remove("completed");
+        }
+      });
+
+      const total = blocks.length;
+      const percentage = total === 0 ? 0 : (completed / total) * 100;
+
+      progressText.textContent = `${completed} of ${total} questions completed`;
+      progressFill.style.width = `${percentage}%`;
+    }
+
+    function updateTotalScore() {
+      const savedData = getSavedData();
+      let totalMarks = 0;
+      const totalPossible = 5;
+
+      Object.keys(savedData).forEach(key => {
+        const item = savedData[key];
+        if (item && typeof item.mark === "number") {
+          totalMarks += item.mark;
+        }
+      });
+
+      const percentage = (totalMarks / totalPossible) * 100;
+      scoreText.textContent = `${totalMarks} / ${totalPossible} marks`;
+      scoreFill.style.width = `${percentage}%`;
+    }
+
+    function setQuestionSubmitted(block, submitted) {
+      const textarea = block.querySelector(".answer-input");
+      const submitBtn = block.querySelector(".submit-btn");
+      const modelBtn = block.querySelector(".model-btn");
+      const editBtn = block.querySelector(".edit-btn");
+      const status = block.querySelector(".question-status");
+
+      if (submitted) {
+        textarea.classList.add("locked");
+        textarea.setAttribute("readonly", true);
+        status.style.display = "block";
+        modelBtn.style.display = "inline-block";
+        editBtn.style.display = "inline-block";
+        submitBtn.disabled = true;
+        submitBtn.style.opacity = "0.7";
+        submitBtn.style.cursor = "not-allowed";
+        block.classList.add("completed");
+      } else {
+        textarea.classList.remove("locked");
+        textarea.removeAttribute("readonly");
+        status.style.display = "none";
+        modelBtn.style.display = "none";
+        editBtn.style.display = "none";
+        submitBtn.disabled = false;
+        submitBtn.style.opacity = "1";
+        submitBtn.style.cursor = "pointer";
+        block.classList.remove("completed");
+      }
+    }
+
+    function containsAny(text, options) {
+      return options.some(option => text.includes(option));
+    }
+
+    function markQuestion(questionId, answer) {
+      const text = normalizeText(answer);
+      const rule = markingRules[questionId];
+
+      if (!rule || !text) {
+        return {
+          mark: 0,
+          title: "No mark yet",
+          message: "Please write an answer first.",
+          level: "low"
+        };
+      }
+
+      if (questionId === "4") {
+        let found = 0;
+        const matched = [];
+
+        rule.acceptedReturnWays.forEach(word => {
+          if (text.includes(word)) {
+            found += 1;
+            matched.push(word);
+          }
+        });
+
+        const uniqueMatched = [...new Set(matched)];
+
+        if (uniqueMatched.length >= 2) {
+          return {
+            mark: 1,
+            title: "Well done",
+            message: `You gave two correct examples: ${uniqueMatched.slice(0, 2).join(" and ")}.`,
+            level: "good"
+          };
+        }
+
+        if (uniqueMatched.length === 1) {
+          return {
+            mark: 0.5,
+            title: "Good start",
+            message: "You gave one correct example. Add one more way water returns from the atmosphere.",
+            level: "medium"
+          };
+        }
+
+        return {
+          mark: 0,
+          title: "Try again",
+          message: "Name two forms of precipitation, such as rain, snow, or hail.",
+          level: "low"
+        };
+      }
+
+      let matches = 0;
+      rule.requiredAnyGroups.forEach(group => {
+        if (containsAny(text, group)) {
+          matches += 1;
+        }
+      });
+
+      if (matches >= 4) {
+        return {
+          mark: 1,
+          title: "Well done",
+          message: "Your answer includes the main ideas needed for this question.",
+          level: "good"
+        };
+      }
+
+      if (matches >= 2) {
+        return {
+          mark: 0.5,
+          title: "Good start",
+          message: "You have some correct ideas. Add one or two more key points to strengthen your answer.",
+          level: "medium"
+        };
+      }
+
+      return {
+        mark: 0,
+        title: "Keep improving",
+        message: "Your answer needs more key ideas. Read the poster again and try to include the important science words.",
+        level: "low"
+      };
+    }
+
+    function showFeedback(block, result) {
+      const feedbackBox = block.querySelector(".mark-feedback");
+      const feedbackTitle = feedbackBox.querySelector("h4");
+      const feedbackText = feedbackBox.querySelector("p");
+
+      feedbackBox.classList.remove("good", "medium", "low");
+      feedbackBox.classList.add(result.level);
+
+      feedbackTitle.textContent = `${result.title} — ${result.mark} / 1`;
+      feedbackText.textContent = result.message;
+      feedbackBox.style.display = "block";
+    }
+
+    function hideFeedback(block) {
+      const feedbackBox = block.querySelector(".mark-feedback");
+      feedbackBox.style.display = "none";
+      feedbackBox.classList.remove("good", "medium", "low");
+    }
+
+    function persistQuestionState(block, extra = {}) {
+      const questionId = block.dataset.question;
+      const textarea = block.querySelector(".answer-input");
+      const modelAnswer = block.querySelector(".model-answer");
+      const savedData = getSavedData();
+      const current = savedData[questionId] || {};
+
+      savedData[questionId] = {
+        answer: textarea.value,
+        submitted: textarea.hasAttribute("readonly"),
+        modelVisible: modelAnswer.style.display === "block",
+        mark: typeof extra.mark === "number" ? extra.mark : (current.mark || 0),
+        feedbackTitle: extra.feedbackTitle !== undefined ? extra.feedbackTitle : (current.feedbackTitle || ""),
+        feedbackMessage: extra.feedbackMessage !== undefined ? extra.feedbackMessage : (current.feedbackMessage || ""),
+        feedbackLevel: extra.feedbackLevel !== undefined ? extra.feedbackLevel : (current.feedbackLevel || "")
+      };
+
+      saveData(savedData);
+      updateProgress();
+      updateTotalScore();
+    }
+
+    function loadSavedAnswers() {
+      const savedData = getSavedData();
+
+      document.querySelectorAll(".question-block").forEach(block => {
+        const questionId = block.dataset.question;
+        const textarea = block.querySelector(".answer-input");
+        const modelAnswer = block.querySelector(".model-answer");
+        const savedQuestion = savedData[questionId];
+
+        if (!savedQuestion) return;
+
+        textarea.value = savedQuestion.answer || "";
+
+        if (savedQuestion.submitted) {
+          setQuestionSubmitted(block, true);
+        }
+
+        if (savedQuestion.modelVisible) {
+          modelAnswer.style.display = "block";
+        }
+
+        if (savedQuestion.feedbackTitle || savedQuestion.feedbackMessage) {
+          showFeedback(block, {
+            title: savedQuestion.feedbackTitle || "Feedback",
+            message: savedQuestion.feedbackMessage || "",
+            mark: typeof savedQuestion.mark === "number" ? savedQuestion.mark : 0,
+            level: savedQuestion.feedbackLevel || "medium"
+          });
+        }
+      });
+
+      updateProgress();
+      updateTotalScore();
+    }
+
+    openWaterCycleCard.addEventListener("click", () => {
+      waterCycleModal.classList.add("show");
+      waterCycleModal.setAttribute("aria-hidden", "false");
+    });
+
+    waterCycleCloseButtons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        waterCycleModal.classList.remove("show");
+        waterCycleModal.setAttribute("aria-hidden", "true");
+      });
+    });
+
+    document.querySelectorAll(".hotspot").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const key = btn.dataset.part;
+        const data = partData[key];
+        if (!data) return;
+
+        partTitle.textContent = data.title;
+        partIntro.textContent = data.intro;
+        partRole.textContent = data.role;
+        partWhy.textContent = data.why;
+        partLink.textContent = data.link;
+        partSimple.textContent = data.simple;
+
+        partModal.classList.add("show");
+        partModal.setAttribute("aria-hidden", "false");
+      });
+    });
+
+    function closePartModal() {
+      partModal.classList.remove("show");
+      partModal.setAttribute("aria-hidden", "true");
+    }
+
+    closePartTop.addEventListener("click", closePartModal);
+    closePartBottom.addEventListener("click", closePartModal);
+
+    window.addEventListener("click", (e) => {
+      if (e.target === waterCycleModal) {
+        waterCycleModal.classList.remove("show");
+        waterCycleModal.setAttribute("aria-hidden", "true");
+      }
+
+      if (e.target === partModal) {
+        closePartModal();
+      }
+    });
+
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        waterCycleModal.classList.remove("show");
+        waterCycleModal.setAttribute("aria-hidden", "true");
+        closePartModal();
+      }
+    });
+
+    document.querySelectorAll(".question-block").forEach(block => {
+      const textarea = block.querySelector(".answer-input");
+      const submitBtn = block.querySelector(".submit-btn");
+      const modelBtn = block.querySelector(".model-btn");
+      const editBtn = block.querySelector(".edit-btn");
+      const modelAnswer = block.querySelector(".model-answer");
+
+      textarea.addEventListener("input", () => {
+        persistQuestionState(block);
+      });
+
+      submitBtn.addEventListener("click", () => {
+        if (textarea.value.trim() === "") {
+          alert("Please type your answer first.");
+          textarea.focus();
+          return;
+        }
+
+        const result = markQuestion(block.dataset.question, textarea.value);
+
+        setQuestionSubmitted(block, true);
+        showFeedback(block, result);
+
+        persistQuestionState(block, {
+          mark: result.mark,
+          feedbackTitle: result.title,
+          feedbackMessage: result.message,
+          feedbackLevel: result.level
+        });
+      });
+
+      modelBtn.addEventListener("click", () => {
+        modelAnswer.style.display = "block";
+        persistQuestionState(block);
+      });
+
+      editBtn.addEventListener("click", () => {
+        setQuestionSubmitted(block, false);
+        hideFeedback(block);
+
+        persistQuestionState(block, {
+          mark: 0,
+          feedbackTitle: "",
+          feedbackMessage: "",
+          feedbackLevel: ""
+        });
+
+        textarea.focus();
+      });
+    });
+
+    clearAllAnswersBtn.addEventListener("click", () => {
+      const confirmed = confirm("Are you sure you want to clear all saved answers?");
+      if (!confirmed) return;
+
+      localStorage.removeItem(STORAGE_KEY);
+
+      document.querySelectorAll(".question-block").forEach(block => {
+        const textarea = block.querySelector(".answer-input");
+        const modelAnswer = block.querySelector(".model-answer");
+
+        textarea.value = "";
+        setQuestionSubmitted(block, false);
+        modelAnswer.style.display = "none";
+        hideFeedback(block);
+      });
+
+      updateProgress();
+      updateTotalScore();
+    });
+
+    loadSavedAnswers();
+  </script>
+</body>
+</html>

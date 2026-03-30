@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Fluent | Interactive Posters</title>
+
+<style>
+:root{
+  --bg:#f6f8fc;
+  --text:#1f2937;
+  --muted:#667085;
+  --line:#dbe3ee;
+  --shadow:0 14px 34px rgba(15,23,42,0.08);
+  --shadow-hover:0 28px 60px rgba(15,23,42,0.20);
+  --purple:#7c3aed;
+}
+
+*{box-sizing:border-box;}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:var(--bg);
+  color:var(--text);
+}
+
+a, a:visited, a:hover, a:active, a:focus{
+  text-decoration:none !important;
+  color:inherit;
+}
+
+.site-header{
+  position:sticky;
+  top:0;
+  background:linear-gradient(180deg,#f5f3ff,#fff);
+  border-bottom:1px solid var(--line);
+  z-index:1000;
+}
+
+.nav-shell{
+  max-width:1360px;
+  margin:auto;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:12px 18px;
+  flex-wrap:wrap;
+  gap:12px;
+}
+
+.brand-logo{
+  width:70px;
+  height:70px;
+}
+
+.brand-logo img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  display:block;
+}
+
+.nav-main{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+.nav-link{
+  padding:10px 16px;
+  border-radius:12px;
+  font-weight:700;
+  transition:background .2s ease, color .2s ease, transform .2s ease;
+}
+
+.nav-link:hover{
+  background:#fff;
+  color:var(--purple);
+  transform:translateY(-1px);
+}
+
+.nav-link.active{
+  background:#ede9fe;
+  color:var(--purple);
+}
+
+.nav-search{
+  display:flex;
+  gap:6px;
+  align-items:center;
+}
+
+.nav-search input{
+  padding:10px 12px;
+  border-radius:10px;
+  border:1px solid var(--line);
+  min-width:220px;
+  outline:none;
+}
+
+.nav-search input:focus{
+  border-color:#c4b5fd;
+  box-shadow:0 0 0 4px rgba(124,58,237,0.10);
+}
+
+.nav-search button{
+  background:var(--purple);
+  color:white;
+  border:none;
+  padding:10px 14px;
+  border-radius:10px;
+  cursor:pointer;
+  font-weight:700;
+}
+
+.page{
+  max-width:1360px;
+  margin:auto;
+  padding:24px 20px 40px;
+}
+
+.hero{
+  background:#fff;
+  border-radius:28px;
+  padding:26px;
+  margin-bottom:28px;
+  box-shadow:var(--shadow);
+  border:1px solid #edf2f8;
+}
+
+.hero h1{
+  margin:0 0 10px;
+  font-size:2.1rem;
+  color:#1f2f49;
+}
+
+.hero p{
+  margin:0;
+  color:var(--muted);
+  font-size:1rem;
+  line-height:1.7;
+  max-width:720px;
+}
+
+.section{
+  margin-bottom:34px;
+}
+
+.section h2{
+  margin:0 0 14px;
+  font-size:1.4rem;
+  color:#22334d;
+}
+
+.row{
+  display:flex;
+  gap:20px;
+  overflow-x:auto;
+  padding:6px 4px 16px;
+  scroll-snap-type:x proximity;
+  scrollbar-width:thin;
+}
+
+.row::-webkit-scrollbar{
+  height:8px;
+}
+
+.row::-webkit-scrollbar-thumb{
+  background:#d4d4d8;
+  border-radius:999px;
+}
+
+.row::-webkit-scrollbar-track{
+  background:transparent;
+}
+
+.card{
+  min-width:340px;
+  height:260px;
+  border-radius:24px;
+  overflow:hidden;
+  position:relative;
+  box-shadow:0 20px 50px rgba(0,0,0,0.15);
+  transition:transform 0.3s ease, box-shadow 0.3s ease;
+  cursor:pointer;
+  background:#ddd;
+  scroll-snap-align:start;
+  flex:0 0 auto;
+}
+
+.card:hover{
+  transform:scale(1.04);
+  box-shadow:var(--shadow-hover);
+}
+
+.card img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+.card-body{
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:0;
+  padding:20px 18px 18px;
+  background:linear-gradient(to top, rgba(0,0,0,0.82), rgba(0,0,0,0.34), transparent);
+  color:white;
+}
+
+.card-title{
+  font-size:1.25rem;
+  font-weight:800;
+  margin-bottom:8px;
+  line-height:1.2;
+}
+
+.card-desc{
+  font-size:0.94rem;
+  color:rgba(255,255,255,0.92);
+  line-height:1.45;
+  max-width:90%;
+}
+
+.coming-soon{
+  cursor:default;
+}
+
+.coming-soon .card-body{
+  background:linear-gradient(to top, rgba(40,40,55,0.86), rgba(40,40,55,0.34), transparent);
+}
+
+.coming-badge{
+  position:absolute;
+  top:14px;
+  right:14px;
+  background:rgba(255,255,255,0.92);
+  color:#3b2f57;
+  padding:8px 12px;
+  border-radius:999px;
+  font-size:0.78rem;
+  font-weight:800;
+  z-index:3;
+}
+
+@media (max-width:1000px){
+  .card{
+    min-width:300px;
+    height:235px;
+  }
+}
+
+@media (max-width:760px){
+  .nav-shell{
+    justify-content:center;
+  }
+
+  .nav-main{
+    width:100%;
+    justify-content:center;
+  }
+
+  .nav-search{
+    width:100%;
+    justify-content:center;
+  }
+
+  .nav-search input{
+    min-width:0;
+    width:min(100%, 360px);
+  }
+
+  .hero h1{
+    font-size:1.75rem;
+  }
+
+  .card{
+    min-width:270px;
+    height:220px;
+  }
+}
+
+@media (max-width:520px){
+  .page{
+    padding:18px 14px 32px;
+  }
+
+  .hero{
+    padding:20px;
+  }
+
+  .nav-search{
+    flex-direction:column;
+    align-items:stretch;
+  }
+
+  .nav-search input,
+  .nav-search button{
+    width:100%;
+  }
+
+  .card{
+    min-width:240px;
+    height:205px;
+  }
+
+  .card-title{
+    font-size:1.08rem;
+  }
+
+  .card-desc{
+    font-size:0.88rem;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header class="site-header">
+  <div class="nav-shell">
+
+    <a href="../../index.html" aria-label="Fluent home">
+      <div class="brand-logo">
+        <img src="../../shared/logos/fluent-logo.png" alt="Fluent logo">
+      </div>
+    </a>
+
+    <nav class="nav-main">
+      <a class="nav-link" href="../../index.html">Home</a>
+      <a class="nav-link active" href="../../landing-pages/grade-7-9.html">Grade 7–9</a>
+    </nav>
+
+    <form class="nav-search" id="navSearchForm">
+      <input id="navSearchInput" placeholder="photosynthesis" aria-label="Search posters">
+      <button type="submit">Search</button>
+    </form>
+
+  </div>
+</header>
+
+<main class="page">
+
+  <section class="hero">
+    <h1>Interactive Posters</h1>
+    <p>Explore subjects through visual and interactive learning. Open topic covers and turn posters into active learning experiences.</p>
+  </section>
+
+  <div id="sectionsMount"></div>
+
+</main>
+
+<script>
+const posterSections = [
+  {
+    title: "🔬 Natural Sciences",
+    items: [
+      {
+        slug: "periodic-table",
+        title: "Periodic Table",
+        description: "Explore elements interactively through a clickable learning quest.",
+        cover: "./covers/periodic-table-cover.png",
+        html: "./periodic-table.html"
+      },
+      {
+        slug: "photosynthesis",
+        title: "Photosynthesis",
+        description: "Open the interactive photosynthesis poster.",
+        cover: "./covers/photosynthesis-cover.png",
+        html: "./photosynthesis.html"
+      },
+      {
+        slug: "food-web",
+        title: "Food Web",
+        description: "Explore producers, consumers, and feeding relationships.",
+        cover: "./covers/food-web-cover.png",
+        html: "./food-web.html"
+      }
+    ]
+  },
+  {
+    title: "🌍 Geography",
+    items: [
+      {
+        slug: "map-skills",
+        title: "Map Skills",
+        description: "Build map reading, symbols, direction, scale, and grid reference skills.",
+        cover: "./covers/map-skills-cover.png",
+        html: "./map-skills.html"
+      },
+      {
+        slug: "topographic-map",
+        title: "Topographical Map",
+        description: "Learn contour lines, scale, direction, legend, and topographic map reading.",
+        cover: "./covers/topographic-map-cover.png",
+        html: "./topographic-map.html"
+      },
+      {
+        slug: "water-cycle",
+        title: "Water Cycle",
+        description: "Learn how water moves through the environment.",
+        cover: "./covers/water-cycle-cover.png",
+        html: "./water-cycle.html"
+      }
+    ]
+  },
+  {
+    title: "💼 EMS",
+    items: [
+      {
+        slug: "supply-and-demand",
+        title: "Supply and Demand",
+        description: "Understand how supply and demand affect prices.",
+        cover: "./covers/supply-demand-cover.png",
+        html: "./supply-and-demand.html"
+      }
+    ]
+  }
+];
+
+const sectionsMount = document.getElementById("sectionsMount");
+const searchInput = document.getElementById("navSearchInput");
+const searchForm = document.getElementById("navSearchForm");
+
+function escapeHtml(text) {
+  return String(text)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
+}
+
+async function fileExists(url) {
+  try {
+    const response = await fetch(url, { method: "HEAD", cache: "no-store" });
+    return response.ok;
+  } catch (error) {
+    return false;
+  }
+}
+
+function buildLiveCard(item) {
+  return `
+    <a class="card" href="${item.html}">
+      <img src="${item.cover}" alt="${escapeHtml(item.title)} cover">
+      <div class="card-body">
+        <div class="card-title">${escapeHtml(item.title)}</div>
+        <div class="card-desc">${escapeHtml(item.description)}</div>
+      </div>
+    </a>
+  `;
+}
+
+function buildComingSoonCard(item) {
+  return `
+    <div class="card coming-soon" aria-label="${escapeHtml(item.title)} coming soon">
+      <div class="coming-badge">Coming soon</div>
+      <img src="${item.cover}" alt="${escapeHtml(item.title)} cover">
+      <div class="card-body">
+        <div class="card-title">${escapeHtml(item.title)}</div>
+        <div class="card-desc">Coming soon</div>
+      </div>
+    </div>
+  `;
+}
+
+async function renderSections() {
+  sectionsMount.innerHTML = "";
+
+  for (const section of posterSections) {
+    let cardsHtml = "";
+
+    for (const item of section.items) {
+      const exists = await fileExists(item.html);
+      cardsHtml += exists ? buildLiveCard(item) : buildComingSoonCard(item);
+    }
+
+    sectionsMount.innerHTML += `
+      <section class="section">
+        <h2>${escapeHtml(section.title)}</h2>
+        <div class="row">
+          ${cardsHtml}
+        </div>
+      </section>
+    `;
+  }
+}
+
+function flattenItems() {
+  return posterSections.flatMap(section => section.items);
+}
+
+async function handleSearch(query) {
+  const cleanQuery = query.toLowerCase().trim();
+  if (!cleanQuery) return;
+
+  const allItems = flattenItems();
+
+  const match = allItems.find(item =>
+    item.title.toLowerCase() === cleanQuery ||
+    item.slug.toLowerCase() === cleanQuery ||
+    item.title.toLowerCase().includes(cleanQuery) ||
+    item.slug.toLowerCase().includes(cleanQuery)
+  );
+
+  if (!match) return;
+
+  const exists = await fileExists(match.html);
+
+  if (exists) {
+    window.location.href = match.html;
+  } else {
+    alert(`${match.title} is not coded yet.`);
+  }
+}
+
+searchForm.addEventListener("submit", async function(e) {
+  e.preventDefault();
+  await handleSearch(searchInput.value);
+});
+
+renderSections();
+</script>
+
+</body>
+</html>

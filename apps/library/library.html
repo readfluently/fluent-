@@ -1,622 +1,1771 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Fluent Library</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fluent | Dictionary</title>
   <style>
     :root{
-      --bg:#f5f7fb;
-      --surface:#ffffff;
-      --surface-soft:#eef4ff;
-      --text:#1f2937;
-      --muted:#667085;
-      --line:#d9e2f0;
-      --primary:#2563eb;
-      --secondary:#7c3aed;
-      --shadow:0 12px 28px rgba(15,23,42,0.08);
-      --shadow-hover:0 16px 34px rgba(15,23,42,0.12);
-      --max-width:1280px;
+      --bg: #0a0714;
+      --bg-soft: #120d22;
+      --panel: rgba(18, 13, 34, 0.88);
+      --panel-2: rgba(27, 20, 47, 0.92);
+      --line: rgba(255,255,255,0.08);
+      --text: #f5f3ff;
+      --muted: #cfc4ff;
+      --soft-muted: #a99dd4;
+      --primary: #7c3aed;
+      --primary-2: #a78bfa;
+      --accent: #c084fc;
+      --success: #22c55e;
+      --shadow: 0 18px 45px rgba(0,0,0,0.28);
+      --radius-lg: 24px;
+      --radius-md: 18px;
+      --radius-sm: 14px;
+      --max-width: 1320px;
     }
 
     *{
-      box-sizing:border-box;
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
     html{
-      scroll-behavior:smooth;
+      scroll-behavior: smooth;
     }
 
     body{
-      margin:0;
-      font-family:Arial, sans-serif;
-      color:var(--text);
+      font-family: Arial, Helvetica, sans-serif;
       background:
-        radial-gradient(circle at top right, rgba(37,99,235,0.10), transparent 28%),
-        radial-gradient(circle at bottom left, rgba(124,58,237,0.10), transparent 24%),
-        var(--bg);
+        radial-gradient(circle at top left, rgba(124,58,237,0.22), transparent 24%),
+        radial-gradient(circle at top right, rgba(168,85,247,0.18), transparent 22%),
+        linear-gradient(180deg, #090611 0%, #0d0818 45%, #130c22 100%);
+      color: var(--text);
+      min-height: 100vh;
     }
 
     a{
-      color:inherit;
-      text-decoration:none;
+      color: inherit;
+      text-decoration: none;
     }
 
-    .page{
-      width:min(100%, var(--max-width));
-      margin:0 auto;
-      padding:24px 18px 56px;
+    .page-shell{
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
 
-    .topbar{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:16px;
-      flex-wrap:wrap;
-      margin-bottom:20px;
+    /* NAVBAR */
+    .fluent-navbar{
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 14px 28px;
+      background: rgba(8, 6, 16, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.18);
     }
 
-    .crumb{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:10px 14px;
-      background:rgba(255,255,255,0.9);
-      border:1px solid rgba(217,226,240,0.95);
-      border-radius:999px;
-      color:var(--muted);
-      box-shadow:var(--shadow);
-      font-size:0.95rem;
+    .fluent-brand{
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 220px;
     }
 
-    .library-banner{
-      display:flex;
-      align-items:center;
-      gap:18px;
-      margin-bottom:26px;
-      padding:18px 20px;
-      border-radius:34px;
-      background:linear-gradient(135deg, #1d4ed8, #2563eb 52%, #7c3aed 100%);
-      box-shadow:0 16px 34px rgba(37,99,235,0.20);
-      color:#fff;
-      overflow:hidden;
+    .fluent-brand-logo{
+      width: 52px;
+      height: 52px;
+      object-fit: contain;
+      display: block;
+      filter: drop-shadow(0 8px 18px rgba(124,58,237,0.3));
     }
 
-    .library-banner-pill{
-      flex:0 0 auto;
-      display:inline-flex;
-      align-items:center;
-      padding:14px 20px;
-      border-radius:999px;
-      background:rgba(255,255,255,0.14);
-      border:1px solid rgba(255,255,255,0.20);
-      font-size:1rem;
-      font-weight:700;
-      white-space:nowrap;
+    .fluent-brand-text{
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
     }
 
-    .library-banner-text{
-      font-size:1rem;
-      font-weight:500;
-      line-height:1.4;
-      color:rgba(255,255,255,0.96);
+    .fluent-brand-name{
+      font-size: 1.12rem;
+      font-weight: 800;
+      letter-spacing: 0.3px;
+      color: #fff;
     }
 
-    .shelf-section{
-      margin-bottom:30px;
+    .fluent-brand-tag{
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 4px;
     }
 
-    .shelf-header{
-      display:flex;
-      justify-content:space-between;
-      align-items:end;
-      gap:16px;
-      margin-bottom:14px;
-      flex-wrap:wrap;
+    .fluent-nav-links{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
     }
 
-    .shelf-title-wrap h2{
-      margin:0 0 4px;
-      font-size:1.45rem;
+    .fluent-nav-links a{
+      padding: 10px 14px;
+      border-radius: 999px;
+      color: #f3f4f6;
+      font-size: 0.95rem;
+      font-weight: 700;
+      transition: 0.22s ease;
     }
 
-    .shelf-title-wrap p{
-      margin:0;
-      color:var(--muted);
-      line-height:1.5;
-      font-size:0.95rem;
+    .fluent-nav-links a:hover,
+    .fluent-nav-links a.active{
+      background: rgba(124,58,237,0.18);
+      color: #fff;
+      box-shadow: inset 0 0 0 1px rgba(167,139,250,0.18);
     }
 
-    .book-row{
-      display:grid;
-      grid-auto-flow:column;
-      grid-auto-columns:minmax(190px, 220px);
-      gap:16px;
-      overflow-x:auto;
-      padding:6px 4px 14px;
-      scroll-snap-type:x proximity;
-      scrollbar-width:thin;
-      scrollbar-color:rgba(37,99,235,0.35) transparent;
+    .nav-search-chip{
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.07);
+      background: rgba(255,255,255,0.04);
+      color: var(--muted);
+      font-weight: 700;
+      font-size: 0.92rem;
     }
 
-    .book-row::-webkit-scrollbar{
-      height:10px;
+    /* MAIN */
+    .main-wrap{
+      width: min(100%, var(--max-width));
+      margin: 0 auto;
+      padding: 34px 18px 48px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
     }
 
-    .book-row::-webkit-scrollbar-thumb{
-      background:rgba(37,99,235,0.35);
-      border-radius:999px;
+    .hero{
+      background:
+        radial-gradient(circle at 0% 0%, rgba(167,139,250,0.22), transparent 28%),
+        linear-gradient(145deg, rgba(18,13,34,0.96), rgba(27,20,47,0.96));
+      border: 1px solid var(--line);
+      border-radius: 30px;
+      padding: 28px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      position: relative;
     }
 
-    .book-card{
-      background:var(--surface);
-      border:1px solid var(--line);
-      border-radius:24px;
-      box-shadow:var(--shadow);
-      overflow:hidden;
-      scroll-snap-align:start;
-      transition:transform .2s ease, box-shadow .2s ease;
-      min-height:100%;
-      display:block;
+    .hero::after{
+      content: "";
+      position: absolute;
+      right: -60px;
+      top: -60px;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(124,58,237,0.35), transparent 70%);
+      pointer-events: none;
     }
 
-    .book-card:hover{
-      transform:translateY(-4px);
-      box-shadow:var(--shadow-hover);
+    .eyebrow{
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(124,58,237,0.18);
+      color: #e9ddff;
+      border: 1px solid rgba(167,139,250,0.18);
+      border-radius: 999px;
+      padding: 8px 14px;
+      font-size: 0.82rem;
+      font-weight: 800;
+      margin-bottom: 14px;
     }
 
-    .book-cover-wrap{
-      padding:16px 16px 10px;
-      background:linear-gradient(180deg, #ffffff, #f8fbff);
+    .hero h1{
+      font-size: clamp(2rem, 4vw, 3.1rem);
+      line-height: 1.05;
+      margin-bottom: 12px;
     }
 
-    .book-cover{
-      width:100%;
-      aspect-ratio:3 / 4;
-      object-fit:cover;
-      border-radius:16px;
-      display:block;
-      border:1px solid #eef2f7;
-      background:#fff;
+    .hero p{
+      max-width: 820px;
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.6;
     }
 
-    .book-body{
-      padding:0 16px 16px;
-      display:grid;
-      gap:12px;
+    .hero-stats{
+      margin-top: 20px;
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
     }
 
-    .book-meta{
-      display:flex;
-      flex-wrap:wrap;
-      gap:8px;
+    .stat-pill{
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: #f4eeff;
+      font-weight: 700;
+      font-size: 0.92rem;
     }
 
-    .chip{
-      display:inline-flex;
-      align-items:center;
-      padding:7px 10px;
-      border-radius:999px;
-      background:#f8fbff;
-      border:1px solid var(--line);
-      color:var(--muted);
-      font-size:0.82rem;
-      font-weight:700;
+    .control-panel{
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 18px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
     }
 
-    .title{
-      font-weight:800;
-      margin:0;
-      font-size:1.05rem;
-      line-height:1.25;
+    .search-row{
+      display: grid;
+      grid-template-columns: 1.35fr 180px 180px;
+      gap: 14px;
     }
 
-    .desc{
-      margin:0;
-      color:var(--muted);
-      font-size:0.93rem;
-      line-height:1.5;
-      min-height:56px;
+    .search-wrap,
+    .select-wrap{
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      min-height: 58px;
+      padding: 0 14px;
     }
 
-    .book-actions{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
+    .search-wrap input,
+    .select-wrap select{
+      width: 100%;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 600;
     }
 
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      padding:10px 14px;
-      border-radius:14px;
-      font-size:0.92rem;
-      font-weight:700;
-      transition:transform 0.18s ease, opacity 0.18s ease;
+    .search-wrap input::placeholder{
+      color: #b4aacd;
     }
 
-    .btn:hover{
-      transform:translateY(-1px);
-      opacity:0.96;
+    .select-wrap select{
+      appearance: none;
+      cursor: pointer;
     }
 
-    .btn-primary{
-      background:linear-gradient(135deg, var(--primary), var(--secondary));
-      color:#fff;
+    .alpha-bar{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
     }
 
-    .soon-card{
-      opacity:0.92;
+    .alpha-btn{
+      min-width: 42px;
+      min-height: 42px;
+      padding: 0 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.04);
+      color: #f5f0ff;
+      font-weight: 800;
+      cursor: pointer;
+      transition: 0.2s ease;
     }
 
-    .soon-card .btn-primary{
-      background:linear-gradient(135deg, #64748b, #475569);
+    .alpha-btn:hover{
+      transform: translateY(-1px);
+      background: rgba(124,58,237,0.18);
     }
 
-    @media (max-width:640px){
-      .page{
-        padding:18px 14px 42px;
+    .alpha-btn.active{
+      background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+      border-color: transparent;
+      box-shadow: 0 14px 24px rgba(109,40,217,0.28);
+    }
+
+    .results-top{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .results-top h2{
+      font-size: 1.18rem;
+    }
+
+    .results-top p{
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .word-grid{
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .word-card{
+      background: linear-gradient(180deg, rgba(24,18,42,0.96), rgba(18,13,34,0.96));
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 22px;
+      padding: 20px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .word-card:hover{
+      transform: translateY(-3px);
+      border-color: rgba(167,139,250,0.3);
+    }
+
+    .word-head{
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .word-title{
+      font-size: 1.25rem;
+      font-weight: 900;
+      line-height: 1.1;
+    }
+
+    .pos-badge{
+      white-space: nowrap;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(124,58,237,0.18);
+      color: #eddfff;
+      font-size: 0.8rem;
+      font-weight: 800;
+      border: 1px solid rgba(167,139,250,0.16);
+    }
+
+    .syllables{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .syllable-chip{
+      background: rgba(255,255,255,0.05);
+      color: #efe7ff;
+      border: 1px solid rgba(255,255,255,0.07);
+      padding: 7px 10px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+
+    .section-label{
+      font-size: 0.76rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--soft-muted);
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    .card-text{
+      color: #f5f1ff;
+      line-height: 1.6;
+      font-size: 0.96rem;
+    }
+
+    .example-box,
+    .mini-box{
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 16px;
+      padding: 14px;
+    }
+
+    .tag-row{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tag{
+      font-size: 0.8rem;
+      font-weight: 800;
+      color: #f3ebff;
+      background: rgba(192,132,252,0.12);
+      border: 1px solid rgba(192,132,252,0.18);
+      padding: 8px 10px;
+      border-radius: 999px;
+    }
+
+    .empty-state{
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 34px 20px;
+      text-align: center;
+      color: var(--muted);
+      box-shadow: var(--shadow);
+    }
+
+    .footer-note{
+      margin-top: 8px;
+      text-align: center;
+      color: #b9afd5;
+      font-size: 0.93rem;
+      line-height: 1.6;
+      padding-bottom: 20px;
+    }
+
+    @media (max-width: 1080px){
+      .word-grid{
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
-      .library-banner{
-        flex-direction:column;
-        align-items:flex-start;
-        border-radius:26px;
-        padding:18px;
+      .search-row{
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 820px){
+      .fluent-navbar{
+        flex-direction: column;
+        align-items: stretch;
+        padding: 16px 18px;
       }
 
-      .library-banner-pill{
-        padding:12px 18px;
+      .fluent-brand{
+        justify-content: center;
       }
 
-      .library-banner-text{
-        font-size:0.98rem;
+      .fluent-nav-links{
+        justify-content: center;
       }
 
-      .book-row{
-        grid-auto-columns:minmax(180px, 190px);
+      .word-grid{
+        grid-template-columns: 1fr;
       }
 
-      .shelf-title-wrap h2{
-        font-size:1.25rem;
+      .hero{
+        padding: 22px 18px;
       }
     }
   </style>
 </head>
 <body>
-  <div class="page">
-    <div class="topbar">
-      <a class="crumb" href="../../index.html">← Back to Fluent</a>
-      <div class="crumb">Fluent Library</div>
-    </div>
-
-    <div class="library-banner">
-      <div class="library-banner-pill">📚 Fluent Library</div>
-      <div class="library-banner-text">Explore books by shelf, theme, level, and purpose</div>
-    </div>
-
-    <section class="shelf-section">
-      <div class="shelf-header">
-        <div class="shelf-title-wrap">
-          <h2>Growth Mindset</h2>
-          <p>Books that build confidence, reflection, resilience, and positive learning habits.</p>
+  <div class="page-shell">
+    <header class="fluent-navbar">
+      <a href="../../index.html" class="fluent-brand">
+        <img src="../../shared/logos/fluent-logo.png" alt="Fluent logo" class="fluent-brand-logo">
+        <div class="fluent-brand-text">
+          <span class="fluent-brand-name">Fluent</span>
+          <span class="fluent-brand-tag">Read. Learn. Grow.</span>
         </div>
-      </div>
+      </a>
 
-      <div class="book-row">
-        <a class="book-card" href="book.html?book=reading-comprehension&chapter=ch1">
-          <div class="book-cover-wrap">
-            <img class="book-cover" src="../../shared/assets/images/reading-comprehension.png" alt="Reading Comprehension cover">
-          </div>
-          <div class="book-body">
-            <div class="book-meta">
-              <span class="chip">Growth Mindset</span>
-              <span class="chip">Reflection</span>
-            </div>
-            <h3 class="title">Reading Comprehension</h3>
-            <p class="desc">A book that supports better thinking about reading, understanding, and how the brain learns.</p>
-            <div class="book-actions">
-              <span class="btn btn-primary">Open book</span>
-            </div>
-          </div>
-        </a>
+      <nav class="fluent-nav-links">
+        <a href="../../index.html">Home</a>
+        <a href="../../apps/library/library.html">Library</a>
+        <a href="../../apps/read-fluently/index.html">Read Fluently</a>
+        <a href="../../apps/language-blocks/index.html">Language Blocks</a>
+        <a href="../../apps/interactive-posters/index.html">Posters</a>
+        <a href="#" class="active">Dictionary</a>
+      </nav>
 
-        <a class="book-card" href="book.html?book=platform-economy-young-minds&chapter=ch1">
-          <div class="book-cover-wrap">
-            <img class="book-cover" src="../../shared/assets/images/the-platform-economy-for-young-minds-cover.png" alt="The Platform Economy for Young Minds cover">
-          </div>
-          <div class="book-body">
-            <div class="book-meta">
-              <span class="chip">Growth Mindset</span>
-              <span class="chip">Technology</span>
-            </div>
-            <h3 class="title">The Platform Economy for Young Minds</h3>
-            <p class="desc">A learner-friendly book about apps, streaming services, AI platforms, and how digital businesses make money.</p>
-            <div class="book-actions">
-              <span class="btn btn-primary">Open book</span>
-            </div>
-          </div>
-        </a>
+      <div class="nav-search-chip">📘 Vocabulary Hub</div>
+    </header>
 
-        <a class="book-card" href="book.html?book=thinking-skills&chapter=ch1">
-          <div class="book-cover-wrap">
-            <img class="book-cover" src="../../shared/assets/images/thinking-skills.png" alt="Thinking Skills cover">
-          </div>
-          <div class="book-body">
-            <div class="book-meta">
-              <span class="chip">Growth Mindset</span>
-              <span class="chip">Thinking Skills</span>
-            </div>
-            <h3 class="title">Thinking Skills</h3>
-            <p class="desc">A practical book that helps learners develop reasoning, problem solving, and independent thinking habits.</p>
-            <div class="book-actions">
-              <span class="btn btn-primary">Open book</span>
-            </div>
-          </div>
-        </a>
+    <main class="main-wrap">
+      <section class="hero">
+        <div class="eyebrow">Fluent Dictionary</div>
+        <h1>Learn new words in a clear and friendly way.</h1>
+        <p>
+          Search for a word, browse by letter, and read simple learner-friendly definitions,
+          syllables, example sentences, and subject tags. This page is designed to support
+          reading, comprehension, and vocabulary growth.
+        </p>
 
-        <a class="book-card" href="debugging-more-than-code.html">
-          <div class="book-cover-wrap">
-            <img class="book-cover" src="../../shared/assets/books/debugging-more-than-code.png" alt="Debugging More Than Code cover">
-          </div>
-          <div class="book-body">
-            <div class="book-meta">
-              <span class="chip">Growth Mindset</span>
-              <span class="chip">Digital Literacy</span>
-            </div>
-            <h3 class="title">Debugging More Than Code</h3>
-            <p class="desc">A digital literacy reader about problem solving, growth mindset, and learning to think like a debugger.</p>
-            <div class="book-actions">
-              <span class="btn btn-primary">Open book</span>
-            </div>
-          </div>
-        </a>
-      </div>
-    </section>
-
-    <section class="shelf-section">
-      <div class="shelf-header">
-        <div class="shelf-title-wrap">
-          <h2>New Books</h2>
-          <p>Recently added titles that help the library feel fresh and active.</p>
+        <div class="hero-stats">
+          <div class="stat-pill" id="totalWordsPill">0 words</div>
+          <div class="stat-pill">A–Z browse</div>
+          <div class="stat-pill">Simple meanings</div>
+          <div class="stat-pill">Fluent style</div>
         </div>
-      </div>
+      </section>
 
-      <div class="book-row">
-        <a class="book-card" href="book.html?book=tech-journey&chapter=ch1">
-          <div class="book-cover-wrap">
-            <img class="book-cover" src="../../shared/assets/images/tech-journey.png" alt="Tech Journey cover">
-          </div>
-          <div class="book-body">
-            <div class="book-meta">
-              <span class="chip">New</span>
-              <span class="chip">Technology</span>
-            </div>
-            <h3 class="title">Tech Journey</h3>
-            <p class="desc">A story-driven tech novel where four learners begin to discover code, AI, and their future in the digital world.</p>
-            <div class="book-actions">
-              <span class="btn btn-primary">Open book</span>
-            </div>
-          </div>
-        </a>
+      <section class="control-panel">
+        <div class="search-row">
+          <label class="search-wrap">
+            <input
+              type="text"
+              id="searchInput"
+              placeholder="Search a word, meaning, subject, or example..."
+              autocomplete="off"
+            />
+          </label>
 
-        <a class="book-card" href="book.html?book=dictionary&chapter=main">
-          <div class="book-cover-wrap">
-            <img class="book-cover" src="../../shared/assets/images/dictionary.png" alt="Dictionary cover">
-          </div>
-          <div class="book-body">
-            <div class="book-meta">
-              <span class="chip">New</span>
-              <span class="chip">Reference</span>
-            </div>
-            <h3 class="title">Dictionary</h3>
-            <p class="desc">A practical support tool that helps learners build vocabulary and understand words independently.</p>
-            <div class="book-actions">
-              <span class="btn btn-primary">Open book</span>
-            </div>
-          </div>
-        </a>
-      </div>
-    </section>
+          <label class="select-wrap">
+            <select id="partOfSpeechFilter">
+              <option value="all">All parts of speech</option>
+              <option value="noun">Noun</option>
+              <option value="verb">Verb</option>
+              <option value="adjective">Adjective</option>
+              <option value="adverb">Adverb</option>
+              <option value="preposition">Preposition</option>
+              <option value="phrase">Phrase</option>
+            </select>
+          </label>
 
-    <section class="shelf-section">
-      <div class="shelf-header">
-        <div class="shelf-title-wrap">
-          <h2>Curriculum-Aligned Books</h2>
-          <p>Books that connect clearly to classroom learning and educational support.</p>
+          <label class="select-wrap">
+            <select id="subjectFilter">
+              <option value="all">All subjects</option>
+              <option value="General">General</option>
+              <option value="Reading">Reading</option>
+              <option value="Comprehension">Comprehension</option>
+              <option value="Science">Science</option>
+              <option value="Technology">Technology</option>
+              <option value="Language">Language</option>
+              <option value="Digital Literacy">Digital Literacy</option>
+            </select>
+          </label>
         </div>
-      </div>
 
-      <div class="book-row">
-        <a class="book-card" href="textbook.html?book=grade4-english-home-language&chapter=ch1">
-          <div class="book-cover-wrap">
-            <img class="book-cover" src="../../shared/assets/images/grade4-english-language-learner-book.png" alt="Grade 4 English Home Language cover">
-          </div>
-          <div class="book-body">
-            <div class="book-meta">
-              <span class="chip">Grade 4</span>
-              <span class="chip">English HL</span>
-            </div>
-            <h3 class="title">Grade 4 English Home Language</h3>
-            <p class="desc">A curriculum-aligned English Home Language textbook with reading, grammar, vocabulary, writing, and language activities.</p>
-            <div class="book-actions">
-              <span class="btn btn-primary">Open textbook</span>
-            </div>
-          </div>
-        </a>
+        <div class="alpha-bar" id="alphaBar"></div>
+      </section>
 
-        <a class="book-card" href="textbook.html?book=agricultural-science-grade10&chapter=ch1">
-          <div class="book-cover-wrap">
-            <img class="book-cover" src="../../shared/assets/images/grade10-agricultural-sciences-textbook-cover.png" alt="Agricultural Science Grade 10 cover">
-          </div>
-          <div class="book-body">
-            <div class="book-meta">
-              <span class="chip">Grade 10</span>
-              <span class="chip">Agricultural Science</span>
-            </div>
-            <h3 class="title">Agricultural Science Grade 10</h3>
-            <p class="desc">A subject textbook covering agriculture, soil, water, plant nutrition, animals, sustainability, and agricultural careers.</p>
-            <div class="book-actions">
-              <span class="btn btn-primary">Open textbook</span>
-            </div>
-          </div>
-        </a>
-
-        <a class="book-card" href="textbook.html?book=social-sciences-grade7&chapter=ch1">
-          <div class="book-cover-wrap">
-            <img class="book-cover" src="../../shared/assets/images/grade7-social-sciences-textbook.png" alt="Social Sciences Grade 7 cover">
-          </div>
-          <div class="book-body">
-            <div class="book-meta">
-              <span class="chip">Grade 7</span>
-              <span class="chip">Social Sciences</span>
-            </div>
-            <h3 class="title">Social Sciences Grade 7</h3>
-            <p class="desc">A curriculum-aligned social sciences textbook with history and geography topics, including the Kingdom of Mali.</p>
-            <div class="book-actions">
-              <span class="btn btn-primary">Open textbook</span>
-            </div>
-          </div>
-        </a>
-      </div>
-    </section>
-
-    <section class="shelf-section">
-      <div class="shelf-header">
-        <div class="shelf-title-wrap">
-          <h2>Entry-Level Books</h2>
-          <p>Supportive books for learners who need confidence, accessible language, and a gentler reading experience.</p>
+      <section class="results-top">
+        <div>
+          <h2>Dictionary words</h2>
+          <p id="resultsSummary">Showing all words</p>
         </div>
-      </div>
+      </section>
 
-      <div class="book-row">
-        <a class="book-card" href="book.html?book=dictionary&chapter=main">
-          <div class="book-cover-wrap">
-            <img class="book-cover" src="../../shared/assets/images/dictionary.png" alt="Dictionary cover">
-          </div>
-          <div class="book-body">
-            <div class="book-meta">
-              <span class="chip">Accessible</span>
-              <span class="chip">Support Tool</span>
-            </div>
-            <h3 class="title">Dictionary</h3>
-            <p class="desc">A strong entry support tool for learners who need help with meaning, vocabulary, and language confidence.</p>
-            <div class="book-actions">
-              <span class="btn btn-primary">Open book</span>
-            </div>
-          </div>
-        </a>
-      </div>
-    </section>
+      <section class="word-grid" id="wordGrid"></section>
 
-    <section class="shelf-section">
-      <div class="shelf-header">
-        <div class="shelf-title-wrap">
-          <h2>Fiction Books</h2>
-          <p>Imaginative and story-based books. Add these as your Fluent fiction library grows.</p>
-        </div>
-      </div>
+      <section class="empty-state" id="emptyState" style="display:none;">
+        <h3 style="margin-bottom:10px;">No words found</h3>
+        <p>Try another search word or choose a different letter.</p>
+      </section>
 
-      <div class="book-row">
-        <a class="book-card" href="book.html?book=tech-journey&chapter=ch1">
-          <div class="book-cover-wrap">
-            <img class="book-cover" src="../../shared/assets/images/tech-journey.png" alt="Tech Journey cover">
-          </div>
-          <div class="book-body">
-            <div class="book-meta">
-              <span class="chip">Fiction</span>
-              <span class="chip">Technology</span>
-            </div>
-            <h3 class="title">Tech Journey</h3>
-            <p class="desc">A story-driven tech novel following four learners as they discover code, AI, and future careers in technology.</p>
-            <div class="book-actions">
-              <span class="btn btn-primary">Open book</span>
-            </div>
-          </div>
-        </a>
-
-        <a class="book-card soon-card" href="#">
-          <div class="book-cover-wrap">
-            <img class="book-cover" src="../../shared/assets/images/books.png" alt="Coming soon fiction cover">
-          </div>
-          <div class="book-body">
-            <div class="book-meta">
-              <span class="chip">Fiction</span>
-              <span class="chip">Coming Soon</span>
-            </div>
-            <h3 class="title">Fiction Shelf Growing Soon</h3>
-            <p class="desc">This row is ready for your future storybooks, imaginative reads, and learner-friendly fiction titles.</p>
-            <div class="book-actions">
-              <span class="btn btn-primary">Coming soon</span>
-            </div>
-          </div>
-        </a>
-      </div>
-    </section>
-
-    <section class="shelf-section">
-      <div class="shelf-header">
-        <div class="shelf-title-wrap">
-          <h2>Coming Soon</h2>
-          <p>Future books that show learners and teachers that the Fluent library is still growing.</p>
-        </div>
-      </div>
-
-      <div class="book-row">
-        <a class="book-card soon-card" href="#">
-          <div class="book-cover-wrap">
-            <img class="book-cover" src="../../shared/assets/images/books.png" alt="Coming soon book cover">
-          </div>
-          <div class="book-body">
-            <div class="book-meta">
-              <span class="chip">Coming Soon</span>
-              <span class="chip">Growth</span>
-            </div>
-            <h3 class="title">New Growth Mindset Book</h3>
-            <p class="desc">Reserve this space for your next mindset-focused title when you are ready to publish it.</p>
-            <div class="book-actions">
-              <span class="btn btn-primary">Coming soon</span>
-            </div>
-          </div>
-        </a>
-
-        <a class="book-card soon-card" href="#">
-          <div class="book-cover-wrap">
-            <img class="book-cover" src="../../shared/assets/images/books.png" alt="Coming soon book cover">
-          </div>
-          <div class="book-body">
-            <div class="book-meta">
-              <span class="chip">Coming Soon</span>
-              <span class="chip">Curriculum</span>
-            </div>
-            <h3 class="title">New Curriculum Book</h3>
-            <p class="desc">Use this card for an upcoming curriculum-aligned title as your content library expands.</p>
-            <div class="book-actions">
-              <span class="btn btn-primary">Coming soon</span>
-            </div>
-          </div>
-        </a>
-
-        <a class="book-a soon-card" href="#">
-          <div class="book-cover-wrap">
-            <img class="book-cover" src="../../shared/assets/images/books.png" alt="Coming soon book cover">
-          </div>
-          <div class="book-body">
-            <div class="book-meta">
-              <span class="chip">Coming Soon</span>
-              <span class="chip">Fiction</span>
-            </div>
-            <h3 class="title">New Fiction Title</h3>
-            <p class="desc">Use this space for a future Fluent storybook when your fiction shelf is ready to launch.</p>
-            <div class="book-actions">
-              <span class="btn btn-primary">Coming soon</span>
-            </div>
-          </div>
-        </a>
-      </div>
-    </section>
+      <p class="footer-note">
+        Tip: later, you can move this word list into a separate <strong>dictionary.json</strong>
+        file and let the page load it automatically. That makes future growth much easier.
+      </p>
+    </main>
   </div>
+
+  <script>
+    const words = [
+      {
+        word: "ability",
+        partOfSpeech: "noun",
+        syllables: ["a", "bil", "i", "ty"],
+        definition: "The power or skill to do something.",
+        example: "Her reading ability improved with practice.",
+        subjects: ["Reading", "General"]
+      },
+      {
+        word: "able",
+        partOfSpeech: "adjective",
+        syllables: ["a", "ble"],
+        definition: "Having the power or skill to do something.",
+        example: "She is able to read the whole story.",
+        subjects: ["Reading", "General"]
+      },
+      {
+        word: "about",
+        partOfSpeech: "preposition",
+        syllables: ["a", "bout"],
+        definition: "Connected with or relating to something.",
+        example: "We read a story about animals.",
+        subjects: ["General", "Language"]
+      },
+      {
+        word: "above",
+        partOfSpeech: "preposition",
+        syllables: ["a", "bove"],
+        definition: "In a higher place than something else.",
+        example: "The picture hung above the desk.",
+        subjects: ["General"]
+      },
+      {
+        word: "accept",
+        partOfSpeech: "verb",
+        syllables: ["ac", "cept"],
+        definition: "To agree to take something that is offered.",
+        example: "She accepted the teacher's help.",
+        subjects: ["General", "Language"]
+      },
+      {
+        word: "algorithm",
+        partOfSpeech: "noun",
+        syllables: ["al", "go", "ri", "thm"],
+        definition: "A set of steps or rules used to solve a problem or make a decision.",
+        example: "A video app uses an algorithm to suggest what you may want to watch next.",
+        subjects: ["Technology", "Digital Literacy"]
+      },
+      {
+        word: "artificial intelligence",
+        partOfSpeech: "noun",
+        syllables: ["ar", "ti", "fi", "cial", "in", "tel", "li", "gence"],
+        definition: "Technology that helps computers perform tasks such as analysing information, finding patterns, making predictions, or generating responses.",
+        example: "Artificial intelligence can help organise large amounts of information.",
+        subjects: ["Technology", "Digital Literacy"]
+      },
+      {
+        word: "audience",
+        partOfSpeech: "noun",
+        syllables: ["au", "di", "ence"],
+        definition: "The people who watch, read, or listen to something.",
+        example: "The teacher created videos for a large audience of learners.",
+        subjects: ["General", "Language"]
+      },
+      {
+        word: "background knowledge",
+        partOfSpeech: "noun",
+        syllables: ["back", "ground", "know", "ledge"],
+        definition: "What you already know about a topic before you read or learn more about it.",
+        example: "Her background knowledge helped her understand the story.",
+        subjects: ["Reading", "Comprehension"]
+      },
+      {
+        word: "being engaged",
+        partOfSpeech: "phrase",
+        syllables: ["be", "ing", "en", "gaged"],
+        definition: "Being focused and involved while learning or reading.",
+        example: "Being engaged helps learners understand more.",
+        subjects: ["Reading", "Comprehension"]
+      },
+      {
+        word: "clarifying",
+        partOfSpeech: "verb",
+        syllables: ["clar", "i", "fy", "ing"],
+        definition: "Stopping to fix confusion when something does not make sense.",
+        example: "Clarifying helped her understand the difficult sentence.",
+        subjects: ["Reading", "Comprehension"]
+      },
+      {
+        word: "code",
+        partOfSpeech: "noun",
+        syllables: ["code"],
+        definition: "A set of instructions written for a computer to follow.",
+        example: "The program works because the code tells it what to do.",
+        subjects: ["Technology", "Digital Literacy"]
+      },
+      {
+        word: "comprehension",
+        partOfSpeech: "noun",
+        syllables: ["com", "pre", "hen", "sion"],
+        definition: "The ability to understand what you read or hear.",
+        example: "Good readers focus on comprehension, not just saying the words.",
+        subjects: ["Reading", "Comprehension"]
+      },
+      {
+        word: "consumer",
+        partOfSpeech: "noun",
+        syllables: ["con", "su", "mer"],
+        definition: "A person who uses, buys, watches, reads, or listens to what others provide.",
+        example: "A viewer on a video platform is a consumer.",
+        subjects: ["General", "Digital Literacy"]
+      },
+      {
+        word: "copyright",
+        partOfSpeech: "noun",
+        syllables: ["cop", "y", "right"],
+        definition: "The legal protection given to creators over their original work.",
+        example: "Songs and books are protected by copyright.",
+        subjects: ["Digital Literacy", "Language"]
+      },
+      {
+        word: "creator",
+        partOfSpeech: "noun",
+        syllables: ["cre", "a", "tor"],
+        definition: "A person who makes something valuable such as a video, lesson, book, song, or product.",
+        example: "A teacher who makes online lessons is a creator.",
+        subjects: ["General", "Digital Literacy"]
+      },
+      {
+        word: "critical thinking",
+        partOfSpeech: "noun",
+        syllables: ["crit", "i", "cal", "think", "ing"],
+        definition: "Carefully analysing and evaluating information before accepting it as true.",
+        example: "Critical thinking helps readers evaluate ideas in a text.",
+        subjects: ["Reading", "Comprehension"]
+      },
+      {
+        word: "data",
+        partOfSpeech: "noun",
+        syllables: ["da", "ta"],
+        definition: "Facts or information collected for use, study, or decision-making.",
+        example: "A system may use data to find patterns.",
+        subjects: ["Technology", "Science"]
+      },
+      {
+        word: "dictionary",
+        partOfSpeech: "noun",
+        syllables: ["dic", "tion", "ar", "y"],
+        definition: "A reference book or tool that explains the meanings of words.",
+        example: "She checked the dictionary to understand the new word.",
+        subjects: ["Language", "Reading"]
+      },
+      {
+        word: "education",
+        partOfSpeech: "noun",
+        syllables: ["ed", "u", "ca", "tion"],
+        definition: "The process of learning at school or from study.",
+        example: "Education helps people build knowledge and skills.",
+        subjects: ["General"]
+      },
+      {
+        word: "effect",
+        partOfSpeech: "noun",
+        syllables: ["ef", "fect"],
+        definition: "A result or change caused by something else.",
+        example: "Too little sleep can have a bad effect on learning.",
+        subjects: ["Science", "General"]
+      },
+      {
+        word: "effort",
+        partOfSpeech: "noun",
+        syllables: ["ef", "fort"],
+        definition: "Energy and determination used when trying to achieve something.",
+        example: "Effort helps learners improve their skills.",
+        subjects: ["General", "Reading"]
+      },
+      {
+        word: "electricity",
+        partOfSpeech: "noun",
+        syllables: ["e", "lec", "tric", "i", "ty"],
+        definition: "A form of energy that gives power to lights and machines.",
+        example: "The storm caused the electricity to go off.",
+        subjects: ["Science"]
+      },
+      {
+        word: "element",
+        partOfSpeech: "noun",
+        syllables: ["el", "e", "ment"],
+        definition: "A basic part of something.",
+        example: "Water is an important element of life.",
+        subjects: ["Science"]
+      },
+      {
+        word: "energy",
+        partOfSpeech: "noun",
+        syllables: ["en", "er", "gy"],
+        definition: "Strength and power to do work or move.",
+        example: "Healthy food gives your body energy.",
+        subjects: ["Science", "General"]
+      },
+      {
+        word: "engagement",
+        partOfSpeech: "noun",
+        syllables: ["en", "gage", "ment"],
+        definition: "Being fully focused, involved, and mentally active while reading or learning.",
+        example: "Engagement helps readers understand more deeply.",
+        subjects: ["Reading", "Comprehension"]
+      },
+      {
+        word: "evidence",
+        partOfSpeech: "noun",
+        syllables: ["ev", "i", "dence"],
+        definition: "Facts, examples, or information that support an idea.",
+        example: "The writer used evidence to support the main point.",
+        subjects: ["Comprehension", "Science"]
+      },
+      {
+        word: "example",
+        partOfSpeech: "noun",
+        syllables: ["ex", "am", "ple"],
+        definition: "Something that shows what another thing is like.",
+        example: "The teacher gave an example of a proper sentence.",
+        subjects: ["Language", "General"]
+      },
+      {
+        word: "expand",
+        partOfSpeech: "verb",
+        syllables: ["ex", "pand"],
+        definition: "To grow bigger or make something bigger.",
+        example: "Heat can expand some materials.",
+        subjects: ["Science"]
+      },
+      {
+        word: "explain",
+        partOfSpeech: "verb",
+        syllables: ["ex", "plain"],
+        definition: "To make something clear by telling more about it.",
+        example: "Please explain how you got your answer.",
+        subjects: ["Language", "Comprehension"]
+      },
+      {
+        word: "expression",
+        partOfSpeech: "noun",
+        syllables: ["ex", "pres", "sion"],
+        definition: "Reading or speaking with the correct tone, pauses, and feeling.",
+        example: "Good readers use expression when reading aloud.",
+        subjects: ["Reading"]
+      },
+      {
+        word: "fact",
+        partOfSpeech: "noun",
+        syllables: ["fact"],
+        definition: "A statement that can be proven true with evidence.",
+        example: "Water freezes at zero degrees Celsius is a fact.",
+        subjects: ["Comprehension", "Science"]
+      },
+      {
+        word: "feature",
+        partOfSpeech: "noun",
+        syllables: ["fea", "ture"],
+        definition: "An important part of something.",
+        example: "A beak is a feature of a bird.",
+        subjects: ["General", "Science"]
+      },
+      {
+        word: "fluent reading",
+        partOfSpeech: "noun",
+        syllables: ["flu", "ent", "read", "ing"],
+        definition: "Reading smoothly, clearly, and with natural expression.",
+        example: "Fluent reading makes the story easier to understand.",
+        subjects: ["Reading"]
+      },
+      {
+        word: "fluency",
+        partOfSpeech: "noun",
+        syllables: ["flu", "en", "cy"],
+        definition: "The ability to read smoothly, accurately, and with expression.",
+        example: "Practising reading helps improve fluency.",
+        subjects: ["Reading"]
+      },
+      {
+        word: "focus",
+        partOfSpeech: "verb",
+        syllables: ["fo", "cus"],
+        definition: "To pay close attention to something.",
+        example: "Try to focus on the main idea.",
+        subjects: ["Reading", "Comprehension"]
+      },
+      {
+        word: "foundation",
+        partOfSpeech: "noun",
+        syllables: ["foun", "da", "tion"],
+        definition: "The basic skills or base that support further learning.",
+        example: "Listening skills form the foundation of reading.",
+        subjects: ["Reading", "Language"]
+      },
+      {
+        word: "function",
+        partOfSpeech: "noun",
+        syllables: ["func", "tion"],
+        definition: "The job or purpose of something.",
+        example: "The function of roots is to hold the plant and take in water.",
+        subjects: ["Science"]
+      },
+      {
+        word: "glossary",
+        partOfSpeech: "noun",
+        syllables: ["glos", "sa", "ry"],
+        definition: "A list of important words with their meanings.",
+        example: "The glossary explains difficult words in the chapter.",
+        subjects: ["Language", "Reading"]
+      },
+      {
+        word: "goal",
+        partOfSpeech: "noun",
+        syllables: ["goal"],
+        definition: "Something you want to achieve.",
+        example: "Her goal was to finish the book by Friday.",
+        subjects: ["General"]
+      },
+      {
+        word: "growth mindset",
+        partOfSpeech: "noun",
+        syllables: ["growth", "mind", "set"],
+        definition: "The belief that abilities can improve through effort and practice.",
+        example: "A growth mindset helps learners stay motivated.",
+        subjects: ["Reading", "General"]
+      },
+      {
+        word: "habit",
+        partOfSpeech: "noun",
+        syllables: ["hab", "it"],
+        definition: "Something you do regularly.",
+        example: "Reading every day is a good habit.",
+        subjects: ["General", "Reading"]
+      },
+      {
+        word: "horizontal",
+        partOfSpeech: "adjective",
+        syllables: ["hor", "i", "zon", "tal"],
+        definition: "Going from side to side, not up and down.",
+        example: "Draw a horizontal line across the page.",
+        subjects: ["Science", "General"]
+      },
+      {
+        word: "identify",
+        partOfSpeech: "verb",
+        syllables: ["i", "den", "ti", "fy"],
+        definition: "To recognise or name something correctly.",
+        example: "The learners had to identify the main idea of the passage.",
+        subjects: ["Comprehension", "Science"]
+      },
+      {
+        word: "image",
+        partOfSpeech: "noun",
+        syllables: ["im", "age"],
+        definition: "A picture or visual representation of something.",
+        example: "The image in the book helped the learners understand the topic.",
+        subjects: ["Digital Literacy", "General"]
+      },
+      {
+        word: "imagine",
+        partOfSpeech: "verb",
+        syllables: ["i", "mag", "ine"],
+        definition: "To form a picture or idea in your mind.",
+        example: "Try to imagine the scene while you read the story.",
+        subjects: ["Reading", "Comprehension"]
+      },
+      {
+        word: "important",
+        partOfSpeech: "adjective",
+        syllables: ["im", "por", "tant"],
+        definition: "Having great value or meaning.",
+        example: "It is important to listen carefully in class.",
+        subjects: ["General"]
+      },
+      {
+        word: "improve",
+        partOfSpeech: "verb",
+        syllables: ["im", "prove"],
+        definition: "To make something better or become better.",
+        example: "Daily practice will help improve your reading.",
+        subjects: ["Reading", "General"]
+      },
+      {
+        word: "independent",
+        partOfSpeech: "adjective",
+        syllables: ["in", "de", "pen", "dent"],
+        definition: "Able to do things by yourself.",
+        example: "She became a more independent reader.",
+        subjects: ["Reading", "General"]
+      },
+      {
+        word: "information",
+        partOfSpeech: "noun",
+        syllables: ["in", "for", "ma", "tion"],
+        definition: "Facts or details about something.",
+        example: "The text gave useful information about animals.",
+        subjects: ["Comprehension", "Science"]
+      },
+      {
+        word: "innovation",
+        partOfSpeech: "noun",
+        syllables: ["in", "no", "va", "tion"],
+        definition: "A new idea, method, or invention that improves something.",
+        example: "Innovation can make learning tools more useful.",
+        subjects: ["Technology", "General"]
+      },
+      {
+        word: "instruction",
+        partOfSpeech: "noun",
+        syllables: ["in", "struc", "tion"],
+        definition: "A direction or order telling you what to do.",
+        example: "Read the instruction before starting the activity.",
+        subjects: ["Language", "General"]
+      },
+      {
+        word: "intelligent",
+        partOfSpeech: "adjective",
+        syllables: ["in", "tel", "li", "gent"],
+        definition: "Good at learning, understanding, and solving problems.",
+        example: "The learner gave an intelligent answer.",
+        subjects: ["General"]
+      },
+      {
+        word: "interest",
+        partOfSpeech: "noun",
+        syllables: ["in", "ter", "est"],
+        definition: "A feeling of wanting to know more about something.",
+        example: "He showed great interest in science.",
+        subjects: ["General", "Science"]
+      },
+      {
+        word: "introduce",
+        partOfSpeech: "verb",
+        syllables: ["in", "tro", "duce"],
+        definition: "To present something or someone for the first time.",
+        example: "The teacher will introduce a new topic today.",
+        subjects: ["Language", "General"]
+      },
+      {
+        word: "investigate",
+        partOfSpeech: "verb",
+        syllables: ["in", "ves", "ti", "gate"],
+        definition: "To look into something carefully to learn more about it.",
+        example: "The class will investigate how plants grow.",
+        subjects: ["Science"]
+      },
+      {
+        word: "journey",
+        partOfSpeech: "noun",
+        syllables: ["jour", "ney"],
+        definition: "An experience that happens over time as you move forward and learn.",
+        example: "Learning to read well is a journey.",
+        subjects: ["Reading", "General"]
+      },
+      {
+        word: "knowledge",
+        partOfSpeech: "noun",
+        syllables: ["know", "ledge"],
+        definition: "What you know because you have learned it.",
+        example: "Reading builds knowledge about the world.",
+        subjects: ["Reading", "General"]
+      },
+      {
+        word: "language",
+        partOfSpeech: "noun",
+        syllables: ["lan", "guage"],
+        definition: "Words and sentences used for speaking, reading, and writing.",
+        example: "English is one language used at school.",
+        subjects: ["Language"]
+      },
+      {
+        word: "language patterns",
+        partOfSpeech: "noun",
+        syllables: ["lan", "guage", "pat", "terns"],
+        definition: "The common ways words and sentences are used in a language.",
+        example: "Children learn language patterns by listening to people speak.",
+        subjects: ["Language", "Reading"]
+      },
+      {
+        word: "launch",
+        partOfSpeech: "verb",
+        syllables: ["launch"],
+        definition: "To start something such as a product, plan, or event.",
+        example: "The school will launch a new reading programme.",
+        subjects: ["General", "Digital Literacy"]
+      },
+      {
+        word: "learn",
+        partOfSpeech: "verb",
+        syllables: ["learn"],
+        definition: "To gain knowledge or skill.",
+        example: "We learn new words by reading often.",
+        subjects: ["Reading", "General"]
+      },
+      {
+        word: "learner",
+        partOfSpeech: "noun",
+        syllables: ["learn", "er"],
+        definition: "A person who is learning.",
+        example: "Each learner brought a book to class.",
+        subjects: ["General"]
+      },
+      {
+        word: "lesson",
+        partOfSpeech: "noun",
+        syllables: ["les", "son"],
+        definition: "A period of learning or something taught.",
+        example: "Today's lesson was about fractions.",
+        subjects: ["General", "Science"]
+      },
+      {
+        word: "library",
+        partOfSpeech: "noun",
+        syllables: ["li", "bra", "ry"],
+        definition: "A place where books and other reading materials are kept.",
+        example: "The learners visited the library after break.",
+        subjects: ["Reading", "General"]
+      },
+      {
+        word: "listen",
+        partOfSpeech: "verb",
+        syllables: ["lis", "ten"],
+        definition: "To pay attention to sounds or spoken words.",
+        example: "Please listen carefully to the instructions.",
+        subjects: ["Language", "Reading"]
+      },
+      {
+        word: "listening",
+        partOfSpeech: "noun",
+        syllables: ["lis", "ten", "ing"],
+        definition: "Paying careful attention to spoken words in order to understand them.",
+        example: "Listening to stories helps learners understand language.",
+        subjects: ["Language", "Reading"]
+      },
+      {
+        word: "locate",
+        partOfSpeech: "verb",
+        syllables: ["lo", "cate"],
+        definition: "To find the position of something.",
+        example: "Use the map to locate the river.",
+        subjects: ["Science", "General"]
+      },
+      {
+        word: "logic",
+        partOfSpeech: "noun",
+        syllables: ["lo", "gic"],
+        definition: "A clear system of rules and reasoning that helps things make sense.",
+        example: "Good programming depends on logic.",
+        subjects: ["Technology", "Digital Literacy"]
+      },
+      {
+        word: "main idea",
+        partOfSpeech: "noun",
+        syllables: ["main", "i", "dea"],
+        definition: "The most important point in a paragraph or text.",
+        example: "The main idea tells you what the paragraph is mostly about.",
+        subjects: ["Comprehension", "Reading"]
+      },
+      {
+        word: "meaning",
+        partOfSpeech: "noun",
+        syllables: ["mean", "ing"],
+        definition: "The message or idea that a writer is trying to communicate.",
+        example: "She stopped reading to think about the meaning.",
+        subjects: ["Reading", "Comprehension"]
+      },
+      {
+        word: "memory",
+        partOfSpeech: "noun",
+        syllables: ["mem", "o", "ry"],
+        definition: "The ability to remember information.",
+        example: "Practice helps improve memory.",
+        subjects: ["General", "Reading"]
+      },
+      {
+        word: "model",
+        partOfSpeech: "noun",
+        syllables: ["mod", "el"],
+        definition: "An example or demonstration of how something works.",
+        example: "The teacher showed a model of good reading.",
+        subjects: ["Reading", "General"]
+      },
+      {
+        word: "modelled reading",
+        partOfSpeech: "noun",
+        syllables: ["mod", "elled", "read", "ing"],
+        definition: "When a teacher or skilled reader demonstrates fluent reading for learners.",
+        example: "Modelled reading helps learners hear how good reading sounds.",
+        subjects: ["Reading"]
+      },
+      {
+        word: "monitor",
+        partOfSpeech: "verb",
+        syllables: ["mon", "i", "tor"],
+        definition: "To check and keep track of something.",
+        example: "Good readers monitor their understanding.",
+        subjects: ["Comprehension", "Reading"]
+      },
+      {
+        word: "motivate",
+        partOfSpeech: "verb",
+        syllables: ["mo", "ti", "vate"],
+        definition: "To encourage someone to take action.",
+        example: "The teacher tries to motivate learners.",
+        subjects: ["General"]
+      },
+      {
+        word: "natural",
+        partOfSpeech: "adjective",
+        syllables: ["na", "tu", "ral"],
+        definition: "Something that comes from nature, not made by humans.",
+        example: "Plants are part of the natural world.",
+        subjects: ["Science"]
+      },
+      {
+        word: "necessary",
+        partOfSpeech: "adjective",
+        syllables: ["ne", "ces", "sa", "ry"],
+        definition: "Something that is needed.",
+        example: "Water is necessary for life.",
+        subjects: ["Science", "General"]
+      },
+      {
+        word: "neuroplasticity",
+        partOfSpeech: "noun",
+        syllables: ["neu", "ro", "plas", "ti", "ci", "ty"],
+        definition: "The brain's ability to change and grow stronger through practice and learning.",
+        example: "Neuroplasticity helps readers improve with practice.",
+        subjects: ["Reading", "Science"]
+      },
+      {
+        word: "observe",
+        partOfSpeech: "verb",
+        syllables: ["ob", "serve"],
+        definition: "To watch something carefully.",
+        example: "The learners observe how plants grow.",
+        subjects: ["Science"]
+      },
+      {
+        word: "opinion",
+        partOfSpeech: "noun",
+        syllables: ["o", "pin", "ion"],
+        definition: "A belief or feeling that someone has about something.",
+        example: "Saying one season is the best is an opinion.",
+        subjects: ["Comprehension", "Language"]
+      },
+      {
+        word: "organise",
+        partOfSpeech: "verb",
+        syllables: ["or", "ga", "nise"],
+        definition: "To arrange things in order.",
+        example: "Organise your notes before studying.",
+        subjects: ["General", "Digital Literacy"]
+      },
+      {
+        word: "paragraph",
+        partOfSpeech: "noun",
+        syllables: ["par", "a", "graph"],
+        definition: "A group of sentences about one main idea.",
+        example: "Each paragraph in the story has its own focus.",
+        subjects: ["Language", "Comprehension"]
+      },
+      {
+        word: "paraphrasing",
+        partOfSpeech: "noun",
+        syllables: ["par", "a", "phras", "ing"],
+        definition: "Explaining an idea in your own words.",
+        example: "Paraphrasing helps you check if you understood the chapter.",
+        subjects: ["Comprehension", "Reading"]
+      },
+      {
+        word: "pattern",
+        partOfSpeech: "noun",
+        syllables: ["pat", "tern"],
+        definition: "A repeated design or sequence.",
+        example: "The numbers follow a pattern.",
+        subjects: ["Science", "Language"]
+      },
+      {
+        word: "platform",
+        partOfSpeech: "noun",
+        syllables: ["plat", "form"],
+        definition: "A digital system that connects people or groups and helps them interact.",
+        example: "A learning app can be a platform.",
+        subjects: ["Technology", "Digital Literacy"]
+      },
+      {
+        word: "practice",
+        partOfSpeech: "noun",
+        syllables: ["prac", "tice"],
+        definition: "Doing something again and again to improve.",
+        example: "Practice helps you read better.",
+        subjects: ["Reading", "General"]
+      },
+      {
+        word: "predicting",
+        partOfSpeech: "verb",
+        syllables: ["pre", "dict", "ing"],
+        definition: "Making a thoughtful guess about what might happen next or what a text may say.",
+        example: "Predicting keeps readers actively thinking.",
+        subjects: ["Reading", "Comprehension"]
+      },
+      {
+        word: "previewing",
+        partOfSpeech: "verb",
+        syllables: ["pre", "view", "ing"],
+        definition: "Looking at the title, headings, or pictures before reading to prepare your mind.",
+        example: "Previewing helps readers get ready for the text.",
+        subjects: ["Reading", "Comprehension"]
+      },
+      {
+        word: "process",
+        partOfSpeech: "noun",
+        syllables: ["pro", "cess"],
+        definition: "A series of steps to achieve something.",
+        example: "Reading is a process of understanding.",
+        subjects: ["Reading", "Science"]
+      },
+      {
+        word: "produce",
+        partOfSpeech: "verb",
+        syllables: ["pro", "duce"],
+        definition: "To make or create something.",
+        example: "Plants produce oxygen.",
+        subjects: ["Science"]
+      },
+      {
+        word: "programming",
+        partOfSpeech: "noun",
+        syllables: ["pro", "gram", "ming"],
+        definition: "The process of writing instructions that tell computers what to do.",
+        example: "Programming allows people to build apps and tools.",
+        subjects: ["Technology", "Digital Literacy"]
+      },
+      {
+        word: "progress",
+        partOfSpeech: "noun",
+        syllables: ["pro", "gress"],
+        definition: "Improvement over time.",
+        example: "She made great progress in reading.",
+        subjects: ["Reading", "General"]
+      },
+      {
+        word: "purpose",
+        partOfSpeech: "noun",
+        syllables: ["pur", "pose"],
+        definition: "The reason why something is created or written.",
+        example: "The author's purpose was to inform the reader.",
+        subjects: ["Comprehension", "Language"]
+      },
+      {
+        word: "question",
+        partOfSpeech: "noun",
+        syllables: ["ques", "tion"],
+        definition: "Something you ask in order to get information.",
+        example: "She asked a good question in class.",
+        subjects: ["General", "Language"]
+      },
+      {
+        word: "questioning",
+        partOfSpeech: "verb",
+        syllables: ["ques", "tion", "ing"],
+        definition: "Asking yourself questions while reading to help you understand.",
+        example: "Questioning helps readers stay mentally active.",
+        subjects: ["Reading", "Comprehension"]
+      },
+      {
+        word: "quiet",
+        partOfSpeech: "adjective",
+        syllables: ["qui", "et"],
+        definition: "Making very little noise.",
+        example: "The library was quiet during reading time.",
+        subjects: ["General"]
+      },
+      {
+        word: "quotation",
+        partOfSpeech: "noun",
+        syllables: ["quo", "ta", "tion"],
+        definition: "Words taken exactly from what someone said or wrote.",
+        example: "She copied the quotation carefully.",
+        subjects: ["Language"]
+      },
+      {
+        word: "rate",
+        partOfSpeech: "noun",
+        syllables: ["rate"],
+        definition: "The speed or level at which something happens.",
+        example: "Her reading rate improved with practice.",
+        subjects: ["Reading", "Science"]
+      },
+      {
+        word: "reason",
+        partOfSpeech: "noun",
+        syllables: ["rea", "son"],
+        definition: "A cause or explanation for something.",
+        example: "He gave a good reason for his answer.",
+        subjects: ["Comprehension", "Language"]
+      },
+      {
+        word: "recognise",
+        partOfSpeech: "verb",
+        syllables: ["re", "cog", "nise"],
+        definition: "To know something because you have seen or learned it before.",
+        example: "She could recognise the word easily.",
+        subjects: ["Reading", "Language"]
+      },
+      {
+        word: "record",
+        partOfSpeech: "verb",
+        syllables: ["re", "cord"],
+        definition: "To capture sound, video, or information so it can be used later.",
+        example: "The learner used the app to record her reading.",
+        subjects: ["Technology", "Digital Literacy"]
+      },
+      {
+        word: "reflect",
+        partOfSpeech: "verb",
+        syllables: ["re", "flect"],
+        definition: "To think carefully about something.",
+        example: "Take time to reflect on what you learned.",
+        subjects: ["Comprehension", "General"]
+      },
+      {
+        word: "regular",
+        partOfSpeech: "adjective",
+        syllables: ["re", "gu", "lar"],
+        definition: "Happening often in a steady way.",
+        example: "Regular reading improves fluency.",
+        subjects: ["Reading"]
+      },
+      {
+        word: "relevant",
+        partOfSpeech: "adjective",
+        syllables: ["rel", "e", "vant"],
+        definition: "Connected to what is being discussed.",
+        example: "Include only relevant information in your answer.",
+        subjects: ["Comprehension", "Language"]
+      },
+      {
+        word: "research",
+        partOfSpeech: "noun",
+        syllables: ["re", "search"],
+        definition: "Careful study to learn new information.",
+        example: "The learners did research on animals.",
+        subjects: ["Science", "Digital Literacy"]
+      },
+      {
+        word: "respond",
+        partOfSpeech: "verb",
+        syllables: ["re", "spond"],
+        definition: "To answer or reply.",
+        example: "She responded to the question clearly.",
+        subjects: ["Language", "General"]
+      },
+      {
+        word: "result",
+        partOfSpeech: "noun",
+        syllables: ["re", "sult"],
+        definition: "What happens because of something.",
+        example: "The result of practice is improvement.",
+        subjects: ["Science", "General"]
+      },
+      {
+        word: "review",
+        partOfSpeech: "verb",
+        syllables: ["re", "view"],
+        definition: "To look at something again to improve understanding.",
+        example: "Review your notes before the test.",
+        subjects: ["Reading", "General"]
+      },
+      {
+        word: "safe",
+        partOfSpeech: "adjective",
+        syllables: ["safe"],
+        definition: "Free from danger or harm.",
+        example: "The learners stayed safe during the experiment.",
+        subjects: ["Science", "General"]
+      },
+      {
+        word: "sample",
+        partOfSpeech: "noun",
+        syllables: ["sam", "ple"],
+        definition: "A small part taken to show what the whole is like.",
+        example: "The teacher showed a sample of good writing.",
+        subjects: ["Science", "Language"]
+      },
+      {
+        word: "save",
+        partOfSpeech: "verb",
+        syllables: ["save"],
+        definition: "To keep something so it can be used later.",
+        example: "Remember to save your work on the computer.",
+        subjects: ["Technology", "Digital Literacy"]
+      },
+      {
+        word: "schedule",
+        partOfSpeech: "noun",
+        syllables: ["sched", "ule"],
+        definition: "A plan that shows when things will happen.",
+        example: "The class followed a reading schedule.",
+        subjects: ["General"]
+      },
+      {
+        word: "science",
+        partOfSpeech: "noun",
+        syllables: ["sci", "ence"],
+        definition: "The study of the natural world through observation and experiments.",
+        example: "Science helps us understand how things work.",
+        subjects: ["Science"]
+      },
+      {
+        word: "search",
+        partOfSpeech: "verb",
+        syllables: ["search"],
+        definition: "To look for something carefully.",
+        example: "Use the search button to find a word.",
+        subjects: ["Digital Literacy", "Language"]
+      },
+      {
+        word: "section",
+        partOfSpeech: "noun",
+        syllables: ["sec", "tion"],
+        definition: "A part of something larger.",
+        example: "Read the next section of the chapter.",
+        subjects: ["Language", "Reading"]
+      },
+      {
+        word: "sequence",
+        partOfSpeech: "noun",
+        syllables: ["se", "quence"],
+        definition: "The order in which things happen.",
+        example: "Put the events in the correct sequence.",
+        subjects: ["Comprehension", "Science"]
+      },
+      {
+        word: "similar",
+        partOfSpeech: "adjective",
+        syllables: ["si", "mi", "lar"],
+        definition: "Almost the same.",
+        example: "The two answers were very similar.",
+        subjects: ["General"]
+      },
+      {
+        word: "simple",
+        partOfSpeech: "adjective",
+        syllables: ["sim", "ple"],
+        definition: "Easy to understand or do.",
+        example: "She gave a simple explanation.",
+        subjects: ["Language", "General"]
+      },
+      {
+        word: "solve",
+        partOfSpeech: "verb",
+        syllables: ["solve"],
+        definition: "To find an answer to a problem.",
+        example: "Try to solve the question step by step.",
+        subjects: ["Science", "Comprehension"]
+      },
+      {
+        word: "source",
+        partOfSpeech: "noun",
+        syllables: ["source"],
+        definition: "Where something comes from.",
+        example: "Books are a good source of information.",
+        subjects: ["Comprehension", "Science"]
+      },
+      {
+        word: "specific",
+        partOfSpeech: "adjective",
+        syllables: ["spe", "ci", "fic"],
+        definition: "Clear and exact.",
+        example: "Give a specific example.",
+        subjects: ["Language", "Comprehension"]
+      },
+      {
+        word: "structure",
+        partOfSpeech: "noun",
+        syllables: ["struc", "ture"],
+        definition: "The way parts are arranged.",
+        example: "The structure of the paragraph is clear.",
+        subjects: ["Language", "Science"]
+      },
+      {
+        word: "summarise",
+        partOfSpeech: "verb",
+        syllables: ["sum", "ma", "rise"],
+        definition: "To give the main idea in a short way.",
+        example: "Summarise the paragraph in one sentence.",
+        subjects: ["Comprehension", "Reading"]
+      },
+      {
+        word: "technology",
+        partOfSpeech: "noun",
+        syllables: ["tech", "nol", "o", "gy"],
+        definition: "Tools, systems, and machines created to solve problems or make life easier.",
+        example: "Phones and computers are examples of technology.",
+        subjects: ["Technology", "Digital Literacy"]
+      },
+      {
+        word: "text",
+        partOfSpeech: "noun",
+        syllables: ["text"],
+        definition: "Written words that you read.",
+        example: "Read the text carefully.",
+        subjects: ["Reading", "Language"]
+      },
+      {
+        word: "theme",
+        partOfSpeech: "noun",
+        syllables: ["theme"],
+        definition: "The main idea or message of a text.",
+        example: "The theme of the story is friendship.",
+        subjects: ["Comprehension", "Reading"]
+      },
+      {
+        word: "think",
+        partOfSpeech: "verb",
+        syllables: ["think"],
+        definition: "To use your mind to understand or decide.",
+        example: "Think carefully before answering.",
+        subjects: ["Comprehension", "General"]
+      },
+      {
+        word: "understand",
+        partOfSpeech: "verb",
+        syllables: ["un", "der", "stand"],
+        definition: "To know clearly what something means.",
+        example: "Good readers try to understand the whole text.",
+        subjects: ["Reading", "Comprehension"]
+      },
+      {
+        word: "vertical",
+        partOfSpeech: "adjective",
+        syllables: ["ver", "ti", "cal"],
+        definition: "Going up and down, not side to side.",
+        example: "Draw a vertical line from top to bottom.",
+        subjects: ["Science", "General"]
+      },
+      {
+        word: "vocabulary",
+        partOfSpeech: "noun",
+        syllables: ["vo", "cab", "u", "lar", "y"],
+        definition: "The words a person knows and uses.",
+        example: "Reading helps to grow your vocabulary.",
+        subjects: ["Reading", "Language"]
+      },
+      {
+        word: "word family",
+        partOfSpeech: "noun",
+        syllables: ["word", "fam", "i", "ly"],
+        definition: "A group of words that are related by sound or spelling.",
+        example: "The teacher taught the -at word family.",
+        subjects: ["Language", "Reading"]
+      },
+      {
+        word: "word wall",
+        partOfSpeech: "noun",
+        syllables: ["word", "wall"],
+        definition: "A classroom display of important words for learners to use and remember.",
+        example: "The class added new science words to the word wall.",
+        subjects: ["Language", "Reading"]
+      }
+    ];
+
+    const alphaBar = document.getElementById("alphaBar");
+    const wordGrid = document.getElementById("wordGrid");
+    const searchInput = document.getElementById("searchInput");
+    const partOfSpeechFilter = document.getElementById("partOfSpeechFilter");
+    const subjectFilter = document.getElementById("subjectFilter");
+    const resultsSummary = document.getElementById("resultsSummary");
+    const emptyState = document.getElementById("emptyState");
+    const totalWordsPill = document.getElementById("totalWordsPill");
+
+    let activeLetter = "ALL";
+
+    totalWordsPill.textContent = `${words.length} words`;
+
+    function createAlphaButtons() {
+      const letters = ["ALL", ..."ABCDEFGHIJKLMNOPQRSTUVWXYZ"];
+      alphaBar.innerHTML = "";
+
+      letters.forEach(letter => {
+        const button = document.createElement("button");
+        button.className = "alpha-btn";
+        if (letter === activeLetter) button.classList.add("active");
+        button.textContent = letter;
+        button.type = "button";
+
+        button.addEventListener("click", () => {
+          activeLetter = letter;
+          createAlphaButtons();
+          renderWords();
+        });
+
+        alphaBar.appendChild(button);
+      });
+    }
+
+    function renderWords() {
+      const searchValue = searchInput.value.trim().toLowerCase();
+      const partValue = partOfSpeechFilter.value;
+      const subjectValue = subjectFilter.value;
+
+      const filtered = words.filter(item => {
+        const matchesLetter =
+          activeLetter === "ALL" ||
+          item.word.charAt(0).toUpperCase() === activeLetter;
+
+        const matchesPart =
+          partValue === "all" ||
+          item.partOfSpeech.toLowerCase() === partValue.toLowerCase();
+
+        const matchesSubject =
+          subjectValue === "all" ||
+          item.subjects.includes(subjectValue);
+
+        const searchableText = [
+          item.word,
+          item.partOfSpeech,
+          item.definition,
+          item.example,
+          ...(item.subjects || []),
+          ...(item.syllables || [])
+        ].join(" ").toLowerCase();
+
+        const matchesSearch = searchableText.includes(searchValue);
+
+        return matchesLetter && matchesPart && matchesSubject && matchesSearch;
+      });
+
+      filtered.sort((a, b) => a.word.localeCompare(b.word));
+
+      wordGrid.innerHTML = "";
+
+      if (!filtered.length) {
+        emptyState.style.display = "block";
+        resultsSummary.textContent = "No matching words found";
+        return;
+      }
+
+      emptyState.style.display = "none";
+      resultsSummary.textContent = `Showing ${filtered.length} word${filtered.length === 1 ? "" : "s"}`;
+
+      filtered.forEach(item => {
+        const card = document.createElement("article");
+        card.className = "word-card";
+
+        card.innerHTML = `
+          <div class="word-head">
+            <div class="word-title">${item.word}</div>
+            <span class="pos-badge">${item.partOfSpeech}</span>
+          </div>
+
+          <div>
+            <div class="section-label">Syllables</div>
+            <div class="syllables">
+              ${(item.syllables || []).map(s => `<span class="syllable-chip">${s}</span>`).join("")}
+            </div>
+          </div>
+
+          <div>
+            <div class="section-label">Definition</div>
+            <p class="card-text">${item.definition}</p>
+          </div>
+
+          <div class="example-box">
+            <div class="section-label">Example sentence</div>
+            <p class="card-text">${item.example}</p>
+          </div>
+
+          <div class="mini-box">
+            <div class="section-label">Subjects</div>
+            <div class="tag-row">
+              ${(item.subjects || []).map(subject => `<span class="tag">${subject}</span>`).join("")}
+            </div>
+          </div>
+        `;
+
+        wordGrid.appendChild(card);
+      });
+    }
+
+    searchInput.addEventListener("input", renderWords);
+    partOfSpeechFilter.addEventListener("change", renderWords);
+    subjectFilter.addEventListener("change", renderWords);
+
+    createAlphaButtons();
+    renderWords();
+  </script>
 </body>
 </html>

@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fluent | Periodic Table Interactive</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #f3f6fb;
+      --panel: #ffffff;
+      --line: #d7e0ea;
+      --text: #17324d;
+      --muted: #5e7288;
+      --accent: #2563eb;
+      --good: #16a34a;
+      --bad: #dc2626;
+      --warn: #d97706;
+      --shadow: 0 10px 28px rgba(15, 23, 42, 0.08);
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      padding: 24px;
+    }
+
+    .page {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: grid;
+      gap: 18px;
+    }
+
+    .top-panel {
+      display: grid;
+      grid-template-columns: 260px 1fr 260px;
+      gap: 16px;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .mini-card h3,
+    .score-card h3 {
+      margin: 0 0 8px;
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--muted);
+    }
+
+    .symbol-box {
+      min-height: 52px;
+      font-size: 44px;
+      font-weight: 800;
+      color: #0b3b75;
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+
+    .score-number {
+      font-size: 34px;
+      font-weight: 800;
+      color: #0b3b75;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .score-meta {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .instruction {
+      font-size: 17px;
+      line-height: 1.55;
+      color: #35516e;
+      background: #eef6ff;
+      border: 1px solid #d6e8fb;
+    }
+
+    .table-panel {
+      padding: 16px;
+    }
+
+    .table-wrap {
+      position: relative;
+      width: 100%;
+      max-width: 1360px;
+      margin: 0 auto;
+      aspect-ratio: 1423 / 886;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      overflow: hidden;
+    }
+
+    .table-img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    .element {
+      position: absolute;
+      width: 4.18%;
+      height: 8.25%;
+      border-radius: 6px;
+      background: rgba(37, 99, 235, 0.08);
+      border: 1.7px solid rgba(37, 99, 235, 0.32);
+      cursor: pointer;
+      transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .element:hover {
+      transform: scale(1.03);
+      background: rgba(37, 99, 235, 0.16);
+      border-color: rgba(37, 99, 235, 0.65);
+    }
+
+    .element.target {
+      background: rgba(59, 130, 246, 0.16);
+      border-color: rgba(37, 99, 235, 0.95);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.16);
+    }
+
+    .element.correct {
+      background: rgba(22, 163, 74, 0.20);
+      border-color: rgba(22, 163, 74, 0.95);
+      box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.14);
+    }
+
+    .element.wrong {
+      background: rgba(220, 38, 38, 0.16);
+      border-color: rgba(220, 38, 38, 0.95);
+      box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.12);
+    }
+
+    .controls {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 12px;
+      padding: 11px 16px;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+    }
+
+    .btn-soft {
+      background: #e9eef5;
+      color: #24384d;
+    }
+
+    .status-line {
+      min-height: 26px;
+      font-size: 16px;
+      font-weight: 700;
+      color: #35516e;
+      margin-top: 10px;
+    }
+
+    .status-line.good {
+      color: var(--good);
+    }
+
+    .status-line.bad {
+      color: var(--bad);
+    }
+
+    .status-line.warn {
+      color: var(--warn);
+    }
+
+    .quiz-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(8, 15, 30, 0.76);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      z-index: 999;
+    }
+
+    .quiz-overlay.show {
+      display: flex;
+    }
+
+    .quiz-card {
+      width: min(760px, 100%);
+      background: white;
+      border-radius: 28px;
+      padding: 28px;
+      box-shadow: 0 22px 56px rgba(0, 0, 0, 0.28);
+      text-align: center;
+    }
+
+    .quiz-kicker {
+      font-size: 15px;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .quiz-symbol {
+      font-size: 72px;
+      font-weight: 800;
+      line-height: 1;
+      color: #0b3b75;
+      margin-bottom: 12px;
+    }
+
+    .quiz-title {
+      margin: 0 0 12px;
+      font-size: 28px;
+      color: #10273f;
+    }
+
+    .quiz-clue {
+      margin: 0 auto 18px;
+      max-width: 580px;
+      font-size: 18px;
+      line-height: 1.6;
+      color: #42576d;
+    }
+
+    .choice-grid {
+      display: grid;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .choice-btn {
+      border: 1px solid #d5e5fb;
+      background: #edf4ff;
+      color: #16395d;
+      border-radius: 14px;
+      padding: 14px 16px;
+      font-size: 16px;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .choice-btn:hover {
+      background: #e3eeff;
+    }
+
+    .choice-btn:disabled {
+      opacity: 0.7;
+      cursor: default;
+    }
+
+    .feedback {
+      min-height: 28px;
+      margin-top: 16px;
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .feedback.good {
+      color: var(--good);
+    }
+
+    .feedback.bad {
+      color: var(--bad);
+    }
+
+    .quiz-actions {
+      margin-top: 18px;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    @media (max-width: 980px) {
+      .top-panel {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .quiz-symbol {
+        font-size: 56px;
+      }
+
+      .quiz-title {
+        font-size: 24px;
+      }
+
+      .quiz-clue {
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-panel">
+      <div class="panel mini-card">
+        <h3>Current element</h3>
+        <div class="symbol-box" id="currentSymbol">H</div>
+        <div class="controls">
+          <button class="btn btn-soft" onclick="speakCurrentClue()">Read clue</button>
+          <button class="btn btn-soft" onclick="resetLesson()">Start again</button>
+        </div>
+      </div>
+
+      <div class="panel instruction">
+        Tap the highlighted element on the periodic table. The correct element will open a full quiz card. After answering correctly, click <strong>Next</strong> to return to the table and continue.
+        <div id="tableStatus" class="status-line">Find the highlighted element.</div>
+      </div>
+
+      <div class="panel score-card">
+        <h3>Progress</h3>
+        <div class="score-number" id="scoreDisplay">0 / 0</div>
+        <div class="score-meta" id="progressDisplay">Element 1 of 118</div>
+      </div>
+    </div>
+
+    <div class="panel table-panel">
+      <div class="table-wrap" id="tableWrap">
+        <img src="base/periodic-table-base.png" alt="Periodic Table of the Elements" class="table-img" />
+
+        <!-- Period 1 -->
+        <button class="element" style="top:8.2%; left:1.8%;" data-symbol="H" onclick="tapElement('H', this)" aria-label="Hydrogen"></button>
+        <button class="element" style="top:8.2%; left:93.0%;" data-symbol="He" onclick="tapElement('He', this)" aria-label="Helium"></button>
+
+        <!-- Period 2 -->
+        <button class="element" style="top:17.1%; left:1.8%;" data-symbol="Li" onclick="tapElement('Li', this)" aria-label="Lithium"></button>
+        <button class="element" style="top:17.1%; left:7.2%;" data-symbol="Be" onclick="tapElement('Be', this)" aria-label="Beryllium"></button>
+        <button class="element" style="top:17.1%; left:65.4%;" data-symbol="B" onclick="tapElement('B', this)" aria-label="Boron"></button>
+        <button class="element" style="top:17.1%; left:71.0%;" data-symbol="C" onclick="tapElement('C', this)" aria-label="Carbon"></button>
+        <button class="element" style="top:17.1%; left:76.5%;" data-symbol="N" onclick="tapElement('N', this)" aria-label="Nitrogen"></button>
+        <button class="element" style="top:17.1%; left:82.1%;" data-symbol="O" onclick="tapElement('O', this)" aria-label="Oxygen"></button>
+        <button class="element" style="top:17.1%; left:87.6%;" data-symbol="F" onclick="tapElement('F', this)" aria-label="Fluorine"></button>
+        <button class="element" style="top:17.1%; left:93.0%;" data-symbol="Ne" onclick="tapElement('Ne', this)" aria-label="Neon"></button>
+
+        <!-- Period 3 -->
+        <button class="element" style="top:26.1%; left:1.8%;" data-symbol="Na" onclick="tapElement('Na', this)" aria-label="Sodium"></button>
+        <button class="element" style="top:26.1%; left:7.2%;" data-symbol="Mg" onclick="tapElement('Mg', this)" aria-label="Magnesium"></button>
+        <button class="element" style="top:26.1%; left:65.4%;" data-symbol="Al" onclick="tapElement('Al', this)" aria-label="Aluminium"></button>
+        <button class="element" style="top:26.1%; left:71.0%;" data-symbol="Si" onclick="tapElement('Si', this)" aria-label="Silicon"></button>
+        <button class="element" style="top:26.1%; left:76.5%;" data-symbol="P" onclick="tapElement('P', this)" aria-label="Phosphorus"></button>
+        <button class="element" style="top:26.1%; left:82.1%;" data-symbol="S" onclick="tapElement('S', this)" aria-label="Sulfur"></button>
+        <button class="element" style="top:26.1%; left:87.6%;" data-symbol="Cl" onclick="tapElement('Cl', this)" aria-label="Chlorine"></button>
+        <button class="element" style="top:26.1%; left:93.0%;" data-symbol="Ar" onclick="tapElement('Ar', this)" aria-label="Argon"></button>
+
+        <!-- Period 4 -->
+        <button class="element" style="top:35.0%; left:1.8%;" data-symbol="K" onclick="tapElement('K', this)" aria-label="Potassium"></button>
+        <button class="element" style="top:35.0%; left:7.2%;" data-symbol="Ca" onclick="tapElement('Ca', this)" aria-label="Calcium"></button>
+        <button class="element" style="top:35.0%; left:12.7%;" data-symbol="Sc" onclick="tapElement('Sc', this)" aria-label="Scandium"></button>
+        <button class="element" style="top:35.0%; left:18.3%;" data-symbol="Ti" onclick="tapElement('Ti', this)" aria-label="Titanium"></button>
+        <button class="element" style="top:35.0%; left:23.8%;" data-symbol="V" onclick="tapElement('V', this)" aria-label="Vanadium"></button>
+        <button class="element" style="top:35.0%; left:29.4%;" data-symbol="Cr" onclick="tapElement('Cr', this)" aria-label="Chromium"></button>
+        <button class="element" style="top:35.0%; left:34.9%;" data-symbol="Mn" onclick="tapElement('Mn', this)" aria-label="Manganese"></button>
+        <button class="element" style="top:35.0%; left:40.5%;" data-symbol="Fe" onclick="tapElement('Fe', this)" aria-label="Iron"></button>
+        <button class="element" style="top:35.0%; left:46.0%;" data-symbol="Co" onclick="tapElement('Co', this)" aria-label="Cobalt"></button>
+        <button class="element" style="top:35.0%; left:51.6%;" data-symbol="Ni" onclick="tapElement('Ni', this)" aria-label="Nickel"></button>
+        <button class="element" style="top:35.0%; left:57.1%;" data-symbol="Cu" onclick="tapElement('Cu', this)" aria-label="Copper"></button>
+        <button class="element" style="top:35.0%; left:62.7%;" data-symbol="Zn" onclick="tapElement('Zn', this)" aria-label="Zinc"></button>
+        <button class="element" style="top:35.0%; left:68.2%;" data-symbol="Ga" onclick="tapElement('Ga', this)" aria-label="Gallium"></button>
+        <button class="element" style="top:35.0%; left:73.8%;" data-symbol="Ge" onclick="tapElement('Ge', this)" aria-label="Germanium"></button>
+        <button class="element" style="top:35.0%; left:79.3%;" data-symbol="As" onclick="tapElement('As', this)" aria-label="Arsenic"></button>
+        <button class="element" style="top:35.0%; left:84.9%;" data-symbol="Se" onclick="tapElement('Se', this)" aria-label="Selenium"></button>
+        <button class="element" style="top:35.0%; left:90.4%;" data-symbol="Br" onclick="tapElement('Br', this)" aria-label="Bromine"></button>
+        <button class="element" style="top:35.0%; left:95.9%;" data-symbol="Kr" onclick="tapElement('Kr', this)" aria-label="Krypton"></button>
+
+        <!-- Period 5 -->
+        <button class="element" style="top:44.0%; left:1.8%;" data-symbol="Rb" onclick="tapElement('Rb', this)" aria-label="Rubidium"></button>
+        <button class="element" style="top:44.0%; left:7.2%;" data-symbol="Sr" onclick="tapElement('Sr', this)" aria-label="Strontium"></button>
+        <button class="element" style="top:44.0%; left:12.7%;" data-symbol="Y" onclick="tapElement('Y', this)" aria-label="Yttrium"></button>
+        <button class="element" style="top:44.0%; left:18.3%;" data-symbol="Zr" onclick="tapElement('Zr', this)" aria-label="Zirconium"></button>
+        <button class="element" style="top:44.0%; left:23.8%;" data-symbol="Nb" onclick="tapElement('Nb', this)" aria-label="Niobium"></button>
+        <button class="element" style="top:44.0%; left:29.4%;" data-symbol="Mo" onclick="tapElement('Mo', this)" aria-label="Molybdenum"></button>
+        <button class="element" style="top:44.0%; left:34.9%;" data-symbol="Tc" onclick="tapElement('Tc', this)" aria-label="Technetium"></button>
+        <button class="element" style="top:44.0%; left:40.5%;" data-symbol="Ru" onclick="tapElement('Ru', this)" aria-label="Ruthenium"></button>
+        <button class="element" style="top:44.0%; left:46.0%;" data-symbol="Rh" onclick="tapElement('Rh', this)" aria-label="Rhodium"></button>
+        <button class="element" style="top:44.0%; left:51.6%;" data-symbol="Pd" onclick="tapElement('Pd', this)" aria-label="Palladium"></button>
+        <button class="element" style="top:44.0%; left:57.1%;" data-symbol="Ag" onclick="tapElement('Ag', this)" aria-label="Silver"></button>
+        <button class="element" style="top:44.0%; left:62.7%;" data-symbol="Cd" onclick="tapElement('Cd', this)" aria-label="Cadmium"></button>
+        <button class="element" style="top:44.0%; left:68.2%;" data-symbol="In" onclick="tapElement('In', this)" aria-label="Indium"></button>
+        <button class="element" style="top:44.0%; left:73.8%;" data-symbol="Sn" onclick="tapElement('Sn', this)" aria-label="Tin"></button>
+        <button class="element" style="top:44.0%; left:79.3%;" data-symbol="Sb" onclick="tapElement('Sb', this)" aria-label="Antimony"></button>
+        <button class="element" style="top:44.0%; left:84.9%;" data-symbol="Te" onclick="tapElement('Te', this)" aria-label="Tellurium"></button>
+        <button class="element" style="top:44.0%; left:90.4%;" data-symbol="I" onclick="tapElement('I', this)" aria-label="Iodine"></button>
+        <button class="element" style="top:44.0%; left:95.9%;" data-symbol="Xe" onclick="tapElement('Xe', this)" aria-label="Xenon"></button>
+
+        <!-- Period 6 -->
+        <button class="element" style="top:53.0%; left:1.8%;" data-symbol="Cs" onclick="tapElement('Cs', this)" aria-label="Caesium"></button>
+        <button class="element" style="top:53.0%; left:7.2%;" data-symbol="Ba" onclick="tapElement('Ba', this)" aria-label="Barium"></button>
+        <button class="element" style="top:53.0%; left:12.7%;" data-symbol="57-71" onclick="tapElement('57-71', this)" aria-label="Lanthanide series"></button>
+        <button class="element" style="top:53.0%; left:18.3%;" data-symbol="Hf" onclick="tapElement('Hf', this)" aria-label="Hafnium"></button>
+        <button class="element" style="top:53.0%; left:23.8%;" data-symbol="Ta" onclick="tapElement('Ta', this)" aria-label="Tantalum"></button>
+        <button class="element" style="top:53.0%; left:29.4%;" data-symbol="W" onclick="tapElement('W', this)" aria-label="Tungsten"></button>
+        <button class="element" style="top:53.0%; left:34.9%;" data-symbol="Re" onclick="tapElement('Re', this)" aria-label="Rhenium"></button>
+        <button class="element" style="top:53.0%; left:40.5%;" data-symbol="Os" onclick="tapElement('Os', this)" aria-label="Osmium"></button>
+        <button class="element" style="top:53.0%; left:46.0%;" data-symbol="Ir" onclick="tapElement('Ir', this)" aria-label="Iridium"></button>
+        <button class="element" style="top:53.0%; left:51.6%;" data-symbol="Pt" onclick="tapElement('Pt', this)" aria-label="Platinum"></button>
+        <button class="element" style="top:53.0%; left:57.1%;" data-symbol="Au" onclick="tapElement('Au', this)" aria-label="Gold"></button>
+        <button class="element" style="top:53.0%; left:62.7%;" data-symbol="Hg" onclick="tapElement('Hg', this)" aria-label="Mercury"></button>
+        <button class="element" style="top:53.0%; left:68.2%;" data-symbol="Tl" onclick="tapElement('Tl', this)" aria-label="Thallium"></button>
+        <button class="element" style="top:53.0%; left:73.8%;" data-symbol="Pb" onclick="tapElement('Pb', this)" aria-label="Lead"></button>
+        <button class="element" style="top:53.0%; left:79.3%;" data-symbol="Bi" onclick="tapElement('Bi', this)" aria-label="Bismuth"></button>
+        <button class="element" style="top:53.0%; left:84.9%;" data-symbol="Po" onclick="tapElement('Po', this)" aria-label="Polonium"></button>
+        <button class="element" style="top:53.0%; left:90.4%;" data-symbol="At" onclick="tapElement('At', this)" aria-label="Astatine"></button>
+        <button class="element" style="top:53.0%; left:95.9%;" data-symbol="Rn" onclick="tapElement('Rn', this)" aria-label="Radon"></button>
+
+        <!-- Period 7 -->
+        <button class="element" style="top:62.0%; left:1.8%;" data-symbol="Fr" onclick="tapElement('Fr', this)" aria-label="Francium"></button>
+        <button class="element" style="top:62.0%; left:7.2%;" data-symbol="Ra" onclick="tapElement('Ra', this)" aria-label="Radium"></button>
+        <button class="element" style="top:62.0%; left:12.7%;" data-symbol="89-103" onclick="tapElement('89-103', this)" aria-label="Actinide series"></button>
+        <button class="element" style="top:62.0%; left:18.3%;" data-symbol="Rf" onclick="tapElement('Rf', this)" aria-label="Rutherfordium"></button>
+        <button class="element" style="top:62.0%; left:23.8%;" data-symbol="Db" onclick="tapElement('Db', this)" aria-label="Dubnium"></button>
+        <button class="element" style="top:62.0%; left:29.4%;" data-symbol="Sg" onclick="tapElement('Sg', this)" aria-label="Seaborgium"></button>
+        <button class="element" style="top:62.0%; left:34.9%;" data-symbol="Bh" onclick="tapElement('Bh', this)" aria-label="Bohrium"></button>
+        <button class="element" style="top:62.0%; left:40.5%;" data-symbol="Hs" onclick="tapElement('Hs', this)" aria-label="Hassium"></button>
+        <button class="element" style="top:62.0%; left:46.0%;" data-symbol="Mt" onclick="tapElement('Mt', this)" aria-label="Meitnerium"></button>
+        <button class="element" style="top:62.0%; left:51.6%;" data-symbol="Ds" onclick="tapElement('Ds', this)" aria-label="Darmstadtium"></button>
+        <button class="element" style="top:62.0%; left:57.1%;" data-symbol="Rg" onclick="tapElement('Rg', this)" aria-label="Roentgenium"></button>
+        <button class="element" style="top:62.0%; left:62.7%;" data-symbol="Cn" onclick="tapElement('Cn', this)" aria-label="Copernicium"></button>
+        <button class="element" style="top:62.0%; left:68.2%;" data-symbol="Nh" onclick="tapElement('Nh', this)" aria-label="Nihonium"></button>
+        <button class="element" style="top:62.0%; left:73.8%;" data-symbol="Fl" onclick="tapElement('Fl', this)" aria-label="Flerovium"></button>
+        <button class="element" style="top:62.0%; left:79.3%;" data-symbol="Mc" onclick="tapElement('Mc', this)" aria-label="Moscovium"></button>
+        <button class="element" style="top:62.0%; left:84.9%;" data-symbol="Lv" onclick="tapElement('Lv', this)" aria-label="Livermorium"></button>
+        <button class="element" style="top:62.0%; left:90.4%;" data-symbol="Ts" onclick="tapElement('Ts', this)" aria-label="Tennessine"></button>
+        <button class="element" style="top:62.0%; left:95.9%;" data-symbol="Og" onclick="tapElement('Og', this)" aria-label="Oganesson"></button>
+
+        <!-- Lanthanides -->
+        <button class="element" style="top:78.5%; left:17.0%;" data-symbol="La" onclick="tapElement('La', this)" aria-label="Lanthanum"></button>
+        <button class="element" style="top:78.5%; left:22.6%;" data-symbol="Ce" onclick="tapElement('Ce', this)" aria-label="Cerium"></button>
+        <button class="element" style="top:78.5%; left:28.1%;" data-symbol="Pr" onclick="tapElement('Pr', this)" aria-label="Praseodymium"></button>
+        <button class="element" style="top:78.5%; left:33.7%;" data-symbol="Nd" onclick="tapElement('Nd', this)" aria-label="Neodymium"></button>
+        <button class="element" style="top:78.5%; left:39.2%;" data-symbol="Pm" onclick="tapElement('Pm', this)" aria-label="Promethium"></button>
+        <button class="element" style="top:78.5%; left:44.8%;" data-symbol="Sm" onclick="tapElement('Sm', this)" aria-label="Samarium"></button>
+        <button class="element" style="top:78.5%; left:50.3%;" data-symbol="Eu" onclick="tapElement('Eu', this)" aria-label="Europium"></button>
+        <button class="element" style="top:78.5%; left:55.9%;" data-symbol="Gd" onclick="tapElement('Gd', this)" aria-label="Gadolinium"></button>
+        <button class="element" style="top:78.5%; left:61.4%;" data-symbol="Tb" onclick="tapElement('Tb', this)" aria-label="Terbium"></button>
+        <button class="element" style="top:78.5%; left:67.0%;" data-symbol="Dy" onclick="tapElement('Dy', this)" aria-label="Dysprosium"></button>
+        <button class="element" style="top:78.5%; left:72.5%;" data-symbol="Ho" onclick="tapElement('Ho', this)" aria-label="Holmium"></button>
+        <button class="element" style="top:78.5%; left:78.1%;" data-symbol="Er" onclick="tapElement('Er', this)" aria-label="Erbium"></button>
+        <button class="element" style="top:78.5%; left:83.6%;" data-symbol="Tm" onclick="tapElement('Tm', this)" aria-label="Thulium"></button>
+        <button class="element" style="top:78.5%; left:89.2%;" data-symbol="Yb" onclick="tapElement('Yb', this)" aria-label="Ytterbium"></button>
+        <button class="element" style="top:78.5%; left:94.7%;" data-symbol="Lu" onclick="tapElement('Lu', this)" aria-label="Lutetium"></button>
+
+        <!-- Actinides -->
+        <button class="element" style="top:87.6%; left:17.0%;" data-symbol="Ac" onclick="tapElement('Ac', this)" aria-label="Actinium"></button>
+        <button class="element" style="top:87.6%; left:22.6%;" data-symbol="Th" onclick="tapElement('Th', this)" aria-label="Thorium"></button>
+        <button class="element" style="top:87.6%; left:28.1%;" data-symbol="Pa" onclick="tapElement('Pa', this)" aria-label="Protactinium"></button>
+        <button class="element" style="top:87.6%; left:33.7%;" data-symbol="U" onclick="tapElement('U', this)" aria-label="Uranium"></button>
+        <button class="element" style="top:87.6%; left:39.2%;" data-symbol="Np" onclick="tapElement('Np', this)" aria-label="Neptunium"></button>
+        <button class="element" style="top:87.6%; left:44.8%;" data-symbol="Pu" onclick="tapElement('Pu', this)" aria-label="Plutonium"></button>
+        <button class="element" style="top:87.6%; left:50.3%;" data-symbol="Am" onclick="tapElement('Am', this)" aria-label="Americium"></button>
+        <button class="element" style="top:87.6%; left:55.9%;" data-symbol="Cm" onclick="tapElement('Cm', this)" aria-label="Curium"></button>
+        <button class="element" style="top:87.6%; left:61.4%;" data-symbol="Bk" onclick="tapElement('Bk', this)" aria-label="Berkelium"></button>
+        <button class="element" style="top:87.6%; left:67.0%;" data-symbol="Cf" onclick="tapElement('Cf', this)" aria-label="Californium"></button>
+        <button class="element" style="top:87.6%; left:72.5%;" data-symbol="Es" onclick="tapElement('Es', this)" aria-label="Einsteinium"></button>
+        <button class="element" style="top:87.6%; left:78.1%;" data-symbol="Fm" onclick="tapElement('Fm', this)" aria-label="Fermium"></button>
+        <button class="element" style="top:87.6%; left:83.6%;" data-symbol="Md" onclick="tapElement('Md', this)" aria-label="Mendelevium"></button>
+        <button class="element" style="top:87.6%; left:89.2%;" data-symbol="No" onclick="tapElement('No', this)" aria-label="Nobelium"></button>
+        <button class="element" style="top:87.6%; left:94.7%;" data-symbol="Lr" onclick="tapElement('Lr', this)" aria-label="Lawrencium"></button>
+      </div>
+    </div>
+  </div>
+
+  <div class="quiz-overlay" id="quizOverlay">
+    <div class="quiz-card">
+      <div class="quiz-kicker">Element challenge</div>
+      <div class="quiz-symbol" id="quizSymbol">H</div>
+      <h2 class="quiz-title" id="quizTitle">Answer the clue</h2>
+      <p class="quiz-clue" id="quizClue">This is the lightest element and it is found at the top-left of the table.</p>
+
+      <div class="quiz-actions">
+        <button class="btn btn-soft" onclick="speakText(document.getElementById('quizClue').textContent)">Read clue aloud</button>
+      </div>
+
+      <div class="choice-grid" id="choiceGrid"></div>
+
+      <div class="feedback" id="feedback"></div>
+
+      <div class="quiz-actions">
+        <button class="btn btn-primary hidden" id="nextBtn" onclick="goNext()">Next</button>
+        <button class="btn btn-soft" onclick="closeQuiz()">Back to table</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const lessonOrder = [
+      "H","He","Li","Be","B","C","N","O","F","Ne","Na","Mg","Al","Si","P","S","Cl","Ar",
+      "K","Ca","Sc","Ti","V","Cr","Mn","Fe","Co","Ni","Cu","Zn","Ga","Ge","As","Se","Br","Kr",
+      "Rb","Sr","Y","Zr","Nb","Mo","Tc","Ru","Rh","Pd","Ag","Cd","In","Sn","Sb","Te","I","Xe",
+      "Cs","Ba","57-71","Hf","Ta","W","Re","Os","Ir","Pt","Au","Hg","Tl","Pb","Bi","Po","At","Rn",
+      "Fr","Ra","89-103","Rf","Db","Sg","Bh","Hs","Mt","Ds","Rg","Cn","Nh","Fl","Mc","Lv","Ts","Og",
+      "La","Ce","Pr","Nd","Pm","Sm","Eu","Gd","Tb","Dy","Ho","Er","Tm","Yb","Lu",
+      "Ac","Th","Pa","U","Np","Pu","Am","Cm","Bk","Cf","Es","Fm","Md","No","Lr"
+    ];
+
+    const elementData = {
+      H:  { clue: "This is the lightest element and it is found at the top-left of the table.", choices: ["Hydrogen", "Helium", "Lithium"], answer: "Hydrogen", info: "Hydrogen is element 1." },
+      He: { clue: "This gas is used in balloons and is at the top-right of the table.", choices: ["Helium", "Hydrogen", "Neon"], answer: "Helium", info: "Helium is a noble gas." },
+      Li: { clue: "This metal is used in many batteries.", choices: ["Lithium", "Beryllium", "Sodium"], answer: "Lithium", info: "Lithium is a soft alkali metal." },
+      Be: { clue: "This element comes after lithium in period 2.", choices: ["Boron", "Beryllium", "Barium"], answer: "Beryllium", info: "Beryllium is an alkaline earth metal." },
+      B:  { clue: "This element is often used in boron compounds.", choices: ["Boron", "Bromine", "Barium"], answer: "Boron", info: "Boron has properties between metals and non-metals." },
+      C:  { clue: "This element is found in diamond, coal, and living things.", choices: ["Carbon", "Chlorine", "Calcium"], answer: "Carbon", info: "Carbon is important in life." },
+      N:  { clue: "This gas makes up most of Earth’s air.", choices: ["Nitrogen", "Neon", "Nickel"], answer: "Nitrogen", info: "Nitrogen makes up most of the atmosphere." },
+      O:  { clue: "This gas is important for breathing.", choices: ["Oxygen", "Osmium", "Gold"], answer: "Oxygen", info: "Oxygen supports respiration." },
+      F:  { clue: "This reactive element is used in toothpaste compounds.", choices: ["Fluorine", "Francium", "Iron"], answer: "Fluorine", info: "Fluorine is a halogen." },
+      Ne: { clue: "This gas is used in bright signs.", choices: ["Neon", "Nitrogen", "Neptunium"], answer: "Neon", info: "Neon glows in signs." }
+    };
+
+    const successPhrases = ["Well done.", "Nice work.", "Good job."];
+    const wrongElementPhrases = [
+      "That is not the highlighted element.",
+      "Try the blue highlighted element.",
+      "Tap the highlighted element."
+    ];
+
+    let currentIndex = 0;
+    let currentTarget = lessonOrder[0];
+    let score = 0;
+    let answeredCount = 0;
+    let answeredCorrectly = false;
+
+    function getFallbackData(symbol) {
+      if (symbol === "57-71") {
+        return {
+          clue: "This block stands for the lanthanide series.",
+          choices: ["Lanthanide series", "Actinide series", "Noble gases"],
+          answer: "Lanthanide series",
+          info: "The lanthanides are elements 57 to 71."
+        };
+      }
+
+      if (symbol === "89-103") {
+        return {
+          clue: "This block stands for the actinide series.",
+          choices: ["Lanthanide series", "Actinide series", "Transition metals"],
+          answer: "Actinide series",
+          info: "The actinides are elements 89 to 103."
+        };
+      }
+
+      return {
+        clue: `Find the meaning of the symbol ${symbol}.`,
+        choices: [symbol, "Wrong choice", "Try again"],
+        answer: symbol,
+        info: `${symbol} is part of the periodic table.`
+      };
+    }
+
+    function getData(symbol) {
+      return elementData[symbol] || getFallbackData(symbol);
+    }
+
+    function randomFrom(arr) {
+      return arr[Math.floor(Math.random() * arr.length)];
+    }
+
+    function updateScoreUI() {
+      document.getElementById("scoreDisplay").textContent = `${score} / ${answeredCount}`;
+      document.getElementById("progressDisplay").textContent = `Element ${currentIndex + 1} of ${lessonOrder.length}`;
+      document.getElementById("currentSymbol").textContent = currentTarget;
+    }
+
+    function setTableStatus(message, type = "") {
+      const status = document.getElementById("tableStatus");
+      status.textContent = message;
+      status.className = "status-line";
+      if (type) status.classList.add(type);
+    }
+
+    function markTarget() {
+      document.querySelectorAll(".element").forEach(el => {
+        el.classList.remove("target", "correct", "wrong");
+        if (el.dataset.symbol === currentTarget) {
+          el.classList.add("target");
+        }
+      });
+
+      updateScoreUI();
+      setTableStatus("Find the highlighted element.");
+    }
+
+    function tapElement(symbol, el) {
+      document.querySelectorAll(".element").forEach(btn => btn.classList.remove("wrong"));
+
+      if (symbol !== currentTarget) {
+        el.classList.add("wrong");
+        const msg = randomFrom(wrongElementPhrases);
+        setTableStatus(msg, "warn");
+        speakText(msg);
+        return;
+      }
+
+      el.classList.remove("target");
+      el.classList.add("correct");
+      setTableStatus("Great. Now answer the clue.", "good");
+      openQuiz(symbol);
+    }
+
+    function openQuiz(symbol) {
+      const data = getData(symbol);
+      answeredCorrectly = false;
+
+      document.getElementById("quizSymbol").textContent = symbol;
+      document.getElementById("quizTitle").textContent = "Answer the clue";
+      document.getElementById("quizClue").textContent = data.clue;
+      document.getElementById("feedback").textContent = "";
+      document.getElementById("feedback").className = "feedback";
+      document.getElementById("nextBtn").classList.add("hidden");
+
+      const choiceGrid = document.getElementById("choiceGrid");
+      choiceGrid.innerHTML = "";
+
+      data.choices.forEach(choice => {
+        const btn = document.createElement("button");
+        btn.className = "choice-btn";
+        btn.textContent = choice;
+        btn.onclick = () => checkAnswer(choice, data.answer, data.info);
+        choiceGrid.appendChild(btn);
+      });
+
+      document.getElementById("quizOverlay").classList.add("show");
+      setTimeout(() => speakText(data.clue), 200);
+    }
+
+    function disableChoices() {
+      document.querySelectorAll(".choice-btn").forEach(btn => {
+        btn.disabled = true;
+      });
+    }
+
+    function closeQuiz() {
+      document.getElementById("quizOverlay").classList.remove("show");
+      stopSpeech();
+    }
+
+    function checkAnswer(choice, answer, info) {
+      const feedback = document.getElementById("feedback");
+
+      if (choice === answer) {
+        if (!answeredCorrectly) {
+          answeredCorrectly = true;
+          score += 1;
+          answeredCount += 1;
+          updateScoreUI();
+        }
+
+        disableChoices();
+
+        const praise = randomFrom(successPhrases);
+        feedback.textContent = `${praise} ${info}`;
+        feedback.className = "feedback good";
+        document.getElementById("nextBtn").classList.remove("hidden");
+        speakText(`${praise} ${info}`);
+      } else {
+        feedback.textContent = "Try again.";
+        feedback.className = "feedback bad";
+        speakText("Try again.");
+      }
+    }
+
+    function goNext() {
+      closeQuiz();
+      currentIndex = (currentIndex + 1) % lessonOrder.length;
+      currentTarget = lessonOrder[currentIndex];
+      markTarget();
+    }
+
+    function resetLesson() {
+      closeQuiz();
+      score = 0;
+      answeredCount = 0;
+      currentIndex = 0;
+      currentTarget = lessonOrder[0];
+      updateScoreUI();
+      markTarget();
+    }
+
+    function speakCurrentClue() {
+      const data = getData(currentTarget);
+      speakText(data.clue);
+    }
+
+    function speakText(text) {
+      stopSpeech();
+
+      if (!("speechSynthesis" in window)) return;
+
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.rate = 0.95;
+      utterance.pitch = 1;
+      utterance.volume = 1;
+
+      const voices = window.speechSynthesis.getVoices();
+      const preferred =
+        voices.find(v => v.name.toLowerCase().includes("microsoft")) ||
+        voices.find(v => v.lang && v.lang.toLowerCase().includes("en")) ||
+        voices[0];
+
+      if (preferred) utterance.voice = preferred;
+
+      window.speechSynthesis.speak(utterance);
+    }
+
+    function stopSpeech() {
+      if ("speechSynthesis" in window) {
+        window.speechSynthesis.cancel();
+      }
+    }
+
+    window.addEventListener("load", () => {
+      updateScoreUI();
+      markTarget();
+    });
+  </script>
+</body>
+</html>

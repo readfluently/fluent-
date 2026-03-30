@@ -1,0 +1,1616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fluent | Food Web</title>
+  <style>
+    :root {
+      --bg: #f4f8f3;
+      --surface: #ffffff;
+      --surface-soft: #eef7ec;
+      --text: #173224;
+      --muted: #5f7568;
+      --line: #d7e6d7;
+      --primary: #2f8f5b;
+      --primary-dark: #246f47;
+      --accent: #f4c542;
+      --accent-dark: #d6a71d;
+      --danger: #c94b4b;
+      --danger-dark: #a63535;
+      --info: #e8f4ff;
+      --info-line: #b8daf7;
+      --info-text: #184d7a;
+      --success-soft: #eefaf1;
+      --success-line: #b7e3c0;
+      --warning-soft: #fff8e7;
+      --warning-line: #f2dc96;
+      --warning-text: #7c5a00;
+      --shadow: 0 18px 50px rgba(14, 46, 28, 0.16);
+      --radius-xl: 24px;
+      --radius-lg: 18px;
+      --radius-md: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: radial-gradient(circle at top, #f9fff6 0%, #eef7ec 48%, #e6f1e4 100%);
+      color: var(--text);
+    }
+
+    .page-shell {
+      max-width: 1220px;
+      margin: 0 auto;
+      padding: 28px 18px 46px;
+    }
+
+    .poster-page {
+      display: grid;
+      gap: 22px;
+    }
+
+    .poster-card,
+    .concepts-card,
+    .exercise-card,
+    .progress-card,
+    .score-card {
+      background: rgba(255, 255, 255, 0.95);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      backdrop-filter: blur(6px);
+    }
+
+    .poster-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+      padding: 22px 24px 18px;
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(180deg, #f9fff8 0%, #eef7ec 100%);
+    }
+
+    .title-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .eyebrow {
+      margin: 0;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--primary);
+    }
+
+    .page-title {
+      margin: 0;
+      font-size: clamp(1.9rem, 3vw, 2.8rem);
+      line-height: 1.05;
+      font-weight: 800;
+    }
+
+    .page-subtitle {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.55;
+      max-width: 780px;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .action-btn,
+    .danger-btn {
+      border: none;
+      font-size: 1rem;
+      font-weight: 700;
+      padding: 14px 18px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: transform 0.18s ease, background 0.18s ease, opacity 0.18s ease;
+    }
+
+    .action-btn {
+      background: var(--primary);
+      color: #fff;
+      box-shadow: 0 8px 20px rgba(47, 143, 91, 0.22);
+    }
+
+    .action-btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+
+    .danger-btn {
+      background: var(--danger);
+      color: #fff;
+      box-shadow: 0 8px 20px rgba(201, 75, 75, 0.2);
+    }
+
+    .danger-btn:hover {
+      background: var(--danger-dark);
+      transform: translateY(-1px);
+    }
+
+    .poster-stage {
+      padding: 20px;
+    }
+
+    .image-frame {
+      width: 100%;
+      border-radius: 22px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: #dbead9;
+      position: relative;
+    }
+
+    .image-frame img {
+      display: block;
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    .hotspot-wrap {
+      position: absolute;
+      transform: translate(-50%, -50%);
+    }
+
+    .hotspot {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: 3px solid rgba(255, 255, 255, 0.96);
+      background: rgba(47, 143, 91, 0.95);
+      color: #fff;
+      font-size: 0.95rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+      transition: transform 0.16s ease, background 0.16s ease;
+      position: relative;
+    }
+
+    .hotspot:hover {
+      transform: scale(1.08);
+      background: var(--primary-dark);
+    }
+
+    .hotspot::after {
+      content: "";
+      position: absolute;
+      inset: -7px;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 255, 255, 0.34);
+      animation: pulse 2s infinite;
+    }
+
+    .hotspot:focus-visible {
+      outline: 3px solid #9bd6b4;
+      outline-offset: 3px;
+    }
+
+    .hotspot-label {
+      position: absolute;
+      left: 50%;
+      bottom: calc(100% + 9px);
+      transform: translateX(-50%);
+      background: rgba(23, 50, 36, 0.92);
+      color: #fff;
+      padding: 6px 10px;
+      border-radius: 10px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.16s ease;
+    }
+
+    .hotspot-wrap:hover .hotspot-label,
+    .hotspot-wrap:focus-within .hotspot-label {
+      opacity: 1;
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(0.95);
+        opacity: 0.85;
+      }
+      70% {
+        transform: scale(1.18);
+        opacity: 0.12;
+      }
+      100% {
+        transform: scale(1.24);
+        opacity: 0;
+      }
+    }
+
+    .poster-note {
+      padding: 14px 4px 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .progress-card,
+    .concepts-card,
+    .exercise-card,
+    .score-card {
+      padding: 22px;
+    }
+
+    .section-title {
+      margin: 0 0 8px;
+      font-size: 1.5rem;
+      color: var(--primary-dark);
+    }
+
+    .section-copy {
+      margin: 0 0 18px;
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--muted);
+      max-width: 850px;
+    }
+
+    .progress-top,
+    .score-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .progress-text,
+    .score-text {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+    }
+
+    .progress-bar,
+    .score-bar {
+      width: 100%;
+      height: 16px;
+      background: #e8f2e6;
+      border-radius: 999px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+    }
+
+    .progress-fill,
+    .score-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #2f8f5b 0%, #58b57e 100%);
+      transition: width 0.25s ease;
+    }
+
+    .concept-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .concept-box {
+      background: var(--surface-soft);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 16px;
+    }
+
+    .concept-box h3 {
+      margin: 0 0 8px;
+      font-size: 1rem;
+      color: var(--primary-dark);
+    }
+
+    .concept-box p {
+      margin: 0;
+      font-size: 0.95rem;
+      line-height: 1.65;
+      color: var(--muted);
+    }
+
+    .question-block {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 18px;
+      background: #fbfcff;
+      margin-bottom: 16px;
+    }
+
+    .question-block.completed {
+      border-color: #9fd0b2;
+      background: #f8fdf9;
+    }
+
+    .question-block h3 {
+      margin: 0 0 10px;
+      font-size: 1rem;
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .answer-input {
+      width: 100%;
+      min-height: 110px;
+      border: 2px solid #d7e6d7;
+      border-radius: 14px;
+      background: #fff;
+      padding: 14px;
+      color: var(--text);
+      line-height: 1.7;
+      font-size: 1rem;
+      font-family: Arial, Helvetica, sans-serif;
+      resize: vertical;
+      outline: none;
+    }
+
+    .answer-input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(47, 143, 91, 0.12);
+    }
+
+    .answer-input.locked {
+      background: #f4f7f4;
+      color: #4d6458;
+    }
+
+    .question-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+
+    .submit-btn,
+    .model-btn,
+    .edit-btn {
+      border: none;
+      padding: 12px 16px;
+      border-radius: 999px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.18s ease, opacity 0.18s ease, background 0.18s ease;
+    }
+
+    .submit-btn {
+      background: var(--primary);
+      color: #fff;
+      box-shadow: 0 8px 18px rgba(47, 143, 91, 0.18);
+    }
+
+    .submit-btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+
+    .model-btn {
+      background: var(--accent);
+      color: #3d3107;
+      display: none;
+    }
+
+    .model-btn:hover {
+      background: var(--accent-dark);
+      transform: translateY(-1px);
+    }
+
+    .edit-btn {
+      background: #e7f1ec;
+      color: #1f5d3f;
+      display: none;
+    }
+
+    .edit-btn:hover {
+      background: #d6e9df;
+      transform: translateY(-1px);
+    }
+
+    .question-status {
+      margin-top: 10px;
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+      display: none;
+    }
+
+    .mark-feedback {
+      display: none;
+      margin-top: 14px;
+      padding: 14px 16px;
+      border-radius: 16px;
+      border: 1px solid var(--info-line);
+      background: var(--info);
+    }
+
+    .mark-feedback.good {
+      background: var(--success-soft);
+      border-color: var(--success-line);
+    }
+
+    .mark-feedback.medium,
+    .mark-feedback.low {
+      background: var(--warning-soft);
+      border-color: var(--warning-line);
+    }
+
+    .mark-feedback h4 {
+      margin: 0 0 6px;
+      font-size: 1rem;
+      color: var(--info-text);
+    }
+
+    .mark-feedback.good h4 {
+      color: #205f31;
+    }
+
+    .mark-feedback.medium h4,
+    .mark-feedback.low h4 {
+      color: var(--warning-text);
+    }
+
+    .mark-feedback p {
+      margin: 0;
+      font-size: 0.96rem;
+      line-height: 1.7;
+      color: #294437;
+    }
+
+    .model-answer {
+      display: none;
+      margin-top: 14px;
+      padding: 16px;
+      border-radius: 16px;
+      background: #fff8df;
+      border: 1px solid #f0dc94;
+    }
+
+    .model-answer h4 {
+      margin: 0 0 8px;
+      font-size: 1rem;
+      color: #7b5d00;
+    }
+
+    .model-answer p {
+      margin: 0;
+      font-size: 0.96rem;
+      line-height: 1.7;
+      color: #5c4a10;
+    }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 26, 20, 0.56);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      z-index: 1000;
+    }
+
+    .modal-backdrop.show {
+      display: flex;
+    }
+
+    .modal-card {
+      width: min(860px, 100%);
+      background: #fff;
+      border-radius: 24px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.22);
+      border: 1px solid #e4ece3;
+      overflow: hidden;
+      animation: popIn 0.22s ease;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    @keyframes popIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px) scale(0.98);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .modal-top {
+      padding: 22px 24px 14px;
+      background: linear-gradient(180deg, #f6fcf4 0%, #edf7ea 100%);
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .modal-title {
+      margin: 0;
+      font-size: 1.45rem;
+      line-height: 1.2;
+      font-weight: 800;
+    }
+
+    .modal-close {
+      border: none;
+      background: #e4f1e2;
+      color: var(--text);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      font-size: 1.15rem;
+      font-weight: 800;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .modal-body {
+      padding: 22px 24px 24px;
+    }
+
+    .modal-body p {
+      margin: 0 0 14px;
+      font-size: 1rem;
+      line-height: 1.72;
+      color: #294437;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .info-box {
+      background: #f7fbf6;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 14px;
+    }
+
+    .info-box h3 {
+      margin: 0 0 8px;
+      font-size: 1rem;
+      color: var(--primary-dark);
+    }
+
+    .info-box p {
+      margin: 0;
+      font-size: 0.95rem;
+      line-height: 1.65;
+      color: var(--muted);
+    }
+
+    .modal-actions {
+      margin-top: 20px;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .close-btn {
+      border: none;
+      background: var(--primary);
+      color: white;
+      font-weight: 700;
+      font-size: 0.98rem;
+      padding: 12px 18px;
+      border-radius: 999px;
+      cursor: pointer;
+    }
+
+    @media (max-width: 900px) {
+      .concept-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 760px) {
+      .poster-header {
+        align-items: flex-start;
+      }
+
+      .header-actions,
+      .action-btn,
+      .danger-btn {
+        width: 100%;
+      }
+
+      .info-grid,
+      .concept-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .modal-top,
+      .modal-body {
+        padding-left: 18px;
+        padding-right: 18px;
+      }
+
+      .poster-stage {
+        padding: 14px;
+      }
+
+      .hotspot {
+        width: 34px;
+        height: 34px;
+      }
+
+      .hotspot-label {
+        display: none;
+      }
+
+      .question-actions {
+        flex-direction: column;
+      }
+
+      .submit-btn,
+      .model-btn,
+      .edit-btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page-shell">
+    <section class="poster-page">
+      <section class="poster-card">
+        <header class="poster-header">
+          <div class="title-wrap">
+            <p class="eyebrow">Interactive Poster</p>
+            <h1 class="page-title">Food Web</h1>
+            <p class="page-subtitle">
+              Click the numbered points to learn how living things in this ecosystem are connected through feeding relationships.
+            </p>
+          </div>
+
+          <div class="header-actions">
+            <button class="action-btn" id="openEcosystemCard" type="button">What is an ecosystem?</button>
+          </div>
+        </header>
+
+        <div class="poster-stage">
+          <div class="image-frame">
+            <img src="base/food-web-base.png" alt="Food web base image" />
+
+            <div class="hotspot-wrap" style="left: 11%; top: 59%;">
+              <button class="hotspot" type="button" data-organism="grass" aria-label="Open Grass card">1</button>
+              <div class="hotspot-label">Grass</div>
+            </div>
+
+            <div class="hotspot-wrap" style="left: 26%; top: 20%;">
+              <button class="hotspot" type="button" data-organism="caterpillar" aria-label="Open Caterpillar card">2</button>
+              <div class="hotspot-label">Caterpillar</div>
+            </div>
+
+            <div class="hotspot-wrap" style="left: 23%; top: 31%;">
+              <button class="hotspot" type="button" data-organism="grasshopper" aria-label="Open Grasshopper card">3</button>
+              <div class="hotspot-label">Grasshopper</div>
+            </div>
+
+            <div class="hotspot-wrap" style="left: 30%; top: 46%;">
+              <button class="hotspot" type="button" data-organism="mouse" aria-label="Open Mouse card">4</button>
+              <div class="hotspot-label">Mouse</div>
+            </div>
+
+            <div class="hotspot-wrap" style="left: 45%; top: 28%;">
+              <button class="hotspot" type="button" data-organism="bird" aria-label="Open Bird card">5</button>
+              <div class="hotspot-label">Bird</div>
+            </div>
+
+            <div class="hotspot-wrap" style="left: 52%; top: 49%;">
+              <button class="hotspot" type="button" data-organism="frog" aria-label="Open Frog card">6</button>
+              <div class="hotspot-label">Frog</div>
+            </div>
+
+            <div class="hotspot-wrap" style="left: 77%; top: 23%;">
+              <button class="hotspot" type="button" data-organism="owl" aria-label="Open Owl card">7</button>
+              <div class="hotspot-label">Owl</div>
+            </div>
+
+            <div class="hotspot-wrap" style="left: 79%; top: 47%;">
+              <button class="hotspot" type="button" data-organism="snake" aria-label="Open Snake card">8</button>
+              <div class="hotspot-label">Snake</div>
+            </div>
+
+            <div class="hotspot-wrap" style="left: 18%; top: 68%;">
+              <button class="hotspot" type="button" data-organism="snail" aria-label="Open Snail card">9</button>
+              <div class="hotspot-label">Snail</div>
+            </div>
+
+            <div class="hotspot-wrap" style="left: 44%; top: 73%;">
+              <button class="hotspot" type="button" data-organism="fish" aria-label="Open Fish card">10</button>
+              <div class="hotspot-label">Fish</div>
+            </div>
+
+            <div class="hotspot-wrap" style="left: 84%; top: 72%;">
+              <button class="hotspot" type="button" data-organism="earthworm" aria-label="Open Earthworm card">11</button>
+              <div class="hotspot-label">Earthworm</div>
+            </div>
+
+            <div class="hotspot-wrap" style="left: 83%; top: 60%;">
+              <button class="hotspot" type="button" data-organism="fungi" aria-label="Open Fungi card">12</button>
+              <div class="hotspot-label">Fungi</div>
+            </div>
+          </div>
+
+          <div class="poster-note">
+            Click each point to learn the role of that organism in the ecosystem and in the food web.
+          </div>
+        </div>
+      </section>
+
+      <section class="progress-card">
+        <div class="progress-top">
+          <div>
+            <h2 class="section-title">My Progress</h2>
+            <p class="section-copy" style="margin-bottom: 0;">
+              Your answers are saved automatically on this device.
+            </p>
+          </div>
+
+          <div class="progress-text" id="progressText">0 of 5 questions completed</div>
+        </div>
+
+        <div class="progress-bar" aria-label="Progress bar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <div style="margin-top: 16px;">
+          <button class="danger-btn" id="clearAllAnswers" type="button">Clear All Answers</button>
+        </div>
+      </section>
+
+      <section class="score-card">
+        <div class="score-top">
+          <div>
+            <h2 class="section-title">My Score</h2>
+            <p class="section-copy" style="margin-bottom: 0;">
+              This is a basic support marker. It checks for key ideas.
+            </p>
+          </div>
+
+          <div class="score-text" id="scoreText">0 / 5 marks</div>
+        </div>
+
+        <div class="score-bar" aria-label="Score bar">
+          <div class="score-fill" id="scoreFill"></div>
+        </div>
+      </section>
+
+      <section class="concepts-card">
+        <h2 class="section-title">Food Web Concepts</h2>
+        <p class="section-copy">
+          A food web shows how many food chains are linked together in one ecosystem. It helps learners see that organisms usually have more than one feeding relationship.
+        </p>
+
+        <div class="concept-grid">
+          <div class="concept-box">
+            <h3>Producer</h3>
+            <p>
+              A producer is a living thing, usually a green plant, that makes its own food using sunlight, water, and carbon dioxide.
+            </p>
+          </div>
+
+          <div class="concept-box">
+            <h3>Consumer</h3>
+            <p>
+              A consumer cannot make its own food. It gets energy by eating plants, animals, or both.
+            </p>
+          </div>
+
+          <div class="concept-box">
+            <h3>Predator and prey</h3>
+            <p>
+              A predator hunts and eats another organism. The organism that is hunted and eaten is called prey.
+            </p>
+          </div>
+
+          <div class="concept-box">
+            <h3>Decomposer</h3>
+            <p>
+              A decomposer breaks down dead plants and animals and returns nutrients to the soil and environment.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="exercise-card">
+        <h2 class="section-title">Comprehension Exercise</h2>
+        <p class="section-copy">
+          Study the food web and then type your answers below. After you submit each answer, you can open a modelled answer to compare your work.
+        </p>
+
+        <div class="question-block" data-question="1">
+          <h3>1. What is the difference between a food chain and a food web?</h3>
+          <textarea class="answer-input" placeholder="Type your answer here..."></textarea>
+
+          <div class="question-actions">
+            <button class="submit-btn" type="button">Submit Answer</button>
+            <button class="model-btn" type="button">Show Model Answer</button>
+            <button class="edit-btn" type="button">Edit Answer</button>
+          </div>
+
+          <div class="question-status">Answer submitted.</div>
+
+          <div class="mark-feedback">
+            <h4>Feedback</h4>
+            <p></p>
+          </div>
+
+          <div class="model-answer">
+            <h4>Model Answer</h4>
+            <p>
+              A food chain shows one simple feeding path from one organism to another. A food web shows many connected food chains in the same ecosystem. A food web is more realistic because most organisms eat more than one kind of food and may be eaten by more than one predator.
+            </p>
+          </div>
+        </div>
+
+        <div class="question-block" data-question="2">
+          <h3>2. Why is grass called a producer in this ecosystem?</h3>
+          <textarea class="answer-input" placeholder="Type your answer here..."></textarea>
+
+          <div class="question-actions">
+            <button class="submit-btn" type="button">Submit Answer</button>
+            <button class="model-btn" type="button">Show Model Answer</button>
+            <button class="edit-btn" type="button">Edit Answer</button>
+          </div>
+
+          <div class="question-status">Answer submitted.</div>
+
+          <div class="mark-feedback">
+            <h4>Feedback</h4>
+            <p></p>
+          </div>
+
+          <div class="model-answer">
+            <h4>Model Answer</h4>
+            <p>
+              Grass is called a producer because it makes its own food using sunlight, water, and carbon dioxide during photosynthesis. It does not need to eat other organisms to get energy, and it provides food for other organisms in the food web.
+            </p>
+          </div>
+        </div>
+
+        <div class="question-block" data-question="3">
+          <h3>3. Name two organisms in this poster that are predators.</h3>
+          <textarea class="answer-input" placeholder="Type your answer here..."></textarea>
+
+          <div class="question-actions">
+            <button class="submit-btn" type="button">Submit Answer</button>
+            <button class="model-btn" type="button">Show Model Answer</button>
+            <button class="edit-btn" type="button">Edit Answer</button>
+          </div>
+
+          <div class="question-status">Answer submitted.</div>
+
+          <div class="mark-feedback">
+            <h4>Feedback</h4>
+            <p></p>
+          </div>
+
+          <div class="model-answer">
+            <h4>Model Answer</h4>
+            <p>
+              Two predators in this poster are the owl and the snake. They hunt and eat other animals such as mice, birds, and frogs.
+            </p>
+          </div>
+        </div>
+
+        <div class="question-block" data-question="4">
+          <h3>4. Why are fungi and earthworms important in an ecosystem?</h3>
+          <textarea class="answer-input" placeholder="Type your answer here..."></textarea>
+
+          <div class="question-actions">
+            <button class="submit-btn" type="button">Submit Answer</button>
+            <button class="model-btn" type="button">Show Model Answer</button>
+            <button class="edit-btn" type="button">Edit Answer</button>
+          </div>
+
+          <div class="question-status">Answer submitted.</div>
+
+          <div class="mark-feedback">
+            <h4>Feedback</h4>
+            <p></p>
+          </div>
+
+          <div class="model-answer">
+            <h4>Model Answer</h4>
+            <p>
+              Fungi and earthworms are important because they help break down dead plants, animals, and waste material. This returns nutrients to the soil, which helps plants grow again. They are important decomposers in the ecosystem.
+            </p>
+          </div>
+        </div>
+
+        <div class="question-block" data-question="5">
+          <h3>5. Explain how energy moves from plants to larger animals in a food web.</h3>
+          <textarea class="answer-input" placeholder="Type your answer here..."></textarea>
+
+          <div class="question-actions">
+            <button class="submit-btn" type="button">Submit Answer</button>
+            <button class="model-btn" type="button">Show Model Answer</button>
+            <button class="edit-btn" type="button">Edit Answer</button>
+          </div>
+
+          <div class="question-status">Answer submitted.</div>
+
+          <div class="mark-feedback">
+            <h4>Feedback</h4>
+            <p></p>
+          </div>
+
+          <div class="model-answer">
+            <h4>Model Answer</h4>
+            <p>
+              Energy starts with plants because they make food by photosynthesis. Plant-eating animals such as grasshoppers, caterpillars, or snails get energy by eating plants. Larger animals such as frogs, birds, snakes, and owls then get energy by eating smaller animals. In this way, energy moves through the food web from producers to consumers.
+            </p>
+          </div>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <div class="modal-backdrop" id="ecosystemModal" aria-hidden="true">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="ecosystemTitle">
+      <div class="modal-top">
+        <h2 class="modal-title" id="ecosystemTitle">What is an ecosystem?</h2>
+        <button class="modal-close close-ecosystem" type="button" aria-label="Close">×</button>
+      </div>
+
+      <div class="modal-body">
+        <p>
+          An ecosystem is a community of living things and non-living things that interact in one place.
+          Living things include plants, animals, fungi, and microorganisms.
+          Non-living things include sunlight, water, air, soil, and rocks.
+        </p>
+
+        <p>
+          In every ecosystem, organisms depend on one another.
+          Plants make food, animals feed on plants or other animals, and decomposers break down dead matter.
+          Because of these interactions, a change in one part of the ecosystem can affect many other parts.
+        </p>
+
+        <div class="info-grid">
+          <div class="info-box">
+            <h3>Living things</h3>
+            <p>Plants, animals, fungi, and tiny organisms that grow, feed, and reproduce.</p>
+          </div>
+
+          <div class="info-box">
+            <h3>Non-living things</h3>
+            <p>Air, water, sunlight, temperature, rocks, and soil help support life in the ecosystem.</p>
+          </div>
+
+          <div class="info-box">
+            <h3>Interdependence</h3>
+            <p>Organisms rely on one another for food, shelter, protection, and survival.</p>
+          </div>
+
+          <div class="info-box">
+            <h3>Balance</h3>
+            <p>If one group becomes too many or too few, the whole ecosystem can be affected.</p>
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button class="close-btn close-ecosystem" type="button">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="organismModal" aria-hidden="true">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="organismTitle">
+      <div class="modal-top">
+        <h2 class="modal-title" id="organismTitle">Organism</h2>
+        <button class="modal-close" id="closeOrganismTop" type="button" aria-label="Close">×</button>
+      </div>
+
+      <div class="modal-body">
+        <p id="organismIntro"></p>
+
+        <div class="info-grid">
+          <div class="info-box">
+            <h3>Role in the ecosystem</h3>
+            <p id="organismRole"></p>
+          </div>
+
+          <div class="info-box">
+            <h3>What it eats or how it gets energy</h3>
+            <p id="organismFood"></p>
+          </div>
+
+          <div class="info-box">
+            <h3>Food web connection</h3>
+            <p id="organismLink"></p>
+          </div>
+
+          <div class="info-box">
+            <h3>Why it matters</h3>
+            <p id="organismWhy"></p>
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button class="close-btn" id="closeOrganismBottom" type="button">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const STORAGE_KEY = "fluent_food_web_answers_v2";
+
+    const ecosystemModal = document.getElementById("ecosystemModal");
+    const organismModal = document.getElementById("organismModal");
+    const openEcosystemCard = document.getElementById("openEcosystemCard");
+    const ecosystemCloseButtons = document.querySelectorAll(".close-ecosystem");
+
+    const organismTitle = document.getElementById("organismTitle");
+    const organismIntro = document.getElementById("organismIntro");
+    const organismRole = document.getElementById("organismRole");
+    const organismFood = document.getElementById("organismFood");
+    const organismLink = document.getElementById("organismLink");
+    const organismWhy = document.getElementById("organismWhy");
+
+    const closeOrganismTop = document.getElementById("closeOrganismTop");
+    const closeOrganismBottom = document.getElementById("closeOrganismBottom");
+
+    const progressText = document.getElementById("progressText");
+    const progressFill = document.getElementById("progressFill");
+    const scoreText = document.getElementById("scoreText");
+    const scoreFill = document.getElementById("scoreFill");
+    const clearAllAnswersBtn = document.getElementById("clearAllAnswers");
+
+    const organismData = {
+      grass: {
+        title: "Grass",
+        intro: "Grass is a producer. It is one of the starting points of energy in this ecosystem.",
+        role: "Producer",
+        food: "Grass makes its own food by photosynthesis using sunlight, water, and carbon dioxide.",
+        link: "Grass may be eaten by caterpillars, grasshoppers, snails, mice, and other plant-eating organisms.",
+        why: "Without producers, consumers would not have a source of food energy."
+      },
+      caterpillar: {
+        title: "Caterpillar",
+        intro: "A caterpillar is a small plant-eating consumer.",
+        role: "Primary consumer",
+        food: "It gets energy by eating leaves and other plant material.",
+        link: "Caterpillars may be eaten by birds and other animals.",
+        why: "Caterpillars help transfer energy from plants to larger consumers."
+      },
+      grasshopper: {
+        title: "Grasshopper",
+        intro: "A grasshopper is a consumer that feeds on plants.",
+        role: "Primary consumer",
+        food: "It eats grass, leaves, and other plant matter.",
+        link: "Grasshoppers may be eaten by birds, frogs, or other predators.",
+        why: "It forms an important link between producers and higher-level consumers."
+      },
+      mouse: {
+        title: "Mouse",
+        intro: "A mouse is a small consumer in the food web.",
+        role: "Consumer",
+        food: "It may eat seeds, plants, and other small food sources depending on the habitat.",
+        link: "Mice may be eaten by snakes, owls, and other predators.",
+        why: "Mice help move energy from lower levels of the food web to higher predators."
+      },
+      bird: {
+        title: "Bird",
+        intro: "This bird is a consumer that feeds on smaller organisms.",
+        role: "Consumer",
+        food: "It may eat insects such as caterpillars and grasshoppers.",
+        link: "The bird can be both a predator and prey because larger animals may also eat it.",
+        why: "Birds help control insect populations and keep the food web balanced."
+      },
+      frog: {
+        title: "Frog",
+        intro: "A frog is a secondary consumer.",
+        role: "Secondary consumer",
+        food: "It gets energy by eating insects and other small animals.",
+        link: "A frog may eat grasshoppers and insects, but may also be eaten by snakes or birds.",
+        why: "Frogs are important because they connect smaller consumers to larger predators."
+      },
+      owl: {
+        title: "Owl",
+        intro: "An owl is a predator in this ecosystem.",
+        role: "Predator",
+        food: "It hunts and eats smaller animals such as mice, birds, and frogs.",
+        link: "Owls are near the top of the food web and depend on healthy lower populations.",
+        why: "Owls help control the numbers of smaller animals and maintain balance."
+      },
+      snake: {
+        title: "Snake",
+        intro: "A snake is a predator that hunts other animals.",
+        role: "Predator",
+        food: "It gets energy by eating animals such as mice, frogs, and birds.",
+        link: "Snakes are important predators and may also become prey for larger animals in some ecosystems.",
+        why: "Snakes help control populations of small animals and keep the food web balanced."
+      },
+      snail: {
+        title: "Snail",
+        intro: "A snail is a plant-eating organism.",
+        role: "Primary consumer",
+        food: "It feeds on leaves, soft plant parts, and decaying plant material.",
+        link: "Snails may be eaten by birds and other consumers.",
+        why: "Snails help transfer energy from plants to animals higher in the food web."
+      },
+      fish: {
+        title: "Fish",
+        intro: "A fish is a consumer in the aquatic part of the ecosystem.",
+        role: "Consumer",
+        food: "It may eat tiny plants, insects, smaller animals, or organic matter in the water.",
+        link: "Fish connect water-based feeding relationships to the larger ecosystem.",
+        why: "Fish help maintain balance in aquatic habitats and are part of the wider food web."
+      },
+      earthworm: {
+        title: "Earthworm",
+        intro: "An earthworm is an important decomposer.",
+        role: "Decomposer",
+        food: "It feeds on dead plant and animal material found in the soil.",
+        link: "Earthworms help break down matter and return nutrients to the soil.",
+        why: "Earthworms improve soil quality and help plants grow better."
+      },
+      fungi: {
+        title: "Fungi",
+        intro: "Fungi are decomposers that break down dead organic matter.",
+        role: "Decomposer",
+        food: "They get energy by breaking down dead plants, dead animals, and waste material.",
+        link: "Fungi recycle nutrients back into the ecosystem so producers can use them again.",
+        why: "Without fungi, dead matter would build up and nutrients would not return easily to the soil."
+      }
+    };
+
+    const markingRules = {
+      1: {
+        requiredAnyGroups: [
+          ["food chain", "chain"],
+          ["food web", "web"],
+          ["one path", "single path", "one feeding path", "single feeding path", "simple path"],
+          ["many", "connected", "linked", "several", "multiple"]
+        ]
+      },
+      2: {
+        requiredAnyGroups: [
+          ["producer"],
+          ["make", "makes", "making"],
+          ["own food"],
+          ["sunlight", "photosynthesis"]
+        ]
+      },
+      3: {
+        acceptedPredators: ["owl", "snake", "bird", "frog"]
+      },
+      4: {
+        requiredAnyGroups: [
+          ["decomposer", "decomposers", "break down", "breaking down"],
+          ["dead plants", "dead animals", "dead matter", "waste"],
+          ["nutrients"],
+          ["soil", "grow", "plants grow"]
+        ]
+      },
+      5: {
+        requiredAnyGroups: [
+          ["plants", "producer", "producers"],
+          ["energy"],
+          ["eat", "eating"],
+          ["smaller animals", "larger animals", "consumers", "predators"]
+        ]
+      }
+    };
+
+    function normalizeText(text) {
+      return text
+        .toLowerCase()
+        .replace(/[^\w\s]/g, " ")
+        .replace(/\s+/g, " ")
+        .trim();
+    }
+
+    function getSavedData() {
+      try {
+        return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+      } catch (error) {
+        return {};
+      }
+    }
+
+    function saveData(data) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    }
+
+    function updateProgress() {
+      const blocks = document.querySelectorAll(".question-block");
+      let completed = 0;
+
+      blocks.forEach(block => {
+        const textarea = block.querySelector(".answer-input");
+        const isReadonly = textarea.hasAttribute("readonly");
+        if (isReadonly && textarea.value.trim() !== "") {
+          completed += 1;
+          block.classList.add("completed");
+        } else {
+          block.classList.remove("completed");
+        }
+      });
+
+      const total = blocks.length;
+      const percentage = total === 0 ? 0 : (completed / total) * 100;
+
+      progressText.textContent = `${completed} of ${total} questions completed`;
+      progressFill.style.width = `${percentage}%`;
+    }
+
+    function updateTotalScore() {
+      const savedData = getSavedData();
+      let totalMarks = 0;
+      const totalPossible = 5;
+
+      Object.keys(savedData).forEach(key => {
+        const item = savedData[key];
+        if (item && typeof item.mark === "number") {
+          totalMarks += item.mark;
+        }
+      });
+
+      const percentage = (totalMarks / totalPossible) * 100;
+      scoreText.textContent = `${totalMarks} / ${totalPossible} marks`;
+      scoreFill.style.width = `${percentage}%`;
+    }
+
+    function setQuestionSubmitted(block, submitted) {
+      const textarea = block.querySelector(".answer-input");
+      const submitBtn = block.querySelector(".submit-btn");
+      const modelBtn = block.querySelector(".model-btn");
+      const editBtn = block.querySelector(".edit-btn");
+      const status = block.querySelector(".question-status");
+
+      if (submitted) {
+        textarea.classList.add("locked");
+        textarea.setAttribute("readonly", true);
+        status.style.display = "block";
+        modelBtn.style.display = "inline-block";
+        editBtn.style.display = "inline-block";
+        submitBtn.disabled = true;
+        submitBtn.style.opacity = "0.7";
+        submitBtn.style.cursor = "not-allowed";
+        block.classList.add("completed");
+      } else {
+        textarea.classList.remove("locked");
+        textarea.removeAttribute("readonly");
+        status.style.display = "none";
+        modelBtn.style.display = "none";
+        editBtn.style.display = "none";
+        submitBtn.disabled = false;
+        submitBtn.style.opacity = "1";
+        submitBtn.style.cursor = "pointer";
+        block.classList.remove("completed");
+      }
+    }
+
+    function containsAny(text, options) {
+      return options.some(option => text.includes(option));
+    }
+
+    function markQuestion(questionId, answer) {
+      const text = normalizeText(answer);
+      const rule = markingRules[questionId];
+
+      if (!rule || !text) {
+        return {
+          mark: 0,
+          title: "No mark yet",
+          message: "Please write an answer first.",
+          level: "low"
+        };
+      }
+
+      if (questionId === "3") {
+        let found = 0;
+        const matched = [];
+
+        rule.acceptedPredators.forEach(word => {
+          if (text.includes(word)) {
+            found += 1;
+            matched.push(word);
+          }
+        });
+
+        if (found >= 2) {
+          return {
+            mark: 1,
+            title: "Well done",
+            message: `You correctly identified predator examples: ${matched.slice(0, 2).join(" and ")}.`,
+            level: "good"
+          };
+        }
+
+        if (found === 1) {
+          return {
+            mark: 0.5,
+            title: "Good start",
+            message: "You named one correct predator. Add one more predator from the poster.",
+            level: "medium"
+          };
+        }
+
+        return {
+          mark: 0,
+          title: "Try again",
+          message: "Name two predators from the poster, such as the owl or the snake.",
+          level: "low"
+        };
+      }
+
+      let matches = 0;
+      rule.requiredAnyGroups.forEach(group => {
+        if (containsAny(text, group)) {
+          matches += 1;
+        }
+      });
+
+      if (matches >= 4) {
+        return {
+          mark: 1,
+          title: "Well done",
+          message: "Your answer includes the main ideas needed for this question.",
+          level: "good"
+        };
+      }
+
+      if (matches >= 2) {
+        return {
+          mark: 0.5,
+          title: "Good start",
+          message: "You have some correct ideas. Add one or two more key points to make the answer stronger.",
+          level: "medium"
+        };
+      }
+
+      return {
+        mark: 0,
+        title: "Keep improving",
+        message: "Your answer needs more key ideas. Read the poster again and try to include the main science words.",
+        level: "low"
+      };
+    }
+
+    function showFeedback(block, result) {
+      const feedbackBox = block.querySelector(".mark-feedback");
+      const feedbackTitle = feedbackBox.querySelector("h4");
+      const feedbackText = feedbackBox.querySelector("p");
+
+      feedbackBox.classList.remove("good", "medium", "low");
+      feedbackBox.classList.add(result.level);
+
+      feedbackTitle.textContent = `${result.title} — ${result.mark} / 1`;
+      feedbackText.textContent = result.message;
+      feedbackBox.style.display = "block";
+    }
+
+    function hideFeedback(block) {
+      const feedbackBox = block.querySelector(".mark-feedback");
+      feedbackBox.style.display = "none";
+      feedbackBox.classList.remove("good", "medium", "low");
+    }
+
+    function persistQuestionState(block, extra = {}) {
+      const questionId = block.dataset.question;
+      const textarea = block.querySelector(".answer-input");
+      const modelAnswer = block.querySelector(".model-answer");
+      const savedData = getSavedData();
+      const current = savedData[questionId] || {};
+
+      savedData[questionId] = {
+        answer: textarea.value,
+        submitted: textarea.hasAttribute("readonly"),
+        modelVisible: modelAnswer.style.display === "block",
+        mark: typeof extra.mark === "number" ? extra.mark : (current.mark || 0),
+        feedbackTitle: extra.feedbackTitle !== undefined ? extra.feedbackTitle : (current.feedbackTitle || ""),
+        feedbackMessage: extra.feedbackMessage !== undefined ? extra.feedbackMessage : (current.feedbackMessage || ""),
+        feedbackLevel: extra.feedbackLevel !== undefined ? extra.feedbackLevel : (current.feedbackLevel || "")
+      };
+
+      saveData(savedData);
+      updateProgress();
+      updateTotalScore();
+    }
+
+    function loadSavedAnswers() {
+      const savedData = getSavedData();
+
+      document.querySelectorAll(".question-block").forEach(block => {
+        const questionId = block.dataset.question;
+        const textarea = block.querySelector(".answer-input");
+        const modelAnswer = block.querySelector(".model-answer");
+        const savedQuestion = savedData[questionId];
+
+        if (!savedQuestion) return;
+
+        textarea.value = savedQuestion.answer || "";
+
+        if (savedQuestion.submitted) {
+          setQuestionSubmitted(block, true);
+        }
+
+        if (savedQuestion.modelVisible) {
+          modelAnswer.style.display = "block";
+        }
+
+        if (savedQuestion.feedbackTitle || savedQuestion.feedbackMessage) {
+          showFeedback(block, {
+            title: savedQuestion.feedbackTitle || "Feedback",
+            message: savedQuestion.feedbackMessage || "",
+            mark: typeof savedQuestion.mark === "number" ? savedQuestion.mark : 0,
+            level: savedQuestion.feedbackLevel || "medium"
+          });
+        }
+      });
+
+      updateProgress();
+      updateTotalScore();
+    }
+
+    openEcosystemCard.addEventListener("click", () => {
+      ecosystemModal.classList.add("show");
+      ecosystemModal.setAttribute("aria-hidden", "false");
+    });
+
+    ecosystemCloseButtons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        ecosystemModal.classList.remove("show");
+        ecosystemModal.setAttribute("aria-hidden", "true");
+      });
+    });
+
+    document.querySelectorAll(".hotspot").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const key = btn.dataset.organism;
+        const data = organismData[key];
+
+        if (!data) return;
+
+        organismTitle.textContent = data.title;
+        organismIntro.textContent = data.intro;
+        organismRole.textContent = data.role;
+        organismFood.textContent = data.food;
+        organismLink.textContent = data.link;
+        organismWhy.textContent = data.why;
+
+        organismModal.classList.add("show");
+        organismModal.setAttribute("aria-hidden", "false");
+      });
+    });
+
+    function closeOrganismModal() {
+      organismModal.classList.remove("show");
+      organismModal.setAttribute("aria-hidden", "true");
+    }
+
+    closeOrganismTop.addEventListener("click", closeOrganismModal);
+    closeOrganismBottom.addEventListener("click", closeOrganismModal);
+
+    window.addEventListener("click", (e) => {
+      if (e.target === ecosystemModal) {
+        ecosystemModal.classList.remove("show");
+        ecosystemModal.setAttribute("aria-hidden", "true");
+      }
+
+      if (e.target === organismModal) {
+        closeOrganismModal();
+      }
+    });
+
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        ecosystemModal.classList.remove("show");
+        ecosystemModal.setAttribute("aria-hidden", "true");
+        closeOrganismModal();
+      }
+    });
+
+    document.querySelectorAll(".question-block").forEach(block => {
+      const textarea = block.querySelector(".answer-input");
+      const submitBtn = block.querySelector(".submit-btn");
+      const modelBtn = block.querySelector(".model-btn");
+      const editBtn = block.querySelector(".edit-btn");
+      const modelAnswer = block.querySelector(".model-answer");
+
+      textarea.addEventListener("input", () => {
+        persistQuestionState(block);
+      });
+
+      submitBtn.addEventListener("click", () => {
+        if (textarea.value.trim() === "") {
+          alert("Please type your answer first.");
+          textarea.focus();
+          return;
+        }
+
+        const result = markQuestion(block.dataset.question, textarea.value);
+
+        setQuestionSubmitted(block, true);
+        showFeedback(block, result);
+
+        persistQuestionState(block, {
+          mark: result.mark,
+          feedbackTitle: result.title,
+          feedbackMessage: result.message,
+          feedbackLevel: result.level
+        });
+      });
+
+      modelBtn.addEventListener("click", () => {
+        modelAnswer.style.display = "block";
+        persistQuestionState(block);
+      });
+
+      editBtn.addEventListener("click", () => {
+        setQuestionSubmitted(block, false);
+        hideFeedback(block);
+
+        persistQuestionState(block, {
+          mark: 0,
+          feedbackTitle: "",
+          feedbackMessage: "",
+          feedbackLevel: ""
+        });
+
+        textarea.focus();
+      });
+    });
+
+    clearAllAnswersBtn.addEventListener("click", () => {
+      const confirmed = confirm("Are you sure you want to clear all saved answers?");
+      if (!confirmed) return;
+
+      localStorage.removeItem(STORAGE_KEY);
+
+      document.querySelectorAll(".question-block").forEach(block => {
+        const textarea = block.querySelector(".answer-input");
+        const modelAnswer = block.querySelector(".model-answer");
+
+        textarea.value = "";
+        setQuestionSubmitted(block, false);
+        modelAnswer.style.display = "none";
+        hideFeedback(block);
+      });
+
+      updateProgress();
+      updateTotalScore();
+    });
+
+    loadSavedAnswers();
+  </script>
+</body>
+</html>

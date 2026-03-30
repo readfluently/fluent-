@@ -7,11 +7,18 @@
 
   <style>
     :root {
+      --bg: #fffaf5;
       --surface: #ffffff;
       --text: #1f2937;
       --muted: #667085;
       --line: #d7dfeb;
       --shadow: 0 10px 26px rgba(15, 23, 42, 0.08);
+      --shadow-hover: 0 16px 34px rgba(15, 23, 42, 0.12);
+
+      --phase-tint: linear-gradient(180deg, #fff7ed 0%, #ffffff 100%);
+      --phase-active-bg: #ffedd5;
+      --phase-active-text: #ea580c;
+      --phase-focus: rgba(234, 88, 12, 0.12);
 
       --orange: linear-gradient(135deg, #f4a261 0%, #f6b37a 100%);
       --green: linear-gradient(135deg, #22c55e 0%, #4ade80 100%);
@@ -20,6 +27,10 @@
 
     * {
       box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
     }
 
     body {
@@ -34,110 +45,218 @@
       color: inherit;
     }
 
-    .topbar {
+    .site-header {
       position: sticky;
       top: 0;
-      background: #ffffff;
-      border-bottom: 1px solid var(--line);
-      z-index: 10;
+      z-index: 1000;
+      background: var(--phase-tint);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(215, 223, 235, 0.95);
+      box-shadow: 0 8px 22px rgba(15, 23, 42, 0.06);
     }
 
-    .topbar-inner {
-      max-width: 1100px;
-      margin: auto;
+    .nav-shell {
+      width: min(100%, 1360px);
+      margin: 0 auto;
       padding: 12px 18px;
       display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
       align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
     }
 
     .brand {
-      font-weight: bold;
-      color: #1e3a8a;
-      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: max-content;
     }
 
-    .nav-links {
+    .brand-logo {
       display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 76px;
+      height: 76px;
+      border-radius: 18px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.78);
+      border: 1px solid #f1d7c4;
+      box-shadow: 0 10px 24px rgba(15,23,42,0.08);
+      flex: 0 0 auto;
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+
+    .brand:hover .brand-logo {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 28px rgba(15,23,42,0.12);
+    }
+
+    .brand-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      padding: 4px;
+    }
+
+    .nav-main {
+      display: flex;
+      align-items: center;
       gap: 8px;
       flex-wrap: wrap;
+      justify-content: center;
+      flex: 1;
     }
 
-    .top-link {
-      text-decoration: none;
-      padding: 6px 10px;
-      border-radius: 8px;
+    .nav-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 18px;
+      border-radius: 14px;
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: #1f2937;
+      transition: background .18s ease, color .18s ease, transform .18s ease;
+    }
+
+    .nav-link:hover {
+      background: #ffffff;
+      color: var(--phase-active-text);
+      transform: translateY(-1px);
+    }
+
+    .nav-link.active {
+      background: var(--phase-active-bg);
+      color: var(--phase-active-text);
+      box-shadow: inset 0 0 0 1px #ffd4b0;
+    }
+
+    .nav-search {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: min(100%, 290px);
+    }
+
+    .nav-search input {
+      width: 230px;
+      max-width: 100%;
+      height: 46px;
+      border: 1px solid #e3cdbd;
+      border-radius: 14px;
+      padding: 0 16px;
+      font-size: 0.98rem;
+      outline: none;
+      background: #fff;
       color: var(--text);
     }
 
-    .top-link:hover,
-    .top-link.active {
-      background: #f2f5fb;
+    .nav-search input:focus {
+      border-color: #f4a261;
+      box-shadow: 0 0 0 4px var(--phase-focus);
     }
 
-    .search-wrap {
-      margin-left: auto;
-      display: flex;
-      gap: 6px;
-    }
-
-    .search-box {
-      padding: 8px 10px;
-      border-radius: 10px;
-      border: 1px solid var(--line);
-    }
-
-    .search-btn {
-      padding: 8px 12px;
+    .nav-search button {
+      height: 46px;
+      padding: 0 22px;
       border: none;
-      border-radius: 10px;
-      background: #1d4ed8;
-      color: white;
+      border-radius: 14px;
+      background: #ea580c;
+      color: #fff;
+      font-size: 0.98rem;
+      font-weight: 700;
       cursor: pointer;
+      transition: transform .18s ease, opacity .18s ease;
+    }
+
+    .nav-search button:hover {
+      transform: translateY(-1px);
+      opacity: 0.96;
     }
 
     .page {
-      max-width: 900px;
+      max-width: 980px;
       margin: auto;
-      padding: 20px;
+      padding: 24px 18px 42px;
+    }
+
+    .page-tools {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+    }
+
+    .back-btn,
+    .page-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.92);
+      border: 1px solid rgba(215,223,235,0.95);
+      color: var(--muted);
+      box-shadow: var(--shadow);
+      font-size: 0.95rem;
+    }
+
+    .back-btn {
+      cursor: pointer;
+      font-weight: 700;
+      transition: transform .18s ease, box-shadow .18s ease, color .18s ease;
+    }
+
+    .back-btn:hover {
+      transform: translateY(-1px);
+      color: var(--phase-active-text);
+      box-shadow: var(--shadow-hover);
     }
 
     .container {
       background: var(--surface);
-      border-radius: 20px;
-      padding: 16px;
+      border-radius: 24px;
+      padding: 18px;
       box-shadow: var(--shadow);
     }
 
     .stack {
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 18px;
     }
 
     .hero img {
       width: 100%;
-      border-radius: 16px;
+      border-radius: 18px;
       display: block;
+      box-shadow: var(--shadow);
     }
 
     .hero h1 {
       text-align: center;
-      margin: 12px 0 6px;
+      margin: 14px 0 8px;
       color: #1e3a8a;
+      font-size: 2rem;
+      letter-spacing: -0.02em;
     }
 
     .hero p {
       text-align: center;
       color: var(--muted);
-      margin: 0;
-      line-height: 1.6;
+      margin: 0 auto;
+      line-height: 1.7;
+      max-width: 760px;
     }
 
     .section {
-      border-radius: 18px;
-      padding: 20px;
+      border-radius: 22px;
+      padding: 22px;
       color: white;
       box-shadow: var(--shadow);
     }
@@ -145,12 +264,13 @@
     .section h2 {
       margin-top: 0;
       margin-bottom: 8px;
+      font-size: 1.35rem;
     }
 
     .section p {
       margin-top: 0;
-      margin-bottom: 12px;
-      line-height: 1.5;
+      margin-bottom: 14px;
+      line-height: 1.6;
     }
 
     .mini {
@@ -162,51 +282,91 @@
 
     .mini a {
       background: rgba(255,255,255,0.2);
-      padding: 12px;
-      border-radius: 12px;
+      padding: 13px 14px;
+      border-radius: 14px;
       color: white;
-      transition: transform 0.18s ease, background 0.18s ease;
+      transition: transform 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
     }
 
     .mini a:hover {
       transform: translateY(-1px);
       background: rgba(255,255,255,0.28);
+      box-shadow: 0 10px 20px rgba(15,23,42,0.10);
     }
 
     .reading { background: var(--orange); }
     .activities { background: var(--green); }
     .events { background: var(--purple); }
 
-    @media (max-width: 700px) {
-      .topbar-inner {
-        padding: 12px 14px;
+    @media (max-width: 1100px) {
+      .nav-shell {
+        justify-content: center;
       }
 
-      .search-wrap {
-        margin-left: 0;
+      .nav-main {
         width: 100%;
+        justify-content: center;
       }
 
-      .search-box {
-        flex: 1;
+      .nav-search {
+        width: 100%;
+        justify-content: center;
       }
 
+      .nav-search input {
+        width: min(100%, 360px);
+      }
+    }
+
+    @media (max-width: 700px) {
       .page {
-        padding: 16px 12px 30px;
+        padding: 18px 12px 34px;
       }
 
       .container {
         padding: 14px;
+        border-radius: 20px;
+      }
+
+      .hero h1 {
+        font-size: 1.65rem;
+      }
+
+      .section {
+        padding: 18px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .brand-logo {
+        width: 62px;
+        height: 62px;
+      }
+
+      .nav-link {
+        padding: 10px 14px;
+        font-size: 0.92rem;
       }
     }
 
     @media (max-width: 520px) {
-      .search-wrap {
+      .nav-search {
         flex-direction: column;
       }
 
-      .search-btn {
+      .nav-search input,
+      .nav-search button {
         width: 100%;
+      }
+
+      .page-tools {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .back-btn,
+      .page-chip {
+        justify-content: center;
       }
     }
   </style>
@@ -214,32 +374,44 @@
 
 <body>
 
-  <nav class="topbar">
-    <div class="topbar-inner">
-      <a class="brand" href="./index.html">Fluent</a>
+  <header class="site-header">
+    <div class="nav-shell">
+      <a class="brand" href="../index.html" aria-label="Fluent home">
+        <div class="brand-logo">
+          <img src="../shared/logos/fluent-logo.png" alt="Fluent logo">
+        </div>
+      </a>
 
-      <div class="nav-links">
-        <a class="top-link" href="./index.html">Home</a>
-        <a class="top-link active" href="./grade-r-3.html">Grade R–3</a>
-        <a class="top-link" href="./grade-4-6.html">Grade 4–6</a>
-        <a class="top-link" href="./grade-7-9.html">Grade 7–9</a>
-        <a class="top-link" href="./grade-10-12.html">Grade 10–12</a>
-        <a class="top-link" href="./teachers.html">Teachers</a>
-      </div>
+      <nav class="nav-main">
+        <a class="nav-link" href="../index.html">Home</a>
+        <a class="nav-link active" href="./grade-r-3.html">Grade R–3</a>
+        <a class="nav-link" href="./grade-4-6.html">Grade 4–6</a>
+        <a class="nav-link" href="./grade-7-9.html">Grade 7–9</a>
+        <a class="nav-link" href="./grade-10-12.html">Grade 10–12</a>
+        <a class="nav-link" href="./teachers.html">Teachers</a>
+      </nav>
 
-      <form class="search-wrap" onsubmit="event.preventDefault(); searchPages();">
-        <input id="searchInput" class="search-box" placeholder="library" />
-        <button class="search-btn" type="submit">Search</button>
+      <form class="nav-search" id="navSearchForm">
+        <input
+          id="navSearchInput"
+          type="text"
+          placeholder="library"
+          aria-label="Search Fluent"
+        />
+        <button type="submit">Search</button>
       </form>
     </div>
-  </nav>
+  </header>
 
   <main class="page">
-    <div class="container">
+    <div class="page-tools">
+      <button class="back-btn" type="button" onclick="goBack()">← Back</button>
+      <div class="page-chip">Fluent | Grade R–3</div>
+    </div>
 
+    <div class="container">
       <div class="stack">
 
-        <!-- HERO -->
         <section class="hero">
           <img src="../shared/assets/images/grade-r-3-welcome.png" alt="Welcome to Fluent Grade R to 3" />
           <h1>Grade R–3</h1>
@@ -248,7 +420,6 @@
           </p>
         </section>
 
-        <!-- READING -->
         <section class="section reading">
           <h2>📚 Reading</h2>
           <p>Develop decoding, fluency, listening, and early reading confidence.</p>
@@ -260,7 +431,6 @@
           </div>
         </section>
 
-        <!-- ACTIVITIES -->
         <section class="section activities">
           <h2>🧠 Learner Activities</h2>
           <p>Explore playful and supportive activities for building early literacy.</p>
@@ -273,7 +443,6 @@
           </div>
         </section>
 
-        <!-- EVENTS -->
         <section class="section events">
           <h2>🏆 Events &amp; Competitions</h2>
           <p>Celebrate reading, speaking, and participation through learner events.</p>
@@ -286,55 +455,112 @@
         </section>
 
       </div>
-
     </div>
   </main>
 
   <script>
     const searchMap = {
-      "home": "./index.html",
+      "home": "../index.html",
+      "fluent": "../index.html",
+
       "grade r-3": "./grade-r-3.html",
+      "grade r 3": "./grade-r-3.html",
+      "grade r3": "./grade-r-3.html",
+
       "grade 4-6": "./grade-4-6.html",
+      "grade 4 6": "./grade-4-6.html",
+
       "grade 7-9": "./grade-7-9.html",
+      "grade 7 9": "./grade-7-9.html",
+
       "grade 10-12": "./grade-10-12.html",
+      "grade 10 12": "./grade-10-12.html",
+
       "teachers": "./teachers.html",
+      "teacher": "./teachers.html",
+
       "library": "../apps/library/library.html?phase=grade-r-3",
+      "books": "../apps/library/library.html?phase=grade-r-3",
+
       "read fluently": "../apps/read-fluently/read-fluently.html",
+      "reading": "../apps/read-fluently/read-fluently.html",
+
       "audio": "../apps/listen-learn/listen-learn.html",
       "my first audio textbooks": "../apps/listen-learn/listen-learn.html",
+      "listen and learn": "../apps/listen-learn/listen-learn.html",
+
       "language blocks": "../apps/phonics-path/phonics-path.html",
+      "phonics": "../apps/phonics-path/phonics-path.html",
+
       "sound maps": "../apps/sound-map/sound-map-home.html",
+      "sound map": "../apps/sound-map/sound-map-home.html",
+
       "activities": "../apps/play-learn/index.html",
+      "learner activities": "../apps/play-learn/index.html",
+      "games": "../apps/play-learn/index.html",
+
       "oral": "../apps/oral/oral-preparation.html",
+      "oral preparation": "../apps/oral/oral-preparation.html",
+      "speaking": "../apps/oral/oral-preparation.html",
+
       "events": "../apps/events/events.html",
       "competitions": "../apps/events/competitions.html",
       "results": "../apps/events/results.html"
     };
 
-    function searchPages() {
-      const input = document.getElementById("searchInput");
+    const form = document.getElementById("navSearchForm");
+    const input = document.getElementById("navSearchInput");
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
       const query = input.value.trim().toLowerCase();
 
-      if (!query) return;
+      if (!query) {
+        alert("Please type a page or tool name to search.");
+        return;
+      }
 
       if (searchMap[query]) {
         window.location.href = searchMap[query];
         return;
       }
 
-      const partial = Object.keys(searchMap).find(key => key.includes(query));
-      if (partial) {
-        window.location.href = searchMap[partial];
+      const partialMatch = Object.keys(searchMap).find(
+        key => key.includes(query) || query.includes(key)
+      );
+
+      if (partialMatch) {
+        window.location.href = searchMap[partialMatch];
         return;
       }
 
       alert("No matching page found yet.");
+    });
+
+    function goBack() {
+      if (window.history.length > 1) {
+        window.history.back();
+      } else {
+        window.location.href = "../index.html";
+      }
     }
 
-    document.getElementById("searchInput").addEventListener("keydown", function(event) {
-      if (event.key === "Enter") {
+    document.addEventListener("keydown", function (event) {
+      const tag = document.activeElement ? document.activeElement.tagName : "";
+      const isTyping =
+        tag === "INPUT" ||
+        tag === "TEXTAREA" ||
+        document.activeElement.isContentEditable;
+
+      if (event.altKey && event.key === "ArrowLeft") {
         event.preventDefault();
-        searchPages();
+        goBack();
+      }
+
+      if (event.key === "Backspace" && !isTyping) {
+        event.preventDefault();
+        goBack();
       }
     });
   </script>

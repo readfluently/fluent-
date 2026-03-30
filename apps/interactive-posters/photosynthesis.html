@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fluent | Photosynthesis</title>
+  <style>
+    :root {
+      --bg: #f6fbf4;
+      --surface: #ffffff;
+      --surface-soft: #eef8ea;
+      --text: #183225;
+      --muted: #5f7668;
+      --line: #d8e7d7;
+      --primary: #2f8f5b;
+      --primary-dark: #246f47;
+      --accent: #f4c542;
+      --accent-dark: #d8ab1f;
+      --shadow: 0 18px 50px rgba(14, 46, 28, 0.14);
+      --radius-xl: 24px;
+      --radius-lg: 18px;
+      --radius-md: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: radial-gradient(circle at top, #fbfff8 0%, #eef7ec 48%, #e7f2e4 100%);
+      color: var(--text);
+    }
+
+    .page-shell {
+      max-width: 1220px;
+      margin: 0 auto;
+      padding: 28px 18px 46px;
+    }
+
+    .poster-page {
+      display: grid;
+      gap: 22px;
+    }
+
+    .poster-card,
+    .concepts-card,
+    .exercise-card {
+      background: rgba(255, 255, 255, 0.96);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .poster-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+      padding: 22px 24px 18px;
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(180deg, #fbfff9 0%, #eef7ec 100%);
+    }
+
+    .title-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .eyebrow {
+      margin: 0;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--primary);
+    }
+
+    .page-title {
+      margin: 0;
+      font-size: clamp(1.9rem, 3vw, 2.8rem);
+      line-height: 1.05;
+      font-weight: 800;
+    }
+
+    .page-subtitle {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.55;
+      max-width: 780px;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .action-btn {
+      border: none;
+      background: var(--primary);
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 700;
+      padding: 14px 18px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: transform 0.18s ease, background 0.18s ease;
+      box-shadow: 0 8px 20px rgba(47, 143, 91, 0.22);
+    }
+
+    .action-btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+
+    .poster-stage {
+      padding: 20px;
+    }
+
+    .image-frame {
+      width: 100%;
+      border-radius: 22px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: #dbead9;
+      position: relative;
+    }
+
+    .image-frame img {
+      display: block;
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    .hotspot-wrap {
+      position: absolute;
+      transform: translate(-50%, -50%);
+    }
+
+    .hotspot {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 3px solid rgba(255, 255, 255, 0.96);
+      background: rgba(47, 143, 91, 0.96);
+      color: #fff;
+      font-size: 0.96rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.18);
+      transition: transform 0.16s ease, background 0.16s ease;
+      position: relative;
+    }
+
+    .hotspot:hover {
+      transform: scale(1.08);
+      background: var(--primary-dark);
+    }
+
+    .hotspot::after {
+      content: "";
+      position: absolute;
+      inset: -7px;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 255, 255, 0.35);
+      animation: pulse 2s infinite;
+    }
+
+    .hotspot-label {
+      position: absolute;
+      left: 50%;
+      bottom: calc(100% + 9px);
+      transform: translateX(-50%);
+      background: rgba(23, 50, 36, 0.93);
+      color: #fff;
+      padding: 6px 10px;
+      border-radius: 10px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.16s ease;
+    }
+
+    .hotspot-wrap:hover .hotspot-label,
+    .hotspot-wrap:focus-within .hotspot-label {
+      opacity: 1;
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(0.95);
+        opacity: 0.85;
+      }
+      70% {
+        transform: scale(1.18);
+        opacity: 0.12;
+      }
+      100% {
+        transform: scale(1.24);
+        opacity: 0;
+      }
+    }
+
+    .poster-note {
+      padding: 14px 4px 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .concepts-card,
+    .exercise-card {
+      padding: 22px;
+    }
+
+    .section-title {
+      margin: 0 0 8px;
+      font-size: 1.5rem;
+      color: var(--primary-dark);
+    }
+
+    .section-copy {
+      margin: 0 0 18px;
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--muted);
+      max-width: 860px;
+    }
+
+    .concept-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .concept-box {
+      background: var(--surface-soft);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 16px;
+    }
+
+    .concept-box h3 {
+      margin: 0 0 8px;
+      font-size: 1rem;
+      color: var(--primary-dark);
+    }
+
+    .concept-box p {
+      margin: 0;
+      font-size: 0.95rem;
+      line-height: 1.65;
+      color: var(--muted);
+    }
+
+    .question-block {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 18px;
+      background: #fbfcff;
+      margin-bottom: 16px;
+    }
+
+    .question-block h3 {
+      margin: 0 0 10px;
+      font-size: 1rem;
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .answer-input {
+      width: 100%;
+      min-height: 110px;
+      border: 2px solid #d7e6d7;
+      border-radius: 14px;
+      background: #fff;
+      padding: 14px;
+      color: var(--text);
+      line-height: 1.7;
+      font-size: 1rem;
+      font-family: Arial, Helvetica, sans-serif;
+      resize: vertical;
+      outline: none;
+    }
+
+    .answer-input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(47, 143, 91, 0.12);
+    }
+
+    .answer-input.locked {
+      background: #f4f7f4;
+      color: #4d6458;
+    }
+
+    .question-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+
+    .submit-btn,
+    .model-btn {
+      border: none;
+      padding: 12px 16px;
+      border-radius: 999px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.18s ease, background 0.18s ease;
+    }
+
+    .submit-btn {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .submit-btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+
+    .model-btn {
+      background: var(--accent);
+      color: #3d3107;
+      display: none;
+    }
+
+    .model-btn:hover {
+      background: var(--accent-dark);
+      transform: translateY(-1px);
+    }
+
+    .question-status {
+      margin-top: 10px;
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+      display: none;
+    }
+
+    .model-answer {
+      display: none;
+      margin-top: 14px;
+      padding: 16px;
+      border-radius: 16px;
+      background: #fff8df;
+      border: 1px solid #f0dc94;
+    }
+
+    .model-answer h4 {
+      margin: 0 0 8px;
+      font-size: 1rem;
+      color: #7b5d00;
+    }
+
+    .model-answer p {
+      margin: 0;
+      font-size: 0.96rem;
+      line-height: 1.7;
+      color: #5c4a10;
+    }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 26, 20, 0.56);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      z-index: 1000;
+    }
+
+    .modal-backdrop.show {
+      display: flex;
+    }
+
+    .modal-card {
+      width: min(860px, 100%);
+      background: #fff;
+      border-radius: 24px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.22);
+      border: 1px solid #e4ece3;
+      overflow: hidden;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .modal-top {
+      padding: 22px 24px 14px;
+      background: linear-gradient(180deg, #f6fcf4 0%, #edf7ea 100%);
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .modal-title {
+      margin: 0;
+      font-size: 1.45rem;
+      line-height: 1.2;
+      font-weight: 800;
+    }
+
+    .modal-close {
+      border: none;
+      background: #e4f1e2;
+      color: var(--text);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      font-size: 1.15rem;
+      font-weight: 800;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .modal-body {
+      padding: 22px 24px 24px;
+    }
+
+    .modal-body p {
+      margin: 0 0 14px;
+      font-size: 1rem;
+      line-height: 1.72;
+      color: #294437;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .info-box {
+      background: #f7fbf6;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 14px;
+    }
+
+    .info-box h3 {
+      margin: 0 0 8px;
+      font-size: 1rem;
+      color: var(--primary-dark);
+    }
+
+    .info-box p {
+      margin: 0;
+      font-size: 0.95rem;
+      line-height: 1.65;
+      color: var(--muted);
+    }
+
+    .modal-actions {
+      margin-top: 20px;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .close-btn {
+      border: none;
+      background: var(--primary);
+      color: white;
+      font-weight: 700;
+      font-size: 0.98rem;
+      padding: 12px 18px;
+      border-radius: 999px;
+      cursor: pointer;
+    }
+
+    @media (max-width: 900px) {
+      .concept-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 760px) {
+      .header-actions,
+      .action-btn {
+        width: 100%;
+      }
+
+      .info-grid,
+      .concept-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .poster-stage {
+        padding: 14px;
+      }
+
+      .hotspot {
+        width: 34px;
+        height: 34px;
+      }
+
+      .hotspot-label {
+        display: none;
+      }
+
+      .question-actions {
+        flex-direction: column;
+      }
+
+      .submit-btn,
+      .model-btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page-shell">
+    <section class="poster-page">
+      <section class="poster-card">
+        <header class="poster-header">
+          <div class="title-wrap">
+            <p class="eyebrow">Interactive Poster</p>
+            <h1 class="page-title">Photosynthesis</h1>
+            <p class="page-subtitle">
+              Click the numbered points to learn how a green plant uses sunlight, water, and carbon dioxide to make food.
+            </p>
+          </div>
+
+          <div class="header-actions">
+            <button class="action-btn" id="openPhotosynthesisCard" type="button">
+              What is photosynthesis?
+            </button>
+          </div>
+        </header>
+
+        <div class="poster-stage">
+          <div class="image-frame">
+            <img src="base/photosynthesis-upgraded.png" alt="Photosynthesis base image" />
+
+            <div class="hotspot-wrap" style="left: 12%; top: 16%;">
+              <button class="hotspot" type="button" data-part="sunlight">1</button>
+              <div class="hotspot-label">Sunlight</div>
+            </div>
+
+            <div class="hotspot-wrap" style="left: 34%; top: 44%;">
+              <button class="hotspot" type="button" data-part="carbon-dioxide">2</button>
+              <div class="hotspot-label">Carbon dioxide</div>
+            </div>
+
+            <div class="hotspot-wrap" style="left: 78%; top: 31%;">
+              <button class="hotspot" type="button" data-part="oxygen">3</button>
+              <div class="hotspot-label">Oxygen</div>
+            </div>
+
+            <div class="hotspot-wrap" style="left: 77%; top: 70%;">
+              <button class="hotspot" type="button" data-part="water">4</button>
+              <div class="hotspot-label">Water</div>
+            </div>
+
+            <div class="hotspot-wrap" style="left: 52%; top: 36%;">
+              <button class="hotspot" type="button" data-part="leaves">5</button>
+              <div class="hotspot-label">Leaves</div>
+            </div>
+
+            <div class="hotspot-wrap" style="left: 52%; top: 63%;">
+              <button class="hotspot" type="button" data-part="roots">6</button>
+              <div class="hotspot-label">Roots</div>
+            </div>
+
+            <div class="hotspot-wrap" style="left: 52%; top: 49%;">
+              <button class="hotspot" type="button" data-part="stem">7</button>
+              <div class="hotspot-label">Stem</div>
+            </div>
+          </div>
+
+          <div class="poster-note">
+            Click each point to understand the role of each part in photosynthesis.
+          </div>
+        </div>
+      </section>
+
+      <section class="concepts-card">
+        <h2 class="section-title">Photosynthesis Concepts</h2>
+        <p class="section-copy">
+          Photosynthesis is the process by which green plants make their own food. It mainly takes place in the leaves and needs sunlight, water, and carbon dioxide.
+        </p>
+
+        <div class="concept-grid">
+          <div class="concept-box">
+            <h3>Sunlight</h3>
+            <p>
+              Sunlight provides the energy that drives photosynthesis.
+            </p>
+          </div>
+
+          <div class="concept-box">
+            <h3>Carbon dioxide</h3>
+            <p>
+              Carbon dioxide is a gas from the air that enters the leaves.
+            </p>
+          </div>
+
+          <div class="concept-box">
+            <h3>Water</h3>
+            <p>
+              Water is absorbed by the roots and moved through the plant.
+            </p>
+          </div>
+
+          <div class="concept-box">
+            <h3>Glucose and oxygen</h3>
+            <p>
+              The plant makes food called glucose and releases oxygen into the air.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="exercise-card">
+        <h2 class="section-title">Comprehension Exercise</h2>
+        <p class="section-copy">
+          Study the poster and type your answers below. After you submit each answer, the model answer will open.
+        </p>
+
+        <div class="question-block">
+          <h3>1. What does a plant need for photosynthesis?</h3>
+          <textarea class="answer-input" placeholder="Type your answer here..."></textarea>
+          <div class="question-actions">
+            <button class="submit-btn" type="button">Submit Answer</button>
+            <button class="model-btn" type="button">Show Model Answer</button>
+          </div>
+          <div class="question-status">Answer submitted.</div>
+          <div class="model-answer">
+            <h4>Model Answer</h4>
+            <p>A plant needs sunlight, water, and carbon dioxide for photosynthesis.</p>
+          </div>
+        </div>
+
+        <div class="question-block">
+          <h3>2. Why are leaves important in photosynthesis?</h3>
+          <textarea class="answer-input" placeholder="Type your answer here..."></textarea>
+          <div class="question-actions">
+            <button class="submit-btn" type="button">Submit Answer</button>
+            <button class="model-btn" type="button">Show Model Answer</button>
+          </div>
+          <div class="question-status">Answer submitted.</div>
+          <div class="model-answer">
+            <h4>Model Answer</h4>
+            <p>Leaves are important because most photosynthesis takes place in them. They absorb sunlight and take in carbon dioxide.</p>
+          </div>
+        </div>
+
+        <div class="question-block">
+          <h3>3. What do roots do during photosynthesis?</h3>
+          <textarea class="answer-input" placeholder="Type your answer here..."></textarea>
+          <div class="question-actions">
+            <button class="submit-btn" type="button">Submit Answer</button>
+            <button class="model-btn" type="button">Show Model Answer</button>
+          </div>
+          <div class="question-status">Answer submitted.</div>
+          <div class="model-answer">
+            <h4>Model Answer</h4>
+            <p>Roots absorb water from the soil and send it to the rest of the plant.</p>
+          </div>
+        </div>
+
+        <div class="question-block">
+          <h3>4. What gas does the plant release into the air?</h3>
+          <textarea class="answer-input" placeholder="Type your answer here..."></textarea>
+          <div class="question-actions">
+            <button class="submit-btn" type="button">Submit Answer</button>
+            <button class="model-btn" type="button">Show Model Answer</button>
+          </div>
+          <div class="question-status">Answer submitted.</div>
+          <div class="model-answer">
+            <h4>Model Answer</h4>
+            <p>The plant releases oxygen into the air.</p>
+          </div>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <div class="modal-backdrop" id="photosynthesisModal" aria-hidden="true">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="photosynthesisTitle">
+      <div class="modal-top">
+        <h2 class="modal-title" id="photosynthesisTitle">What is photosynthesis?</h2>
+        <button class="modal-close close-photosynthesis" type="button" aria-label="Close">×</button>
+      </div>
+
+      <div class="modal-body">
+        <p>
+          Photosynthesis is the process by which green plants make their own food. Plants use sunlight as energy, take in carbon dioxide from the air, and absorb water through their roots.
+        </p>
+
+        <p>
+          During this process, plants make a kind of food called glucose. At the same time, they release oxygen into the air. This process is very important because it helps plants grow and also provides oxygen for living things.
+        </p>
+
+        <div class="info-grid">
+          <div class="info-box">
+            <h3>Where it happens</h3>
+            <p>Photosynthesis mainly happens in the green leaves of a plant.</p>
+          </div>
+
+          <div class="info-box">
+            <h3>What is needed</h3>
+            <p>Sunlight, water, and carbon dioxide are needed for photosynthesis.</p>
+          </div>
+
+          <div class="info-box">
+            <h3>What is made</h3>
+            <p>The plant makes glucose, which is its food.</p>
+          </div>
+
+          <div class="info-box">
+            <h3>What is released</h3>
+            <p>The plant releases oxygen into the air.</p>
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button class="close-btn close-photosynthesis" type="button">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="partModal" aria-hidden="true">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="partTitle">
+      <div class="modal-top">
+        <h2 class="modal-title" id="partTitle">Part</h2>
+        <button class="modal-close" id="closePartTop" type="button" aria-label="Close">×</button>
+      </div>
+
+      <div class="modal-body">
+        <p id="partIntro"></p>
+
+        <div class="info-grid">
+          <div class="info-box">
+            <h3>Role</h3>
+            <p id="partRole"></p>
+          </div>
+
+          <div class="info-box">
+            <h3>Why it matters</h3>
+            <p id="partWhy"></p>
+          </div>
+
+          <div class="info-box">
+            <h3>Connected process</h3>
+            <p id="partLink"></p>
+          </div>
+
+          <div class="info-box">
+            <h3>Simple idea</h3>
+            <p id="partSimple"></p>
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button class="close-btn" id="closePartBottom" type="button">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const photosynthesisModal = document.getElementById("photosynthesisModal");
+    const partModal = document.getElementById("partModal");
+    const openPhotosynthesisCard = document.getElementById("openPhotosynthesisCard");
+    const photosynthesisCloseButtons = document.querySelectorAll(".close-photosynthesis");
+
+    const partTitle = document.getElementById("partTitle");
+    const partIntro = document.getElementById("partIntro");
+    const partRole = document.getElementById("partRole");
+    const partWhy = document.getElementById("partWhy");
+    const partLink = document.getElementById("partLink");
+    const partSimple = document.getElementById("partSimple");
+
+    const closePartTop = document.getElementById("closePartTop");
+    const closePartBottom = document.getElementById("closePartBottom");
+
+    const partData = {
+      sunlight: {
+        title: "Sunlight",
+        intro: "Sunlight gives the plant the energy it needs for photosynthesis.",
+        role: "It provides energy.",
+        why: "Without sunlight, the plant cannot make food properly.",
+        link: "The leaves capture light energy to start the process.",
+        simple: "Sunlight is the power source for photosynthesis."
+      },
+      "carbon-dioxide": {
+        title: "Carbon dioxide",
+        intro: "Carbon dioxide is a gas from the air that enters the leaves.",
+        role: "It is one of the raw materials needed for photosynthesis.",
+        why: "The plant uses it to help make glucose.",
+        link: "Carbon dioxide enters mainly through tiny holes in the leaves.",
+        simple: "The plant takes in carbon dioxide from the air."
+      },
+      oxygen: {
+        title: "Oxygen",
+        intro: "Oxygen is a gas released by the plant during photosynthesis.",
+        role: "It is a product of photosynthesis.",
+        why: "Living things need oxygen to breathe.",
+        link: "After food is made, oxygen is released into the air.",
+        simple: "Plants give oxygen back to the air."
+      },
+      water: {
+        title: "Water",
+        intro: "Water is taken in from the soil by the roots.",
+        role: "It is one of the raw materials needed for photosynthesis.",
+        why: "Without water, the plant cannot make food.",
+        link: "Water moves from the roots up through the stem to the leaves.",
+        simple: "Roots absorb water for the plant."
+      },
+      leaves: {
+        title: "Leaves",
+        intro: "Leaves are the main place where photosynthesis happens.",
+        role: "They absorb sunlight and take in carbon dioxide.",
+        why: "Leaves contain chlorophyll, which helps trap light energy.",
+        link: "Most food-making takes place in the leaves.",
+        simple: "Leaves are the plant's food-making parts."
+      },
+      roots: {
+        title: "Roots",
+        intro: "Roots anchor the plant and absorb water from the soil.",
+        role: "They supply water to the plant.",
+        why: "The plant needs water for photosynthesis and growth.",
+        link: "Roots send water upward through the stem.",
+        simple: "Roots collect water from the ground."
+      },
+      stem: {
+        title: "Stem",
+        intro: "The stem supports the plant and helps move water upward.",
+        role: "It carries water and nutrients to the leaves.",
+        why: "The leaves need a steady supply of water for photosynthesis.",
+        link: "The stem connects the roots to the leaves.",
+        simple: "The stem is like the plant's transport path."
+      }
+    };
+
+    openPhotosynthesisCard.addEventListener("click", () => {
+      photosynthesisModal.classList.add("show");
+      photosynthesisModal.setAttribute("aria-hidden", "false");
+    });
+
+    photosynthesisCloseButtons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        photosynthesisModal.classList.remove("show");
+        photosynthesisModal.setAttribute("aria-hidden", "true");
+      });
+    });
+
+    document.querySelectorAll(".hotspot").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const key = btn.dataset.part;
+        const data = partData[key];
+        if (!data) return;
+
+        partTitle.textContent = data.title;
+        partIntro.textContent = data.intro;
+        partRole.textContent = data.role;
+        partWhy.textContent = data.why;
+        partLink.textContent = data.link;
+        partSimple.textContent = data.simple;
+
+        partModal.classList.add("show");
+        partModal.setAttribute("aria-hidden", "false");
+      });
+    });
+
+    function closePartModal() {
+      partModal.classList.remove("show");
+      partModal.setAttribute("aria-hidden", "true");
+    }
+
+    closePartTop.addEventListener("click", closePartModal);
+    closePartBottom.addEventListener("click", closePartModal);
+
+    window.addEventListener("click", (e) => {
+      if (e.target === photosynthesisModal) {
+        photosynthesisModal.classList.remove("show");
+        photosynthesisModal.setAttribute("aria-hidden", "true");
+      }
+
+      if (e.target === partModal) {
+        closePartModal();
+      }
+    });
+
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        photosynthesisModal.classList.remove("show");
+        photosynthesisModal.setAttribute("aria-hidden", "true");
+        closePartModal();
+      }
+    });
+
+    document.querySelectorAll(".question-block").forEach(block => {
+      const submitBtn = block.querySelector(".submit-btn");
+      const modelBtn = block.querySelector(".model-btn");
+      const textarea = block.querySelector(".answer-input");
+      const status = block.querySelector(".question-status");
+      const modelAnswer = block.querySelector(".model-answer");
+
+      submitBtn.addEventListener("click", () => {
+        if (textarea.value.trim() === "") {
+          alert("Please type your answer first.");
+          textarea.focus();
+          return;
+        }
+
+        textarea.classList.add("locked");
+        textarea.setAttribute("readonly", true);
+        status.style.display = "block";
+        modelBtn.style.display = "inline-block";
+      });
+
+      modelBtn.addEventListener("click", () => {
+        modelAnswer.style.display = "block";
+      });
+    });
+  </script>
+</body>
+</html>

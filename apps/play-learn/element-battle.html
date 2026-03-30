@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Fluent | Element Battle</title>
   <style>
     :root{
@@ -23,9 +23,19 @@
       --purple:#7a68f2;
       --shadow:0 18px 40px rgba(32, 67, 110, 0.12);
       --radius:24px;
+
+      /* Fluent Grade 7–9 header theme */
+      --phase-tint:linear-gradient(180deg,#f5f3ff 0%, #ffffff 100%);
+      --phase-active-bg:#ede9fe;
+      --phase-active-text:#7c3aed;
+      --phase-focus:rgba(124,58,237,0.12);
     }
 
     *{ box-sizing:border-box; }
+
+    html{
+      scroll-behavior:smooth;
+    }
 
     body{
       margin:0;
@@ -38,6 +48,146 @@
       min-height:100vh;
     }
 
+    a,
+    a:visited,
+    a:hover,
+    a:active,
+    a:focus{
+      color:inherit;
+      text-decoration:none !important;
+    }
+
+    /* =========================
+       FLUENT GLOBAL HEADER
+    ========================= */
+    .site-header{
+      position:sticky;
+      top:0;
+      z-index:1000;
+      background:var(--phase-tint);
+      backdrop-filter:blur(10px);
+      border-bottom:1px solid rgba(219,227,238,0.95);
+      box-shadow:0 8px 22px rgba(15,23,42,0.06);
+    }
+
+    .nav-shell{
+      width:min(100%, 1360px);
+      margin:0 auto;
+      padding:12px 18px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+      flex-wrap:wrap;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      min-width:max-content;
+    }
+
+    .brand-logo{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      width:70px;
+      height:70px;
+      border-radius:18px;
+      overflow:hidden;
+      background:rgba(255,255,255,0.82);
+      border:1px solid #e6defd;
+      box-shadow:0 10px 24px rgba(15,23,42,0.08);
+      flex:0 0 auto;
+      transition:transform .18s ease, box-shadow .18s ease;
+    }
+
+    .brand:hover .brand-logo{
+      transform:translateY(-1px);
+      box-shadow:0 14px 28px rgba(15,23,42,0.12);
+    }
+
+    .brand-logo img{
+      width:100%;
+      height:100%;
+      object-fit:contain;
+      display:block;
+      padding:4px;
+    }
+
+    .nav-main{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      flex-wrap:wrap;
+      justify-content:center;
+      flex:1;
+    }
+
+    .nav-link{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:10px 16px;
+      border-radius:12px;
+      font-size:0.96rem;
+      font-weight:700;
+      color:#1f2937;
+      transition:background .18s ease, color .18s ease, transform .18s ease;
+    }
+
+    .nav-link:hover{
+      background:#ffffff;
+      color:var(--phase-active-text);
+      transform:translateY(-1px);
+    }
+
+    .nav-link.active{
+      background:var(--phase-active-bg);
+      color:var(--phase-active-text);
+      box-shadow:inset 0 0 0 1px #ddd6fe;
+    }
+
+    .nav-search{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      min-width:min(100%, 280px);
+    }
+
+    .nav-search input{
+      width:220px;
+      max-width:100%;
+      height:42px;
+      border-radius:10px;
+      border:1px solid #d9cffc;
+      padding:0 12px;
+      font-size:0.96rem;
+      outline:none;
+      background:#fff;
+      color:var(--ink);
+    }
+
+    .nav-search input:focus{
+      border-color:#a78bfa;
+      box-shadow:0 0 0 4px var(--phase-focus);
+    }
+
+    .nav-search button{
+      height:42px;
+      background:var(--phase-active-text);
+      color:white;
+      border:none;
+      padding:0 16px;
+      border-radius:10px;
+      font-weight:700;
+      cursor:pointer;
+    }
+
+    /* =========================
+       GAME PAGE
+    ========================= */
     .page-shell{
       width:min(1000px, calc(100% - 28px));
       margin:22px auto 40px;
@@ -52,7 +202,7 @@
       margin-bottom:18px;
     }
 
-    .brand{
+    .game-brand{
       display:flex;
       align-items:center;
       gap:12px;
@@ -97,6 +247,7 @@
       font-weight:700;
       box-shadow:0 10px 24px rgba(38, 76, 122, 0.08);
       cursor:pointer;
+      transition:transform .15s ease;
     }
 
     .pill:hover{
@@ -286,6 +437,7 @@
     }
 
     .btn:hover{ transform:translateY(-1px); }
+
     .btn:disabled{
       opacity:0.55;
       cursor:not-allowed;
@@ -401,6 +553,26 @@
       line-height:1.5;
     }
 
+    @media (max-width: 1100px){
+      .nav-shell{
+        justify-content:center;
+      }
+
+      .nav-main{
+        width:100%;
+        justify-content:center;
+      }
+
+      .nav-search{
+        width:100%;
+        justify-content:center;
+      }
+
+      .nav-search input{
+        width:min(100%, 360px);
+      }
+    }
+
     @media (max-width: 860px){
       .hero,
       .board{
@@ -409,6 +581,18 @@
 
       .hero-art{
         min-height:150px;
+      }
+    }
+
+    @media (max-width: 640px){
+      .brand-logo{
+        width:62px;
+        height:62px;
+      }
+
+      .nav-link{
+        padding:10px 14px;
+        font-size:0.92rem;
       }
     }
 
@@ -430,13 +614,53 @@
       .brand-text h1{
         font-size:1.2rem;
       }
+
+      .nav-search{
+        flex-direction:column;
+        align-items:stretch;
+      }
+
+      .nav-search button,
+      .nav-search input{
+        width:100%;
+      }
     }
   </style>
 </head>
 <body>
+
+  <header class="site-header">
+    <div class="nav-shell">
+      <a class="brand" href="../../index.html" aria-label="Fluent home">
+        <div class="brand-logo">
+          <img src="../../shared/logos/fluent-logo.png" alt="Fluent logo">
+        </div>
+      </a>
+
+      <nav class="nav-main">
+        <a class="nav-link" href="../../index.html">Home</a>
+        <a class="nav-link" href="../../landing-pages/grade-r-3.html">Grade R–3</a>
+        <a class="nav-link" href="../../landing-pages/grade-4-6.html">Grade 4–6</a>
+        <a class="nav-link active" href="../../landing-pages/grade-7-9.html">Grade 7–9</a>
+        <a class="nav-link" href="../../landing-pages/grade-10-12.html">Grade 10–12</a>
+        <a class="nav-link" href="../../landing-pages/teachers.html">Teachers</a>
+      </nav>
+
+      <form class="nav-search" id="navSearchForm">
+        <input
+          id="navSearchInput"
+          type="text"
+          placeholder="library"
+          aria-label="Search Fluent"
+        />
+        <button type="submit">Search</button>
+      </form>
+    </div>
+  </header>
+
   <div class="page-shell">
     <header class="topbar">
-      <div class="brand">
+      <div class="game-brand">
         <div class="brand-badge">⚛️</div>
         <div class="brand-text">
           <h1>Fluent Science</h1>
@@ -762,7 +986,9 @@
     }
 
     function restartGame() {
-      window.speechSynthesis.cancel();
+      if ("speechSynthesis" in window) {
+        window.speechSynthesis.cancel();
+      }
       currentIndex = 0;
       score = 0;
       correctCount = 0;
@@ -770,6 +996,7 @@
       renderQuestion();
     }
 
+    /* Game controls */
     readBtn.addEventListener("click", () => {
       if (currentIndex < QUESTIONS.length) {
         speakText(QUESTIONS[currentIndex].question);
@@ -789,6 +1016,72 @@
 
     restartTopBtn.addEventListener("click", restartGame);
     restartBottomBtn.addEventListener("click", restartGame);
+
+    /* Header search */
+    const searchMap = {
+      "home": "../../index.html",
+      "fluent": "../../index.html",
+
+      "grade r-3": "../../landing-pages/grade-r-3.html",
+      "grade r 3": "../../landing-pages/grade-r-3.html",
+      "grade r3": "../../landing-pages/grade-r-3.html",
+
+      "grade 4-6": "../../landing-pages/grade-4-6.html",
+      "grade 4 6": "../../landing-pages/grade-4-6.html",
+
+      "grade 7-9": "../../landing-pages/grade-7-9.html",
+      "grade 7 9": "../../landing-pages/grade-7-9.html",
+
+      "grade 10-12": "../../landing-pages/grade-10-12.html",
+      "grade 10 12": "../../landing-pages/grade-10-12.html",
+
+      "teachers": "../../landing-pages/teachers.html",
+      "teacher": "../../landing-pages/teachers.html",
+
+      "library": "../../apps/library/library.html?phase=grade-7-9",
+      "books": "../../apps/library/library.html?phase=grade-7-9",
+
+      "read fluently": "../../landing-pages/grade-7-9.html",
+      "reading": "../../landing-pages/grade-7-9.html",
+
+      "games": "../../apps/play-learn/index.html",
+      "play learn": "../../apps/play-learn/index.html",
+      "play-learn": "../../apps/play-learn/index.html",
+
+      "element battle": "#",
+      "science": "#"
+    };
+
+    document.getElementById("navSearchForm").addEventListener("submit", function(e){
+      e.preventDefault();
+
+      const query = document.getElementById("navSearchInput").value.trim().toLowerCase();
+
+      if (!query) {
+        alert("Please type a page or tool name to search.");
+        return;
+      }
+
+      if (searchMap[query]) {
+        if (searchMap[query] !== "#") {
+          window.location.href = searchMap[query];
+        }
+        return;
+      }
+
+      const partialMatch = Object.keys(searchMap).find(
+        key => key.includes(query) || query.includes(key)
+      );
+
+      if (partialMatch) {
+        if (searchMap[partialMatch] !== "#") {
+          window.location.href = searchMap[partialMatch];
+        }
+        return;
+      }
+
+      alert("No matching page found yet.");
+    });
 
     renderQuestion();
   </script>

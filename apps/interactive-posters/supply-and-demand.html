@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Fluent | Supply and Demand</title>
+<style>
+  :root{
+    --blue:#2563eb;
+    --purple:#7c3aed;
+    --green:#16a34a;
+    --red:#dc2626;
+    --gold:#f59e0b;
+    --text:#1f2937;
+    --muted:#6b7280;
+    --bg:#f5f8ff;
+    --card:#ffffff;
+    --line:#dbe4f0;
+  }
+
+  *{box-sizing:border-box}
+
+  body{
+    margin:0;
+    font-family:Arial, Helvetica, sans-serif;
+    background:var(--bg);
+    color:var(--text);
+  }
+
+  .topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:16px 20px;
+  }
+
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+  }
+
+  .icon{
+    width:46px;
+    height:46px;
+    border-radius:14px;
+    background:linear-gradient(135deg, var(--blue), var(--purple));
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#fff;
+    font-weight:800;
+    font-size:18px;
+    box-shadow:0 8px 18px rgba(0,0,0,0.14);
+  }
+
+  .brand h1{
+    margin:0;
+    font-size:18px;
+  }
+
+  .brand p{
+    margin:3px 0 0;
+    font-size:12px;
+    color:var(--muted);
+  }
+
+  .hero{
+    background:white;
+    margin:0 20px 20px;
+    padding:22px;
+    border-radius:24px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.08);
+  }
+
+  .hero h2{
+    margin:0 0 10px;
+    font-size:28px;
+  }
+
+  .hero p{
+    margin:0;
+    color:var(--muted);
+    line-height:1.7;
+    max-width:900px;
+  }
+
+  .container{
+    display:grid;
+    grid-template-columns:1.35fr 1fr;
+    gap:20px;
+    padding:0 20px 30px;
+    align-items:start;
+  }
+
+  .card{
+    background:var(--card);
+    border-radius:24px;
+    padding:18px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.08);
+  }
+
+  .card h3{
+    margin:0 0 10px;
+    font-size:20px;
+  }
+
+  .card p{
+    color:var(--muted);
+    line-height:1.7;
+  }
+
+  .poster-frame{
+    position:relative;
+    width:100%;
+    aspect-ratio:16/10;
+    background:#eef2f7;
+    border-radius:18px;
+    overflow:hidden;
+    border:1px solid var(--line);
+  }
+
+  .poster-frame img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    display:block;
+    background:#fff;
+  }
+
+  .hotspot{
+    position:absolute;
+    transform:translate(-50%,-50%);
+    width:48px;
+    height:48px;
+    border-radius:50%;
+    color:white;
+    font-weight:800;
+    border:3px solid white;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 10px 20px rgba(0,0,0,0.16);
+    transition:transform .18s ease;
+  }
+
+  .hotspot:hover{
+    transform:translate(-50%,-50%) scale(1.08);
+  }
+
+  .hotspot.active{
+    outline:4px solid rgba(255,255,255,.45);
+    transform:translate(-50%,-50%) scale(1.08);
+  }
+
+  .blue{background:var(--blue);}
+  .red{background:var(--red);}
+  .green{background:var(--green);}
+  .gold{background:var(--gold);}
+  .purple{background:var(--purple);}
+
+  .legend{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:10px;
+    margin-top:14px;
+  }
+
+  .legend-item{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:10px 12px;
+    font-weight:700;
+    background:#f8fbff;
+    font-size:14px;
+  }
+
+  .dot{
+    width:12px;
+    height:12px;
+    border-radius:50%;
+    flex-shrink:0;
+  }
+
+  .info-card{
+    margin-top:10px;
+    background:#f8fbff;
+    border:1px solid var(--line);
+    border-radius:18px;
+    padding:16px;
+  }
+
+  .topic-tag{
+    display:inline-block;
+    padding:7px 11px;
+    border-radius:999px;
+    color:#fff;
+    font-size:12px;
+    font-weight:800;
+    margin-bottom:10px;
+  }
+
+  .info-title{
+    margin:0 0 8px;
+    font-size:22px;
+  }
+
+  .info-lead{
+    margin:0 0 12px;
+    color:var(--text);
+    line-height:1.75;
+  }
+
+  .info-list{
+    margin:0 0 16px 18px;
+    padding:0;
+    line-height:1.8;
+  }
+
+  .question-box,
+  .notes-box,
+  .model-box{
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:14px;
+    margin-top:14px;
+  }
+
+  .label{
+    display:block;
+    font-weight:800;
+    margin-bottom:8px;
+  }
+
+  textarea{
+    width:100%;
+    border-radius:12px;
+    padding:10px 12px;
+    border:1px solid #d6e0eb;
+    margin-top:8px;
+    resize:vertical;
+    min-height:100px;
+    font:inherit;
+  }
+
+  textarea:focus{
+    outline:none;
+    border-color:#9dbdfd;
+    box-shadow:0 0 0 4px rgba(37,99,235,.08);
+  }
+
+  .button-row{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-top:14px;
+  }
+
+  button{
+    padding:10px 14px;
+    border:none;
+    border-radius:999px;
+    cursor:pointer;
+    font-weight:700;
+  }
+
+  .primary{
+    background:var(--blue);
+    color:white;
+  }
+
+  .secondary{
+    background:#eef2ff;
+    color:var(--text);
+  }
+
+  .success{
+    background:var(--green);
+    color:#fff;
+  }
+
+  .model{
+    display:none;
+    margin-top:10px;
+    padding:12px;
+    background:#f3f6fb;
+    border:1px dashed #c7d4e4;
+    border-radius:12px;
+    line-height:1.7;
+  }
+
+  .model.show{
+    display:block;
+  }
+
+  .quiz{
+    margin-top:22px;
+    border-top:1px solid var(--line);
+    padding-top:18px;
+  }
+
+  .quiz-block{
+    margin-top:14px;
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:14px;
+  }
+
+  .quiz-block p{
+    margin:0 0 10px;
+    color:var(--text);
+    font-weight:700;
+  }
+
+  .quiz-result{
+    margin-top:12px;
+    font-weight:800;
+    color:var(--blue);
+  }
+
+  @media (max-width: 980px){
+    .container{
+      grid-template-columns:1fr;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand">
+    <div class="icon">F</div>
+    <div>
+      <h1>Fluent</h1>
+      <p>Interactive Poster</p>
+    </div>
+  </div>
+</div>
+
+<div class="hero">
+  <h2>Supply and Demand</h2>
+  <p>
+    Tap the numbered circles on the graph to learn the meaning of demand, supply,
+    equilibrium, price, and quantity. Then answer the question, compare your answer
+    with the model answer, and complete the quiz.
+  </p>
+</div>
+
+<div class="container">
+
+  <div class="card">
+    <h3>Interactive graph poster</h3>
+    <p>Click a hotspot to open a full teaching card.</p>
+
+    <div class="poster-frame">
+      <img src="./base/supply-demand-base.png" alt="Supply and demand graph poster base">
+
+      <button class="hotspot blue" style="left:25%; top:36%;" data-topic="demand">1</button>
+      <button class="hotspot red" style="left:76%; top:22%;" data-topic="supply">2</button>
+      <button class="hotspot gold" style="left:50%; top:50%;" data-topic="equilibrium">3</button>
+      <button class="hotspot green" style="left:50%; top:90%;" data-topic="quantity">4</button>
+      <button class="hotspot purple" style="left:18%; top:10%;" data-topic="price">5</button>
+      <button class="hotspot gold" style="left:50%; top:69%;" data-topic="surplus-shortage">6</button>
+    </div>
+
+    <div class="legend">
+      <div class="legend-item"><span class="dot blue"></span> 1 Demand line</div>
+      <div class="legend-item"><span class="dot red"></span> 2 Supply line</div>
+      <div class="legend-item"><span class="dot gold"></span> 3 Equilibrium</div>
+      <div class="legend-item"><span class="dot green"></span> 4 Quantity axis</div>
+      <div class="legend-item"><span class="dot purple"></span> 5 Price axis</div>
+      <div class="legend-item"><span class="dot gold"></span> 6 Surplus and shortage</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Learning Card</h3>
+
+    <div class="info-card" id="infoCard">
+      <span class="topic-tag blue">Welcome</span>
+      <h4 class="info-title">Explore the graph</h4>
+      <p class="info-lead">
+        Start by clicking one of the numbered circles on the poster. Each hotspot opens
+        a full explanation, key points, and a learner question.
+      </p>
+      <ul class="info-list">
+        <li>Demand shows what buyers want to buy.</li>
+        <li>Supply shows what sellers want to sell.</li>
+        <li>Equilibrium is where supply and demand meet.</li>
+        <li>Price is on the vertical axis.</li>
+        <li>Quantity is on the horizontal axis.</li>
+      </ul>
+    </div>
+
+    <div class="question-box">
+      <label class="label" for="answer">Your answer</label>
+      <textarea id="answer" placeholder="Write your answer here first..."></textarea>
+    </div>
+
+    <div class="notes-box">
+      <label class="label" for="notes">My notes</label>
+      <textarea id="notes" placeholder="Write your class notes or key points here..."></textarea>
+
+      <div class="button-row">
+        <button class="secondary" id="showModelBtn">Show model answer</button>
+        <button class="primary" id="readBtn">Read aloud</button>
+        <button class="success" id="saveBtn">Save notes</button>
+      </div>
+    </div>
+
+    <div class="model-box">
+      <label class="label">Model answer</label>
+      <div class="model" id="model"></div>
+    </div>
+
+    <div class="quiz">
+      <h3>Quick quiz</h3>
+
+      <div class="quiz-block">
+        <p>1. What do we call the point where supply and demand meet?</p>
+        <label><input type="radio" name="q1" value="a"> Market line</label><br>
+        <label><input type="radio" name="q1" value="b"> Equilibrium</label><br>
+        <label><input type="radio" name="q1" value="c"> Quantity point</label>
+      </div>
+
+      <div class="quiz-block">
+        <p>2. Which axis normally shows price?</p>
+        <label><input type="radio" name="q2" value="a"> Vertical axis</label><br>
+        <label><input type="radio" name="q2" value="b"> Horizontal axis</label><br>
+        <label><input type="radio" name="q2" value="c"> Curved axis</label>
+      </div>
+
+      <div class="quiz-block">
+        <p>3. When price falls, what usually happens to quantity demanded?</p>
+        <label><input type="radio" name="q3" value="a"> It usually rises</label><br>
+        <label><input type="radio" name="q3" value="b"> It usually disappears</label><br>
+        <label><input type="radio" name="q3" value="c"> It usually stays zero</label>
+      </div>
+
+      <div class="button-row">
+        <button class="primary" id="markQuizBtn">Check quiz</button>
+      </div>
+
+      <div class="quiz-result" id="quizResult"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const hotspotButtons = document.querySelectorAll(".hotspot");
+  const infoCard = document.getElementById("infoCard");
+  const answerBox = document.getElementById("answer");
+  const notesBox = document.getElementById("notes");
+  const modelBox = document.getElementById("model");
+  const showModelBtn = document.getElementById("showModelBtn");
+  const readBtn = document.getElementById("readBtn");
+  const saveBtn = document.getElementById("saveBtn");
+  const markQuizBtn = document.getElementById("markQuizBtn");
+  const quizResult = document.getElementById("quizResult");
+
+  let currentTopic = "";
+  let currentModelAnswer = "";
+
+  const lessonData = {
+    demand: {
+      tagClass: "blue",
+      tagText: "Demand",
+      title: "Demand line",
+      lead: "The demand line shows how much consumers want to buy at different prices. It usually slopes downward from left to right.",
+      bullets: [
+        "Demand comes from buyers or consumers.",
+        "When the price becomes lower, more people are often willing to buy.",
+        "When the price becomes higher, fewer people may want to buy.",
+        "This is why the demand curve normally slopes downward."
+      ],
+      question: "Why do buyers usually want more of a product when the price is lower?",
+      model: "Buyers usually want more of a product when the price is lower because it becomes more affordable. Lower prices encourage more people to purchase the product."
+    },
+    supply: {
+      tagClass: "red",
+      tagText: "Supply",
+      title: "Supply line",
+      lead: "The supply line shows how much producers are willing to sell at different prices. It usually slopes upward from left to right.",
+      bullets: [
+        "Supply comes from sellers or producers.",
+        "When the price rises, sellers are often willing to supply more.",
+        "When the price falls, sellers may supply less.",
+        "This is why the supply curve normally slopes upward."
+      ],
+      question: "Why are sellers often willing to supply more when prices are higher?",
+      model: "Sellers are often willing to supply more when prices are higher because they can make more money. Higher prices can make production more worthwhile."
+    },
+    equilibrium: {
+      tagClass: "gold",
+      tagText: "Equilibrium",
+      title: "Equilibrium point",
+      lead: "Equilibrium is the point where the demand line and supply line meet. At this point, the quantity demanded equals the quantity supplied.",
+      bullets: [
+        "It is the market balance point.",
+        "The equilibrium point gives the equilibrium price.",
+        "It also gives the equilibrium quantity.",
+        "At equilibrium, buyers and sellers are balanced."
+      ],
+      question: "What does it mean when a market is in equilibrium?",
+      model: "A market is in equilibrium when the quantity demanded is equal to the quantity supplied. This means buyers and sellers are balanced at that price."
+    },
+    quantity: {
+      tagClass: "green",
+      tagText: "Quantity",
+      title: "Quantity axis",
+      lead: "Quantity is shown on the horizontal axis. It tells us how many goods or services are being bought or sold.",
+      bullets: [
+        "Quantity is usually shown on the x-axis.",
+        "As you move to the right, quantity increases.",
+        "The equilibrium quantity is read from the meeting point down to the horizontal axis."
+      ],
+      question: "Give one example of a product whose quantity sold could rise during a sale.",
+      model: "An example could be bread, juice, or school stationery. During a sale, more units may be bought because the lower price attracts more buyers."
+    },
+    price: {
+      tagClass: "purple",
+      tagText: "Price",
+      title: "Price axis",
+      lead: "Price is shown on the vertical axis. It tells us how much money must be paid for a good or service.",
+      bullets: [
+        "Price is usually shown on the y-axis.",
+        "As you move upward, the price becomes higher.",
+        "The equilibrium price is read from the meeting point across to the vertical axis."
+      ],
+      question: "How can a high price affect buyers in a market?",
+      model: "A high price can reduce the number of buyers because some people may not be able to afford the product. This can reduce quantity demanded."
+    },
+    "surplus-shortage": {
+      tagClass: "gold",
+      tagText: "Market effects",
+      title: "Surplus and shortage",
+      lead: "When the market is not at equilibrium, there may be a surplus or a shortage.",
+      bullets: [
+        "A surplus happens when supply is greater than demand.",
+        "A shortage happens when demand is greater than supply.",
+        "If price is too high, sellers may supply more than buyers want.",
+        "If price is too low, buyers may want more than sellers can supply."
+      ],
+      question: "What is the difference between a surplus and a shortage?",
+      model: "A surplus happens when more goods are supplied than buyers want to buy. A shortage happens when buyers want more goods than sellers are supplying."
+    }
+  };
+
+  function clearActiveHotspots() {
+    hotspotButtons.forEach(btn => btn.classList.remove("active"));
+  }
+
+  function renderCard(topicKey) {
+    const item = lessonData[topicKey];
+    if (!item) return;
+
+    currentTopic = topicKey;
+    currentModelAnswer = item.model;
+
+    infoCard.innerHTML = `
+      <span class="topic-tag ${item.tagClass}">${item.tagText}</span>
+      <h4 class="info-title">${item.title}</h4>
+      <p class="info-lead">${item.lead}</p>
+      <ul class="info-list">
+        ${item.bullets.map(point => `<li>${point}</li>`).join("")}
+      </ul>
+      <div class="question-box">
+        <label class="label">Comprehension question</label>
+        <div>${item.question}</div>
+      </div>
+    `;
+
+    answerBox.value = localStorage.getItem("supplyDemand_answer_" + topicKey) || "";
+    notesBox.value = localStorage.getItem("supplyDemand_notes_" + topicKey) || "";
+    modelBox.classList.remove("show");
+    modelBox.textContent = "";
+  }
+
+  hotspotButtons.forEach(button => {
+    button.addEventListener("click", () => {
+      const topic = button.dataset.topic;
+      clearActiveHotspots();
+      button.classList.add("active");
+      renderCard(topic);
+    });
+  });
+
+  showModelBtn.addEventListener("click", () => {
+    if (!currentTopic) {
+      alert("Click a hotspot first.");
+      return;
+    }
+
+    if (answerBox.value.trim() === "") {
+      alert("Write your answer first.");
+      answerBox.focus();
+      return;
+    }
+
+    modelBox.textContent = currentModelAnswer;
+    modelBox.classList.add("show");
+  });
+
+  readBtn.addEventListener("click", () => {
+    let textToRead = "";
+
+    if (!currentTopic) {
+      textToRead = "Click a hotspot on the supply and demand graph to open a learning card.";
+    } else {
+      const item = lessonData[currentTopic];
+      textToRead = `${item.title}. ${item.lead}. ${item.bullets.join(". ")}. ${item.question}`;
+    }
+
+    if ("speechSynthesis" in window) {
+      speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(textToRead);
+      utterance.rate = 0.95;
+      speechSynthesis.speak(utterance);
+    }
+  });
+
+  saveBtn.addEventListener("click", () => {
+    if (!currentTopic) {
+      alert("Click a hotspot first.");
+      return;
+    }
+
+    localStorage.setItem("supplyDemand_answer_" + currentTopic, answerBox.value);
+    localStorage.setItem("supplyDemand_notes_" + currentTopic, notesBox.value);
+    alert("Your work has been saved on this browser.");
+  });
+
+  markQuizBtn.addEventListener("click", () => {
+    const q1 = document.querySelector('input[name="q1"]:checked')?.value;
+    const q2 = document.querySelector('input[name="q2"]:checked')?.value;
+    const q3 = document.querySelector('input[name="q3"]:checked')?.value;
+
+    if (!q1 || !q2 || !q3) {
+      quizResult.textContent = "Answer all quiz questions first.";
+      return;
+    }
+
+    let score = 0;
+    if (q1 === "b") score++;
+    if (q2 === "a") score++;
+    if (q3 === "a") score++;
+
+    quizResult.textContent = `You scored ${score} out of 3.`;
+  });
+</script>
+
+</body>
+</html>
