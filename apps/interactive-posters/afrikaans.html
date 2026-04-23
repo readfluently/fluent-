@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Afrikaans Spelling</title>
+
+<style>
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #f1f5f9;
+    text-align: center;
+    margin: 0;
+}
+
+.container { max-width: 900px; margin: auto; padding: 20px; }
+
+.card {
+    display: none;
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+
+.active { display:block; }
+
+table { width: 100%; border-radius: 10px; overflow: hidden; }
+
+td { padding: 15px; font-size: 18px; cursor: pointer; }
+
+.afrikaans { background: #ffedd5; color: #c2410c; font-weight: bold; }
+.english { background: #dbeafe; color: #1d4ed8; }
+
+button {
+    padding: 10px 18px;
+    margin: 8px;
+    border: none;
+    border-radius: 8px;
+    background: #2563eb;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover { background: #1e40af; }
+
+input {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.feedback { font-weight: bold; margin-top: 10px; }
+
+.dropzone {
+    border: 2px dashed #94a3b8;
+    padding: 15px;
+    min-height: 60px;
+    margin: 15px auto;
+    border-radius: 10px;
+}
+
+.draggable {
+    display: inline-block;
+    padding: 10px 15px;
+    margin: 6px;
+    background: #e2e8f0;
+    border-radius: 8px;
+    cursor: grab;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1 onclick="speak('Afrikaans spelling lesson')">Afrikaans Spelling</h1>
+
+<!-- ================= PAGE 1: LEARN ================= -->
+<div class="card active" id="page1">
+<h2>Learn</h2>
+
+<table>
+<tr><td class="afrikaans" onclick="playAudio('avontuur')">avontuur</td><td class="english">adventure</td></tr>
+<tr><td class="afrikaans" onclick="playAudio('belangrik')">belangrik</td><td class="english">important</td></tr>
+<tr><td class="afrikaans" onclick="playAudio('gevaarlik')">gevaarlik</td><td class="english">dangerous</td></tr>
+<tr><td class="afrikaans" onclick="playAudio('vriendelik')">vriendelik</td><td class="english">friendly</td></tr>
+<tr><td class="afrikaans" onclick="playAudio('gelukkig')">gelukkig</td><td class="english">happy</td></tr>
+<tr><td class="afrikaans" onclick="playAudio('ongelukkig')">ongelukkig</td><td class="english">unhappy</td></tr>
+<tr><td class="afrikaans" onclick="playAudio('moontlik')">moontlik</td><td class="english">possible</td></tr>
+<tr><td class="afrikaans" onclick="playAudio('onmoontlik')">onmoontlik</td><td class="english">impossible</td></tr>
+<tr><td class="afrikaans" onclick="playAudio('versigtig')">versigtig</td><td class="english">careful</td></tr>
+<tr><td class="afrikaans" onclick="playAudio('vinnig')">vinnig</td><td class="english">fast</td></tr>
+</table>
+</div>
+
+<!-- ================= PAGE 2: SPELL ================= -->
+<div class="card" id="page2">
+<h2>Spell Challenge</h2>
+
+<div id="progress"></div>
+
+<h3 id="question"></h3>
+
+<input id="answer" placeholder="Type full word">
+
+<br>
+
+<button onclick="checkSpell()">Check</button>
+<button id="nextBtn" onclick="nextSpell()" style="display:none;">Next</button>
+
+<div class="feedback" id="spellFeedback"></div>
+
+<h3>⭐ Score: <span id="score">0</span></h3>
+</div>
+
+<!-- ================= PAGE 3: MEMORY ================= -->
+<div class="card" id="page3">
+<h2>Memory</h2>
+
+<p id="words">avontuur - belangrik - gevaarlik</p>
+<button onclick="hideMem()">Hide</button>
+
+<div id="inputs" style="display:none;">
+<input id="w1">
+<input id="w2">
+<input id="w3">
+<br>
+<button onclick="checkMemory()">Check</button>
+</div>
+
+<div class="feedback" id="memFeedback"></div>
+</div>
+
+<!-- ================= PAGE 4: DRAG ================= -->
+<div class="card" id="page4">
+<h2>Build the Word</h2>
+
+<h3>gevaarlik</h3>
+
+<div id="syllables"></div>
+<div class="dropzone" id="dropzone"></div>
+
+<button onclick="checkDrag()">Check</button>
+<button onclick="clearDrop()">Clear</button>
+
+<div class="feedback" id="dragFeedback"></div>
+</div>
+
+<!-- NAV -->
+<button onclick="show(1)">Learn</button>
+<button onclick="show(2)">Spell</button>
+<button onclick="show(3)">Memory</button>
+<button onclick="show(4)">Drag</button>
+
+</div>
+
+<script>
+
+// ================= AUDIO =================
+const base = "apps/interactive-posters/afrikaans/words/";
+
+const audio = {
+    avontuur: new Audio(base + "avontuur.mp3"),
+    belangrik: new Audio(base + "belangrik.mp3"),
+    gevaarlik: new Audio(base + "gevaarlik.mp3"),
+    vriendelik: new Audio(base + "vriendelik.mp3"),
+    gelukkig: new Audio(base + "gelukkig.mp3"),
+    ongelukkig: new Audio(base + "ongelukkig.mp3"),
+    moontlik: new Audio(base + "moontlik.mp3"),
+    onmoontlik: new Audio(base + "onmoontlik.mp3"),
+    versigtig: new Audio(base + "versigtig.mp3"),
+    vinnig: new Audio(base + "vinnig.mp3")
+};
+
+function playAudio(w){ audio[w].play(); }
+
+function speak(text){
+    speechSynthesis.speak(new SpeechSynthesisUtterance(text));
+}
+
+// ================= NAV =================
+function show(n){
+    document.querySelectorAll('.card').forEach(c=>c.classList.remove('active'));
+    document.getElementById('page'+n).classList.add('active');
+
+    if(n===2) loadSpell();
+    if(n===4) initDrag();
+}
+
+// ================= SPELL =================
+const spellWords = [
+    {q:"ge___lik", a:"gevaarlik"},
+    {q:"be___angrik", a:"belangrik"},
+    {q:"avon___ur", a:"avontuur"},
+    {q:"vrien___lik", a:"vriendelik"},
+    {q:"geluk___ig", a:"gelukkig"}
+];
+
+let current = 0;
+let score = 0;
+
+function speakAfrikaans(word){
+    let msg = new SpeechSynthesisUtterance(word);
+    msg.lang = "af-ZA";
+    speechSynthesis.speak(msg);
+}
+
+function loadSpell(){
+    answer.value = "";
+    spellFeedback.innerHTML = "";
+    nextBtn.style.display = "none";
+
+    question.innerText = spellWords[current].q;
+    progress.innerText = `Word ${current+1} of ${spellWords.length}`;
+}
+
+function checkSpell(){
+    let user = answer.value.toLowerCase().trim();
+    let correct = spellWords[current].a;
+
+    if(user === correct){
+        spellFeedback.innerHTML = "✅ Correct!";
+        score++;
+        document.getElementById("score").innerText = score;
+
+        speakAfrikaans(correct);
+        nextBtn.style.display = "inline-block";
+    } else {
+        spellFeedback.innerHTML = "❌ Try again";
+    }
+}
+
+function nextSpell(){
+    current++;
+    if(current >= spellWords.length){
+        spellFeedback.innerHTML = "🎉 Finished! Final score: " + score;
+        nextBtn.style.display = "none";
+        return;
+    }
+    loadSpell();
+}
+
+// ================= MEMORY =================
+function hideMem(){
+    words.style.display="none";
+    inputs.style.display="block";
+}
+
+function checkMemory(){
+    let correct=["avontuur","belangrik","gevaarlik"];
+    let user=[w1.value,w2.value,w3.value].map(v=>v.toLowerCase());
+
+    memFeedback.innerHTML =
+        JSON.stringify(user)===JSON.stringify(correct)
+        ? "✅ Great!"
+        : "❌ Try again";
+}
+
+// ================= DRAG =================
+const word = ["ge","vaar","lik"];
+
+function initDrag(){
+    syllables.innerHTML="";
+    dropzone.innerHTML="";
+    dragFeedback.innerHTML="";
+
+    word.sort(()=>Math.random()-0.5).forEach(s=>{
+        let d=document.createElement("div");
+        d.className="draggable";
+        d.draggable=true;
+        d.innerText=s;
+        d.ondragstart=e=>e.dataTransfer.setData("text",s);
+        syllables.appendChild(d);
+    });
+}
+
+dropzone.ondragover=e=>e.preventDefault();
+
+dropzone.ondrop=e=>{
+    let data=e.dataTransfer.getData("text");
+    let span=document.createElement("span");
+    span.innerText=data+" ";
+    dropzone.appendChild(span);
+};
+
+function checkDrag(){
+    let result=dropzone.innerText.replace(/\s/g,'');
+    if(result==="gevaarlik"){
+        dragFeedback.innerHTML="🎉 Correct!";
+        playAudio("gevaarlik");
+    } else {
+        dragFeedback.innerHTML="❌ Try again";
+    }
+}
+
+function clearDrop(){
+    dropzone.innerHTML="";
+    dragFeedback.innerHTML="";
+}
+
+</script>
+
+</body>
+</html>
